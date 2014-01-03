@@ -52,6 +52,11 @@ public abstract class AbstractModelParser {
 
   }
 
+  public AbstractModel getEmptyModel() {
+    Document document = DomUtil.getEmptyDocument(documentBuilderFactory);
+    return createModelInstance(document);
+  };
+
   protected abstract AbstractModel createModelInstance(Document document);
 
 }

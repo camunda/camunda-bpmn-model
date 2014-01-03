@@ -39,6 +39,7 @@ public class BpmnParser extends AbstractModelParser {
     dbf.setAttribute(JAXP_SCHEMA_SOURCE, ReflectUtil.getResource(BpmnModelConstants.BPMN_20_SCHEMA_LOCATION).toString());
   }
 
+  @Override
   protected BpmnModelImpl createModelInstance(Document document) {
     return new BpmnModelImpl(document);
   }
@@ -46,6 +47,11 @@ public class BpmnParser extends AbstractModelParser {
   @Override
   public BpmnModelImpl parseModelFromStream(InputStream inputStream) {
     return (BpmnModelImpl) super.parseModelFromStream(inputStream);
+  }
+
+  @Override
+  public BpmnModelImpl getEmptyModel() {
+    return (BpmnModelImpl) super.getEmptyModel();
   }
 
 }

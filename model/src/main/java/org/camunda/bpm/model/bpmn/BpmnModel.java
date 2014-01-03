@@ -54,4 +54,5 @@ public interface BpmnModel {
    * */
   void setDefinitions(Definitions definitions);
 
+  void printModel();
 }

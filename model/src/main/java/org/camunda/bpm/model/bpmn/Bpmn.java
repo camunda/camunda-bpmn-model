@@ -19,6 +19,7 @@ import java.io.InputStream;
 
 import org.camunda.bpm.model.bpmn.impl.BpmnModelTypeMap;
 import org.camunda.bpm.model.bpmn.impl.BpmnParser;
+import org.camunda.bpm.model.core.impl.ModelParseException;
 import org.camunda.bpm.model.core.impl.util.IoUtil;
 
 /**
@@ -57,7 +58,7 @@ public class Bpmn {
    *
    * @param file the {@link InputStream} to read the {@link BpmnModel} from
    * @return the model read
-   * @throws BpmnModelException if the model cannot be read
+   * @throws ModelParseException if the model cannot be read
    */
   public static BpmnModel readModelFromStream(InputStream stream) {
     return INSTANCE.doReadModelFromInputStream(stream);
@@ -92,7 +93,7 @@ public class Bpmn {
   }
 
   protected BpmnModel doCreateEmptyModel() {
-    return null;
+    return bpmnParser.getEmptyModel();
   }
 
   /**

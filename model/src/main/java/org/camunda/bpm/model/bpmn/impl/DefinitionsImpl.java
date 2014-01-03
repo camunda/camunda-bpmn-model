@@ -54,6 +54,8 @@ public class DefinitionsImpl extends AbstractBpmnModelElement implements Definit
   protected Collection<Import> importElementsColl = new NamedChildElementCollection<Import>(BPMN_ELEMENT_IMPORT, this);
   protected Collection<RootElement> rootElementsColl = new TypeChildElementCollection<RootElement>(RootElement.class, this);
 
+
+
   public DefinitionsImpl(ModelElementCreateContext context) {
     super(context);
   }

@@ -32,6 +32,7 @@ public class BpmnModelImpl extends AbstractModel implements BpmnModel {
   /** creates a new BpmnModel wrapping a DOM Document */
   public BpmnModelImpl(Document document) {
     super(document);
+    this.bpmnElementFactory = new BpmnElementFactoryImpl(document, this);
   }
 
   public Definitions getDefinitions() {

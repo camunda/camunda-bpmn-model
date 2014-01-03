@@ -12,11 +12,17 @@
  */
 package org.camunda.bpm.model.bpmn.impl;
 
-import org.camunda.bpm.model.bpmn.Bpmn;
+import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN20_NS;
+
 import org.camunda.bpm.model.bpmn.BpmnElementFactory;
 import org.camunda.bpm.model.bpmn.Definitions;
 import org.camunda.bpm.model.bpmn.Import;
-import org.camunda.bpm.model.xml.impl.core.XmlDocument;
+import org.camunda.bpm.model.bpmn.Process;
+import org.camunda.bpm.model.core.impl.AbstractModel;
+import org.camunda.bpm.model.core.impl.AbstractModelElement;
+import org.camunda.bpm.model.core.impl.util.ModelUtil;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 /**
  * <p>Implementation of the Bpmn Element Factory</p>
@@ -26,10 +32,12 @@ import org.camunda.bpm.model.xml.impl.core.XmlDocument;
  */
 public class BpmnElementFactoryImpl implements BpmnElementFactory {
 
-  protected final XmlDocument xmlDocument;
+  protected final Document xmlDocument;
+  protected final AbstractModel model;
 
-  public BpmnElementFactoryImpl(XmlDocument xmlDocument) {
+  public BpmnElementFactoryImpl(Document xmlDocument, AbstractModel model) {
     this.xmlDocument = xmlDocument;
+    this.model = model;
   }
 
   public Definitions newDefinitionsElement() {
@@ -40,9 +48,15 @@ public class BpmnElementFactoryImpl implements BpmnElementFactory {
     return crateModelElementInstance(ImportImpl.ELEMENT_NAME);
   }
 
+  public Process newProcessElement() {
+    return crateModelElementInstance(ProcessImpl.ELEMENT_NAME);
+  }
+
   @SuppressWarnings("unchecked")
   private <T> T crateModelElementInstance(String modelElementName) {
-    return (T) xmlDocument.XML_createElement(modelElementName, Bpmn.INSTANCE.getModelPackage().getType(modelElementName));
+    Element domElement = xmlDocument.createElementNS(BPMN20_NS, modelElementName);
+    AbstractModelElement modelElement = ModelUtil.getModelElement(domElement, model);
+    return (T) modelElement;
   }
 
 }

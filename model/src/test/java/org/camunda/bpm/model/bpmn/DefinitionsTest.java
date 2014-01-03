@@ -12,10 +12,12 @@
  */
 package org.camunda.bpm.model.bpmn;
 
-import static org.fest.assertions.Assertions.*;
-import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.*;
+import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.XML_SCHEMA_NS;
+import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.XPATH_NS;
+import static org.fest.assertions.Assertions.assertThat;
 
 import org.camunda.bpm.model.bpmn.util.BpmnModelResource;
+import org.camunda.bpm.model.core.impl.ModelParseException;
 import org.junit.Test;
 
 /**
@@ -47,6 +49,16 @@ public class DefinitionsTest extends BpmnModelTest {
     // has no imports
     assertThat(definitions.getImports()).isEmpty();
 
+  }
+
+  @Test
+  public void shouldNotImportWrongOrderedSequence() {
+    try {
+      BpmnModel model = Bpmn.readModelFromStream(getClass().getResourceAsStream("DefinitionsTest.shouldNotImportWrongOrderedSequence.bpmn"));
+    }
+    catch(ModelParseException e) {
+      e.printStackTrace();
+    }
   }
 
 }

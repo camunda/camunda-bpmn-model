@@ -64,4 +64,7 @@ public abstract class AbstractModel {
     DomUtil.setDocumentElement(document, domElement);
   }
 
+  public void printModel() {
+    DomUtil.printDocument(document);
+  }
 }

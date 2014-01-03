@@ -168,6 +168,9 @@ public class DomUtil {
     if(existingDocumentElement != null) {
       document.replaceChild(domElement, existingDocumentElement);
     }
+    else {
+      document.appendChild(domElement);
+    }
   }
 
   /**
@@ -200,6 +203,20 @@ public class DomUtil {
    */
   public static String getNamespaceUri(Element domElement) {
     return domElement.getNamespaceURI();
+  }
+
+  /**
+   * @param documentBuilderFactory
+   * @return
+   */
+  public static Document getEmptyDocument(DocumentBuilderFactory documentBuilderFactory) {
+    DocumentBuilder documentBuilder;
+    try {
+      documentBuilder = documentBuilderFactory.newDocumentBuilder();
+      return documentBuilder.newDocument();
+    } catch (ParserConfigurationException e) {
+      throw new ModelParseException("ParserConfigurationException while parsing input stream", e);
+    }
   }
 
   /**

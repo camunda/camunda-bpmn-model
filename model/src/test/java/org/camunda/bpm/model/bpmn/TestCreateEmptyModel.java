@@ -12,7 +12,10 @@
  */
 package org.camunda.bpm.model.bpmn;
 
+import static org.fest.assertions.Assertions.assertThat;
+
 import org.junit.Test;
+
 
 /**
  * @author meyerd
@@ -22,7 +25,31 @@ public class TestCreateEmptyModel {
 
   @Test
   public void testCreateEmptyModel() {
+    BpmnModel bpmnModel = Bpmn.createEmptyModel();
+    bpmnModel.printModel();
 
+    Definitions definitions = bpmnModel.getDefinitions();
+    assertThat(definitions).isNull();
+
+    BpmnElementFactory bpmnElementFactory = bpmnModel.getBpmnElementFactory();
+    definitions = bpmnElementFactory.newDefinitionsElement();
+    bpmnModel.setDefinitions(definitions);
+
+    definitions = bpmnModel.getDefinitions();
+    assertThat(definitions).isNotNull();
+
+    bpmnModel.printModel();
+  }
+
+  @Test
+  public void testAddElementsInWrongOrder() {
+    BpmnModel bpmnModel = Bpmn.createEmptyModel();
+    BpmnElementFactory bpmnElementFactory = bpmnModel.getBpmnElementFactory();
+    Definitions definitions = bpmnElementFactory.newDefinitionsElement();
+    bpmnModel.setDefinitions(definitions);
+    definitions.getRootElements().add(bpmnElementFactory.newProcessElement());
+    definitions.getImports().add(bpmnElementFactory.newImportElement());
+    bpmnModel.printModel();
   }
 
 }

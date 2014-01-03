@@ -26,4 +26,6 @@ public interface BpmnElementFactory {
   /** creates a new {@link Import} Element */
   Import newImportElement();
 
+  /** creates a new {@link Process} Element */
+  Process newProcessElement();
 }
