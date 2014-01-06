@@ -16,7 +16,7 @@ import java.io.InputStream;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.camunda.bpm.model.core.impl.AbstractModel;
+import org.camunda.bpm.model.core.ModelInstance;
 import org.camunda.bpm.model.core.impl.util.DomUtil;
 import org.w3c.dom.Document;
 
@@ -45,18 +45,18 @@ public abstract class AbstractModelParser {
     dbf.setNamespaceAware(true);
   }
 
-  public AbstractModel parseModelFromStream(InputStream inputStream) {
+  public ModelInstance parseModelFromStream(InputStream inputStream) {
 
     Document document = DomUtil.parseInputStream(documentBuilderFactory, inputStream);
     return createModelInstance(document);
 
   }
 
-  public AbstractModel getEmptyModel() {
+  public ModelInstance getEmptyModel() {
     Document document = DomUtil.getEmptyDocument(documentBuilderFactory);
     return createModelInstance(document);
   };
 
-  protected abstract AbstractModel createModelInstance(Document document);
+  protected abstract ModelInstance createModelInstance(Document document);
 
 }

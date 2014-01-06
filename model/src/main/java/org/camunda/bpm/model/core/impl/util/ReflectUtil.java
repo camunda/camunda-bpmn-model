@@ -16,7 +16,7 @@ import java.io.InputStream;
 import java.lang.reflect.Constructor;
 import java.net.URL;
 
-import org.camunda.bpm.model.core.impl.ModelException;
+import org.camunda.bpm.model.core.ModelException;
 
 
 /**

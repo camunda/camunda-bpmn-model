@@ -16,10 +16,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.camunda.bpm.model.core.impl.AbstractModel;
-import org.camunda.bpm.model.core.impl.AbstractModelElement;
-import org.camunda.bpm.model.core.impl.ModelElementCreateContext;
-import org.camunda.bpm.model.core.impl.ModelException;
+import org.camunda.bpm.model.core.ModelException;
+import org.camunda.bpm.model.core.impl.ModelInstanceImpl;
+import org.camunda.bpm.model.core.impl.instance.ModelElementInstanceImpl;
+import org.camunda.bpm.model.core.impl.type.ModelElementTypeImpl;
+import org.camunda.bpm.model.core.instance.ModelElementInstance;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -35,17 +36,24 @@ public class ModelUtil {
   public final static String MODEL_ELEMENT_KEY = "camunda.modelElementRef";
 
   /**
-   * Returns the {@link AbstractModelElement ModelElement} for a DOM element.
+   * Returns the {@link ModelElementInstanceImpl ModelElement} for a DOM element.
    * If the model element does not yet exist, it is created and linked to the DOM.
    *
-   * @param domElement the child element to create a new {@link AbstractModelElement ModelElement} for
+   * @param domElement the child element to create a new {@link ModelElementInstanceImpl ModelElement} for
    * @return the child model element
    */
-  public static AbstractModelElement getModelElement(Element domElement, AbstractModel model) {
-    AbstractModelElement modelElement = (AbstractModelElement) domElement.getUserData(MODEL_ELEMENT_KEY);
+  public static ModelElementInstance getModelElement(Element domElement, ModelInstanceImpl modelInstance) {
+    ModelElementInstance modelElement = (ModelElementInstanceImpl) domElement.getUserData(MODEL_ELEMENT_KEY);
     if(modelElement == null) {
-      Class<? extends AbstractModelElement> modelElementType = model.getModelElementTypeForDomElement(domElement);
-      modelElement = ReflectUtil.createIntance(modelElementType, new ModelElementCreateContext(domElement, model));
+
+      String namespaceUri = domElement.getNamespaceURI();
+      String localName = domElement.getLocalName();
+
+      ModelElementTypeImpl modelType = (ModelElementTypeImpl) modelInstance.getModel().getTypeForName(localName, namespaceUri);
+      if(modelType == null) {
+        throw new ModelException("Cannot create model type instance for type "+getQName(localName, namespaceUri)+" no instance type registered.");
+      }
+      modelElement = modelType.newInstance(modelInstance, domElement);
       domElement.setUserData(MODEL_ELEMENT_KEY, modelElement, null);
     }
     return modelElement;
@@ -69,8 +77,8 @@ public class ModelUtil {
     }
   }
 
-  public static String getQName(String localName, String namespaceUri) {
-    return ((namespaceUri == null) ? "" : (namespaceUri + ":")) + localName;
+  public static QName getQName(String localName, String namespaceUri) {
+    return new QName(localName, namespaceUri);
   }
 
   public static void ensureInstanceOf(Object instance, Class<?> type) {
@@ -144,10 +152,10 @@ public class ModelUtil {
    * @param model
    * @return
    */
-  public static <T> Collection<T> getModelElementCollection(Collection<Element> view, AbstractModel model) {
-    List<AbstractModelElement> resultList = new ArrayList<AbstractModelElement>();
+  public static <T> Collection<T> getModelElementCollection(Collection<Element> view, ModelInstanceImpl model) {
+    List<ModelElementInstance> resultList = new ArrayList<ModelElementInstance>();
     for (Element element : view) {
-      resultList.add(getModelElement(element, model));
+      resultList.add((ModelElementInstance) getModelElement(element, model));
     }
     return (List) resultList;
   }

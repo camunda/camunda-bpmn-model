@@ -12,21 +12,21 @@
  */
 package org.camunda.bpm.model.bpmn.impl;
 
-import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN_ATTRIBUTE_ID;
-import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN_ELEMENT_DOCUMENTATION;
-import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN_ELEMENT_EXTENSION_ELEMENTS;
+import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.*;
 
 import java.util.Collection;
 
 import org.camunda.bpm.model.bpmn.BaseElement;
 import org.camunda.bpm.model.bpmn.Documentation;
 import org.camunda.bpm.model.bpmn.ExtensionElements;
-import org.camunda.bpm.model.core.impl.ModelElementCreateContext;
-import org.camunda.bpm.model.core.impl.attribute.Attribute;
-import org.camunda.bpm.model.core.impl.attribute.StringAttribute;
-import org.camunda.bpm.model.core.impl.child.ChildElement;
-import org.camunda.bpm.model.core.impl.child.ChildElementCollection;
-import org.camunda.bpm.model.core.impl.child.NamedChildElementCollection;
+import org.camunda.bpm.model.core.Model;
+import org.camunda.bpm.model.core.impl.instance.ModelTypeInstanceContext;
+import org.camunda.bpm.model.core.impl.type.child.ChildElement;
+import org.camunda.bpm.model.core.impl.type.child.ChildElementCollection;
+import org.camunda.bpm.model.core.impl.type.child.SequenceBuilder;
+import org.camunda.bpm.model.core.type.Attribute;
+import org.camunda.bpm.model.core.type.ModelElementType;
+import org.camunda.bpm.model.core.type.ModelElementTypeBuilder;
 
 /**
  * @author Daniel Meyer
@@ -34,32 +34,52 @@ import org.camunda.bpm.model.core.impl.child.NamedChildElementCollection;
  */
 public abstract class BaseElementImp extends AbstractBpmnModelElement implements BaseElement {
 
-  protected Attribute<String> idAttr = new StringAttribute(BPMN_ATTRIBUTE_ID, this);
-  protected ChildElement<ExtensionElements> extensionElementsChild = new ChildElement<ExtensionElements>(BPMN_ELEMENT_EXTENSION_ELEMENTS, this);
-  protected ChildElementCollection<Documentation> documentationChildren = new NamedChildElementCollection<Documentation>(BPMN_ELEMENT_DOCUMENTATION, this);
+  static Attribute<String> idAttr;
+  static ChildElement<ExtensionElements> extensionElementsChild;
+  static ChildElementCollection<Documentation> documentationChildren;
 
-  public BaseElementImp(ModelElementCreateContext context) {
-    super(context);
+  public static ModelElementType TYPE;
+
+  public static void registerType(Model model) {
+
+    ModelElementTypeBuilder typeBuilder = model.defineType(BaseElement.class, BPMN_TYPE_BASE_ELEMENT)
+      .namespaceUri(BPMN20_NS)
+      .abstractType();
+
+    idAttr = typeBuilder.stringAttribute(BPMN_ATTRIBUTE_ID)
+      .build();
+
+    SequenceBuilder sequenceBuilder = typeBuilder.sequence();
+
+    extensionElementsChild = sequenceBuilder.<ExtensionElements>element(BPMN_ELEMENT_EXTENSION_ELEMENTS)
+      .namespaceUri(BPMN20_NS)
+      .build();
+
+    TYPE = typeBuilder.build();
+  }
+
+  public BaseElementImp(ModelTypeInstanceContext instanceContext) {
+    super(instanceContext);
   }
 
   public String getId() {
-    return idAttr.getValue();
+    return idAttr.getValue(this);
   }
 
   public void setId(String id) {
-    idAttr.setValue(id);
+    idAttr.setValue(this, id);
   }
 
   public Collection<Documentation> getDocumentation() {
-    return documentationChildren;
+    return documentationChildren.get(this);
   }
 
   public ExtensionElements getExtensionElements() {
-    return (ExtensionElements) extensionElementsChild.get();
+    return (ExtensionElements) extensionElementsChild.get(this);
   }
 
   public void setExtensionElements(ExtensionElements extensionElements) {
-    extensionElementsChild.set((ExtensionElements)extensionElements);
+    extensionElementsChild.set(this, (ExtensionElements)extensionElements);
   }
 
 }

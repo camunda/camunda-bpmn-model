@@ -25,11 +25,11 @@ public class BpmnModelTest {
   @Rule
   public ParseBpmnModelRule parseBpmnModelRule = new ParseBpmnModelRule();
 
-  protected BpmnModel bpmnModel;
+  protected BpmnModelInstance bpmnModelInstance;
 
   @Before
   public void setup() {
-    bpmnModel = parseBpmnModelRule.getBpmnModel();
+    bpmnModelInstance = parseBpmnModelRule.getBpmnModel();
   }
 
 }

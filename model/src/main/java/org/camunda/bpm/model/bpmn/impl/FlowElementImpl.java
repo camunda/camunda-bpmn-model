@@ -12,12 +12,17 @@
  */
 package org.camunda.bpm.model.bpmn.impl;
 
-import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.*;
+import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN20_NS;
+import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN_ATTRIBUTE_NAME;
+import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN_ELEMENT_IMPORT;
 
+import org.camunda.bpm.model.bpmn.BaseElement;
 import org.camunda.bpm.model.bpmn.FlowElement;
-import org.camunda.bpm.model.core.impl.ModelElementCreateContext;
-import org.camunda.bpm.model.core.impl.attribute.Attribute;
-import org.camunda.bpm.model.core.impl.attribute.StringAttribute;
+import org.camunda.bpm.model.core.Model;
+import org.camunda.bpm.model.core.impl.instance.ModelTypeInstanceContext;
+import org.camunda.bpm.model.core.type.Attribute;
+import org.camunda.bpm.model.core.type.ModelElementType;
+import org.camunda.bpm.model.core.type.ModelElementTypeBuilder;
 
 /**
  * @author Daniel Meyer
@@ -25,18 +30,33 @@ import org.camunda.bpm.model.core.impl.attribute.StringAttribute;
  */
 public abstract class FlowElementImpl extends BaseElementImp implements FlowElement {
 
-  protected Attribute<String> nameAttr = new StringAttribute(BPMN_ATTRIBUTE_NAME, this);
+  public static ModelElementType MODEL_TYPE;
 
-  public FlowElementImpl(ModelElementCreateContext context) {
+  static Attribute<String> nameAttr;
+
+  public static void registerType(Model model) {
+
+    ModelElementTypeBuilder builder = model.defineType(FlowElement.class, BPMN_ELEMENT_IMPORT)
+      .namespaceUri(BPMN20_NS)
+      .abstractType()
+      .extendsType(model.getType(BaseElement.class));
+
+    nameAttr = builder.stringAttribute(BPMN_ATTRIBUTE_NAME)
+      .build();
+
+    MODEL_TYPE = builder.build();
+  }
+
+  public FlowElementImpl(ModelTypeInstanceContext context) {
     super(context);
   }
 
   public String getName() {
-    return nameAttr.getValue();
+    return nameAttr.getValue(this);
   }
 
   public void setName(String name) {
-    nameAttr.setValue(name);
+    nameAttr.setValue(this, name);
   }
 
 }

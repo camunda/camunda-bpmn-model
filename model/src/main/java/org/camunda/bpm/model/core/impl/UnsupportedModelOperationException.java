@@ -14,6 +14,8 @@ package org.camunda.bpm.model.core.impl;
 
 import java.util.Collection;
 
+import org.camunda.bpm.model.core.ModelException;
+
 /**
  * <p>Exception thrown if a user attempts to perform an unsupported
  * model operation. Example: call {@link Collection#add(Object)} on an

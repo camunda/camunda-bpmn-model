@@ -12,31 +12,21 @@
  */
 package org.camunda.bpm.model.bpmn.impl;
 
-import org.camunda.bpm.model.bpmn.BpmnElementFactory;
-import org.camunda.bpm.model.bpmn.BpmnModel;
-import org.camunda.bpm.model.bpmn.BpmnModelElement;
-import org.camunda.bpm.model.core.impl.AbstractModelElement;
-import org.camunda.bpm.model.core.impl.ModelElementCreateContext;
+import org.camunda.bpm.model.bpmn.BpmnModelElementInstance;
+import org.camunda.bpm.model.core.impl.instance.ModelTypeInstanceContext;
+import org.camunda.bpm.model.core.impl.instance.ModelElementInstanceImpl;
 
 /**
  * <p>Shared Base Class for all BPMN Model Elements. Provides
- * implementation of the {@link BpmnModelElement} interface.</p>
+ * implementation of the {@link BpmnModelElementInstance} interface.</p>
  *
  * @author Daniel Meyer
  *
  */
-public abstract class AbstractBpmnModelElement extends AbstractModelElement implements BpmnModelElement {
+public abstract class AbstractBpmnModelElement extends ModelElementInstanceImpl implements BpmnModelElementInstance {
 
-  public AbstractBpmnModelElement(ModelElementCreateContext context) {
-    super(context);
-  }
-
-  public BpmnModel getBpmnModel() {
-    return (BpmnModelImpl) model;
-  }
-
-  public BpmnElementFactory getBpmnElementFactory() {
-    return getBpmnModel().getBpmnElementFactory();
+  public AbstractBpmnModelElement(ModelTypeInstanceContext instanceContext) {
+    super(instanceContext);
   }
 
 }

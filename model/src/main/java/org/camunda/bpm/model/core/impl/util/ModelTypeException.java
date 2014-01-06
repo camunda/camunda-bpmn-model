@@ -14,7 +14,7 @@ package org.camunda.bpm.model.core.impl.util;
 
 import java.lang.reflect.Type;
 
-import org.camunda.bpm.model.core.impl.ModelException;
+import org.camunda.bpm.model.core.ModelException;
 
 /**
  * <p>Thrown in case a value cannot be converted to or from the requested type</p>

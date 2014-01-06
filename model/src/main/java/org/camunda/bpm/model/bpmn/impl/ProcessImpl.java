@@ -14,12 +14,15 @@ package org.camunda.bpm.model.bpmn.impl;
 
 import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.*;
 
+import org.camunda.bpm.model.bpmn.CallableElement;
 import org.camunda.bpm.model.bpmn.Process;
 import org.camunda.bpm.model.bpmn.ProcessType;
-import org.camunda.bpm.model.core.impl.ModelElementCreateContext;
-import org.camunda.bpm.model.core.impl.attribute.Attribute;
-import org.camunda.bpm.model.core.impl.attribute.BooleanAttribute;
-import org.camunda.bpm.model.core.impl.attribute.EnumAttribute;
+import org.camunda.bpm.model.core.Model;
+import org.camunda.bpm.model.core.impl.instance.ModelTypeInstanceContext;
+import org.camunda.bpm.model.core.type.Attribute;
+import org.camunda.bpm.model.core.type.ModelElementType;
+import org.camunda.bpm.model.core.type.ModelElementTypeBuilder;
+import org.camunda.bpm.model.core.type.ModelElementTypeBuilder.ModelTypeIntanceProvider;
 
 /**
  *
@@ -28,38 +31,64 @@ import org.camunda.bpm.model.core.impl.attribute.EnumAttribute;
  */
 public class ProcessImpl extends CallableElementImpl implements Process {
 
-  public static final String ELEMENT_NAME = BPMN_ELEMENT_PROCESS;
+  public static ModelElementType MODEL_TYPE;
 
-  protected Attribute<ProcessType> processTypeAttr = new EnumAttribute<ProcessType>(BPMN_ATTRIBUTE_PROCESS_TYPE, ProcessType.class, this);
-  protected Attribute<Boolean> isClosedAttr = new BooleanAttribute(BPMN_ATTRIBUTE_IS_CLOSED, this);
-  protected Attribute<Boolean> isExecutableAttr = new BooleanAttribute(BPMN_ATTRIBUTE_IS_EXECUTABLE, this);
+  static Attribute<ProcessType> processTypeAttr;
+  static Attribute<Boolean> isClosedAttr;
+  static Attribute<Boolean> isExecutableAttr;
 
-  public ProcessImpl(ModelElementCreateContext context) {
+  public static void registerType(Model model) {
+
+    ModelElementTypeBuilder builder = model.defineType(Process.class, BPMN_ELEMENT_PROCESS)
+      .namespaceUri(BPMN20_NS)
+      .extendsType(model.getType(CallableElement.class))
+      .instanceProvider(new ModelTypeIntanceProvider<Process>() {
+        public Process newInstance(ModelTypeInstanceContext instanceContext) {
+          return new ProcessImpl(instanceContext);
+        }
+      });
+
+    processTypeAttr = builder.enumAttribute(BPMN_ATTRIBUTE_PROCESS_TYPE, ProcessType.class)
+      .defaultValue(ProcessType.None)
+      .build();
+
+    isClosedAttr = builder.booleanAttribute(BPMN_ATTRIBUTE_IS_CLOSED)
+      .defaultValue(false)
+      .build();
+
+    isExecutableAttr = builder.booleanAttribute(BPMN_ATTRIBUTE_IS_EXECUTABLE)
+      .defaultValue(false)
+      .build();
+
+    MODEL_TYPE = builder.build();
+  }
+
+  public ProcessImpl(ModelTypeInstanceContext context) {
     super(context);
   }
 
   public ProcessType getProcessType() {
-    return processTypeAttr.getValue();
+    return processTypeAttr.getValue(this);
   }
 
   public void setProcessType(ProcessType processType) {
-    processTypeAttr.setValue(processType);
+    processTypeAttr.setValue(this, processType);
   }
 
   public boolean isClosed() {
-    return isClosedAttr.getValue();
+    return isClosedAttr.getValue(this);
   }
 
   public void setClosed(boolean closed) {
-    isClosedAttr.setValue(closed);
+    isClosedAttr.setValue(this, closed);
   }
 
   public boolean isExecutable() {
-    return isExecutableAttr.getValue();
+    return isExecutableAttr.getValue(this);
   }
 
   public void setExecutable(boolean executable) {
-    isExecutableAttr.setValue(executable);
+    isExecutableAttr.setValue(this, executable);
   }
 
 }

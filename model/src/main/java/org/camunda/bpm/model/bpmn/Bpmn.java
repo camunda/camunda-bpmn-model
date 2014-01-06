@@ -17,8 +17,15 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
-import org.camunda.bpm.model.bpmn.impl.BpmnModelTypeMap;
+import org.camunda.bpm.model.bpmn.impl.BaseElementImp;
 import org.camunda.bpm.model.bpmn.impl.BpmnParser;
+import org.camunda.bpm.model.bpmn.impl.CallableElementImpl;
+import org.camunda.bpm.model.bpmn.impl.DefinitionsImpl;
+import org.camunda.bpm.model.bpmn.impl.ImportImpl;
+import org.camunda.bpm.model.bpmn.impl.ProcessImpl;
+import org.camunda.bpm.model.bpmn.impl.RootElementImpl;
+import org.camunda.bpm.model.core.Model;
+import org.camunda.bpm.model.core.impl.ModelImpl;
 import org.camunda.bpm.model.core.impl.ModelParseException;
 import org.camunda.bpm.model.core.impl.util.IoUtil;
 
@@ -37,43 +44,46 @@ public class Bpmn {
   /** the parser used by the Bpmn implementation. */
   protected BpmnParser bpmnParser = new BpmnParser();
 
-  /** the instance of the BpmnModelPackage used. The {@link BpmnModelTypeMap} provides information
-   * about which Java types to use for which elements. If you wna to use custom types, set your
-   * custom package here. */
-  protected BpmnModelTypeMap modelPackage = BpmnModelTypeMap.getINSTANCE();
+  /** The {@link Model}
+   */
+  protected Model bpmnModel = new ModelImpl();
 
   /**
-   * Allows reading a {@link BpmnModel} from a File.
+   * Allows reading a {@link BpmnModelInstance} from a File.
    *
-   * @param file the {@link File} to read the {@link BpmnModel} from
+   * @param file the {@link File} to read the {@link BpmnModelInstance} from
    * @return the model read
    * @throws BpmnModelException if the model cannot be read
    */
-  public static BpmnModel readModelFromFile(File file) {
+  public static BpmnModelInstance readModelFromFile(File file) {
     return INSTANCE.doReadModelFromFile(file);
   }
 
   /**
-   * Allows reading a {@link BpmnModel} from an {@link InputStream}
+   * Allows reading a {@link BpmnModelInstance} from an {@link InputStream}
    *
-   * @param file the {@link InputStream} to read the {@link BpmnModel} from
+   * @param file the {@link InputStream} to read the {@link BpmnModelInstance} from
    * @return the model read
    * @throws ModelParseException if the model cannot be read
    */
-  public static BpmnModel readModelFromStream(InputStream stream) {
+  public static BpmnModelInstance readModelFromStream(InputStream stream) {
     return INSTANCE.doReadModelFromInputStream(stream);
   }
 
   /**
-   * Allows creating an new, empty {@link BpmnModel}.
+   * Allows creating an new, empty {@link BpmnModelInstance}.
    *
    * @return the empty model.
    */
-  public static BpmnModel createEmptyModel() {
+  public static BpmnModelInstance createEmptyModel() {
     return INSTANCE.doCreateEmptyModel();
   }
 
-  protected BpmnModel doReadModelFromFile(File file) {
+  public Bpmn() {
+    doRegisterTypes(bpmnModel);
+  }
+
+  protected BpmnModelInstance doReadModelFromFile(File file) {
     InputStream is = null;
     try {
       is = new FileInputStream(file);
@@ -88,23 +98,35 @@ public class Bpmn {
     }
   }
 
-  protected BpmnModel doReadModelFromInputStream(InputStream is) {
+  protected BpmnModelInstance doReadModelFromInputStream(InputStream is) {
     return bpmnParser.parseModelFromStream(is);
   }
 
-  protected BpmnModel doCreateEmptyModel() {
+  protected BpmnModelInstance doCreateEmptyModel() {
     return bpmnParser.getEmptyModel();
+  }
+
+  protected void doRegisterTypes(Model model) {
+    DefinitionsImpl.registerType(model);
+    ImportImpl.registerType(model);
+    BaseElementImp.registerType(model);
+    RootElementImpl.registerType(model);
+    CallableElementImpl.registerType(model);
+    ProcessImpl.registerType(model);
   }
 
   /**
    * @return the {@link BpmnModelTypeMap} instance to use
    */
-  public BpmnModelTypeMap getModelPackage() {
-    return modelPackage;
+  public Model getBpmnModel() {
+    return bpmnModel;
   }
 
-  public void setModelPackage(BpmnModelTypeMap modelPackage) {
-    this.modelPackage = modelPackage;
+  /**
+   * @param bpmnModel the bpmnModel to set
+   */
+  public void setBpmnModel(Model bpmnModel) {
+    this.bpmnModel = bpmnModel;
   }
 
 }

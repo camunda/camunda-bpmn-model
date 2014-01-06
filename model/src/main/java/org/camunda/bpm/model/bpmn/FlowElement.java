@@ -18,7 +18,7 @@ package org.camunda.bpm.model.bpmn;
  * @author Daniel Meyer
  *
  */
-public interface FlowElement {
+public interface FlowElement extends BaseElement {
 
   String getName();
 

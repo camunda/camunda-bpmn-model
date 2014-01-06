@@ -18,7 +18,7 @@ package org.camunda.bpm.model.bpmn;
  * @author Daniel Meyer
  *
  */
-public interface Import extends BpmnModelElement {
+public interface Import extends BpmnModelElementInstance {
 
   void setNamespace(String namespace);
 
