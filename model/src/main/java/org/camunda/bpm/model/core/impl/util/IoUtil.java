@@ -12,33 +12,66 @@
  */
 package org.camunda.bpm.model.core.impl.util;
 
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.Closeable;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 
 /**
  * @author Daniel Meyer
+ * @author Sebastian Menski
  *
  */
 public class IoUtil {
 
-  public static void closeSilently(InputStream is) {
+  public static void closeSilently(Closeable closeable) {
     try {
-      if (is != null) {
-        is.close();
+      if (closeable != null) {
+        closeable.close();
       }
     } catch (Exception e) {
       // ignored
     }
   }
 
-  public static void closeSilently(OutputStream os) {
+  /**
+   * Converst an {@link InputStream} to a {@link String}
+   *
+   * @param inputStream the {@link InputStream} to convert
+   * @return the resulting {@link String}
+   * @throws IOException
+   */
+  public static String getStringFromInputStream(InputStream inputStream) throws IOException {
+    BufferedReader bufferdReader = null;
+    StringBuilder stringBuilder = new StringBuilder();
     try {
-      if (os != null) {
-        os.close();
+      bufferdReader = new BufferedReader(new InputStreamReader(inputStream));
+      String line;
+      while ((line = bufferdReader.readLine()) != null) {
+        stringBuilder.append(line.trim());
       }
-    } catch (Exception e) {
-      // ignored
     }
+    finally {
+      closeSilently(bufferdReader);
+    }
+
+    return stringBuilder.toString();
   }
 
+  /**
+   * Converts a {@link OutputStream} to an {@link InputStream} by coping the data directly.
+   * WARNING: Do not use for large data (>100MB). Only for testing purpose.
+   *
+   * @param outputStream the {@link OutputStream} to convert
+   * @return the resulting {@link InputStream}
+   */
+  public static InputStream convertOutputStreamToInputStream(OutputStream outputStream) {
+    byte[] data = ((ByteArrayOutputStream) outputStream).toByteArray();
+    InputStream inputStream = new ByteArrayInputStream(data);
+    return inputStream;
+  }
 }

@@ -12,13 +12,20 @@
  */
 package org.camunda.bpm.model.core.impl.parser;
 
+import java.io.IOException;
 import java.io.InputStream;
 
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.validation.Schema;
+import javax.xml.validation.SchemaFactory;
+import javax.xml.validation.Validator;
 
 import org.camunda.bpm.model.core.ModelInstance;
+import org.camunda.bpm.model.core.ModelValidationException;
 import org.camunda.bpm.model.core.impl.util.DomUtil;
 import org.w3c.dom.Document;
+import org.xml.sax.SAXException;
 
 /**
  * @author Daniel Meyer
@@ -27,6 +34,8 @@ import org.w3c.dom.Document;
 public abstract class AbstractModelParser {
 
   protected DocumentBuilderFactory documentBuilderFactory;
+  protected SchemaFactory schemaFactory;
+  protected Schema schema;
 
   public AbstractModelParser() {
     DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -39,15 +48,15 @@ public abstract class AbstractModelParser {
    * @param dbf the factory to configure
    */
   protected void configureFactory(DocumentBuilderFactory dbf) {
-    dbf.setValidating(true);
+    dbf.setValidating(false);
     dbf.setIgnoringComments(false);
     dbf.setIgnoringElementContentWhitespace(false);
     dbf.setNamespaceAware(true);
   }
 
   public ModelInstance parseModelFromStream(InputStream inputStream) {
-
     Document document = DomUtil.parseInputStream(documentBuilderFactory, inputStream);
+    validateModel(document);
     return createModelInstance(document);
 
   }
@@ -56,6 +65,26 @@ public abstract class AbstractModelParser {
     Document document = DomUtil.getEmptyDocument(documentBuilderFactory);
     return createModelInstance(document);
   };
+
+  /**
+   * Validate DOM document
+   *
+   * @param document the DOM document to validate
+   */
+  public void validateModel(Document document) {
+    if (schema == null) {
+      return;
+    }
+
+    Validator validator = schema.newValidator();
+    try {
+      validator.validate(new DOMSource(document));
+    } catch (IOException e) {
+      throw new ModelValidationException("Error during DOM docuement validation", e);
+    } catch (SAXException e) {
+      throw new ModelValidationException("DOM document is not valid", e);
+    }
+  }
 
   protected abstract ModelInstance createModelInstance(Document document);
 

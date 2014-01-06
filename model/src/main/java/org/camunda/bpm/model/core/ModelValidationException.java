@@ -10,33 +10,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.camunda.bpm.model.bpmn;
+package org.camunda.bpm.model.core;
 
-import org.camunda.bpm.model.core.ModelException;
 
 /**
- * <p>A {@link RuntimeException} in the Bpmn Model.</p>
+ * <p>An Exception in the Core XML Model.</p>
  *
- * @author Daniel Meyer
+ * @author Sebastian Menski
  *
  */
-public class BpmnModelException extends ModelException {
+public class ModelValidationException extends ModelException {
 
   private static final long serialVersionUID = 1L;
 
-  public BpmnModelException() {
+  public ModelValidationException() {
     super();
   }
 
-  public BpmnModelException(String message, Throwable cause) {
+  public ModelValidationException(String message, Throwable cause) {
     super(message, cause);
   }
 
-  public BpmnModelException(String message) {
+  public ModelValidationException(String message) {
     super(message);
   }
 
-  public BpmnModelException(Throwable cause) {
+  public ModelValidationException(Throwable cause) {
     super(cause);
   }
 

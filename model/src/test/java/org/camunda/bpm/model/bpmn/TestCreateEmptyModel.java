@@ -21,7 +21,6 @@ public class TestCreateEmptyModel {
   @Test
   public void testCreateEmptyModel() {
     BpmnModelInstance bpmnModelInstance = Bpmn.createEmptyModel();
-    bpmnModelInstance.printModel();
 
     Definitions definitions = bpmnModelInstance.getDefinitions();
     assertThat(definitions).isNull();

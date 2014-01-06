@@ -14,12 +14,14 @@ package org.camunda.bpm.model.core.impl.instance;
 
 import java.util.List;
 
+import org.camunda.bpm.model.core.ModelException;
 import org.camunda.bpm.model.core.impl.ModelInstanceImpl;
 import org.camunda.bpm.model.core.impl.type.ModelElementTypeImpl;
 import org.camunda.bpm.model.core.impl.util.DomUtil;
 import org.camunda.bpm.model.core.impl.util.ModelUtil;
 import org.camunda.bpm.model.core.instance.ModelElementInstance;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 /**
@@ -118,9 +120,53 @@ public abstract class ModelElementInstanceImpl implements ModelElementInstance {
   public void addChildElement(ModelElementInstance newChild) {
     ModelUtil.ensureInstanceOf(newChild, ModelElementInstanceImpl.class);
     ModelElementInstanceImpl newChildElement = (ModelElementInstanceImpl) newChild;
-    // add new element to the DOM
     Element newChildDomElement = newChildElement.getDomElement();
-    domElement.appendChild(newChildDomElement);
+
+    // add new element to the DOM
+    NodeList childDomElements = domElement.getChildNodes();
+    Node beforeNewChildDomElement = null;
+    Node childDomElement = null;
+    List<Class<?>> childElementTypes = elementType.getChildElementTypes();
+    int newChildTypeIndex = ModelUtil.getIndexOfElementType(newChild, childElementTypes);
+    if (newChildTypeIndex == -1) {
+      throw new ModelException("New child for " + elementType.getTypeName() + " is not a valid child element type: " + newChild.getElementType().getTypeName());
+    }
+    for (int i = 0; i < childDomElements.getLength(); i++) {
+      childDomElement = childDomElements.item(i);
+      if (childDomElement.getNodeType() != Node.ELEMENT_NODE) {
+        // skip not element nodes like comments
+        continue;
+      }
+      // get model element wrapper for current DOM child element
+      ModelElementInstance currentChild = ModelUtil.getModelElement((Element) childDomElement, model);
+      // compare child element type with new child element type
+      int childTypeIndex = ModelUtil.getIndexOfElementType(currentChild, childElementTypes);
+      if (childTypeIndex == -1) {
+        throw new ModelException("Child element " + currentChild.getElementType().getTypeName() + " is not a valid child element for " + elementType.getTypeName());
+      }
+      if (childTypeIndex > newChildTypeIndex) {
+        break;
+      }
+      else {
+        beforeNewChildDomElement = childDomElement;
+      }
+    }
+
+    // add new element to the DOM in the correct position
+    if (beforeNewChildDomElement == null) {
+      if (domElement.getFirstChild() == null) {
+        domElement.appendChild(newChildDomElement);
+      }
+      else {
+        domElement.insertBefore(newChildDomElement, domElement.getFirstChild());
+      }
+    }
+    else if (beforeNewChildDomElement.getNextSibling() == null) {
+      domElement.appendChild(newChildDomElement);
+    }
+    else {
+      domElement.insertBefore(newChildDomElement, beforeNewChildDomElement.getNextSibling());
+    }
   }
 
   public ModelInstanceImpl getModelInstance() {

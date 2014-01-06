@@ -48,5 +48,4 @@ public interface BpmnModelInstance extends ModelInstance {
    * */
   void setDefinitions(Definitions definitions);
 
-  void printModel();
 }

@@ -10,9 +10,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.camunda.bpm.model.core.impl;
+package org.camunda.bpm.model.core;
 
-import org.camunda.bpm.model.core.ModelException;
 
 /**
  * <p>Thrown when an error is encountered during Xml parsing</p>

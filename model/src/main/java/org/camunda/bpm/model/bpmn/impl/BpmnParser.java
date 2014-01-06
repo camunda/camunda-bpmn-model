@@ -14,13 +14,15 @@ package org.camunda.bpm.model.bpmn.impl;
 
 import java.io.InputStream;
 
-import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.validation.SchemaFactory;
 
 import org.camunda.bpm.model.bpmn.Bpmn;
+import org.camunda.bpm.model.core.ModelValidationException;
 import org.camunda.bpm.model.core.impl.ModelImpl;
 import org.camunda.bpm.model.core.impl.parser.AbstractModelParser;
 import org.camunda.bpm.model.core.impl.util.ReflectUtil;
 import org.w3c.dom.Document;
+import org.xml.sax.SAXException;
 
 /**
  * <p>The parser used when parsing BPMN Files</p>
@@ -30,15 +32,16 @@ import org.w3c.dom.Document;
  */
 public class BpmnParser extends AbstractModelParser {
 
-  private static final String JAXP_SCHEMA_SOURCE = "http://java.sun.com/xml/jaxp/properties/schemaSource";
-  private static final String JAXP_SCHEMA_LANGUAGE = "http://java.sun.com/xml/jaxp/properties/schemaLanguage";
   private static final String W3C_XML_SCHEMA = "http://www.w3.org/2001/XMLSchema";
 
-  @Override
-  protected void configureFactory(DocumentBuilderFactory dbf) {
-    super.configureFactory(dbf);
-    dbf.setAttribute(JAXP_SCHEMA_LANGUAGE, W3C_XML_SCHEMA);
-    dbf.setAttribute(JAXP_SCHEMA_SOURCE, ReflectUtil.getResource(BpmnModelConstants.BPMN_20_SCHEMA_LOCATION).toString());
+  public BpmnParser() {
+    super();
+    this.schemaFactory = SchemaFactory.newInstance(W3C_XML_SCHEMA);
+    try {
+      this.schema = schemaFactory.newSchema(ReflectUtil.getResource(BpmnModelConstants.BPMN_20_SCHEMA_LOCATION));
+    } catch (SAXException e) {
+      throw new ModelValidationException("Unable to parse schema:" + ReflectUtil.getResource(BpmnModelConstants.BPMN_20_SCHEMA_LOCATION).toString());
+    }
   }
 
   @Override

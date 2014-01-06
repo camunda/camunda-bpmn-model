@@ -15,10 +15,10 @@ package org.camunda.bpm.model.core.impl.type.child;
 import java.util.Collection;
 import java.util.Iterator;
 
-import org.camunda.bpm.model.core.impl.UnsupportedModelOperationException;
+import org.camunda.bpm.model.core.UnsupportedModelOperationException;
 import org.camunda.bpm.model.core.impl.instance.ModelElementInstanceImpl;
-import org.camunda.bpm.model.core.impl.util.DomUtil.ElementNodeListFilter;
 import org.camunda.bpm.model.core.impl.util.DomUtil;
+import org.camunda.bpm.model.core.impl.util.DomUtil.ElementNodeListFilter;
 import org.camunda.bpm.model.core.impl.util.ModelUtil;
 import org.camunda.bpm.model.core.instance.ModelElementInstance;
 import org.w3c.dom.Element;
