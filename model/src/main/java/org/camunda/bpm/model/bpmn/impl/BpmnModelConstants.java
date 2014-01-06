@@ -39,6 +39,12 @@ public class BpmnModelConstants {
   public static final String BPMN_ELEMENT_EXTENSION_ELEMENTS = "extensionElements";
   public static final String BPMN_ELEMENT_PROCESS = "process";
 
+  // abstract types //////////////////////////////////
+
+  public static final String BPMN_TYPE_BASE_ELEMENT = "baseElement";
+  public static final String BPMN_TYPE_ROOT_ELEMENT = "rootElement";
+  public static final String BPMN_TYPE_CALLABLE_ELEMENT = "callableElement";
+
   // attributes //////////////////////////////////////
 
   public static final String BPMN_ATTRIBUTE_EXPORTER = "exporter";

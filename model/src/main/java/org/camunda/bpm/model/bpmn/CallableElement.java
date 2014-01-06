@@ -13,7 +13,7 @@
 package org.camunda.bpm.model.bpmn;
 
 /**
- * @author meyerd
+ * @author Daniel Meyer
  *
  */
 public interface CallableElement extends RootElement {

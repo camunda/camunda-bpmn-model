@@ -12,6 +12,8 @@
  */
 package org.camunda.bpm.model.core.impl;
 
+import org.camunda.bpm.model.core.ModelException;
+
 /**
  * <p>Thrown when an error is encountered during Xml parsing</p>
  *

@@ -30,7 +30,7 @@ public class DefinitionsTest extends BpmnModelTest {
   @BpmnModelResource
   public void shouldImportEmptyDefinitions() {
 
-    Definitions definitions = bpmnModel.getDefinitions();
+    Definitions definitions = bpmnModelInstance.getDefinitions();
     assertThat(definitions).isNotNull();
 
     // provided in file
@@ -54,7 +54,7 @@ public class DefinitionsTest extends BpmnModelTest {
   @Test
   public void shouldNotImportWrongOrderedSequence() {
     try {
-      BpmnModel model = Bpmn.readModelFromStream(getClass().getResourceAsStream("DefinitionsTest.shouldNotImportWrongOrderedSequence.bpmn"));
+      BpmnModelInstance model = Bpmn.readModelFromStream(getClass().getResourceAsStream("DefinitionsTest.shouldNotImportWrongOrderedSequence.bpmn"));
     }
     catch(ModelParseException e) {
       e.printStackTrace();

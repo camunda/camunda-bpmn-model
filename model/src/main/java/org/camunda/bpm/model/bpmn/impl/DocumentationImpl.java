@@ -12,12 +12,18 @@
  */
 package org.camunda.bpm.model.bpmn.impl;
 
-import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.*;
+import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN20_NS;
+import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN_ATTRIBUTE_ID;
+import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN_ATTRIBUTE_TEXT_FORMAT;
+import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN_TYPE_BASE_ELEMENT;
 
 import org.camunda.bpm.model.bpmn.Documentation;
-import org.camunda.bpm.model.core.impl.ModelElementCreateContext;
-import org.camunda.bpm.model.core.impl.attribute.Attribute;
-import org.camunda.bpm.model.core.impl.attribute.StringAttribute;
+import org.camunda.bpm.model.core.Model;
+import org.camunda.bpm.model.core.impl.instance.ModelTypeInstanceContext;
+import org.camunda.bpm.model.core.type.Attribute;
+import org.camunda.bpm.model.core.type.ModelElementType;
+import org.camunda.bpm.model.core.type.ModelElementTypeBuilder;
+import org.camunda.bpm.model.core.type.ModelElementTypeBuilder.ModelTypeIntanceProvider;
 
 /**
  *
@@ -26,27 +32,48 @@ import org.camunda.bpm.model.core.impl.attribute.StringAttribute;
  */
 public class DocumentationImpl extends AbstractBpmnModelElement implements Documentation {
 
-  protected Attribute<String> idAttr = new StringAttribute(BPMN_ATTRIBUTE_ID, this);
-  protected Attribute<String> textFormatAttr = new StringAttribute(BPMN_ATTRIBUTE_TEXT_FORMAT, this);
+  static Attribute<String> idAttr;
+  static Attribute<String> textFormatAttr;
 
-  public DocumentationImpl(ModelElementCreateContext context) {
+  public static ModelElementType MODEL_TYPE;
+
+  public static void registerType(Model model) {
+
+    ModelElementTypeBuilder typeBuilder = model.defineType(Documentation.class, BPMN_TYPE_BASE_ELEMENT)
+      .namespaceUri(BPMN20_NS)
+      .instanceProvider(new ModelTypeIntanceProvider<Documentation>() {
+        public Documentation newInstance(ModelTypeInstanceContext instanceContext) {
+          return new DocumentationImpl(instanceContext);
+        }
+      });
+
+    idAttr = typeBuilder.stringAttribute(BPMN_ATTRIBUTE_ID)
+      .build();
+
+    textFormatAttr = typeBuilder.stringAttribute(BPMN_ATTRIBUTE_TEXT_FORMAT)
+      .build();
+
+    MODEL_TYPE = typeBuilder.build();
+  }
+
+  public DocumentationImpl(ModelTypeInstanceContext context) {
     super(context);
   }
 
   public String getId() {
-    return idAttr.getValue();
+    return idAttr.getValue(this);
   }
 
   public void setId(String id) {
-    idAttr.setValue(id);
+    idAttr.setValue(this, id);
   }
 
   public String getTextFormat() {
-    return textFormatAttr.getValue();
+    return textFormatAttr.getValue(this);
   }
 
   public void setTextFormat(String textFormat) {
-    textFormatAttr.setValue(textFormat);
+    textFormatAttr.setValue(this, textFormat);
   }
 
 }

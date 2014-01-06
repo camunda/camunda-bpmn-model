@@ -16,6 +16,8 @@ import java.io.InputStream;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.camunda.bpm.model.bpmn.Bpmn;
+import org.camunda.bpm.model.core.impl.ModelImpl;
 import org.camunda.bpm.model.core.impl.parser.AbstractModelParser;
 import org.camunda.bpm.model.core.impl.util.ReflectUtil;
 import org.w3c.dom.Document;
@@ -40,18 +42,18 @@ public class BpmnParser extends AbstractModelParser {
   }
 
   @Override
-  protected BpmnModelImpl createModelInstance(Document document) {
-    return new BpmnModelImpl(document);
+  protected BpmnModelInstanceImpl createModelInstance(Document document) {
+    return new BpmnModelInstanceImpl((ModelImpl) Bpmn.INSTANCE.getBpmnModel(), document);
   }
 
   @Override
-  public BpmnModelImpl parseModelFromStream(InputStream inputStream) {
-    return (BpmnModelImpl) super.parseModelFromStream(inputStream);
+  public BpmnModelInstanceImpl parseModelFromStream(InputStream inputStream) {
+    return (BpmnModelInstanceImpl) super.parseModelFromStream(inputStream);
   }
 
   @Override
-  public BpmnModelImpl getEmptyModel() {
-    return (BpmnModelImpl) super.getEmptyModel();
+  public BpmnModelInstanceImpl getEmptyModel() {
+    return (BpmnModelInstanceImpl) super.getEmptyModel();
   }
 
 }

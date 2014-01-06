@@ -18,7 +18,7 @@ package org.camunda.bpm.model.bpmn;
  * @author Daniel Meyer
  *
  */
-public interface Documentation extends BpmnModelElement {
+public interface Documentation extends BpmnModelElementInstance {
 
   String getId();
 

@@ -15,9 +15,12 @@ package org.camunda.bpm.model.bpmn.impl;
 import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.*;
 
 import org.camunda.bpm.model.bpmn.Import;
-import org.camunda.bpm.model.core.impl.ModelElementCreateContext;
-import org.camunda.bpm.model.core.impl.attribute.Attribute;
-import org.camunda.bpm.model.core.impl.attribute.StringAttribute;
+import org.camunda.bpm.model.core.Model;
+import org.camunda.bpm.model.core.impl.instance.ModelTypeInstanceContext;
+import org.camunda.bpm.model.core.type.Attribute;
+import org.camunda.bpm.model.core.type.ModelElementType;
+import org.camunda.bpm.model.core.type.ModelElementTypeBuilder;
+import org.camunda.bpm.model.core.type.ModelElementTypeBuilder.ModelTypeIntanceProvider;
 
 /**
  *
@@ -26,38 +29,60 @@ import org.camunda.bpm.model.core.impl.attribute.StringAttribute;
  */
 public class ImportImpl extends AbstractBpmnModelElement implements Import {
 
-  public final static String ELEMENT_NAME = BPMN_ELEMENT_IMPORT;
+  protected static ModelElementType MODEL_TYPE;
 
-  protected Attribute<String> namespaceAttr = new StringAttribute(BPMN_ATTRIBUTE_NAMESPACE, this);
-  protected Attribute<String> locationAttr = new StringAttribute(BPMN_ATTRIBUTE_LOCATION, this);
-  protected Attribute<String> importTypeAttr = new StringAttribute(BPMN_ATTRIBUTE_IMPORT_TYPE, this);
+  static Attribute<String> namespaceAttr;
+  static Attribute<String> locationAttr;
+  static Attribute<String> importTypeAttr;
 
-  public ImportImpl(ModelElementCreateContext context) {
+  public static void registerType(Model model) {
+
+    ModelElementTypeBuilder builder = model.defineType(Import.class, BPMN_ELEMENT_IMPORT)
+      .namespaceUri(BPMN20_NS)
+      .instanceProvider(new ModelTypeIntanceProvider<Import>() {
+        public Import newInstance(ModelTypeInstanceContext instanceContext) {
+          return new ImportImpl(instanceContext);
+        }
+      });
+
+    namespaceAttr = builder.stringAttribute(BPMN_ATTRIBUTE_NAMESPACE)
+      .build();
+
+    locationAttr = builder.stringAttribute(BPMN_ATTRIBUTE_LOCATION)
+      .build();
+
+    importTypeAttr = builder.stringAttribute(BPMN_ATTRIBUTE_IMPORT_TYPE)
+      .build();
+
+    MODEL_TYPE = builder.build();
+  }
+
+  public ImportImpl(ModelTypeInstanceContext context) {
     super(context);
   }
 
   public void setNamespace(String namespace) {
-    namespaceAttr.setValue(namespace);
+    namespaceAttr.setValue(this, namespace);
   }
 
   public String getNamespace() {
-    return namespaceAttr.getValue();
+    return namespaceAttr.getValue(this);
   }
 
   public void setLocation(String location) {
-    locationAttr.setValue(location);
+    locationAttr.setValue(this, location);
   }
 
   public String getLocation() {
-    return locationAttr.getValue();
+    return locationAttr.getValue(this);
   }
 
   public void setImportType(String importType) {
-    importTypeAttr.setValue(importType);
+    importTypeAttr.setValue(this, importType);
   }
 
   public String getImportType() {
-    return importTypeAttr.getValue();
+    return importTypeAttr.getValue(this);
   }
 
 }

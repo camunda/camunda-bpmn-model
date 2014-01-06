@@ -15,7 +15,7 @@ package org.camunda.bpm.model.bpmn.util;
 import java.io.InputStream;
 
 import org.camunda.bpm.model.bpmn.Bpmn;
-import org.camunda.bpm.model.bpmn.BpmnModel;
+import org.camunda.bpm.model.bpmn.BpmnModelInstance;
 import org.camunda.bpm.model.core.impl.util.IoUtil;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
@@ -26,7 +26,7 @@ import org.junit.runner.Description;
  */
 public class ParseBpmnModelRule extends TestWatcher {
 
-  protected BpmnModel bpmnModel;
+  protected BpmnModelInstance bpmnModelInstance;
 
   @Override
   protected void starting(Description description) {
@@ -41,7 +41,7 @@ public class ParseBpmnModelRule extends TestWatcher {
 
       InputStream resourceAsStream = getClass().getClassLoader().getResourceAsStream(bpmnResourceName);
       try {
-        bpmnModel = Bpmn.readModelFromStream(resourceAsStream);
+        bpmnModelInstance = Bpmn.readModelFromStream(resourceAsStream);
       } finally {
         IoUtil.closeSilently(resourceAsStream);
       }
@@ -50,8 +50,8 @@ public class ParseBpmnModelRule extends TestWatcher {
 
   }
 
-  public BpmnModel getBpmnModel() {
-    return bpmnModel;
+  public BpmnModelInstance getBpmnModel() {
+    return bpmnModelInstance;
   }
 
 }

@@ -20,7 +20,7 @@ import java.util.Collection;
  * @author Daniel Meyer
  *
  */
-public interface Definitions extends BpmnModelElement {
+public interface Definitions extends BpmnModelElementInstance {
 
   String getExporter();
 

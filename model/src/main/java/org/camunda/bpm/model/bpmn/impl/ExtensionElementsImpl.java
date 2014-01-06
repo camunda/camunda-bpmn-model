@@ -13,7 +13,7 @@
 package org.camunda.bpm.model.bpmn.impl;
 
 import org.camunda.bpm.model.bpmn.ExtensionElements;
-import org.camunda.bpm.model.core.impl.ModelElementCreateContext;
+import org.camunda.bpm.model.core.impl.instance.ModelTypeInstanceContext;
 
 /**
  * @author Daniel Meyer
@@ -21,7 +21,7 @@ import org.camunda.bpm.model.core.impl.ModelElementCreateContext;
  */
 public class ExtensionElementsImpl extends AbstractBpmnModelElement implements ExtensionElements {
 
-  public ExtensionElementsImpl(ModelElementCreateContext context) {
+  public ExtensionElementsImpl(ModelTypeInstanceContext context) {
     super(context);
   }
 

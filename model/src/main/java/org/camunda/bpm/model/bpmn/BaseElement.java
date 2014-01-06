@@ -18,7 +18,7 @@ import java.util.Collection;
  * @author Daniel Meyer
  *
  */
-public interface BaseElement extends BpmnModelElement {
+public interface BaseElement extends BpmnModelElementInstance {
 
   String getId();
 

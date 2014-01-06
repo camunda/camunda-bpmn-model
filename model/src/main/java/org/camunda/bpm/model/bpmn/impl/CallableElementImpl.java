@@ -12,12 +12,15 @@
  */
 package org.camunda.bpm.model.bpmn.impl;
 
-import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN_ATTRIBUTE_NAME;
+import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.*;
 
 import org.camunda.bpm.model.bpmn.CallableElement;
-import org.camunda.bpm.model.core.impl.ModelElementCreateContext;
-import org.camunda.bpm.model.core.impl.attribute.Attribute;
-import org.camunda.bpm.model.core.impl.attribute.StringAttribute;
+import org.camunda.bpm.model.bpmn.RootElement;
+import org.camunda.bpm.model.core.Model;
+import org.camunda.bpm.model.core.impl.instance.ModelTypeInstanceContext;
+import org.camunda.bpm.model.core.type.Attribute;
+import org.camunda.bpm.model.core.type.ModelElementType;
+import org.camunda.bpm.model.core.type.ModelElementTypeBuilder;
 
 /**
  * @author Daniel Meyer
@@ -25,18 +28,33 @@ import org.camunda.bpm.model.core.impl.attribute.StringAttribute;
  */
 public abstract class CallableElementImpl extends RootElementImpl implements CallableElement {
 
-  protected Attribute<String> nameAttr = new StringAttribute(BPMN_ATTRIBUTE_NAME, this);
+  public static ModelElementType MODEL_TYPE;
 
-  public CallableElementImpl(ModelElementCreateContext context) {
-    super(context);
+  static Attribute<String> nameAttr;
+
+  public static void registerType(Model model) {
+
+    ModelElementTypeBuilder typeBuilder = model.defineType(CallableElement.class, BPMN_TYPE_CALLABLE_ELEMENT)
+      .namespaceUri(BPMN20_NS)
+      .abstractType()
+      .extendsType(model.getType(RootElement.class));
+
+    nameAttr = typeBuilder.stringAttribute(BPMN_ATTRIBUTE_NAME).build();
+
+    MODEL_TYPE = typeBuilder.build();
+
+  }
+
+  public CallableElementImpl(ModelTypeInstanceContext instanceContext) {
+    super(instanceContext);
   }
 
   public String getName() {
-    return nameAttr.getValue();
+    return nameAttr.getValue(this);
   }
 
   public void setName(String name) {
-    nameAttr.setValue(name);
+    nameAttr.setValue(this, name);
   }
 
 }
