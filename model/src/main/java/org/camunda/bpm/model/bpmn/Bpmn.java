@@ -15,9 +15,19 @@ package org.camunda.bpm.model.bpmn;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.io.OutputStream;
+
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 import org.camunda.bpm.model.bpmn.impl.BaseElementImp;
+import org.camunda.bpm.model.bpmn.impl.BpmnModelInstanceImpl;
 import org.camunda.bpm.model.bpmn.impl.BpmnParser;
 import org.camunda.bpm.model.bpmn.impl.CallableElementImpl;
 import org.camunda.bpm.model.bpmn.impl.DefinitionsImpl;
@@ -25,8 +35,8 @@ import org.camunda.bpm.model.bpmn.impl.ImportImpl;
 import org.camunda.bpm.model.bpmn.impl.ProcessImpl;
 import org.camunda.bpm.model.bpmn.impl.RootElementImpl;
 import org.camunda.bpm.model.core.Model;
+import org.camunda.bpm.model.core.ModelParseException;
 import org.camunda.bpm.model.core.impl.ModelImpl;
-import org.camunda.bpm.model.core.impl.ModelParseException;
 import org.camunda.bpm.model.core.impl.util.IoUtil;
 
 /**
@@ -62,12 +72,34 @@ public class Bpmn {
   /**
    * Allows reading a {@link BpmnModelInstance} from an {@link InputStream}
    *
-   * @param file the {@link InputStream} to read the {@link BpmnModelInstance} from
+   * @param stream the {@link InputStream} to read the {@link BpmnModelInstance} from
    * @return the model read
    * @throws ModelParseException if the model cannot be read
    */
   public static BpmnModelInstance readModelFromStream(InputStream stream) {
     return INSTANCE.doReadModelFromInputStream(stream);
+  }
+
+  /**
+   * Allows writing a {@link BpmnModelInstanceImpl} to a File.
+   *
+   * @param file the {@link File} to write the {@link BpmnModelInstanceImpl} to
+   * @param model the {@link BpmnModelInstanceImpl} to write
+   * @throws BpmnModelException if the model cannot be written
+   */
+  public static void writeModelToFile(File file, BpmnModelInstanceImpl model) {
+    INSTANCE.doWriteModelToFile(file, model);
+  }
+
+  /**
+   * Allows writing a {@link BpmnModelInstanceImpl} to an {@link OutputStream}
+   *
+   * @param stream the {@link OutputStream} to write the {@link BpmnModelInstanceImpl} to
+   * @param model the {@link BpmnModelInstanceImpl} to write
+   * @throws ModelParseException if the model cannot be written
+   */
+  public static void writeModelToStream(OutputStream stream, BpmnModelInstanceImpl model) {
+    INSTANCE.doWriteModelToOutputStream(stream, model);
   }
 
   /**
@@ -79,6 +111,9 @@ public class Bpmn {
     return INSTANCE.doCreateEmptyModel();
   }
 
+  /**
+   * Register known types of the BPMN model
+   */
   public Bpmn() {
     doRegisterTypes(bpmnModel);
   }
@@ -100,6 +135,33 @@ public class Bpmn {
 
   protected BpmnModelInstance doReadModelFromInputStream(InputStream is) {
     return bpmnParser.parseModelFromStream(is);
+  }
+
+  protected void doWriteModelToFile(File file, BpmnModelInstanceImpl model) {
+    OutputStream os = null;
+    try {
+      os = new FileOutputStream(file);
+      doWriteModelToOutputStream(os, model);
+    }
+    catch (FileNotFoundException e) {
+      throw new BpmnModelException("Cannot read model from file "+file+": file does not exist.");
+    } finally {
+      IoUtil.closeSilently(os);
+    }
+  }
+
+  protected void doWriteModelToOutputStream(OutputStream os, BpmnModelInstanceImpl model) {
+    try {
+      TransformerFactory transformerFactory = TransformerFactory.newInstance();
+      Transformer transformer = transformerFactory.newTransformer();
+      DOMSource domSource = new DOMSource(model.getDocument());
+      StreamResult result = new StreamResult(os);
+      transformer.transform(domSource, result);
+    } catch (TransformerConfigurationException e) {
+      throw new BpmnModelException("Cannot create transformer to write the model", e);
+    } catch (TransformerException e) {
+      throw new BpmnModelException("Cannot transform model to xml", e);
+    }
   }
 
   protected BpmnModelInstance doCreateEmptyModel() {

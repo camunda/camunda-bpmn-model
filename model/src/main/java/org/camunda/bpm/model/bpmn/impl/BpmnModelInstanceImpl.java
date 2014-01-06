@@ -37,12 +37,4 @@ public class BpmnModelInstanceImpl extends ModelInstanceImpl implements BpmnMode
     setDocumentElement((DefinitionsImpl) definitions);
   }
 
-  /* (non-Javadoc)
-   * @see org.camunda.bpm.model.bpmn.BpmnModelInstance#printModel()
-   */
-  public void printModel() {
-    // TODO Auto-generated method stub
-
-  }
-
 }

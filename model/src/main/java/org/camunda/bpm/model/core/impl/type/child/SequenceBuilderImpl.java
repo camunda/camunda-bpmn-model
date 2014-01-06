@@ -31,12 +31,12 @@ public class SequenceBuilderImpl implements SequenceBuilder {
     return new ChildElementBuilderImpl<T>(elementName, modelType);
   }
 
-  public <T extends ModelElementInstance> ChildElementCollectionBuilder<T> elementCollection(String localName, Class<T> childElementType) {
-    return elementCollection(localName, modelType.getTypeNamespace(), childElementType);
+  public <T extends ModelElementInstance> ChildElementCollectionBuilder<T> elementCollection(Class<T> childElementType, String localName) {
+    return elementCollection(childElementType, localName, modelType.getTypeNamespace());
   }
 
-  public <T extends ModelElementInstance> ChildElementCollectionBuilder<T> elementCollection(String localName, String namespaceUri, Class<T> childElementType) {
-    return new ChildElementCollectionBuilderImpl<T>(localName, namespaceUri, modelType, childElementType);
+  public <T extends ModelElementInstance> ChildElementCollectionBuilder<T> elementCollection(Class<T> childElementType, String localName, String namespaceUri) {
+    return new ChildElementCollectionBuilderImpl<T>(childElementType, localName, namespaceUri, modelType);
   }
 
   public <T extends ModelElementInstance> ChildElementCollectionBuilder<T> elementCollection(Class<T> childElementType) {

@@ -21,8 +21,8 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.camunda.bpm.model.core.ModelParseException;
 import org.camunda.bpm.model.core.impl.ModelInstanceImpl;
-import org.camunda.bpm.model.core.impl.ModelParseException;
 import org.camunda.bpm.model.core.instance.ModelElementInstance;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;

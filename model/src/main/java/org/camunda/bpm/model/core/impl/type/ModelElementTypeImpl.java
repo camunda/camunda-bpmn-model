@@ -44,7 +44,7 @@ public class ModelElementTypeImpl implements ModelElementType {
 
   private List<Attribute<?>> attributes = new ArrayList<Attribute<?>>();
 
-  private List<Class<?>> childElementTypes = new ArrayList<Class<?>>();
+  private final List<Class<?>> childElementTypes = new ArrayList<Class<?>>();
 
   protected ModelTypeIntanceProvider<?> instanceProvider;
 
@@ -67,7 +67,7 @@ public class ModelElementTypeImpl implements ModelElementType {
   }
 
   public ModelElementInstance newInstance(ModelInstanceImpl modelInstance, Element domElement) {
-    return createModelElementIntance(new ModelTypeInstanceContext(domElement, (ModelInstanceImpl) modelInstance, this));
+    return createModelElementIntance(new ModelTypeInstanceContext(domElement, modelInstance, this));
   }
 
   public void registerAttribute(Attribute<?> attribute) {
@@ -128,6 +128,10 @@ public class ModelElementTypeImpl implements ModelElementType {
 
   public Model getModel() {
     return model;
+  }
+
+  public List<Class<?>> getChildElementTypes() {
+    return childElementTypes;
   }
 
 }

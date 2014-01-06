@@ -26,7 +26,7 @@ public class ChildElementCollectionBuilderImpl<T extends ModelElementInstance> i
   protected ChildElementCollection<T> collection;
   protected Class<T> childElementType;
 
-  public ChildElementCollectionBuilderImpl(String localName, String namespaceUri, ModelElementType containingType, Class<T> childElementType) {
+  public ChildElementCollectionBuilderImpl(Class<T> childElementType, String localName, String namespaceUri, ModelElementType containingType) {
     this.childElementType = childElementType;
     this.containingType = (ModelElementTypeImpl) containingType;
     collection = new NamedChildElementCollection<T>(localName, namespaceUri);

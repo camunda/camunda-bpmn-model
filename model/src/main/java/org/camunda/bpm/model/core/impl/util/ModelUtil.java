@@ -155,9 +155,25 @@ public class ModelUtil {
   public static <T> Collection<T> getModelElementCollection(Collection<Element> view, ModelInstanceImpl model) {
     List<ModelElementInstance> resultList = new ArrayList<ModelElementInstance>();
     for (Element element : view) {
-      resultList.add((ModelElementInstance) getModelElement(element, model));
+      resultList.add(getModelElement(element, model));
     }
     return (List) resultList;
+  }
+
+  /**
+   * Find the index of the type of a model ellement in a list of element types
+   *
+   * @param modelElement the model element which type is searched for
+   * @param elementList the list to search the type
+   * @return the index of the model element type in the list or -1 if it is not found
+   */
+  public static int getIndexOfElementType(ModelElementInstance modelElement, List<Class<?>> elementList) {
+    for (int index = 0; index < elementList.size(); index++) {
+      if(elementList.get(index).isAssignableFrom(modelElement.getClass())) {
+        return index;
+      }
+    }
+    return -1;
   }
 
 }

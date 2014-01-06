@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<definitions targetNamespace="Examples" xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL">
+  <import importType="example" location="here" namespace="Imports"/>
+  <import importType="example" location="there" namespace="Imports"/>
+  <process id="some-process-id"/>
+  <process id="another-process-id"/>
+</definitions>
