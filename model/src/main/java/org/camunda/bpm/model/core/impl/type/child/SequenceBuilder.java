@@ -22,10 +22,10 @@ public interface SequenceBuilder {
 
   <T extends ModelElementInstance> ChildElementBuilder<T> element(String elementName);
 
-  <T extends ModelElementInstance> ChildElementCollectionBuilder<T> elementCollection(String localName);
+  <T extends ModelElementInstance> ChildElementCollectionBuilder<T> elementCollection(String localName, Class<T> childElementType);
 
-  <T extends ModelElementInstance> ChildElementCollectionBuilder<T> elementCollection(String localName, String namespaceUri);
+  <T extends ModelElementInstance> ChildElementCollectionBuilder<T> elementCollection(String localName, String namespaceUri, Class<T> childElementType);
 
-  <T extends ModelElementInstance> ChildElementCollectionBuilder<T> elementCollection(Class<T> type);
+  <T extends ModelElementInstance> ChildElementCollectionBuilder<T> elementCollection(Class<T> childElementType);
 
 }

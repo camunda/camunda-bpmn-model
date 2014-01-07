@@ -21,7 +21,6 @@ import org.camunda.bpm.model.core.ModelInstance;
 import org.camunda.bpm.model.core.impl.ModelImpl;
 import org.camunda.bpm.model.core.impl.ModelInstanceImpl;
 import org.camunda.bpm.model.core.impl.instance.ModelTypeInstanceContext;
-import org.camunda.bpm.model.core.impl.type.child.ChildElement;
 import org.camunda.bpm.model.core.instance.ModelElementInstance;
 import org.camunda.bpm.model.core.type.Attribute;
 import org.camunda.bpm.model.core.type.ModelElementType;
@@ -45,7 +44,7 @@ public class ModelElementTypeImpl implements ModelElementType {
 
   private List<Attribute<?>> attributes = new ArrayList<Attribute<?>>();
 
-  private List<ChildElement<?>> childElements = new ArrayList<ChildElement<?>>();
+  private List<Class<?>> childElementTypes = new ArrayList<Class<?>>();
 
   protected ModelTypeIntanceProvider<?> instanceProvider;
 
@@ -73,6 +72,10 @@ public class ModelElementTypeImpl implements ModelElementType {
 
   public void registerAttribute(Attribute<?> attribute) {
     attributes.add(attribute);
+  }
+
+  public void registerChildElementType(Class<?> childElementType) {
+    childElementTypes.add(childElementType);
   }
 
   protected ModelElementInstance createModelElementIntance(ModelTypeInstanceContext instanceContext) {

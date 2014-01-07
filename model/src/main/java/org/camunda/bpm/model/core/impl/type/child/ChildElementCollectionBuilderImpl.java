@@ -12,6 +12,7 @@
  */
 package org.camunda.bpm.model.core.impl.type.child;
 
+import org.camunda.bpm.model.core.impl.type.ModelElementTypeImpl;
 import org.camunda.bpm.model.core.instance.ModelElementInstance;
 import org.camunda.bpm.model.core.type.ModelElementType;
 
@@ -21,16 +22,19 @@ import org.camunda.bpm.model.core.type.ModelElementType;
  */
 public class ChildElementCollectionBuilderImpl<T extends ModelElementInstance> implements ChildElementCollectionBuilder<T> {
 
-  protected final ModelElementType containingType;
+  protected final ModelElementTypeImpl containingType;
   protected ChildElementCollection<T> collection;
+  protected Class<T> childElementType;
 
-  public ChildElementCollectionBuilderImpl(String localName, String namespaceUri, ModelElementType containingType) {
-    this.containingType = containingType;
+  public ChildElementCollectionBuilderImpl(String localName, String namespaceUri, ModelElementType containingType, Class<T> childElementType) {
+    this.childElementType = childElementType;
+    this.containingType = (ModelElementTypeImpl) containingType;
     collection = new NamedChildElementCollection<T>(localName, namespaceUri);
   }
 
   public ChildElementCollectionBuilderImpl(Class<T> type, ModelElementType containingType) {
-    this.containingType = containingType;
+    this.childElementType = type;
+    this.containingType = (ModelElementTypeImpl) containingType;
     collection = new TypedChildElementCollection<T>(type);
   }
 
@@ -40,7 +44,7 @@ public class ChildElementCollectionBuilderImpl<T extends ModelElementInstance> i
   }
 
   public ChildElementCollection<T> build() {
-    // TODO: register collection with containing type!
+    containingType.registerChildElementType(childElementType);
     return collection;
   }
 

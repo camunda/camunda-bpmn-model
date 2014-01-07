@@ -97,7 +97,7 @@ public class DefinitionsImpl extends AbstractBpmnModelElement implements Definit
 
     SequenceBuilder sequence = typeBuilder.sequence();
 
-    importElementsColl = sequence.<Import>elementCollection(BPMN_ELEMENT_IMPORT)
+    importElementsColl = sequence.elementCollection(BPMN_ELEMENT_IMPORT, Import.class)
       .build();
 
     rootElementsColl = sequence.elementCollection(RootElement.class)
