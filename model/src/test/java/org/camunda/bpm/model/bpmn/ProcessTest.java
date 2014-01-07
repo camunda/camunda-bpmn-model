@@ -29,7 +29,7 @@ public class ProcessTest extends BpmnModelTest {
   @BpmnModelResource
   public void shouldImportProcess() {
 
-    Collection<RootElement> rootElements = bpmnModel.getDefinitions().getRootElements();
+    Collection<RootElement> rootElements = bpmnModelInstance.getDefinitions().getRootElements();
     assertThat(rootElements).hasSize(1);
     Process process = (Process) rootElements.iterator().next();
 

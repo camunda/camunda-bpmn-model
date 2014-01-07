@@ -16,40 +16,21 @@ import static org.fest.assertions.Assertions.assertThat;
 
 import org.junit.Test;
 
-
-/**
- * @author meyerd
- *
- */
 public class TestCreateEmptyModel {
 
   @Test
   public void testCreateEmptyModel() {
-    BpmnModel bpmnModel = Bpmn.createEmptyModel();
-    bpmnModel.printModel();
+    BpmnModelInstance bpmnModelInstance = Bpmn.createEmptyModel();
 
-    Definitions definitions = bpmnModel.getDefinitions();
+    Definitions definitions = bpmnModelInstance.getDefinitions();
     assertThat(definitions).isNull();
 
-    BpmnElementFactory bpmnElementFactory = bpmnModel.getBpmnElementFactory();
-    definitions = bpmnElementFactory.newDefinitionsElement();
-    bpmnModel.setDefinitions(definitions);
+    definitions = bpmnModelInstance.newInstance(Definitions.class);
+    bpmnModelInstance.setDefinitions(definitions);
 
-    definitions = bpmnModel.getDefinitions();
+    definitions = bpmnModelInstance.getDefinitions();
     assertThat(definitions).isNotNull();
 
-    bpmnModel.printModel();
-  }
-
-  @Test
-  public void testAddElementsInWrongOrder() {
-    BpmnModel bpmnModel = Bpmn.createEmptyModel();
-    BpmnElementFactory bpmnElementFactory = bpmnModel.getBpmnElementFactory();
-    Definitions definitions = bpmnElementFactory.newDefinitionsElement();
-    bpmnModel.setDefinitions(definitions);
-    definitions.getRootElements().add(bpmnElementFactory.newProcessElement());
-    definitions.getImports().add(bpmnElementFactory.newImportElement());
-    bpmnModel.printModel();
   }
 
 }

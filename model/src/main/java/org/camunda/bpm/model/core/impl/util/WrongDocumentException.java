@@ -12,7 +12,7 @@
  */
 package org.camunda.bpm.model.core.impl.util;
 
-import org.camunda.bpm.model.core.impl.ModelException;
+import org.camunda.bpm.model.core.ModelException;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;

@@ -12,13 +12,15 @@
  */
 package org.camunda.bpm.model.bpmn;
 
+import org.camunda.bpm.model.core.ModelException;
+
 /**
  * <p>A {@link RuntimeException} in the Bpmn Model.</p>
  *
  * @author Daniel Meyer
  *
  */
-public class BpmnModelException extends RuntimeException {
+public class BpmnModelException extends ModelException {
 
   private static final long serialVersionUID = 1L;
 

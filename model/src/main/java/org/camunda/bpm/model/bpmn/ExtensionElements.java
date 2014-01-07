@@ -18,6 +18,6 @@ package org.camunda.bpm.model.bpmn;
  * @author Daniel Meyer
  *
  */
-public interface ExtensionElements extends BpmnModelElement {
+public interface ExtensionElements extends BpmnModelElementInstance {
 
 }

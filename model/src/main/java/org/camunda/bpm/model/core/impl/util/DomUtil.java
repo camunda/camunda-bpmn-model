@@ -21,9 +21,9 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.camunda.bpm.model.core.impl.AbstractModel;
-import org.camunda.bpm.model.core.impl.AbstractModelElement;
-import org.camunda.bpm.model.core.impl.ModelParseException;
+import org.camunda.bpm.model.core.ModelParseException;
+import org.camunda.bpm.model.core.impl.ModelInstanceImpl;
+import org.camunda.bpm.model.core.instance.ModelElementInstance;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -98,11 +98,11 @@ public class DomUtil {
   public static class ElementByTypeListFilter extends ElementNodeListFilter {
 
     protected Class<?> type;
-    protected AbstractModel model;
+    protected ModelInstanceImpl model;
 
-    public ElementByTypeListFilter(Class<?> type, AbstractModel model) {
+    public ElementByTypeListFilter(Class<?> type, ModelInstanceImpl modelInstance) {
       this.type =  type;
-      this.model = model;
+      this.model = modelInstance;
     }
 
     @Override
@@ -110,7 +110,7 @@ public class DomUtil {
       if (! super.matches(node)) {
         return false;
       }
-      AbstractModelElement modelElement = ModelUtil.getModelElement((Element) node, model);
+      ModelElementInstance modelElement = ModelUtil.getModelElement((Element) node, model);
       return type.isAssignableFrom(modelElement.getClass());
     }
   }

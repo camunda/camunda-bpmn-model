@@ -16,8 +16,16 @@ import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.XML_SCHEMA_NS;
 import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.XPATH_NS;
 import static org.fest.assertions.Assertions.assertThat;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
+import org.camunda.bpm.model.bpmn.impl.BpmnModelInstanceImpl;
 import org.camunda.bpm.model.bpmn.util.BpmnModelResource;
-import org.camunda.bpm.model.core.impl.ModelParseException;
+import org.camunda.bpm.model.core.ModelValidationException;
+import org.camunda.bpm.model.core.impl.util.IoUtil;
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -30,7 +38,7 @@ public class DefinitionsTest extends BpmnModelTest {
   @BpmnModelResource
   public void shouldImportEmptyDefinitions() {
 
-    Definitions definitions = bpmnModel.getDefinitions();
+    Definitions definitions = bpmnModelInstance.getDefinitions();
     assertThat(definitions).isNotNull();
 
     // provided in file
@@ -48,17 +56,103 @@ public class DefinitionsTest extends BpmnModelTest {
 
     // has no imports
     assertThat(definitions.getImports()).isEmpty();
-
   }
 
   @Test
   public void shouldNotImportWrongOrderedSequence() {
     try {
-      BpmnModel model = Bpmn.readModelFromStream(getClass().getResourceAsStream("DefinitionsTest.shouldNotImportWrongOrderedSequence.bpmn"));
+      Bpmn.readModelFromStream(getClass().getResourceAsStream("DefinitionsTest.shouldNotImportWrongOrderedSequence.bpmn"));
+      Assert.fail("Model is invalid and should not be validated correctly");
     }
-    catch(ModelParseException e) {
-      e.printStackTrace();
+    catch (Exception e) {
+      assertThat(e).isInstanceOf(ModelValidationException.class);
     }
+  }
+
+  @Test
+  public void shouldExportCorrectOrderedSequence() throws IOException {
+   // create an empty model
+   BpmnModelInstance bpmnModelInstance = Bpmn.createEmptyModel();
+
+   // add definitions
+   Definitions definitions = bpmnModelInstance.newInstance(Definitions.class);
+   definitions.setTargetNamespace("Examples");
+   bpmnModelInstance.setDefinitions(definitions);
+
+   // create a Process element and add it to the definitions
+   Process process = bpmnModelInstance.newInstance(Process.class);
+   process.setId("some-process-id");
+   definitions.getRootElements().add(process);
+
+   // create an Import element and add it to the definitions
+   Import importElement = bpmnModelInstance.newInstance(Import.class);
+   importElement.setNamespace("Imports");
+   importElement.setLocation("here");
+   importElement.setImportType("example");
+   definitions.getImports().add(importElement);
+
+   // create another Process element and add it to the definitions
+   process = bpmnModelInstance.newInstance(Process.class);
+   process.setId("another-process-id");
+   definitions.getRootElements().add(process);
+
+   // create another Import element and add it to the definitions
+   importElement = bpmnModelInstance.newInstance(Import.class);
+   importElement.setNamespace("Imports");
+   importElement.setLocation("there");
+   importElement.setImportType("example");
+   definitions.getImports().add(importElement);
+
+   // convert the model to the XML string representation
+   OutputStream outputStream = new ByteArrayOutputStream();
+   Bpmn.writeModelToStream(outputStream, (BpmnModelInstanceImpl) bpmnModelInstance);
+   InputStream inputStream = IoUtil.convertOutputStreamToInputStream(outputStream);
+   String modelString = IoUtil.getStringFromInputStream(inputStream);
+   IoUtil.closeSilently(outputStream);
+   IoUtil.closeSilently(inputStream);
+
+   // read test process from file as string
+   inputStream = getClass().getResourceAsStream("DefinitionsTest.shouldExportCorrectOrderedSequence.bpmn");
+   String fileString = IoUtil.getStringFromInputStream(inputStream);
+   IoUtil.closeSilently(inputStream);
+
+   // compare strings
+   assertThat(modelString).isEqualTo(fileString);
+  }
+
+  @Test
+  @BpmnModelResource
+  public void shouldNotAffectComments() throws IOException {
+    Definitions definitions = bpmnModelInstance.getDefinitions();
+    assertThat(definitions).isNotNull();
+
+    // create another Process element and add it to the definitions
+    Process process = bpmnModelInstance.newInstance(Process.class);
+    process.setId("another-process-id");
+    definitions.getRootElements().add(process);
+
+    // create another Import element and add it to the definitions
+    Import importElement = bpmnModelInstance.newInstance(Import.class);
+    importElement.setNamespace("Imports");
+    importElement.setLocation("there");
+    importElement.setImportType("example");
+    definitions.getImports().add(importElement);
+
+    // convert the model to the XML string representation
+    OutputStream outputStream = new ByteArrayOutputStream();
+    Bpmn.writeModelToStream(outputStream, (BpmnModelInstanceImpl) bpmnModelInstance);
+    InputStream inputStream = IoUtil.convertOutputStreamToInputStream(outputStream);
+    String modelString = IoUtil.getStringFromInputStream(inputStream);
+    IoUtil.closeSilently(outputStream);
+    IoUtil.closeSilently(inputStream);
+
+    // read test process from file as string
+    inputStream = getClass().getResourceAsStream("DefinitionsTest.shouldNotAffectCommentsResult.bpmn");
+    String fileString = IoUtil.getStringFromInputStream(inputStream);
+    IoUtil.closeSilently(inputStream);
+
+    // compare strings
+    assertThat(modelString).isEqualTo(fileString);
   }
 
 }

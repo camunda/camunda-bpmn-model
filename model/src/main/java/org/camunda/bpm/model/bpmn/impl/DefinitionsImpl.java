@@ -12,6 +12,7 @@
  */
 package org.camunda.bpm.model.bpmn.impl;
 
+import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.*;
 import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN_ATTRIBUTE_EXPORTER;
 import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN_ATTRIBUTE_EXPORTER_VERSION;
 import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN_ATTRIBUTE_EXPRESSION_LANGUAGE;
@@ -20,18 +21,22 @@ import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN_ATTRIBUTE_
 import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN_ATTRIBUTE_TARGET_NAMESPACE;
 import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN_ATTRIBUTE_TYPE_LANGUAGE;
 import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN_ELEMENT_DEFINITIONS;
-import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN_ELEMENT_IMPORT;
+import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.XML_SCHEMA_NS;
+import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.XPATH_NS;
 
 import java.util.Collection;
 
 import org.camunda.bpm.model.bpmn.Definitions;
 import org.camunda.bpm.model.bpmn.Import;
 import org.camunda.bpm.model.bpmn.RootElement;
-import org.camunda.bpm.model.core.impl.ModelElementCreateContext;
-import org.camunda.bpm.model.core.impl.attribute.Attribute;
-import org.camunda.bpm.model.core.impl.attribute.StringAttribute;
-import org.camunda.bpm.model.core.impl.child.NamedChildElementCollection;
-import org.camunda.bpm.model.core.impl.child.TypeChildElementCollection;
+import org.camunda.bpm.model.core.Model;
+import org.camunda.bpm.model.core.impl.instance.ModelTypeInstanceContext;
+import org.camunda.bpm.model.core.impl.type.child.ChildElementCollection;
+import org.camunda.bpm.model.core.impl.type.child.SequenceBuilder;
+import org.camunda.bpm.model.core.type.Attribute;
+import org.camunda.bpm.model.core.type.ModelElementType;
+import org.camunda.bpm.model.core.type.ModelElementTypeBuilder;
+import org.camunda.bpm.model.core.type.ModelElementTypeBuilder.ModelTypeIntanceProvider;
 
 /**
  * The BPMN Definitions Element
@@ -43,90 +48,130 @@ public class DefinitionsImpl extends AbstractBpmnModelElement implements Definit
 
   public final static String ELEMENT_NAME = BPMN_ELEMENT_DEFINITIONS;
 
-  protected Attribute<String> idAttr = new StringAttribute(BPMN_ATTRIBUTE_ID, this);
-  protected Attribute<String> nameAttr = new StringAttribute(BPMN_ATTRIBUTE_NAME, this);
-  protected Attribute<String> expressionLanguageAttr = new StringAttribute(BPMN_ATTRIBUTE_EXPRESSION_LANGUAGE, this);
-  protected Attribute<String> typeLanguageAttr = new StringAttribute(BPMN_ATTRIBUTE_TYPE_LANGUAGE, this);
-  protected Attribute<String> exporterAttr = new StringAttribute(BPMN_ATTRIBUTE_EXPORTER, this);
-  protected Attribute<String> exporterVersionAttr = new StringAttribute(BPMN_ATTRIBUTE_EXPORTER_VERSION, this);
-  protected Attribute<String> targetNamespaceAttr = new StringAttribute(BPMN_ATTRIBUTE_TARGET_NAMESPACE, this);
+  public static ModelElementType MODEL_TYPE;
 
-  protected Collection<Import> importElementsColl = new NamedChildElementCollection<Import>(BPMN_ELEMENT_IMPORT, this);
-  protected Collection<RootElement> rootElementsColl = new TypeChildElementCollection<RootElement>(RootElement.class, this);
+  static Attribute<String> idAttr;
+  static Attribute<String> nameAttr;
+  static Attribute<String> expressionLanguageAttr;
+  static Attribute<String> typeLanguageAttr;
+  static Attribute<String> exporterAttr;
+  static Attribute<String> exporterVersionAttr;
+  static Attribute<String> targetNamespaceAttr;
 
+  static ChildElementCollection<Import> importElementsColl;
+  static ChildElementCollection<RootElement> rootElementsColl;
 
+  public static void registerType(Model model) {
 
-  public DefinitionsImpl(ModelElementCreateContext context) {
-    super(context);
+    ModelElementTypeBuilder typeBuilder = model.defineType(Definitions.class, ELEMENT_NAME)
+      .namespaceUri(BPMN20_NS)
+      .instanceProvider(new ModelTypeIntanceProvider<Definitions>() {
+        public Definitions newInstance(ModelTypeInstanceContext instanceContext) {
+          return new DefinitionsImpl(instanceContext);
+        }
+      });
+
+    idAttr = typeBuilder.stringAttribute(BPMN_ATTRIBUTE_ID)
+        .build();
+
+    nameAttr = typeBuilder.stringAttribute(BPMN_ATTRIBUTE_NAME)
+        .build();
+
+    expressionLanguageAttr = typeBuilder.stringAttribute(BPMN_ATTRIBUTE_EXPRESSION_LANGUAGE)
+        .defaultValue(XPATH_NS)
+        .build();
+
+    typeLanguageAttr = typeBuilder.stringAttribute(BPMN_ATTRIBUTE_TYPE_LANGUAGE)
+        .defaultValue(XML_SCHEMA_NS)
+        .build();
+
+    exporterAttr = typeBuilder.stringAttribute(BPMN_ATTRIBUTE_EXPORTER)
+        .build();
+
+    exporterVersionAttr = typeBuilder.stringAttribute(BPMN_ATTRIBUTE_EXPORTER_VERSION)
+        .build();
+
+    targetNamespaceAttr = typeBuilder.stringAttribute(BPMN_ATTRIBUTE_TARGET_NAMESPACE)
+        .required()
+        .build();
+
+    SequenceBuilder sequence = typeBuilder.sequence();
+
+    importElementsColl = sequence.elementCollection(Import.class, BPMN_ELEMENT_IMPORT)
+      .build();
+
+    rootElementsColl = sequence.elementCollection(RootElement.class)
+      .build();
+
+    MODEL_TYPE = typeBuilder.build();
   }
 
-  // attributes /////////////////////////
-
+  public DefinitionsImpl(ModelTypeInstanceContext instanceContext) {
+    super(instanceContext);
+  }
 
   public String getId() {
-    return idAttr.getValue();
+    return idAttr.getValue(this);
   }
 
   public void setId(String id) {
-    idAttr.setValue(id);
+    idAttr.setValue(this, id);
   }
 
   public String getName() {
-    return nameAttr.getValue();
+    return nameAttr.getValue(this);
   }
 
   public void setName(String name) {
-    nameAttr.setValue(name);
+    nameAttr.setValue(this, name);
   }
 
   public String getExpressionLanguage() {
-    return expressionLanguageAttr.getValue();
+    return expressionLanguageAttr.getValue(this);
   }
 
   public void setExpressionLanguage(String expressionLanguage) {
-    expressionLanguageAttr.setValue(expressionLanguage);
+    expressionLanguageAttr.setValue(this, expressionLanguage);
   }
 
   public String getTypeLanguage() {
-    return typeLanguageAttr.getValue();
+    return typeLanguageAttr.getValue(this);
   }
 
   public void setTypeLanguage(String typeLanguage) {
-    typeLanguageAttr.setValue(typeLanguage);
+    typeLanguageAttr.setValue(this, typeLanguage);
   }
 
   public String getExporter() {
-    return exporterAttr.getValue();
+    return exporterAttr.getValue(this);
   }
 
   public void setExporter(String exporter) {
-    exporterAttr.setValue(exporter);
+    exporterAttr.setValue(this, exporter);
   }
 
   public String getExporterVersion() {
-    return exporterVersionAttr.getValue();
+    return exporterVersionAttr.getValue(this);
   }
 
   public void setExporterVersion(String exporterVersion) {
-    exporterVersionAttr.setValue(exporterVersion);
+    exporterVersionAttr.setValue(this, exporterVersion);
   }
 
   public String getTargetNamespace() {
-    return targetNamespaceAttr.getValue();
+    return targetNamespaceAttr.getValue(this);
   }
 
   public void setTargetNamespace(String namespace) {
-    targetNamespaceAttr.setValue(namespace);
+    targetNamespaceAttr.setValue(this, namespace);
   }
 
-  // collections /////////////////////////
-
   public Collection<Import> getImports() {
-    return importElementsColl;
+    return importElementsColl.get(this);
   }
 
   public Collection<RootElement> getRootElements() {
-    return rootElementsColl;
+    return rootElementsColl.get(this);
   }
 
 }
