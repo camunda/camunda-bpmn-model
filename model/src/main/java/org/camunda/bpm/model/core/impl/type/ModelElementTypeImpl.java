@@ -131,7 +131,12 @@ public class ModelElementTypeImpl implements ModelElementType {
   }
 
   public List<Class<?>> getChildElementTypes() {
-    return childElementTypes;
+    List<Class<?>> allChildElementTypes = new ArrayList<Class<?>>();
+    if (partentType != null) {
+      allChildElementTypes.addAll(partentType.getChildElementTypes());
+    }
+    allChildElementTypes.addAll(childElementTypes);
+    return allChildElementTypes;
   }
 
 }
