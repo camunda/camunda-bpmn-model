@@ -87,6 +87,7 @@ public class Bpmn {
    * @param file the {@link File} to write the {@link BpmnModelInstanceImpl} to
    * @param model the {@link BpmnModelInstanceImpl} to write
    * @throws BpmnModelException if the model cannot be written
+   * @throws ModelValidationException if the model is not valid
    */
   public static void writeModelToFile(File file, BpmnModelInstanceImpl model) {
     INSTANCE.doWriteModelToFile(file, model);
@@ -98,10 +99,21 @@ public class Bpmn {
    *
    * @param stream the {@link OutputStream} to write the {@link BpmnModelInstanceImpl} to
    * @param model the {@link BpmnModelInstanceImpl} to write
-   * @throws ModelParseException if the model cannot be written
+   * @throws ModelModelException if the model cannot be written
+   * @throws ModelValidationException if the model is not valid
    */
   public static void writeModelToStream(OutputStream stream, BpmnModelInstanceImpl model) {
     INSTANCE.doWriteModelToOutputStream(stream, model);
+  }
+
+  /**
+   * Validate model DOM document
+   *
+   * @param model the {@link BpmnModelInstanceImpl} to validate
+   * @throws ModelValidationException if the model is not valid
+   */
+  public static void validateModel(BpmnModelInstanceImpl model) {
+    INSTANCE.doValidateModel(model);
   }
 
   /**
@@ -154,7 +166,7 @@ public class Bpmn {
 
   protected void doWriteModelToOutputStream(OutputStream os, BpmnModelInstanceImpl model) {
     // validate DOM document
-    bpmnParser.validateModel(model.getDocument());
+    doValidateModel(model);
     try {
       TransformerFactory transformerFactory = TransformerFactory.newInstance();
       Transformer transformer = transformerFactory.newTransformer();
@@ -166,6 +178,10 @@ public class Bpmn {
     } catch (TransformerException e) {
       throw new BpmnModelException("Cannot transform model to xml", e);
     }
+  }
+
+  protected void doValidateModel(BpmnModelInstanceImpl model) {
+    bpmnParser.validateModel(model.getDocument());
   }
 
   protected BpmnModelInstance doCreateEmptyModel() {
