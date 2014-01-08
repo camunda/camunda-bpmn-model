@@ -81,7 +81,8 @@ public class Bpmn {
   }
 
   /**
-   * Allows writing a {@link BpmnModelInstanceImpl} to a File.
+   * Allows writing a {@link BpmnModelInstanceImpl} to a File. It will be
+   * validated before writing.
    *
    * @param file the {@link File} to write the {@link BpmnModelInstanceImpl} to
    * @param model the {@link BpmnModelInstanceImpl} to write
@@ -92,7 +93,8 @@ public class Bpmn {
   }
 
   /**
-   * Allows writing a {@link BpmnModelInstanceImpl} to an {@link OutputStream}
+   * Allows writing a {@link BpmnModelInstanceImpl} to an {@link OutputStream}. It will be
+   * validated before writing.
    *
    * @param stream the {@link OutputStream} to write the {@link BpmnModelInstanceImpl} to
    * @param model the {@link BpmnModelInstanceImpl} to write
@@ -151,6 +153,8 @@ public class Bpmn {
   }
 
   protected void doWriteModelToOutputStream(OutputStream os, BpmnModelInstanceImpl model) {
+    // validate DOM document
+    bpmnParser.validateModel(model.getDocument());
     try {
       TransformerFactory transformerFactory = TransformerFactory.newInstance();
       Transformer transformer = transformerFactory.newTransformer();
