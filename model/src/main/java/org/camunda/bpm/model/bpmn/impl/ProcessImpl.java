@@ -14,11 +14,16 @@ package org.camunda.bpm.model.bpmn.impl;
 
 import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.*;
 
+import java.util.Collection;
+
 import org.camunda.bpm.model.bpmn.CallableElement;
+import org.camunda.bpm.model.bpmn.FlowElement;
 import org.camunda.bpm.model.bpmn.Process;
 import org.camunda.bpm.model.bpmn.ProcessType;
 import org.camunda.bpm.model.core.Model;
 import org.camunda.bpm.model.core.impl.instance.ModelTypeInstanceContext;
+import org.camunda.bpm.model.core.impl.type.child.ChildElementCollection;
+import org.camunda.bpm.model.core.impl.type.child.SequenceBuilder;
 import org.camunda.bpm.model.core.type.Attribute;
 import org.camunda.bpm.model.core.type.ModelElementType;
 import org.camunda.bpm.model.core.type.ModelElementTypeBuilder;
@@ -36,6 +41,8 @@ public class ProcessImpl extends CallableElementImpl implements Process {
   static Attribute<ProcessType> processTypeAttr;
   static Attribute<Boolean> isClosedAttr;
   static Attribute<Boolean> isExecutableAttr;
+
+  static ChildElementCollection<FlowElement> flowElementsColl;
 
   public static void registerType(Model model) {
 
@@ -58,6 +65,11 @@ public class ProcessImpl extends CallableElementImpl implements Process {
 
     isExecutableAttr = builder.booleanAttribute(BPMN_ATTRIBUTE_IS_EXECUTABLE)
       .defaultValue(false)
+      .build();
+
+    SequenceBuilder sequence = builder.sequence();
+
+    flowElementsColl = sequence.elementCollection(FlowElement.class, BPMN_TYPE_FLOW_ELEMENT)
       .build();
 
     MODEL_TYPE = builder.build();
@@ -89,6 +101,10 @@ public class ProcessImpl extends CallableElementImpl implements Process {
 
   public void setExecutable(boolean executable) {
     isExecutableAttr.setValue(this, executable);
+  }
+
+  public Collection<FlowElement> getFlowElements() {
+    return flowElementsColl.get(this);
   }
 
 }

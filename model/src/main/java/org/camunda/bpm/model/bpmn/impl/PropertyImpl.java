@@ -12,51 +12,39 @@
  */
 package org.camunda.bpm.model.bpmn.impl;
 
-import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN20_NS;
-import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN_ATTRIBUTE_NAME;
-import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN_TYPE_FLOW_ELEMENT;
+import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.*;
 
 import org.camunda.bpm.model.bpmn.BaseElement;
-import org.camunda.bpm.model.bpmn.FlowElement;
+import org.camunda.bpm.model.bpmn.Property;
 import org.camunda.bpm.model.core.Model;
 import org.camunda.bpm.model.core.impl.instance.ModelTypeInstanceContext;
-import org.camunda.bpm.model.core.type.Attribute;
 import org.camunda.bpm.model.core.type.ModelElementType;
 import org.camunda.bpm.model.core.type.ModelElementTypeBuilder;
+import org.camunda.bpm.model.core.type.ModelElementTypeBuilder.ModelTypeIntanceProvider;
 
 /**
- * @author Daniel Meyer
+ * @author Sebastian Menski
  *
  */
-public abstract class FlowElementImpl extends BaseElementImp implements FlowElement {
+public class PropertyImpl extends BaseElementImp implements Property {
 
   public static ModelElementType MODEL_TYPE;
 
-  static Attribute<String> nameAttr;
-
   public static void registerType(Model model) {
-
-    ModelElementTypeBuilder builder = model.defineType(FlowElement.class, BPMN_TYPE_FLOW_ELEMENT)
+    ModelElementTypeBuilder typeBuilder = model.defineType(Property.class, BPMN_ELEMENT_PROPERTY)
       .namespaceUri(BPMN20_NS)
-      .abstractType()
-      .extendsType(model.getType(BaseElement.class));
+      .extendsType(model.getType(BaseElement.class))
+      .instanceProvider(new ModelTypeIntanceProvider<Property>() {
+        public Property newInstance(ModelTypeInstanceContext instanceContext) {
+          return new PropertyImpl(instanceContext);
+        }
+      });
 
-    nameAttr = builder.stringAttribute(BPMN_ATTRIBUTE_NAME)
-      .build();
-
-    MODEL_TYPE = builder.build();
+    MODEL_TYPE = typeBuilder.build();
   }
 
-  public FlowElementImpl(ModelTypeInstanceContext context) {
-    super(context);
-  }
-
-  public String getName() {
-    return nameAttr.getValue(this);
-  }
-
-  public void setName(String name) {
-    nameAttr.setValue(this, name);
+  public PropertyImpl(ModelTypeInstanceContext instanceContext) {
+    super(instanceContext);
   }
 
 }

@@ -12,29 +12,12 @@
  */
 package org.camunda.bpm.model.bpmn;
 
-import java.util.Collection;
-
-
 /**
- * <p>The BPMN process element</p>
+ * <p>The BPMN flow node element</p>
  *
- * @author Daniel Meyer
+ * @author Sebastian Menski
  *
  */
-public interface Process extends CallableElement {
-
-  ProcessType getProcessType();
-
-  void setProcessType(ProcessType processType);
-
-  boolean isClosed();
-
-  void setClosed(boolean closed);
-
-  boolean isExecutable();
-
-  void setExecutable(boolean executable);
-
-  Collection<FlowElement> getFlowElements();
+public interface FlowNode extends FlowElement {
 
 }

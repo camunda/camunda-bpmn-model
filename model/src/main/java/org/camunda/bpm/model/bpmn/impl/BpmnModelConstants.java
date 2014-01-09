@@ -38,12 +38,20 @@ public class BpmnModelConstants {
   public static final String BPMN_ELEMENT_DOCUMENTATION = "documentation";
   public static final String BPMN_ELEMENT_EXTENSION_ELEMENTS = "extensionElements";
   public static final String BPMN_ELEMENT_PROCESS = "process";
+  public static final String BPMN_ELEMENT_MESSAGE = "message";
+  public static final String BPMN_ELEMENT_START_EVENT = "startEvent";
+  public static final String BPMN_ELEMENT_PROPERTY = "property";
 
   // abstract types //////////////////////////////////
 
   public static final String BPMN_TYPE_BASE_ELEMENT = "baseElement";
   public static final String BPMN_TYPE_ROOT_ELEMENT = "rootElement";
   public static final String BPMN_TYPE_CALLABLE_ELEMENT = "callableElement";
+  public static final String BPMN_TYPE_FLOW_ELEMENT = "flowElement";
+  public static final String BPMN_TYPE_EVENT_DEFINITION = "eventDefinition";
+  public static final String BPMN_TYPE_FLOW_NODE = "flowNode";
+  public static final String BPMN_TYPE_EVENT = "event";
+  public static final String BPMN_TYPE_CATCH_EVENT = "catchEvent";
 
   // attributes //////////////////////////////////////
 

@@ -30,10 +30,18 @@ import org.camunda.bpm.model.bpmn.impl.BaseElementImp;
 import org.camunda.bpm.model.bpmn.impl.BpmnModelInstanceImpl;
 import org.camunda.bpm.model.bpmn.impl.BpmnParser;
 import org.camunda.bpm.model.bpmn.impl.CallableElementImpl;
+import org.camunda.bpm.model.bpmn.impl.CatchEventImpl;
 import org.camunda.bpm.model.bpmn.impl.DefinitionsImpl;
+import org.camunda.bpm.model.bpmn.impl.EventDefinitionImpl;
+import org.camunda.bpm.model.bpmn.impl.EventImpl;
+import org.camunda.bpm.model.bpmn.impl.FlowElementImpl;
+import org.camunda.bpm.model.bpmn.impl.FlowNodeImpl;
 import org.camunda.bpm.model.bpmn.impl.ImportImpl;
+import org.camunda.bpm.model.bpmn.impl.MessageImpl;
 import org.camunda.bpm.model.bpmn.impl.ProcessImpl;
+import org.camunda.bpm.model.bpmn.impl.PropertyImpl;
 import org.camunda.bpm.model.bpmn.impl.RootElementImpl;
+import org.camunda.bpm.model.bpmn.impl.StartEventImpl;
 import org.camunda.bpm.model.core.Model;
 import org.camunda.bpm.model.core.ModelParseException;
 import org.camunda.bpm.model.core.impl.ModelImpl;
@@ -192,9 +200,17 @@ public class Bpmn {
     DefinitionsImpl.registerType(model);
     ImportImpl.registerType(model);
     BaseElementImp.registerType(model);
+    PropertyImpl.registerType(model);
     RootElementImpl.registerType(model);
     CallableElementImpl.registerType(model);
     ProcessImpl.registerType(model);
+    MessageImpl.registerType(model);
+    EventDefinitionImpl.registerType(model);
+    FlowElementImpl.registerType(model);
+    FlowNodeImpl.registerType(model);
+    EventImpl.registerType(model);
+    CatchEventImpl.registerType(model);
+    StartEventImpl.registerType(model);
   }
 
   /**

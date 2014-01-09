@@ -14,27 +14,14 @@ package org.camunda.bpm.model.bpmn;
 
 import java.util.Collection;
 
-
 /**
- * <p>The BPMN process element</p>
+ * <p>The BPMN catch event element</p>
  *
- * @author Daniel Meyer
+ * @author Sebastian Menski
  *
  */
-public interface Process extends CallableElement {
+public interface CatchEvent extends Event {
 
-  ProcessType getProcessType();
-
-  void setProcessType(ProcessType processType);
-
-  boolean isClosed();
-
-  void setClosed(boolean closed);
-
-  boolean isExecutable();
-
-  void setExecutable(boolean executable);
-
-  Collection<FlowElement> getFlowElements();
+  Collection<EventDefinition> getEventDefinitions();
 
 }

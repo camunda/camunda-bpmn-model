@@ -10,31 +10,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.camunda.bpm.model.bpmn;
 
-import java.util.Collection;
-
-
 /**
- * <p>The BPMN process element</p>
- *
- * @author Daniel Meyer
- *
- */
-public interface Process extends CallableElement {
-
-  ProcessType getProcessType();
-
-  void setProcessType(ProcessType processType);
-
-  boolean isClosed();
-
-  void setClosed(boolean closed);
-
-  boolean isExecutable();
-
-  void setExecutable(boolean executable);
-
-  Collection<FlowElement> getFlowElements();
+* <p>The BPMN event definition element</p>
+*
+* @author Sebastian Menski
+*
+*/
+public interface EventDefinition extends RootElement {
 
 }

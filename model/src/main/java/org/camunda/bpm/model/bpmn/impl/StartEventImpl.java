@@ -12,51 +12,40 @@
  */
 package org.camunda.bpm.model.bpmn.impl;
 
-import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN20_NS;
-import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN_ATTRIBUTE_NAME;
-import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN_TYPE_FLOW_ELEMENT;
+import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.*;
 
-import org.camunda.bpm.model.bpmn.BaseElement;
-import org.camunda.bpm.model.bpmn.FlowElement;
+import org.camunda.bpm.model.bpmn.CatchEvent;
+import org.camunda.bpm.model.bpmn.StartEvent;
 import org.camunda.bpm.model.core.Model;
 import org.camunda.bpm.model.core.impl.instance.ModelTypeInstanceContext;
-import org.camunda.bpm.model.core.type.Attribute;
 import org.camunda.bpm.model.core.type.ModelElementType;
 import org.camunda.bpm.model.core.type.ModelElementTypeBuilder;
+import org.camunda.bpm.model.core.type.ModelElementTypeBuilder.ModelTypeIntanceProvider;
 
 /**
- * @author Daniel Meyer
+ * @author Sebastian Menski
  *
  */
-public abstract class FlowElementImpl extends BaseElementImp implements FlowElement {
+public class StartEventImpl extends CatchEventImpl implements StartEvent {
 
   public static ModelElementType MODEL_TYPE;
 
-  static Attribute<String> nameAttr;
-
   public static void registerType(Model model) {
 
-    ModelElementTypeBuilder builder = model.defineType(FlowElement.class, BPMN_TYPE_FLOW_ELEMENT)
+    ModelElementTypeBuilder builder = model.defineType(StartEvent.class, BPMN_ELEMENT_START_EVENT)
       .namespaceUri(BPMN20_NS)
-      .abstractType()
-      .extendsType(model.getType(BaseElement.class));
-
-    nameAttr = builder.stringAttribute(BPMN_ATTRIBUTE_NAME)
-      .build();
+      .extendsType(model.getType(CatchEvent.class))
+      .instanceProvider(new ModelTypeIntanceProvider<StartEvent>() {
+        public StartEvent newInstance(ModelTypeInstanceContext instanceContext) {
+          return new StartEventImpl(instanceContext);
+        }
+      });
 
     MODEL_TYPE = builder.build();
   }
 
-  public FlowElementImpl(ModelTypeInstanceContext context) {
+  public StartEventImpl(ModelTypeInstanceContext context) {
     super(context);
-  }
-
-  public String getName() {
-    return nameAttr.getValue(this);
-  }
-
-  public void setName(String name) {
-    nameAttr.setValue(this, name);
   }
 
 }
