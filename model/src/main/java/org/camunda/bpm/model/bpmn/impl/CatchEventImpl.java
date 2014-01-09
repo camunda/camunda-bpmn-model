@@ -12,14 +12,15 @@
  */
 package org.camunda.bpm.model.bpmn.impl;
 
-import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.*;
+import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN20_NS;
+import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN_TYPE_CATCH_EVENT;
+import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN_TYPE_EVENT_DEFINITION;
 
 import java.util.Collection;
 
 import org.camunda.bpm.model.bpmn.CatchEvent;
 import org.camunda.bpm.model.bpmn.Event;
 import org.camunda.bpm.model.bpmn.EventDefinition;
-import org.camunda.bpm.model.bpmn.FlowNode;
 import org.camunda.bpm.model.core.Model;
 import org.camunda.bpm.model.core.ModelBuilder;
 import org.camunda.bpm.model.core.impl.ModelBuildOperation;

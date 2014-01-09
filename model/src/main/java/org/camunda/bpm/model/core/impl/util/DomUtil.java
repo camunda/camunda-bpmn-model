@@ -348,6 +348,23 @@ public class DomUtil {
     domElement.setIdAttributeNS(namespaceUri, attributeName, true);
   }
 
+  /**
+   * @param domElement
+   * @param attributeName
+   */
+  public static void removeAttribute(Element domElement, String attributeName) {
+    domElement.removeAttribute(attributeName);
+  }
+
+  /**
+   * @param domElement
+   * @param attributeName
+   * @param namespaceUri
+   */
+  public static void removeAttributeNs(Element domElement, String attributeName, String namespaceUri) {
+    domElement.removeAttributeNS(namespaceUri, attributeName);
+  }
+
 
 
 }

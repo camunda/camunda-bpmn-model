@@ -40,5 +40,4 @@ public interface ModelElementType {
   Collection<ModelElementType> getExtendingTypes();
 
   Model getModel();
-
 }

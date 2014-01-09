@@ -36,5 +36,8 @@ public interface ModelElementInstance {
 
   ModelInstance getModelInstance();
 
+  void removeAttribute(String attributeName);
+
+  void removeAttributeNs(String attributeName, String namespaceUri);
 
 }

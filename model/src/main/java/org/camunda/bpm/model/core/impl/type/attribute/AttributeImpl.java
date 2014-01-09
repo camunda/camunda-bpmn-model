@@ -88,6 +88,9 @@ public abstract class AttributeImpl<T> implements Attribute<T> {
     } else {
       modelElement.setAttributeValueNs(attributeName, namespaceUri, xmlValue, isIdAttribute);
     }
+    if (isIdAttribute) {
+      // TODO: update references to new value
+    }
   }
 
   public void setDefaultValue(T defaultValue) {
@@ -129,12 +132,24 @@ public abstract class AttributeImpl<T> implements Attribute<T> {
     this.attributeName = attributeName;
   }
 
+  public void removeAttribute(ModelElementInstance modelElemement) {
+    if (namespaceUri == null) {
+      modelElemement.removeAttribute(attributeName);
+    }
+    else {
+      modelElemement.removeAttributeNs(attributeName, namespaceUri);
+    }
+    if (isIdAttribute) {
+      // TODO: remove references
+    }
+  }
+
   /**
    * indicate whether this attribute is an Id attribtue
    * @param b
    */
-  public void setId(boolean b) {
-    this.isIdAttribute = b;
+  public void setId(boolean isIdAttribute) {
+    this.isIdAttribute = isIdAttribute;
   }
 
 }

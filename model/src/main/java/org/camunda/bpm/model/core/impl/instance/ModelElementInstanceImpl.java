@@ -174,10 +174,11 @@ public abstract class ModelElementInstanceImpl implements ModelElementInstance {
   }
 
   /**
-   * @param child the child elememt to remove
+   * @param child the child element to remove
    * @return true if the child element could be removed.
    */
   public boolean removeChildElement(ModelElementInstanceImpl child) {
+    // TODO: remove references
     return DomUtil.removeChild(domElement, child.getDomElement());
   }
 
@@ -216,9 +217,14 @@ public abstract class ModelElementInstanceImpl implements ModelElementInstance {
     }
   }
 
-  /* (non-Javadoc)
-   * @see org.camunda.bpm.model.core.instance.ModelTypeInstance#getModelType()
-   */
+  public void removeAttribute(String attributeName) {
+    DomUtil.removeAttribute(domElement, attributeName);
+  }
+
+  public void removeAttributeNs(String attributeName, String namespaceUri) {
+    DomUtil.removeAttributeNs(domElement, attributeName, namespaceUri);
+  }
+
   public ModelElementTypeImpl getElementType() {
     return elementType;
   }

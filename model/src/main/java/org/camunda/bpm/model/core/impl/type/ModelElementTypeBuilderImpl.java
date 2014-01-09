@@ -84,7 +84,7 @@ public class ModelElementTypeBuilderImpl implements ModelElementTypeBuilder, Mod
   }
 
   public <V extends ModelElementInstance> ReferenceBuilder<V> qNameReference(Class<V> referencedElementType, String referencedAttributeName) {
-    QNameReferenceBuilderImpl<V> builder = new QNameReferenceBuilderImpl<V>(referencedAttributeName, referencedElementType, modelType);
+    QNameReferenceBuilderImpl<V> builder = new QNameReferenceBuilderImpl<V>(referencedAttributeName, referencedElementType, modelType, instanceType);
     modelBuildOperations.add(builder);
     return builder;
   }

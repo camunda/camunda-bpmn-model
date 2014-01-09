@@ -16,12 +16,15 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 import org.camunda.bpm.model.core.Model;
+import org.camunda.bpm.model.core.ModelException;
 import org.camunda.bpm.model.core.ModelInstance;
 import org.camunda.bpm.model.core.impl.ModelImpl;
 import org.camunda.bpm.model.core.impl.ModelInstanceImpl;
 import org.camunda.bpm.model.core.impl.instance.ModelTypeInstanceContext;
+import org.camunda.bpm.model.core.impl.util.ModelUtil;
 import org.camunda.bpm.model.core.instance.ModelElementInstance;
 import org.camunda.bpm.model.core.type.Attribute;
 import org.camunda.bpm.model.core.type.ModelElementType;
@@ -51,6 +54,10 @@ public class ModelElementTypeImpl implements ModelElementType {
   protected List<Class<?>> childElementTypes = new ArrayList<Class<?>>();
 
   protected List<Reference<?>> references = new ArrayList<Reference<?>>();
+
+  protected List<Class<? extends ModelElementInstance>> registeredReferencingTypes = new ArrayList<Class<? extends ModelElementInstance>>();
+
+  protected Collection<ModelElementType> referencingTypes = null;
 
   protected ModelTypeIntanceProvider<?> instanceProvider;
 
@@ -92,6 +99,10 @@ public class ModelElementTypeImpl implements ModelElementType {
     extendingTypes.add(modelType);
   }
 
+  public void registerReferencingType(Class<? extends ModelElementInstance> modelInstanceType) {
+    registeredReferencingTypes.add(modelInstanceType);
+  }
+
   protected ModelElementInstance createModelElementIntance(ModelTypeInstanceContext instanceContext) {
     return instanceProvider.newInstance(instanceContext);
   }
@@ -116,8 +127,14 @@ public class ModelElementTypeImpl implements ModelElementType {
     return typeNamespace;
   }
 
-  public void setBaseType(ModelElementTypeImpl partentType) {
-    this.baseType = partentType;
+  public void setBaseType(ModelElementTypeImpl baseType) {
+    if (this.baseType == null) {
+      this.baseType = baseType;
+    }
+    else {
+      throw new ModelException("Type can not have multiple base types. " + this.getClass() + " already extends type " + this.baseType.getClass()
+          + " and can not also extend type " + baseType.getClass());
+    }
   }
 
   public void setInstanceProvider(ModelTypeIntanceProvider<?> instanceProvider) {
@@ -134,6 +151,41 @@ public class ModelElementTypeImpl implements ModelElementType {
 
   public Collection<ModelElementType> getExtendingTypes() {
     return Collections.unmodifiableCollection(extendingTypes);
+  }
+
+  /**
+   * Resolve all types recursively which are extending this type
+   *
+   * @param allExtendingTypes set of calculated extending types
+   */
+  public void resolveExtendingTypes(Set<ModelElementType> allExtendingTypes) {
+    for(ModelElementType modelElementType : extendingTypes) {
+      ModelElementTypeImpl modelElementTypeImpl = (ModelElementTypeImpl) modelElementType;
+      if (!allExtendingTypes.contains(modelElementTypeImpl)) {
+        allExtendingTypes.add(modelElementType);
+        modelElementTypeImpl.resolveExtendingTypes(allExtendingTypes);
+      }
+    }
+  }
+
+  /**
+   * Resolve all types which are base types of this type
+   *
+   * @param baseTypes list of calculated base types
+   */
+  public void resolveBaseTypes(List<ModelElementType> baseTypes) {
+    if (baseType != null) {
+      baseTypes.add(baseType);
+      baseType.resolveBaseTypes(baseTypes);
+    }
+  }
+
+  public Collection<ModelElementType> getReferencingTypes() {
+    if (referencingTypes == null) {
+      Collection<ModelElementType> allReferencingTypes = ModelUtil.calculateAllExtendingTypes(model, registeredReferencingTypes);
+      referencingTypes = Collections.unmodifiableCollection(allReferencingTypes);
+    }
+    return referencingTypes;
   }
 
   public ModelElementType getBaseType() {

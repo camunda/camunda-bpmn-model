@@ -14,13 +14,17 @@ package org.camunda.bpm.model.core.impl.util;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import org.camunda.bpm.model.core.Model;
 import org.camunda.bpm.model.core.ModelException;
 import org.camunda.bpm.model.core.impl.ModelInstanceImpl;
 import org.camunda.bpm.model.core.impl.instance.ModelElementInstanceImpl;
 import org.camunda.bpm.model.core.impl.type.ModelElementTypeImpl;
 import org.camunda.bpm.model.core.instance.ModelElementInstance;
+import org.camunda.bpm.model.core.type.ModelElementType;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -152,16 +156,17 @@ public class ModelUtil {
    * @param model
    * @return
    */
+  @SuppressWarnings("unchecked")
   public static <T> Collection<T> getModelElementCollection(Collection<Element> view, ModelInstanceImpl model) {
     List<ModelElementInstance> resultList = new ArrayList<ModelElementInstance>();
     for (Element element : view) {
       resultList.add(getModelElement(element, model));
     }
-    return (List) resultList;
+    return (Collection<T>) resultList;
   }
 
   /**
-   * Find the index of the type of a model ellement in a list of element types
+   * Find the index of the type of a model element in a list of element types
    *
    * @param modelElement the model element which type is searched for
    * @param elementList the list to search the type
@@ -174,6 +179,30 @@ public class ModelUtil {
       }
     }
     return -1;
+  }
+
+  /**
+   * Calculate a collection of all extending types for the given base types
+   *
+   * @param baseTypes the collection of types to calculate the union of all extending types
+   */
+  public static Collection<ModelElementType> calculateAllExtendingTypes(Model model, Collection<Class<? extends ModelElementInstance>> baseInstanceTypes) {
+    Set<ModelElementType> allExtendingTypes = new HashSet<ModelElementType>();
+    for (Class<? extends ModelElementInstance> baseInstanceType : baseInstanceTypes) {
+      ModelElementTypeImpl modelElementTypeImpl = (ModelElementTypeImpl) model.getType(baseInstanceType);
+      modelElementTypeImpl.resolveExtendingTypes(allExtendingTypes);
+    }
+    return allExtendingTypes;
+  }
+
+  /**
+   * Calculate a collection of all base types for the given type
+   */
+  public static Collection<ModelElementType> calculateAllBaseTypes(Model model, Class<? extends ModelElementInstance> instance) {
+    List<ModelElementType> baseTypes = new ArrayList<ModelElementType>();
+    ModelElementTypeImpl typeImpl = (ModelElementTypeImpl) model.getType(instance);
+    typeImpl.resolveBaseTypes(baseTypes);
+    return baseTypes;
   }
 
 }
