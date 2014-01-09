@@ -72,54 +72,46 @@ public class DefinitionsTest extends BpmnModelTest {
   }
 
   @Test
-  public void shouldExportCorrectOrderedSequence() throws IOException {
-   // create an empty model
-   BpmnModelInstance bpmnModelInstance = Bpmn.createEmptyModel();
+  public void shouldAddChildElementsInCorrectOrder() {
+    // create an empty model
+    BpmnModelInstance bpmnModelInstance = Bpmn.createEmptyModel();
 
-   // add definitions
-   Definitions definitions = bpmnModelInstance.newInstance(Definitions.class);
-   definitions.setTargetNamespace("Examples");
-   bpmnModelInstance.setDefinitions(definitions);
+    // add definitions
+    Definitions definitions = bpmnModelInstance.newInstance(Definitions.class);
+    definitions.setTargetNamespace("Examples");
+    bpmnModelInstance.setDefinitions(definitions);
 
-   // create a Process element and add it to the definitions
-   Process process = bpmnModelInstance.newInstance(Process.class);
-   process.setId("some-process-id");
-   definitions.getRootElements().add(process);
+    // create a Process element and add it to the definitions
+    Process process = bpmnModelInstance.newInstance(Process.class);
+    process.setId("some-process-id");
+    definitions.getRootElements().add(process);
 
-   // create an Import element and add it to the definitions
-   Import importElement = bpmnModelInstance.newInstance(Import.class);
-   importElement.setNamespace("Imports");
-   importElement.setLocation("here");
-   importElement.setImportType("example");
-   definitions.getImports().add(importElement);
+    // create an Import element and add it to the definitions
+    Import importElement = bpmnModelInstance.newInstance(Import.class);
+    importElement.setNamespace("Imports");
+    importElement.setLocation("here");
+    importElement.setImportType("example");
+    definitions.getImports().add(importElement);
 
-   // create another Process element and add it to the definitions
-   process = bpmnModelInstance.newInstance(Process.class);
-   process.setId("another-process-id");
-   definitions.getRootElements().add(process);
+    // create another Process element and add it to the definitions
+    process = bpmnModelInstance.newInstance(Process.class);
+    process.setId("another-process-id");
+    definitions.getRootElements().add(process);
 
-   // create another Import element and add it to the definitions
-   importElement = bpmnModelInstance.newInstance(Import.class);
-   importElement.setNamespace("Imports");
-   importElement.setLocation("there");
-   importElement.setImportType("example");
-   definitions.getImports().add(importElement);
+    // create another Import element and add it to the definitions
+    importElement = bpmnModelInstance.newInstance(Import.class);
+    importElement.setNamespace("Imports");
+    importElement.setLocation("there");
+    importElement.setImportType("example");
+    definitions.getImports().add(importElement);
 
-   // convert the model to the XML string representation
-   OutputStream outputStream = new ByteArrayOutputStream();
-   Bpmn.writeModelToStream(outputStream, (BpmnModelInstanceImpl) bpmnModelInstance);
-   InputStream inputStream = IoUtil.convertOutputStreamToInputStream(outputStream);
-   String modelString = IoUtil.getStringFromInputStream(inputStream);
-   IoUtil.closeSilently(outputStream);
-   IoUtil.closeSilently(inputStream);
-
-   // read test process from file as string
-   inputStream = getClass().getResourceAsStream("DefinitionsTest.shouldExportCorrectOrderedSequence.bpmn");
-   String fileString = IoUtil.getStringFromInputStream(inputStream);
-   IoUtil.closeSilently(inputStream);
-
-   // compare strings
-   assertThat(modelString).isEqualTo(fileString);
+    // validate model
+    try {
+      Bpmn.validateModel((BpmnModelInstanceImpl) bpmnModelInstance);
+    }
+    catch (ModelValidationException e) {
+      Assert.fail();
+    }
   }
 
   @Test
@@ -140,6 +132,14 @@ public class DefinitionsTest extends BpmnModelTest {
     importElement.setImportType("example");
     definitions.getImports().add(importElement);
 
+    // validate model
+    try {
+      Bpmn.validateModel((BpmnModelInstanceImpl) bpmnModelInstance);
+    }
+    catch (ModelValidationException e) {
+      Assert.fail();
+    }
+
     // convert the model to the XML string representation
     OutputStream outputStream = new ByteArrayOutputStream();
     Bpmn.writeModelToStream(outputStream, (BpmnModelInstanceImpl) bpmnModelInstance);
@@ -158,7 +158,7 @@ public class DefinitionsTest extends BpmnModelTest {
   }
 
   @Test
-  public void shouldAddMessageAndMessageEventDefinition() throws IOException {
+  public void shouldAddMessageAndMessageEventDefinition() {
     // create empty model
     BpmnModelInstance bpmnModelInstance = Bpmn.createEmptyModel();
 
@@ -224,25 +224,17 @@ public class DefinitionsTest extends BpmnModelTest {
     anotherMessageEventDefinition.setMessageRef(new QName(message.getId()));
     assertThat(anotherMessageEventDefinition.getMessage()).isEqualTo(message);
 
-    // convert the model to XML string representation
-    OutputStream outputStream = new ByteArrayOutputStream();
-    Bpmn.writeModelToStream(outputStream, (BpmnModelInstanceImpl) bpmnModelInstance);
-    InputStream inputStream = IoUtil.convertOutputStreamToInputStream(outputStream);
-    String modelString = IoUtil.getStringFromInputStream(inputStream);
-    IoUtil.closeSilently(outputStream);
-    IoUtil.closeSilently(inputStream);
-
-    // read test process from file as string
-    inputStream = getClass().getResourceAsStream("DefinitionsTest.shouldAddMessageAndMessageEventDefinition.bpmn");
-    String fileString = IoUtil.getStringFromInputStream(inputStream);
-    IoUtil.closeSilently(inputStream);
-
-    // compare strings
-    assertThat(modelString).isEqualTo(fileString);
+    // validate model
+    try {
+      Bpmn.validateModel((BpmnModelInstanceImpl) bpmnModelInstance);
+    }
+    catch (ModelValidationException e) {
+      Assert.fail();
+    }
   }
 
   @Test
-  public void shouldAddParentChildElementInCorrectOrder() throws IOException {
+  public void shouldAddParentChildElementInCorrectOrder() {
     // create empty model
     BpmnModelInstance bpmnModelInstance = Bpmn.createEmptyModel();
 
