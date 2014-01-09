@@ -20,7 +20,7 @@ import org.camunda.bpm.model.core.instance.ModelElementInstance;
  */
 public interface SequenceBuilder {
 
-  <T extends ModelElementInstance> ChildElementBuilder<T> element(String elementName);
+  <T extends ModelElementInstance> ChildElementBuilder<T> element(Class<T> childElementType, String elementName);
 
   <T extends ModelElementInstance> ChildElementCollectionBuilder<T> elementCollection(Class<T> childElementType, String localName);
 

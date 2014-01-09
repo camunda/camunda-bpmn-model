@@ -23,8 +23,10 @@ public class ChildElementBuilderImpl<T extends ModelElementInstance> implements 
 
   protected final ModelElementTypeImpl containingType;
   protected final ChildElement<T> childElement;
+  protected Class<T> childElementType;
 
-  public ChildElementBuilderImpl(String localName, ModelElementTypeImpl containingType) {
+  public ChildElementBuilderImpl(Class<T> childElementType, String localName, ModelElementTypeImpl containingType) {
+    this.childElementType = childElementType;
     this.containingType = containingType;
     childElement = new ChildElement<T>(localName);
     childElement.setNamespace(containingType.getTypeNamespace());
@@ -36,7 +38,7 @@ public class ChildElementBuilderImpl<T extends ModelElementInstance> implements 
   }
 
   public ChildElement<T> build() {
-    // TODO: register child with containing type!
+    containingType.registerChildElementType(childElementType);
     return childElement;
   }
 

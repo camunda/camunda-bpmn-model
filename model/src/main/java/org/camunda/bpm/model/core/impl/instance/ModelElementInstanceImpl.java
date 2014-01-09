@@ -129,7 +129,7 @@ public abstract class ModelElementInstanceImpl implements ModelElementInstance {
     List<Class<?>> childElementTypes = elementType.getChildElementTypes();
     int newChildTypeIndex = ModelUtil.getIndexOfElementType(newChild, childElementTypes);
     if (newChildTypeIndex == -1) {
-      throw new ModelException("New child for " + elementType.getTypeName() + " is not a valid child element type: " + newChild.getElementType().getTypeName());
+      throw new ModelException("New child for " + elementType.getTypeName() + " is not a valid child element type: " + newChild.getElementType().getTypeName() +"; valid types are: " + childElementTypes);
     }
     for (int i = 0; i < childDomElements.getLength(); i++) {
       childDomElement = childDomElements.item(i);
@@ -142,7 +142,7 @@ public abstract class ModelElementInstanceImpl implements ModelElementInstance {
       // compare child element type with new child element type
       int childTypeIndex = ModelUtil.getIndexOfElementType(currentChild, childElementTypes);
       if (childTypeIndex == -1) {
-        throw new ModelException("Child element " + currentChild.getElementType().getTypeName() + " is not a valid child element for " + elementType.getTypeName());
+        throw new ModelException("Child element " + currentChild.getElementType().getTypeName() + " is not a valid child element for " + elementType.getTypeName() +"; valid types are: " + childElementTypes);
       }
       if (childTypeIndex > newChildTypeIndex) {
         break;

@@ -27,8 +27,8 @@ public class SequenceBuilderImpl implements SequenceBuilder {
     this.modelType = modelType;
   }
 
-  public <T extends ModelElementInstance> ChildElementBuilder<T> element(String elementName) {
-    return new ChildElementBuilderImpl<T>(elementName, modelType);
+  public <T extends ModelElementInstance> ChildElementBuilder<T> element(Class<T> childElementType, String elementName) {
+    return new ChildElementBuilderImpl<T>(childElementType, elementName, modelType);
   }
 
   public <T extends ModelElementInstance> ChildElementCollectionBuilder<T> elementCollection(Class<T> childElementType, String localName) {

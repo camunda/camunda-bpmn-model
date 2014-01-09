@@ -237,15 +237,12 @@ public class DefinitionsTest extends BpmnModelTest {
     String fileString = IoUtil.getStringFromInputStream(inputStream);
     IoUtil.closeSilently(inputStream);
 
-    System.out.println("File  :"+fileString);
-    System.out.println("Model :"+modelString);
-
     // compare strings
     assertThat(modelString).isEqualTo(fileString);
   }
 
   @Test
-  public void shouldAddParentChildElementInCorrectOrder() {
+  public void shouldAddParentChildElementInCorrectOrder() throws IOException {
     // create empty model
     BpmnModelInstance bpmnModelInstance = Bpmn.createEmptyModel();
 
@@ -277,6 +274,10 @@ public class DefinitionsTest extends BpmnModelTest {
     // add property after message event defintion
     Property property = bpmnModelInstance.newInstance(Property.class);
     startEvent.getProperties().add(property);
+
+    // finally add an extensions element
+    ExtensionElements extensionElements = bpmnModelInstance.newInstance(ExtensionElements.class);
+    process.setExtensionElements(extensionElements);
 
     // validate model
     try {

@@ -32,7 +32,7 @@ public abstract class RootElementImpl extends BaseElementImp implements RootElem
 
   public static void registerType(Model model) {
 
-    ModelElementTypeBuilder typeBuilder = model.defineType(BaseElement.class, BPMN_TYPE_ROOT_ELEMENT)
+    ModelElementTypeBuilder typeBuilder = model.defineType(RootElement.class, BPMN_TYPE_ROOT_ELEMENT)
       .namespaceUri(BPMN20_NS)
       .abstractType()
       .extendsType(model.getType(BaseElement.class));

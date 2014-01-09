@@ -52,7 +52,7 @@ public abstract class BaseElementImp extends AbstractBpmnModelElement implements
 
     SequenceBuilder sequenceBuilder = typeBuilder.sequence();
 
-    extensionElementsChild = sequenceBuilder.<ExtensionElements>element(BPMN_ELEMENT_EXTENSION_ELEMENTS)
+    extensionElementsChild = sequenceBuilder.<ExtensionElements>element(ExtensionElements.class, BPMN_ELEMENT_EXTENSION_ELEMENTS)
       .namespaceUri(BPMN20_NS)
       .build();
 

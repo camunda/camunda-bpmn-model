@@ -12,14 +12,36 @@
  */
 package org.camunda.bpm.model.bpmn.impl;
 
+import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN20_NS;
+import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN_ELEMENT_EXTENSION_ELEMENTS;
+
 import org.camunda.bpm.model.bpmn.ExtensionElements;
+import org.camunda.bpm.model.core.Model;
 import org.camunda.bpm.model.core.impl.instance.ModelTypeInstanceContext;
+import org.camunda.bpm.model.core.type.ModelElementType;
+import org.camunda.bpm.model.core.type.ModelElementTypeBuilder;
+import org.camunda.bpm.model.core.type.ModelElementTypeBuilder.ModelTypeIntanceProvider;
 
 /**
  * @author Daniel Meyer
  *
  */
 public class ExtensionElementsImpl extends AbstractBpmnModelElement implements ExtensionElements {
+
+  public static ModelElementType TYPE;
+
+  public static void registerType(Model model) {
+
+    ModelElementTypeBuilder typeBuilder = model.defineType(ExtensionElements.class, BPMN_ELEMENT_EXTENSION_ELEMENTS)
+      .namespaceUri(BPMN20_NS)
+      .instanceProvider(new ModelTypeIntanceProvider<ExtensionElements>() {
+        public ExtensionElements newInstance(ModelTypeInstanceContext instanceContext) {
+          return new ExtensionElementsImpl(instanceContext);
+        }
+      });
+
+    TYPE = typeBuilder.build();
+  }
 
   public ExtensionElementsImpl(ModelTypeInstanceContext context) {
     super(context);
