@@ -18,10 +18,12 @@ import org.camunda.bpm.model.core.impl.type.attribute.EnumAttributeBuilder;
 import org.camunda.bpm.model.core.impl.type.attribute.StringAttributeBuilder;
 import org.camunda.bpm.model.core.impl.type.child.SequenceBuilder;
 import org.camunda.bpm.model.core.impl.type.child.SequenceBuilderImpl;
+import org.camunda.bpm.model.core.impl.type.reference.QNameReferenceBuilderImpl;
 import org.camunda.bpm.model.core.instance.ModelElementInstance;
 import org.camunda.bpm.model.core.type.AttributeBuilder;
 import org.camunda.bpm.model.core.type.ModelElementType;
 import org.camunda.bpm.model.core.type.ModelElementTypeBuilder;
+import org.camunda.bpm.model.core.type.ReferenceBuilder;
 
 /**
  * @author Daniel Meyer
@@ -65,6 +67,10 @@ public class ModelElementTypeBuilderImpl implements ModelElementTypeBuilder {
 
   public <V extends Enum<V>> AttributeBuilder<V> enumAttribute(String attributeName, Class<V> enumType) {
     return new EnumAttributeBuilder<V>(attributeName, modelType, enumType);
+  }
+
+  public <V extends ModelElementInstance> ReferenceBuilder<V> qNameReference(Class<V> referencedElementType, String referencedAttributeName) {
+    return new QNameReferenceBuilderImpl<V>(referencedAttributeName, referencedElementType, modelType);
   }
 
   public ModelElementType build() {

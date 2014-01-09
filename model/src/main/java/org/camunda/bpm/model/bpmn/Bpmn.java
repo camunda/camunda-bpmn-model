@@ -37,6 +37,7 @@ import org.camunda.bpm.model.bpmn.impl.EventImpl;
 import org.camunda.bpm.model.bpmn.impl.FlowElementImpl;
 import org.camunda.bpm.model.bpmn.impl.FlowNodeImpl;
 import org.camunda.bpm.model.bpmn.impl.ImportImpl;
+import org.camunda.bpm.model.bpmn.impl.MessageEventDefinitionImpl;
 import org.camunda.bpm.model.bpmn.impl.MessageImpl;
 import org.camunda.bpm.model.bpmn.impl.ProcessImpl;
 import org.camunda.bpm.model.bpmn.impl.PropertyImpl;
@@ -206,6 +207,7 @@ public class Bpmn {
     ProcessImpl.registerType(model);
     MessageImpl.registerType(model);
     EventDefinitionImpl.registerType(model);
+    MessageEventDefinitionImpl.registerType(model);
     FlowElementImpl.registerType(model);
     FlowNodeImpl.registerType(model);
     EventImpl.registerType(model);

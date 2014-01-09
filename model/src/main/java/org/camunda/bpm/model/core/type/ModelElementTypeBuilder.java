@@ -41,6 +41,8 @@ public interface ModelElementTypeBuilder {
 
   ModelElementType build();
 
+  <V extends ModelElementInstance> ReferenceBuilder<V> qNameReference(Class<V> referencedElementType, String referencedAttributeName);
+
   public static interface ModelTypeIntanceProvider<T extends ModelElementInstance> {
     T newInstance(ModelTypeInstanceContext instanceContext);
   }

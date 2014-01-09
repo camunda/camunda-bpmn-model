@@ -12,6 +12,8 @@
  */
 package org.camunda.bpm.model.core.impl.util;
 
+import org.camunda.bpm.model.core.impl.instance.ModelElementInstanceImpl;
+
 /**
  * @author Daniel Meyer
  *
@@ -36,6 +38,24 @@ public class QName {
 
   public String getLocalName() {
     return localName;
+  }
+
+  public static QName parseQName(String identifier, ModelElementInstanceImpl modelElement) {
+
+    String localPart = null;
+    String namespaceUri = null;
+
+    String[] split = identifier.split(":",1);
+    if(split.length == 2) {
+      localPart = split[1];
+      namespaceUri = DomUtil.getNamespaceUriForPrefix(modelElement.getDomElement(), split[0]);
+
+    } else {
+      localPart = split[0];
+    }
+
+    return new QName(localPart, namespaceUri);
+
   }
 
   @Override

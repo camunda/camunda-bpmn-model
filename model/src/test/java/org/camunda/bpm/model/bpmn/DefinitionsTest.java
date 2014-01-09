@@ -23,8 +23,10 @@ import java.io.OutputStream;
 
 import org.camunda.bpm.model.bpmn.impl.BpmnModelInstanceImpl;
 import org.camunda.bpm.model.bpmn.util.BpmnModelResource;
+import org.camunda.bpm.model.core.ModelReferenceException;
 import org.camunda.bpm.model.core.ModelValidationException;
 import org.camunda.bpm.model.core.impl.util.IoUtil;
+import org.camunda.bpm.model.core.impl.util.QName;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -153,6 +155,136 @@ public class DefinitionsTest extends BpmnModelTest {
 
     // compare strings
     assertThat(modelString).isEqualTo(fileString);
+  }
+
+  @Test
+  public void shouldAddMessageAndMessageEventDefinition() throws IOException {
+    // create empty model
+    BpmnModelInstance bpmnModelInstance = Bpmn.createEmptyModel();
+
+    // add definitions to model
+    Definitions definitions = bpmnModelInstance.newInstance(Definitions.class);
+    definitions.setTargetNamespace("Examples");
+    bpmnModelInstance.setDefinitions(definitions);
+
+    // create and add message
+    Message message = bpmnModelInstance.newInstance(Message.class);
+    message.setId("start-message-id");
+    definitions.getRootElements().add(message);
+
+    // create and add message event definition
+    MessageEventDefinition messageEventDefintion = bpmnModelInstance.newInstance(MessageEventDefinition.class);
+    messageEventDefintion.setId("message-event-def-id");
+    messageEventDefintion.setMessage(message);
+    definitions.getRootElements().add(messageEventDefintion);
+
+    // test if message was set correctly
+    Message setMessage = messageEventDefintion.getMessage();
+    assertThat(setMessage).isEqualTo(message);
+    String messageRefString = message.getId();
+    assertThat(messageRefString).isEqualTo(messageEventDefintion.getMessageRef());
+
+    // add process
+    Process process = bpmnModelInstance.newInstance(Process.class);
+    process.setId("messageEventDefinition");
+    definitions.getRootElements().add(process);
+
+    // add start event
+    StartEvent startEvent = bpmnModelInstance.newInstance(StartEvent.class);
+    startEvent.setId("theStart");
+    process.getFlowElements().add(startEvent);
+
+    // create and add message event definition to start event
+    MessageEventDefinition startEventMessageEventDefinition = bpmnModelInstance.newInstance(MessageEventDefinition.class);
+    startEventMessageEventDefinition.setMessage(message);
+    startEvent.getEventDefinitions().add(startEventMessageEventDefinition);
+
+    // create another message but do not add it
+    Message anotherMessage = bpmnModelInstance.newInstance(Message.class);
+    anotherMessage.setId("another-message-id");
+
+    // create a message event definition and try to add last create message
+    MessageEventDefinition anotherMessageEventDefinition = bpmnModelInstance.newInstance(MessageEventDefinition.class);
+    try {
+      anotherMessageEventDefinition.setMessage(anotherMessage);
+      Assert.fail("Message should not be added to message event definition, cause it is not part of the model");
+    }
+    catch(Exception e) {
+      assertThat(e).isInstanceOf(ModelReferenceException.class);
+    }
+
+    // first add message to model than to event definition
+    definitions.getRootElements().add(anotherMessage);
+    anotherMessageEventDefinition.setMessage(anotherMessage);
+    startEvent.getEventDefinitions().add(anotherMessageEventDefinition);
+
+    // message event definition and add message by id to it
+    anotherMessageEventDefinition = bpmnModelInstance.newInstance(MessageEventDefinition.class);
+    startEvent.getEventDefinitions().add(anotherMessageEventDefinition);
+    anotherMessageEventDefinition.setMessageRef(new QName(message.getId()));
+    assertThat(anotherMessageEventDefinition.getMessage()).isEqualTo(message);
+
+    // convert the model to XML string representation
+    OutputStream outputStream = new ByteArrayOutputStream();
+    Bpmn.writeModelToStream(outputStream, (BpmnModelInstanceImpl) bpmnModelInstance);
+    InputStream inputStream = IoUtil.convertOutputStreamToInputStream(outputStream);
+    String modelString = IoUtil.getStringFromInputStream(inputStream);
+    IoUtil.closeSilently(outputStream);
+    IoUtil.closeSilently(inputStream);
+
+    // read test process from file as string
+    inputStream = getClass().getResourceAsStream("DefinitionsTest.shouldAddMessageAndMessageEventDefinition.bpmn");
+    String fileString = IoUtil.getStringFromInputStream(inputStream);
+    IoUtil.closeSilently(inputStream);
+
+    System.out.println("File  :"+fileString);
+    System.out.println("Model :"+modelString);
+
+    // compare strings
+    assertThat(modelString).isEqualTo(fileString);
+  }
+
+  @Test
+  public void shouldAddParentChildElementInCorrectOrder() {
+    // create empty model
+    BpmnModelInstance bpmnModelInstance = Bpmn.createEmptyModel();
+
+    // add definitions to model
+    Definitions definitions = bpmnModelInstance.newInstance(Definitions.class);
+    definitions.setTargetNamespace("Examples");
+    bpmnModelInstance.setDefinitions(definitions);
+
+    // add process
+    Process process = bpmnModelInstance.newInstance(Process.class);
+    process.setId("messageEventDefinition");
+    definitions.getRootElements().add(process);
+
+    // add start event
+    StartEvent startEvent = bpmnModelInstance.newInstance(StartEvent.class);
+    startEvent.setId("theStart");
+    process.getFlowElements().add(startEvent);
+
+    // create and add message
+    Message message = bpmnModelInstance.newInstance(Message.class);
+    message.setId("start-message-id");
+    definitions.getRootElements().add(message);
+
+    // add message event definition to start event
+    MessageEventDefinition startEventMessageEventDefinition = bpmnModelInstance.newInstance(MessageEventDefinition.class);
+    startEventMessageEventDefinition.setMessage(message);
+    startEvent.getEventDefinitions().add(startEventMessageEventDefinition);
+
+    // add property after message event defintion
+    Property property = bpmnModelInstance.newInstance(Property.class);
+    startEvent.getProperties().add(property);
+
+    // validate model
+    try {
+      Bpmn.validateModel((BpmnModelInstanceImpl) bpmnModelInstance);
+    }
+    catch (ModelValidationException e) {
+      Assert.fail();
+    }
   }
 
 }

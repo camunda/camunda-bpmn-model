@@ -39,6 +39,7 @@ public class BpmnModelConstants {
   public static final String BPMN_ELEMENT_EXTENSION_ELEMENTS = "extensionElements";
   public static final String BPMN_ELEMENT_PROCESS = "process";
   public static final String BPMN_ELEMENT_MESSAGE = "message";
+  public static final String BPMN_ELEMENT_MESSAGE_EVENT_DEFINITION = "messageEventDefinition";
   public static final String BPMN_ELEMENT_START_EVENT = "startEvent";
   public static final String BPMN_ELEMENT_PROPERTY = "property";
 
@@ -70,5 +71,6 @@ public class BpmnModelConstants {
   public static final String BPMN_ATTRIBUTE_IS_CLOSED = "isClosed";
   public static final String BPMN_ATTRIBUTE_IS_EXECUTABLE = "isExecutable";
   public static final String BPMN_ATTRIBUTE_DEFINITIONAL_COLLABORATION_REF = "definitionalCollaborationRef";
+  public static final String BPMN_ATTRIBUTE_MESSAGE_REF = "messageRef";
 
 }

@@ -25,6 +25,7 @@ import org.camunda.bpm.model.core.instance.ModelElementInstance;
 import org.camunda.bpm.model.core.type.Attribute;
 import org.camunda.bpm.model.core.type.ModelElementType;
 import org.camunda.bpm.model.core.type.ModelElementTypeBuilder.ModelTypeIntanceProvider;
+import org.camunda.bpm.model.core.type.Reference;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -42,9 +43,11 @@ public class ModelElementTypeImpl implements ModelElementType {
 
   protected ModelElementTypeImpl partentType;
 
-  private List<Attribute<?>> attributes = new ArrayList<Attribute<?>>();
+  protected List<Attribute<?>> attributes = new ArrayList<Attribute<?>>();
 
-  private final List<Class<?>> childElementTypes = new ArrayList<Class<?>>();
+  protected List<Class<?>> childElementTypes = new ArrayList<Class<?>>();
+
+  protected List<Reference<?>> references = new ArrayList<Reference<?>>();
 
   protected ModelTypeIntanceProvider<?> instanceProvider;
 
@@ -76,6 +79,10 @@ public class ModelElementTypeImpl implements ModelElementType {
 
   public void registerChildElementType(Class<?> childElementType) {
     childElementTypes.add(childElementType);
+  }
+
+  public void registerReference(Reference<?> reference) {
+    references.add(reference);
   }
 
   protected ModelElementInstance createModelElementIntance(ModelTypeInstanceContext instanceContext) {
