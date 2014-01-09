@@ -16,7 +16,7 @@ import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.*;
 
 import org.camunda.bpm.model.bpmn.CatchEvent;
 import org.camunda.bpm.model.bpmn.StartEvent;
-import org.camunda.bpm.model.core.Model;
+import org.camunda.bpm.model.core.ModelBuilder;
 import org.camunda.bpm.model.core.impl.instance.ModelTypeInstanceContext;
 import org.camunda.bpm.model.core.type.ModelElementType;
 import org.camunda.bpm.model.core.type.ModelElementTypeBuilder;
@@ -30,11 +30,11 @@ public class StartEventImpl extends CatchEventImpl implements StartEvent {
 
   public static ModelElementType MODEL_TYPE;
 
-  public static void registerType(Model model) {
+  public static void registerType(ModelBuilder modelBuilder) {
 
-    ModelElementTypeBuilder builder = model.defineType(StartEvent.class, BPMN_ELEMENT_START_EVENT)
+    ModelElementTypeBuilder builder = modelBuilder.defineType(StartEvent.class, BPMN_ELEMENT_START_EVENT)
       .namespaceUri(BPMN20_NS)
-      .extendsType(model.getType(CatchEvent.class))
+      .extendsType(CatchEvent.class)
       .instanceProvider(new ModelTypeIntanceProvider<StartEvent>() {
         public StartEvent newInstance(ModelTypeInstanceContext instanceContext) {
           return new StartEventImpl(instanceContext);

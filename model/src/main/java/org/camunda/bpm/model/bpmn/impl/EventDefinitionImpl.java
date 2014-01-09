@@ -16,7 +16,7 @@ import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.*;
 
 import org.camunda.bpm.model.bpmn.EventDefinition;
 import org.camunda.bpm.model.bpmn.RootElement;
-import org.camunda.bpm.model.core.Model;
+import org.camunda.bpm.model.core.ModelBuilder;
 import org.camunda.bpm.model.core.impl.instance.ModelTypeInstanceContext;
 import org.camunda.bpm.model.core.type.ModelElementType;
 import org.camunda.bpm.model.core.type.ModelElementTypeBuilder;
@@ -29,12 +29,12 @@ public abstract class EventDefinitionImpl extends RootElementImpl implements Eve
 
   public static ModelElementType MODEL_TYPE;
 
-  public static void registerType(Model model) {
+  public static void registerType(ModelBuilder modelBuilder) {
 
-    ModelElementTypeBuilder typeBuilder = model.defineType(EventDefinition.class, BPMN_TYPE_EVENT_DEFINITION)
+    ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(EventDefinition.class, BPMN_TYPE_EVENT_DEFINITION)
       .namespaceUri(BPMN20_NS)
       .abstractType()
-      .extendsType(model.getType(RootElement.class));
+      .extendsType(RootElement.class);
 
     MODEL_TYPE = typeBuilder.build();
 

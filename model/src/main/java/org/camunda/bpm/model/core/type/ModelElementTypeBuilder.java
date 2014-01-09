@@ -25,7 +25,7 @@ public interface ModelElementTypeBuilder {
 
   ModelElementTypeBuilder namespaceUri(String namespaceUri);
 
-  ModelElementTypeBuilder extendsType(ModelElementType extendedType);
+  ModelElementTypeBuilder extendsType(Class<? extends ModelElementInstance> extendedType);
 
   <T extends ModelElementInstance> ModelElementTypeBuilder instanceProvider(ModelTypeIntanceProvider<T> instanceProvider);
 

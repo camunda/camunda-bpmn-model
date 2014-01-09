@@ -18,7 +18,7 @@ import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN_ATTRIBUTE_
 import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN_TYPE_BASE_ELEMENT;
 
 import org.camunda.bpm.model.bpmn.Documentation;
-import org.camunda.bpm.model.core.Model;
+import org.camunda.bpm.model.core.ModelBuilder;
 import org.camunda.bpm.model.core.impl.instance.ModelTypeInstanceContext;
 import org.camunda.bpm.model.core.type.Attribute;
 import org.camunda.bpm.model.core.type.ModelElementType;
@@ -37,9 +37,9 @@ public class DocumentationImpl extends AbstractBpmnModelElement implements Docum
 
   public static ModelElementType MODEL_TYPE;
 
-  public static void registerType(Model model) {
+  public static void registerType(ModelBuilder modelBuilder) {
 
-    ModelElementTypeBuilder typeBuilder = model.defineType(Documentation.class, BPMN_TYPE_BASE_ELEMENT)
+    ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(Documentation.class, BPMN_TYPE_BASE_ELEMENT)
       .namespaceUri(BPMN20_NS)
       .instanceProvider(new ModelTypeIntanceProvider<Documentation>() {
         public Documentation newInstance(ModelTypeInstanceContext instanceContext) {

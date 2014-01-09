@@ -12,6 +12,12 @@
  */
 package org.camunda.bpm.model.core.impl.type;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.camunda.bpm.model.core.Model;
+import org.camunda.bpm.model.core.ModelException;
+import org.camunda.bpm.model.core.impl.ModelBuildOperation;
 import org.camunda.bpm.model.core.impl.ModelImpl;
 import org.camunda.bpm.model.core.impl.type.attribute.BooleanAttributeBuilder;
 import org.camunda.bpm.model.core.impl.type.attribute.EnumAttributeBuilder;
@@ -29,11 +35,14 @@ import org.camunda.bpm.model.core.type.ReferenceBuilder;
  * @author Daniel Meyer
  *
  */
-public class ModelElementTypeBuilderImpl implements ModelElementTypeBuilder {
+public class ModelElementTypeBuilderImpl implements ModelElementTypeBuilder, ModelBuildOperation {
 
   protected ModelElementTypeImpl modelType;
   protected ModelImpl model;
   protected Class<? extends ModelElementInstance> instanceType;
+
+  protected List<ModelBuildOperation> modelBuildOperations = new ArrayList<ModelBuildOperation>();
+  protected Class<? extends ModelElementInstance> extendedType;
 
   public ModelElementTypeBuilderImpl(Class<? extends ModelElementInstance> instanceType, String name, ModelImpl model) {
     this.instanceType = instanceType;
@@ -41,10 +50,8 @@ public class ModelElementTypeBuilderImpl implements ModelElementTypeBuilder {
     modelType = new ModelElementTypeImpl(model, name);
   }
 
-  public ModelElementTypeBuilder extendsType(ModelElementType extendedType) {
-    ModelElementTypeImpl typeImpl = (ModelElementTypeImpl) extendedType;
-    modelType.setBaseType(typeImpl);
-    typeImpl.registerExtendingType(modelType);
+  public ModelElementTypeBuilder extendsType(Class<? extends ModelElementInstance> extendedType) {
+    this.extendedType = extendedType;
     return this;
   }
 
@@ -59,19 +66,27 @@ public class ModelElementTypeBuilderImpl implements ModelElementTypeBuilder {
   }
 
   public AttributeBuilder<Boolean> booleanAttribute(String attributeName) {
-    return new BooleanAttributeBuilder(attributeName, modelType);
+    BooleanAttributeBuilder builder = new BooleanAttributeBuilder(attributeName, modelType);
+    modelBuildOperations.add(builder);
+    return builder;
   }
 
   public AttributeBuilder<String> stringAttribute(String attributeName) {
-    return new StringAttributeBuilder(attributeName, modelType);
+    StringAttributeBuilder builder = new StringAttributeBuilder(attributeName, modelType);
+    modelBuildOperations.add(builder);
+    return builder;
   }
 
   public <V extends Enum<V>> AttributeBuilder<V> enumAttribute(String attributeName, Class<V> enumType) {
-    return new EnumAttributeBuilder<V>(attributeName, modelType, enumType);
+    EnumAttributeBuilder<V> builder = new EnumAttributeBuilder<V>(attributeName, modelType, enumType);
+    modelBuildOperations.add(builder);
+    return builder;
   }
 
   public <V extends ModelElementInstance> ReferenceBuilder<V> qNameReference(Class<V> referencedElementType, String referencedAttributeName) {
-    return new QNameReferenceBuilderImpl<V>(referencedAttributeName, referencedElementType, modelType);
+    QNameReferenceBuilderImpl<V> builder = new QNameReferenceBuilderImpl<V>(referencedAttributeName, referencedElementType, modelType);
+    modelBuildOperations.add(builder);
+    return builder;
   }
 
   public ModelElementType build() {
@@ -85,6 +100,27 @@ public class ModelElementTypeBuilderImpl implements ModelElementTypeBuilder {
   }
 
   public SequenceBuilder sequence() {
-    return new SequenceBuilderImpl(modelType);
+    SequenceBuilderImpl builder = new SequenceBuilderImpl(modelType);
+    modelBuildOperations.add(builder);
+    return builder;
+  }
+
+  public void performModelBuild(Model model) {
+
+    // build type hierarchy
+    if(extendedType != null) {
+      ModelElementTypeImpl extendedModelElementType = (ModelElementTypeImpl) model.getType(extendedType);
+      if(extendedModelElementType == null) {
+        throw new ModelException("Type "+modelType+" is defined to extend "+extendedModelElementType +" but no such type is defined.");
+
+      } else {
+        modelType.setBaseType(extendedModelElementType);
+        extendedModelElementType.registerExtendingType(modelType);
+      }
+    }
+
+    for (ModelBuildOperation operation : modelBuildOperations) {
+      operation.performModelBuild(model);
+    }
   }
 }

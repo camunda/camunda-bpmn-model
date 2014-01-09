@@ -12,25 +12,24 @@
  */
 package org.camunda.bpm.model.core;
 
-import java.util.Collection;
-
+import org.camunda.bpm.model.core.impl.ModelBuilderImpl;
 import org.camunda.bpm.model.core.instance.ModelElementInstance;
-import org.camunda.bpm.model.core.type.ModelElementType;
+import org.camunda.bpm.model.core.type.ModelElementTypeBuilder;
 
 /**
- * Use {@link ModelBuilder} to create an instance of a {@link Model}.
+ * This builder is used to define and create a new model.
  *
  * @author Daniel Meyer
  *
  */
-public interface Model {
+public abstract class ModelBuilder {
 
-  public Collection<ModelElementType> getTypes();
+  public abstract ModelElementTypeBuilder defineType(Class<? extends ModelElementInstance> modelInstanceType, String typeName);
 
-  public ModelElementType getType(Class<? extends ModelElementInstance> type);
+  public abstract Model build();
 
-  public <T extends ModelElementInstance> ModelElementType getTypeForName(String typeName);
-
-  public ModelElementType getTypeForName(String typeName, String namespaceUri);
+  public static ModelBuilder createInstance() {
+    return new ModelBuilderImpl();
+  }
 
 }

@@ -12,6 +12,8 @@
  */
 package org.camunda.bpm.model.core.impl.type.child;
 
+import org.camunda.bpm.model.core.Model;
+import org.camunda.bpm.model.core.impl.ModelBuildOperation;
 import org.camunda.bpm.model.core.impl.type.ModelElementTypeImpl;
 import org.camunda.bpm.model.core.instance.ModelElementInstance;
 
@@ -19,7 +21,7 @@ import org.camunda.bpm.model.core.instance.ModelElementInstance;
  * @author Daniel Meyer
  *
  */
-public class ChildElementBuilderImpl<T extends ModelElementInstance> implements ChildElementBuilder<T> {
+public class ChildElementBuilderImpl<T extends ModelElementInstance> implements ChildElementBuilder<T>, ModelBuildOperation {
 
   protected final ModelElementTypeImpl containingType;
   protected final ChildElement<T> childElement;
@@ -40,6 +42,10 @@ public class ChildElementBuilderImpl<T extends ModelElementInstance> implements 
   public ChildElement<T> build() {
     containingType.registerChildElementType(childElementType);
     return childElement;
+  }
+
+  public void performModelBuild(Model model) {
+    // do nothing
   }
 
 }

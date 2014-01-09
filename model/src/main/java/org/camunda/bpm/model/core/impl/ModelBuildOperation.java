@@ -10,27 +10,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.camunda.bpm.model.core;
+package org.camunda.bpm.model.core.impl;
 
-import java.util.Collection;
-
-import org.camunda.bpm.model.core.instance.ModelElementInstance;
-import org.camunda.bpm.model.core.type.ModelElementType;
+import org.camunda.bpm.model.core.Model;
 
 /**
- * Use {@link ModelBuilder} to create an instance of a {@link Model}.
+ * A model build operation allows to participate in a model
+ * build phase and perform some resolution steps once all
+ * types are defined.
  *
  * @author Daniel Meyer
  *
  */
-public interface Model {
+public interface ModelBuildOperation {
 
-  public Collection<ModelElementType> getTypes();
-
-  public ModelElementType getType(Class<? extends ModelElementInstance> type);
-
-  public <T extends ModelElementInstance> ModelElementType getTypeForName(String typeName);
-
-  public ModelElementType getTypeForName(String typeName, String namespaceUri);
+  public void performModelBuild(Model model);
 
 }

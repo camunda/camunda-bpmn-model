@@ -17,7 +17,7 @@ import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN_TYPE_FLOW_
 
 import org.camunda.bpm.model.bpmn.FlowElement;
 import org.camunda.bpm.model.bpmn.FlowNode;
-import org.camunda.bpm.model.core.Model;
+import org.camunda.bpm.model.core.ModelBuilder;
 import org.camunda.bpm.model.core.impl.instance.ModelTypeInstanceContext;
 import org.camunda.bpm.model.core.type.ModelElementType;
 import org.camunda.bpm.model.core.type.ModelElementTypeBuilder;
@@ -30,12 +30,12 @@ public abstract class FlowNodeImpl extends FlowElementImpl implements FlowNode {
 
   public static ModelElementType MODEL_TYPE;
 
-  public static void registerType(Model model) {
+  public static void registerType(ModelBuilder modelBuilder) {
 
-    ModelElementTypeBuilder builder = model.defineType(FlowNode.class, BPMN_TYPE_FLOW_NODE)
+    ModelElementTypeBuilder builder = modelBuilder.defineType(FlowNode.class, BPMN_TYPE_FLOW_NODE)
       .namespaceUri(BPMN20_NS)
       .abstractType()
-      .extendsType(model.getType(FlowElement.class));
+      .extendsType(FlowElement.class);
 
     MODEL_TYPE = builder.build();
   }

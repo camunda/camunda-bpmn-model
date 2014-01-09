@@ -15,7 +15,7 @@ package org.camunda.bpm.model.bpmn.impl;
 import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.*;
 
 import org.camunda.bpm.model.bpmn.Import;
-import org.camunda.bpm.model.core.Model;
+import org.camunda.bpm.model.core.ModelBuilder;
 import org.camunda.bpm.model.core.impl.instance.ModelTypeInstanceContext;
 import org.camunda.bpm.model.core.type.Attribute;
 import org.camunda.bpm.model.core.type.ModelElementType;
@@ -35,9 +35,9 @@ public class ImportImpl extends AbstractBpmnModelElement implements Import {
   static Attribute<String> locationAttr;
   static Attribute<String> importTypeAttr;
 
-  public static void registerType(Model model) {
+  public static void registerType(ModelBuilder bpmnModelBuilder) {
 
-    ModelElementTypeBuilder builder = model.defineType(Import.class, BPMN_ELEMENT_IMPORT)
+    ModelElementTypeBuilder builder = bpmnModelBuilder.defineType(Import.class, BPMN_ELEMENT_IMPORT)
       .namespaceUri(BPMN20_NS)
       .instanceProvider(new ModelTypeIntanceProvider<Import>() {
         public Import newInstance(ModelTypeInstanceContext instanceContext) {

@@ -12,6 +12,8 @@
  */
 package org.camunda.bpm.model.core.impl.type.reference;
 
+import org.camunda.bpm.model.core.Model;
+import org.camunda.bpm.model.core.impl.ModelBuildOperation;
 import org.camunda.bpm.model.core.impl.type.ModelElementTypeImpl;
 import org.camunda.bpm.model.core.instance.ModelElementInstance;
 import org.camunda.bpm.model.core.type.Reference;
@@ -23,12 +25,14 @@ import org.camunda.bpm.model.core.type.ReferenceBuilder;
  * @author Sebastian Menski
  *
  */
-public class QNameReferenceBuilderImpl<T extends ModelElementInstance> implements ReferenceBuilder<T> {
+public class QNameReferenceBuilderImpl<T extends ModelElementInstance> implements ReferenceBuilder<T>, ModelBuildOperation {
 
   protected final QNameReferenceImpl<T> qNameReferenceImpl;
   protected final ModelElementTypeImpl declaringType;
+  protected Class<T> referencedElementType;
 
   public QNameReferenceBuilderImpl(String referencedAttributeName, Class<T> referencedElementType, ModelElementTypeImpl declaringType) {
+    this.referencedElementType = referencedElementType;
     this.declaringType = declaringType;
     qNameReferenceImpl = new QNameReferenceImpl<T>(referencedAttributeName, referencedElementType, declaringType.getModel());
   }
@@ -36,6 +40,10 @@ public class QNameReferenceBuilderImpl<T extends ModelElementInstance> implement
   public Reference<T> build() {
     declaringType.registerReference(qNameReferenceImpl);
     return qNameReferenceImpl;
+  }
+
+  public void performModelBuild(Model model) {
+    // do nothing
   }
 
 }

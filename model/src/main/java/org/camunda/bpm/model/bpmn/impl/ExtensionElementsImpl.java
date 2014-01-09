@@ -16,7 +16,7 @@ import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN20_NS;
 import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN_ELEMENT_EXTENSION_ELEMENTS;
 
 import org.camunda.bpm.model.bpmn.ExtensionElements;
-import org.camunda.bpm.model.core.Model;
+import org.camunda.bpm.model.core.ModelBuilder;
 import org.camunda.bpm.model.core.impl.instance.ModelTypeInstanceContext;
 import org.camunda.bpm.model.core.type.ModelElementType;
 import org.camunda.bpm.model.core.type.ModelElementTypeBuilder;
@@ -30,9 +30,9 @@ public class ExtensionElementsImpl extends AbstractBpmnModelElement implements E
 
   public static ModelElementType TYPE;
 
-  public static void registerType(Model model) {
+  public static void registerType(ModelBuilder modelBuilder) {
 
-    ModelElementTypeBuilder typeBuilder = model.defineType(ExtensionElements.class, BPMN_ELEMENT_EXTENSION_ELEMENTS)
+    ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(ExtensionElements.class, BPMN_ELEMENT_EXTENSION_ELEMENTS)
       .namespaceUri(BPMN20_NS)
       .instanceProvider(new ModelTypeIntanceProvider<ExtensionElements>() {
         public ExtensionElements newInstance(ModelTypeInstanceContext instanceContext) {

@@ -19,7 +19,7 @@ import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN_ELEMENT_ME
 import org.camunda.bpm.model.bpmn.EventDefinition;
 import org.camunda.bpm.model.bpmn.Message;
 import org.camunda.bpm.model.bpmn.MessageEventDefinition;
-import org.camunda.bpm.model.core.Model;
+import org.camunda.bpm.model.core.ModelBuilder;
 import org.camunda.bpm.model.core.ModelReferenceException;
 import org.camunda.bpm.model.core.impl.instance.ModelTypeInstanceContext;
 import org.camunda.bpm.model.core.impl.type.reference.QNameReferenceImpl;
@@ -41,10 +41,10 @@ public class MessageEventDefinitionImpl extends EventDefinitionImpl implements M
 
   static Reference<Message> messageRef;
 
-  public static void registerType(Model model) {
-    ModelElementTypeBuilder typeBuilder = model.defineType(MessageEventDefinition.class, BPMN_ELEMENT_MESSAGE_EVENT_DEFINITION)
+  public static void registerType(ModelBuilder modelBuilder) {
+    ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(MessageEventDefinition.class, BPMN_ELEMENT_MESSAGE_EVENT_DEFINITION)
       .namespaceUri(BPMN20_NS)
-      .extendsType(model.getType(EventDefinition.class))
+      .extendsType(EventDefinition.class)
       .instanceProvider(new ModelTypeIntanceProvider<MessageEventDefinition>() {
         public MessageEventDefinition newInstance(ModelTypeInstanceContext instanceContext) {
           return new MessageEventDefinitionImpl(instanceContext);

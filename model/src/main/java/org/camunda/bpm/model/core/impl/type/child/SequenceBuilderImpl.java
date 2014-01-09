@@ -12,6 +12,11 @@
  */
 package org.camunda.bpm.model.core.impl.type.child;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.camunda.bpm.model.core.Model;
+import org.camunda.bpm.model.core.impl.ModelBuildOperation;
 import org.camunda.bpm.model.core.impl.type.ModelElementTypeImpl;
 import org.camunda.bpm.model.core.instance.ModelElementInstance;
 
@@ -19,16 +24,20 @@ import org.camunda.bpm.model.core.instance.ModelElementInstance;
  * @author Daniel Meyer
  *
  */
-public class SequenceBuilderImpl implements SequenceBuilder {
+public class SequenceBuilderImpl implements SequenceBuilder, ModelBuildOperation {
 
   protected final ModelElementTypeImpl modelType;
+
+  protected List<ModelBuildOperation> modelBuildOperations = new ArrayList<ModelBuildOperation>();
 
   public SequenceBuilderImpl(ModelElementTypeImpl modelType) {
     this.modelType = modelType;
   }
 
   public <T extends ModelElementInstance> ChildElementBuilder<T> element(Class<T> childElementType, String elementName) {
-    return new ChildElementBuilderImpl<T>(childElementType, elementName, modelType);
+    ChildElementBuilderImpl<T> builder = new ChildElementBuilderImpl<T>(childElementType, elementName, modelType);
+    modelBuildOperations.add(builder);
+    return builder;
   }
 
   public <T extends ModelElementInstance> ChildElementCollectionBuilder<T> elementCollection(Class<T> childElementType, String localName) {
@@ -36,11 +45,21 @@ public class SequenceBuilderImpl implements SequenceBuilder {
   }
 
   public <T extends ModelElementInstance> ChildElementCollectionBuilder<T> elementCollection(Class<T> childElementType, String localName, String namespaceUri) {
-    return new ChildElementCollectionBuilderImpl<T>(childElementType, localName, namespaceUri, modelType);
+    ChildElementCollectionBuilderImpl<T> builder = new ChildElementCollectionBuilderImpl<T>(childElementType, localName, namespaceUri, modelType);
+    modelBuildOperations.add(builder);
+    return builder;
   }
 
   public <T extends ModelElementInstance> ChildElementCollectionBuilder<T> elementCollection(Class<T> childElementType) {
-    return new ChildElementCollectionBuilderImpl<T>(childElementType, modelType);
+    ChildElementCollectionBuilderImpl<T> builder = new ChildElementCollectionBuilderImpl<T>(childElementType, modelType);
+    modelBuildOperations.add(builder);
+    return builder;
+  }
+
+  public void performModelBuild(Model model) {
+    for (ModelBuildOperation operation : modelBuildOperations) {
+      operation.performModelBuild(model);
+    }
   }
 
 }

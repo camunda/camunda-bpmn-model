@@ -17,7 +17,7 @@ import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN_TYPE_ROOT_
 
 import org.camunda.bpm.model.bpmn.BaseElement;
 import org.camunda.bpm.model.bpmn.RootElement;
-import org.camunda.bpm.model.core.Model;
+import org.camunda.bpm.model.core.ModelBuilder;
 import org.camunda.bpm.model.core.impl.instance.ModelTypeInstanceContext;
 import org.camunda.bpm.model.core.type.ModelElementType;
 import org.camunda.bpm.model.core.type.ModelElementTypeBuilder;
@@ -30,12 +30,12 @@ public abstract class RootElementImpl extends BaseElementImp implements RootElem
 
   public static ModelElementType MODEL_TYPE;
 
-  public static void registerType(Model model) {
+  public static void registerType(ModelBuilder modelBuilder) {
 
-    ModelElementTypeBuilder typeBuilder = model.defineType(RootElement.class, BPMN_TYPE_ROOT_ELEMENT)
+    ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(RootElement.class, BPMN_TYPE_ROOT_ELEMENT)
       .namespaceUri(BPMN20_NS)
       .abstractType()
-      .extendsType(model.getType(BaseElement.class));
+      .extendsType(BaseElement.class);
 
     MODEL_TYPE = typeBuilder.build();
 

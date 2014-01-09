@@ -19,7 +19,7 @@ import java.util.Collection;
 import org.camunda.bpm.model.bpmn.BaseElement;
 import org.camunda.bpm.model.bpmn.Documentation;
 import org.camunda.bpm.model.bpmn.ExtensionElements;
-import org.camunda.bpm.model.core.Model;
+import org.camunda.bpm.model.core.ModelBuilder;
 import org.camunda.bpm.model.core.impl.instance.ModelTypeInstanceContext;
 import org.camunda.bpm.model.core.impl.type.child.ChildElement;
 import org.camunda.bpm.model.core.impl.type.child.ChildElementCollection;
@@ -40,9 +40,9 @@ public abstract class BaseElementImp extends AbstractBpmnModelElement implements
 
   public static ModelElementType TYPE;
 
-  public static void registerType(Model model) {
+  public static void registerType(ModelBuilder bpmnModelBuilder) {
 
-    ModelElementTypeBuilder typeBuilder = model.defineType(BaseElement.class, BPMN_TYPE_BASE_ELEMENT)
+    ModelElementTypeBuilder typeBuilder = bpmnModelBuilder.defineType(BaseElement.class, BPMN_TYPE_BASE_ELEMENT)
       .namespaceUri(BPMN20_NS)
       .abstractType();
 

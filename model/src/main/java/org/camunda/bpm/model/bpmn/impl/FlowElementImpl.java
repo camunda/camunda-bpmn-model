@@ -18,7 +18,7 @@ import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN_TYPE_FLOW_
 
 import org.camunda.bpm.model.bpmn.BaseElement;
 import org.camunda.bpm.model.bpmn.FlowElement;
-import org.camunda.bpm.model.core.Model;
+import org.camunda.bpm.model.core.ModelBuilder;
 import org.camunda.bpm.model.core.impl.instance.ModelTypeInstanceContext;
 import org.camunda.bpm.model.core.type.Attribute;
 import org.camunda.bpm.model.core.type.ModelElementType;
@@ -34,12 +34,12 @@ public abstract class FlowElementImpl extends BaseElementImp implements FlowElem
 
   static Attribute<String> nameAttr;
 
-  public static void registerType(Model model) {
+  public static void registerType(ModelBuilder modelBuilder) {
 
-    ModelElementTypeBuilder builder = model.defineType(FlowElement.class, BPMN_TYPE_FLOW_ELEMENT)
+    ModelElementTypeBuilder builder = modelBuilder.defineType(FlowElement.class, BPMN_TYPE_FLOW_ELEMENT)
       .namespaceUri(BPMN20_NS)
       .abstractType()
-      .extendsType(model.getType(BaseElement.class));
+      .extendsType(BaseElement.class);
 
     nameAttr = builder.stringAttribute(BPMN_ATTRIBUTE_NAME)
       .build();

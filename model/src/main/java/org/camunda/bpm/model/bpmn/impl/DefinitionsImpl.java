@@ -13,23 +13,13 @@
 package org.camunda.bpm.model.bpmn.impl;
 
 import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.*;
-import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN_ATTRIBUTE_EXPORTER;
-import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN_ATTRIBUTE_EXPORTER_VERSION;
-import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN_ATTRIBUTE_EXPRESSION_LANGUAGE;
-import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN_ATTRIBUTE_ID;
-import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN_ATTRIBUTE_NAME;
-import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN_ATTRIBUTE_TARGET_NAMESPACE;
-import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN_ATTRIBUTE_TYPE_LANGUAGE;
-import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN_ELEMENT_DEFINITIONS;
-import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.XML_SCHEMA_NS;
-import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.XPATH_NS;
 
 import java.util.Collection;
 
 import org.camunda.bpm.model.bpmn.Definitions;
 import org.camunda.bpm.model.bpmn.Import;
 import org.camunda.bpm.model.bpmn.RootElement;
-import org.camunda.bpm.model.core.Model;
+import org.camunda.bpm.model.core.ModelBuilder;
 import org.camunda.bpm.model.core.impl.instance.ModelTypeInstanceContext;
 import org.camunda.bpm.model.core.impl.type.child.ChildElementCollection;
 import org.camunda.bpm.model.core.impl.type.child.SequenceBuilder;
@@ -61,9 +51,9 @@ public class DefinitionsImpl extends AbstractBpmnModelElement implements Definit
   static ChildElementCollection<Import> importElementsColl;
   static ChildElementCollection<RootElement> rootElementsColl;
 
-  public static void registerType(Model model) {
+  public static void registerType(ModelBuilder bpmnModelBuilder) {
 
-    ModelElementTypeBuilder typeBuilder = model.defineType(Definitions.class, ELEMENT_NAME)
+    ModelElementTypeBuilder typeBuilder = bpmnModelBuilder.defineType(Definitions.class, ELEMENT_NAME)
       .namespaceUri(BPMN20_NS)
       .instanceProvider(new ModelTypeIntanceProvider<Definitions>() {
         public Definitions newInstance(ModelTypeInstanceContext instanceContext) {

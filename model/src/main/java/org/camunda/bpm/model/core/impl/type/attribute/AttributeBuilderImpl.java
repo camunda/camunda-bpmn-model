@@ -12,6 +12,8 @@
  */
 package org.camunda.bpm.model.core.impl.type.attribute;
 
+import org.camunda.bpm.model.core.Model;
+import org.camunda.bpm.model.core.impl.ModelBuildOperation;
 import org.camunda.bpm.model.core.impl.type.ModelElementTypeImpl;
 import org.camunda.bpm.model.core.type.Attribute;
 import org.camunda.bpm.model.core.type.AttributeBuilder;
@@ -22,7 +24,7 @@ import org.camunda.bpm.model.core.type.AttributeBuilder;
  * @author Daniel Meyer
  *
  */
-public abstract class AttributeBuilderImpl<T> implements AttributeBuilder<T> {
+public abstract class AttributeBuilderImpl<T> implements AttributeBuilder<T>, ModelBuildOperation {
 
   protected final AttributeImpl<T> attribute;
   protected final ModelElementTypeImpl modelType;
@@ -52,6 +54,10 @@ public abstract class AttributeBuilderImpl<T> implements AttributeBuilder<T> {
   public Attribute<T> build() {
     modelType.registerAttribute(attribute);
     return attribute;
+  }
+
+  public void performModelBuild(Model model) {
+    // do nothing
   }
 
 }

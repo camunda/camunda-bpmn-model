@@ -17,6 +17,7 @@ import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.*;
 import org.camunda.bpm.model.bpmn.CallableElement;
 import org.camunda.bpm.model.bpmn.RootElement;
 import org.camunda.bpm.model.core.Model;
+import org.camunda.bpm.model.core.ModelBuilder;
 import org.camunda.bpm.model.core.impl.instance.ModelTypeInstanceContext;
 import org.camunda.bpm.model.core.type.Attribute;
 import org.camunda.bpm.model.core.type.ModelElementType;
@@ -32,12 +33,12 @@ public abstract class CallableElementImpl extends RootElementImpl implements Cal
 
   static Attribute<String> nameAttr;
 
-  public static void registerType(Model model) {
+  public static void registerType(ModelBuilder bpmnModelBuilder) {
 
-    ModelElementTypeBuilder typeBuilder = model.defineType(CallableElement.class, BPMN_TYPE_CALLABLE_ELEMENT)
+    ModelElementTypeBuilder typeBuilder = bpmnModelBuilder.defineType(CallableElement.class, BPMN_TYPE_CALLABLE_ELEMENT)
       .namespaceUri(BPMN20_NS)
       .abstractType()
-      .extendsType(model.getType(RootElement.class));
+      .extendsType(RootElement.class);
 
     nameAttr = typeBuilder.stringAttribute(BPMN_ATTRIBUTE_NAME).build();
 

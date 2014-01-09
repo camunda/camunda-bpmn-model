@@ -45,7 +45,9 @@ import org.camunda.bpm.model.bpmn.impl.PropertyImpl;
 import org.camunda.bpm.model.bpmn.impl.RootElementImpl;
 import org.camunda.bpm.model.bpmn.impl.StartEventImpl;
 import org.camunda.bpm.model.core.Model;
+import org.camunda.bpm.model.core.ModelBuilder;
 import org.camunda.bpm.model.core.ModelParseException;
+import org.camunda.bpm.model.core.impl.ModelBuilderImpl;
 import org.camunda.bpm.model.core.impl.ModelImpl;
 import org.camunda.bpm.model.core.impl.util.IoUtil;
 
@@ -66,7 +68,7 @@ public class Bpmn {
 
   /** The {@link Model}
    */
-  protected Model bpmnModel = new ModelImpl();
+  protected Model bpmnModel;
 
   /**
    * Allows reading a {@link BpmnModelInstance} from a File.
@@ -139,7 +141,9 @@ public class Bpmn {
    * Register known types of the BPMN model
    */
   public Bpmn() {
-    doRegisterTypes(bpmnModel);
+    ModelBuilder bpmnModelBuilder = ModelBuilder.createInstance();
+    doRegisterTypes(bpmnModelBuilder);
+    bpmnModel = bpmnModelBuilder.build();
   }
 
   protected BpmnModelInstance doReadModelFromFile(File file) {
@@ -198,23 +202,23 @@ public class Bpmn {
     return bpmnParser.getEmptyModel();
   }
 
-  protected void doRegisterTypes(Model model) {
-    DefinitionsImpl.registerType(model);
-    ImportImpl.registerType(model);
-    BaseElementImp.registerType(model);
-    PropertyImpl.registerType(model);
-    RootElementImpl.registerType(model);
-    ExtensionElementsImpl.registerType(model);
-    CallableElementImpl.registerType(model);
-    ProcessImpl.registerType(model);
-    MessageImpl.registerType(model);
-    EventDefinitionImpl.registerType(model);
-    MessageEventDefinitionImpl.registerType(model);
-    FlowElementImpl.registerType(model);
-    FlowNodeImpl.registerType(model);
-    EventImpl.registerType(model);
-    CatchEventImpl.registerType(model);
-    StartEventImpl.registerType(model);
+  protected void doRegisterTypes(ModelBuilder bpmnModelBuilder) {
+    DefinitionsImpl.registerType(bpmnModelBuilder);
+    ImportImpl.registerType(bpmnModelBuilder);
+    BaseElementImp.registerType(bpmnModelBuilder);
+    PropertyImpl.registerType(bpmnModelBuilder);
+    RootElementImpl.registerType(bpmnModelBuilder);
+    ExtensionElementsImpl.registerType(bpmnModelBuilder);
+    CallableElementImpl.registerType(bpmnModelBuilder);
+    ProcessImpl.registerType(bpmnModelBuilder);
+    MessageImpl.registerType(bpmnModelBuilder);
+    EventDefinitionImpl.registerType(bpmnModelBuilder);
+    MessageEventDefinitionImpl.registerType(bpmnModelBuilder);
+    FlowElementImpl.registerType(bpmnModelBuilder);
+    FlowNodeImpl.registerType(bpmnModelBuilder);
+    EventImpl.registerType(bpmnModelBuilder);
+    CatchEventImpl.registerType(bpmnModelBuilder);
+    StartEventImpl.registerType(bpmnModelBuilder);
   }
 
   /**

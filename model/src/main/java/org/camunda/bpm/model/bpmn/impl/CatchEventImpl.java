@@ -21,6 +21,8 @@ import org.camunda.bpm.model.bpmn.Event;
 import org.camunda.bpm.model.bpmn.EventDefinition;
 import org.camunda.bpm.model.bpmn.FlowNode;
 import org.camunda.bpm.model.core.Model;
+import org.camunda.bpm.model.core.ModelBuilder;
+import org.camunda.bpm.model.core.impl.ModelBuildOperation;
 import org.camunda.bpm.model.core.impl.instance.ModelTypeInstanceContext;
 import org.camunda.bpm.model.core.impl.type.child.ChildElementCollection;
 import org.camunda.bpm.model.core.impl.type.child.SequenceBuilder;
@@ -37,12 +39,12 @@ public abstract class CatchEventImpl extends EventImpl implements CatchEvent {
 
   static ChildElementCollection<EventDefinition> eventDefinitionsColl;
 
-  public static void registerType(Model model) {
+  public static void registerType(ModelBuilder modelBuilder) {
 
-    ModelElementTypeBuilder builder = model.defineType(CatchEvent.class, BPMN_TYPE_CATCH_EVENT)
+    ModelElementTypeBuilder builder = modelBuilder.defineType(CatchEvent.class, BPMN_TYPE_CATCH_EVENT)
       .namespaceUri(BPMN20_NS)
       .abstractType()
-      .extendsType(model.getType(Event.class));
+      .extendsType(Event.class);
 
     SequenceBuilder sequence = builder.sequence();
 
