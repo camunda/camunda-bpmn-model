@@ -43,7 +43,7 @@ public class ModelUtil {
    * @return the child model element
    */
   public static ModelElementInstance getModelElement(Element domElement, ModelInstanceImpl modelInstance) {
-    ModelElementInstance modelElement = (ModelElementInstanceImpl) domElement.getUserData(MODEL_ELEMENT_KEY);
+    ModelElementInstance modelElement = (ModelElementInstance) domElement.getUserData(MODEL_ELEMENT_KEY);
     if(modelElement == null) {
 
       String namespaceUri = domElement.getNamespaceURI();

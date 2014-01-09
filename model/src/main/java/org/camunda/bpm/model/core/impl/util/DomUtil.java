@@ -296,4 +296,58 @@ public class DomUtil {
     domElement.setAttributeNS(namespaceUri, attributeName, xmlValue);
   }
 
+  /**
+   * Find an element by Id
+   *
+   * @param id the id of the element to find
+   * @param document
+   * @return the element or null if no such element exists
+   */
+  public static Element findElementById(Document document, String id) {
+    return document.getElementById(id);
+  }
+
+  /**
+   * Get the document for a DOM element
+   * @param domElement the element to get the document for
+   * @return the Document for a DOM element
+   */
+  public static Document getDocument(Element domElement) {
+    return domElement.getOwnerDocument();
+  }
+
+  /**
+   * Returns the namespace URI for the given prefix.
+   *
+   * @param prefix
+   *          the prefix to resolve
+   * @param scope
+   *          the node from which the prefix should be resolved. The DOM
+   *          implementation will start from this element and recursively check
+   *          the parents of this node for a namespace declaration. returns the
+   *          namespace URI for the given prefix
+   * @return the resolved namespace URI
+   */
+  public static String getNamespaceUriForPrefix(Node scope, String prefix) {
+    return scope.lookupNamespaceURI(prefix);
+  }
+
+  /**
+   * @param domElement
+   * @param attributeName
+   */
+  public static void setIdAttribute(Element domElement, String attributeName) {
+    domElement.setIdAttribute(attributeName, true);
+  }
+
+  /**
+   * @param domElement
+   * @param attributeName
+   */
+  public static void setIdAttributeNs(Element domElement, String attributeName, String namespaceUri) {
+    domElement.setIdAttributeNS(namespaceUri, attributeName, true);
+  }
+
+
+
 }

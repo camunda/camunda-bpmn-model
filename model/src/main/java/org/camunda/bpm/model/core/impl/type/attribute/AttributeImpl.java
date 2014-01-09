@@ -35,7 +35,9 @@ public abstract class AttributeImpl<T> implements Attribute<T> {
    */
   protected T defaultValue;
 
-  protected boolean isRequired;
+  protected boolean isRequired = false;
+
+  protected boolean isIdAttribute = false;
 
   /**
    * to be implemented by subclasses: converts the raw (String) value of the
@@ -82,9 +84,9 @@ public abstract class AttributeImpl<T> implements Attribute<T> {
   public void setValue(ModelElementInstance modelElement, T value) {
     String xmlValue = convertModelValueToXmlValue(value);
     if(namespaceUri == null) {
-      modelElement.setAttributeValue(attributeName, xmlValue);
+      modelElement.setAttributeValue(attributeName, xmlValue, isIdAttribute);
     } else {
-      modelElement.setAttributeValueNs(attributeName, namespaceUri, xmlValue);
+      modelElement.setAttributeValueNs(attributeName, namespaceUri, xmlValue, isIdAttribute);
     }
   }
 
@@ -125,6 +127,14 @@ public abstract class AttributeImpl<T> implements Attribute<T> {
    */
   public void setAttributeName(String attributeName) {
     this.attributeName = attributeName;
+  }
+
+  /**
+   * indicate whether this attribute is an Id attribtue
+   * @param b
+   */
+  public void setId(boolean b) {
+    this.isIdAttribute = b;
   }
 
 }

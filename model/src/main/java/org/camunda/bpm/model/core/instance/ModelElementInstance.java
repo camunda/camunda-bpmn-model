@@ -12,6 +12,7 @@
  */
 package org.camunda.bpm.model.core.instance;
 
+import org.camunda.bpm.model.core.ModelInstance;
 import org.camunda.bpm.model.core.impl.type.ModelElementTypeImpl;
 import org.camunda.bpm.model.core.type.ModelElementType;
 
@@ -23,14 +24,17 @@ import org.camunda.bpm.model.core.type.ModelElementType;
  */
 public interface ModelElementInstance {
 
-  void setAttributeValueNs(String attributeName, String namespaceUri, String xmlValue);
+  void setAttributeValueNs(String attributeName, String namespaceUri, String xmlValue, boolean isIdAttribute);
 
-  void setAttributeValue(String attributeName, String xmlValue);
+  void setAttributeValue(String attributeName, String xmlValue, boolean isIdAttribute);
 
   String getAttributeValueNs(String attributeName, String namespaceUri);
 
   String getAttributeValue(String attributeName);
 
   ModelElementType getElementType();
+
+  ModelInstance getModelInstance();
+
 
 }

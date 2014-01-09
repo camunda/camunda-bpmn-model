@@ -20,6 +20,7 @@ import org.camunda.bpm.model.core.impl.type.ModelElementTypeImpl;
 import org.camunda.bpm.model.core.impl.util.DomUtil;
 import org.camunda.bpm.model.core.impl.util.ModelUtil;
 import org.camunda.bpm.model.core.instance.ModelElementInstance;
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -35,13 +36,13 @@ public abstract class ModelElementInstanceImpl implements ModelElementInstance {
   /** the wrapped DOM {@link Element} */
   protected final Element domElement;
 
-  protected final ModelInstanceImpl model;
+  protected final ModelInstanceImpl modelInstance;
 
   protected final ModelElementTypeImpl elementType;
 
   public ModelElementInstanceImpl(ModelTypeInstanceContext instanceContext) {
     this.domElement = instanceContext.getDomElement();
-    this.model = instanceContext.getModel();
+    this.modelInstance = instanceContext.getModel();
     this.elementType = instanceContext.getModelType();
   }
 
@@ -66,7 +67,7 @@ public abstract class ModelElementInstanceImpl implements ModelElementInstance {
     List<Element> childElements = DomUtil.filterNodeListByName(childNodes, elementName, namespaceUri);
 
     if(!childElements.isEmpty()) {
-      return ModelUtil.getModelElement(childElements.get(0), model);
+      return ModelUtil.getModelElement(childElements.get(0), modelInstance);
 
     } else {
       return null;
@@ -138,7 +139,7 @@ public abstract class ModelElementInstanceImpl implements ModelElementInstance {
         continue;
       }
       // get model element wrapper for current DOM child element
-      ModelElementInstance currentChild = ModelUtil.getModelElement((Element) childDomElement, model);
+      ModelElementInstance currentChild = ModelUtil.getModelElement((Element) childDomElement, modelInstance);
       // compare child element type with new child element type
       int childTypeIndex = ModelUtil.getIndexOfElementType(currentChild, childElementTypes);
       if (childTypeIndex == -1) {
@@ -170,7 +171,7 @@ public abstract class ModelElementInstanceImpl implements ModelElementInstance {
   }
 
   public ModelInstanceImpl getModelInstance() {
-    return model;
+    return modelInstance;
   }
 
   /**
@@ -202,12 +203,18 @@ public abstract class ModelElementInstanceImpl implements ModelElementInstance {
    * @param attributeName
    * @param xmlValue
    */
-  public void setAttributeValue(String attributeName, String xmlValue) {
+  public void setAttributeValue(String attributeName, String xmlValue, boolean isIdAttribute) {
     DomUtil.setAttributeValue(attributeName, xmlValue, domElement);
+    if(isIdAttribute) {
+      DomUtil.setIdAttribute(domElement, attributeName);
+    }
   }
 
-  public void setAttributeValueNs(String attributeName, String namespaceUri, String xmlValue) {
+  public void setAttributeValueNs(String attributeName, String namespaceUri, String xmlValue, boolean isIdAttribute) {
     DomUtil.setAttributeValueNs(attributeName, namespaceUri, xmlValue, domElement);
+    if(isIdAttribute) {
+      DomUtil.setIdAttributeNs(domElement, attributeName, namespaceUri);
+    }
   }
 
   /* (non-Javadoc)
@@ -215,6 +222,20 @@ public abstract class ModelElementInstanceImpl implements ModelElementInstance {
    */
   public ModelElementTypeImpl getElementType() {
     return elementType;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if(obj == null) {
+      return false;
+    } else if(obj == this) {
+      return true;
+    } else if(!(obj instanceof ModelElementInstanceImpl)) {
+      return false;
+    } else {
+      ModelElementInstanceImpl other = (ModelElementInstanceImpl) obj;
+      return other.domElement == domElement;
+    }
   }
 
 }

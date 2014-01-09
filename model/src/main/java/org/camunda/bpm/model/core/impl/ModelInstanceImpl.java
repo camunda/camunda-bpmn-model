@@ -89,4 +89,12 @@ public abstract class ModelInstanceImpl implements ModelInstance {
     return model;
   }
 
+  public ModelElementInstance findModelElementById(String id) {
+    Element element = DomUtil.findElementById(document, id);
+    if(element != null) {
+      return ModelUtil.getModelElement(element, this);
+    } else {
+      return null;
+    }
+  }
 }

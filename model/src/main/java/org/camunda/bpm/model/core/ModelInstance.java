@@ -33,4 +33,6 @@ public interface ModelInstance {
 
   Model getModel();
 
+  ModelElementInstance findModelElementById(String id);
+
 }

@@ -33,6 +33,11 @@ public abstract class AttributeBuilderImpl<T> implements AttributeBuilder<T> {
     attribute.setAttributeName(attributeName);
   }
 
+  public AttributeBuilder<T> idAttribute() {
+    attribute.setId(true);
+    return this;
+  }
+
 
   public AttributeBuilder<T> defaultValue(T defaultValue) {
     attribute.setDefaultValue(defaultValue);

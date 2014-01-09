@@ -47,6 +47,7 @@ public abstract class BaseElementImp extends AbstractBpmnModelElement implements
       .abstractType();
 
     idAttr = typeBuilder.stringAttribute(BPMN_ATTRIBUTE_ID)
+      .idAttribute()
       .build();
 
     SequenceBuilder sequenceBuilder = typeBuilder.sequence();
@@ -75,11 +76,11 @@ public abstract class BaseElementImp extends AbstractBpmnModelElement implements
   }
 
   public ExtensionElements getExtensionElements() {
-    return (ExtensionElements) extensionElementsChild.get(this);
+    return extensionElementsChild.get(this);
   }
 
   public void setExtensionElements(ExtensionElements extensionElements) {
-    extensionElementsChild.set(this, (ExtensionElements)extensionElements);
+    extensionElementsChild.set(this, extensionElements);
   }
 
 }

@@ -24,6 +24,8 @@ public interface AttributeBuilder<T> {
 
   AttributeBuilder<T> required();
 
+  AttributeBuilder<T> idAttribute();
+
   Attribute<T> build();
 
 }
