@@ -43,7 +43,8 @@ public class ModelElementTypeBuilderImpl implements ModelElementTypeBuilder {
 
   public ModelElementTypeBuilder extendsType(ModelElementType extendedType) {
     ModelElementTypeImpl typeImpl = (ModelElementTypeImpl) extendedType;
-    modelType.setPartentType(typeImpl);
+    modelType.setBaseType(typeImpl);
+    typeImpl.registerExtendingType(modelType);
     return this;
   }
 

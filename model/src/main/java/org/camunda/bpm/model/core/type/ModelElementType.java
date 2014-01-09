@@ -33,7 +33,7 @@ public interface ModelElementType {
 
   public ModelElementInstance newInstance(ModelInstance modelInstance);
 
-  public ModelElementType getParentType();
+  public ModelElementType getBaseType();
 
   boolean isAbstract();
 

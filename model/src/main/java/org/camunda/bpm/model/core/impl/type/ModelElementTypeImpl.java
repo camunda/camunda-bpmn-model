@@ -14,6 +14,7 @@ package org.camunda.bpm.model.core.impl.type;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import org.camunda.bpm.model.core.Model;
@@ -41,7 +42,9 @@ public class ModelElementTypeImpl implements ModelElementType {
 
   protected String typeNamespace;
 
-  protected ModelElementTypeImpl partentType;
+  protected ModelElementTypeImpl baseType;
+
+  protected List<ModelElementType> extendingTypes = new ArrayList<ModelElementType>();
 
   protected List<Attribute<?>> attributes = new ArrayList<Attribute<?>>();
 
@@ -85,6 +88,10 @@ public class ModelElementTypeImpl implements ModelElementType {
     references.add(reference);
   }
 
+  public void registerExtendingType(ModelElementType modelType) {
+    extendingTypes.add(modelType);
+  }
+
   protected ModelElementInstance createModelElementIntance(ModelTypeInstanceContext instanceContext) {
     return instanceProvider.newInstance(instanceContext);
   }
@@ -109,8 +116,8 @@ public class ModelElementTypeImpl implements ModelElementType {
     return typeNamespace;
   }
 
-  public void setPartentType(ModelElementTypeImpl partentType) {
-    this.partentType = partentType;
+  public void setBaseType(ModelElementTypeImpl partentType) {
+    this.baseType = partentType;
   }
 
   public void setInstanceProvider(ModelTypeIntanceProvider<?> instanceProvider) {
@@ -126,11 +133,11 @@ public class ModelElementTypeImpl implements ModelElementType {
   }
 
   public Collection<ModelElementType> getExtendingTypes() {
-    return null;
+    return Collections.unmodifiableCollection(extendingTypes);
   }
 
-  public ModelElementType getParentType() {
-    return partentType;
+  public ModelElementType getBaseType() {
+    return baseType;
   }
 
   public Model getModel() {
@@ -139,8 +146,8 @@ public class ModelElementTypeImpl implements ModelElementType {
 
   public List<Class<?>> getChildElementTypes() {
     List<Class<?>> allChildElementTypes = new ArrayList<Class<?>>();
-    if (partentType != null) {
-      allChildElementTypes.addAll(partentType.getChildElementTypes());
+    if (baseType != null) {
+      allChildElementTypes.addAll(baseType.getChildElementTypes());
     }
     allChildElementTypes.addAll(childElementTypes);
     return allChildElementTypes;
