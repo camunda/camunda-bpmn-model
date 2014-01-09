@@ -29,6 +29,8 @@ public interface ModelElementType {
 
   public String getTypeNamespace();
 
+  public Class<? extends ModelElementInstance> getInstanceType();
+
   public List<Attribute<?>> getAttributes();
 
   public ModelElementInstance newInstance(ModelInstance modelInstance);
@@ -40,4 +42,5 @@ public interface ModelElementType {
   Collection<ModelElementType> getExtendingTypes();
 
   Model getModel();
+
 }

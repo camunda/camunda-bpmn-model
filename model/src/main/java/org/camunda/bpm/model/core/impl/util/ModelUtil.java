@@ -186,10 +186,10 @@ public class ModelUtil {
    *
    * @param baseTypes the collection of types to calculate the union of all extending types
    */
-  public static Collection<ModelElementType> calculateAllExtendingTypes(Model model, Collection<Class<? extends ModelElementInstance>> baseInstanceTypes) {
+  public static Collection<ModelElementType> calculateAllExtendingTypes(Model model, Collection<ModelElementType> baseTypes) {
     Set<ModelElementType> allExtendingTypes = new HashSet<ModelElementType>();
-    for (Class<? extends ModelElementInstance> baseInstanceType : baseInstanceTypes) {
-      ModelElementTypeImpl modelElementTypeImpl = (ModelElementTypeImpl) model.getType(baseInstanceType);
+    for (ModelElementType baseType : baseTypes) {
+      ModelElementTypeImpl modelElementTypeImpl = (ModelElementTypeImpl) model.getType(baseType.getInstanceType());
       modelElementTypeImpl.resolveExtendingTypes(allExtendingTypes);
     }
     return allExtendingTypes;
@@ -198,9 +198,9 @@ public class ModelUtil {
   /**
    * Calculate a collection of all base types for the given type
    */
-  public static Collection<ModelElementType> calculateAllBaseTypes(Model model, Class<? extends ModelElementInstance> instance) {
+  public static Collection<ModelElementType> calculateAllBaseTypes(Model model, ModelElementType type) {
     List<ModelElementType> baseTypes = new ArrayList<ModelElementType>();
-    ModelElementTypeImpl typeImpl = (ModelElementTypeImpl) model.getType(instance);
+    ModelElementTypeImpl typeImpl = (ModelElementTypeImpl) type;
     typeImpl.resolveBaseTypes(baseTypes);
     return baseTypes;
   }

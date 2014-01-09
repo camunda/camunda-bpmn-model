@@ -31,14 +31,10 @@ public class QNameReferenceBuilderImpl<T extends ModelElementInstance> implement
   protected final ModelElementTypeImpl declaringType;
   protected Class<T> referencedElementType;
 
-  public QNameReferenceBuilderImpl(String referencedAttributeName, Class<T> referencedElementType, ModelElementTypeImpl declaringType, Class<? extends ModelElementInstance> instanceType) {
+  public QNameReferenceBuilderImpl(String referencedAttributeName, Class<T> referencedElementType, ModelElementTypeImpl declaringType) {
     this.referencedElementType = referencedElementType;
     this.declaringType = declaringType;
     qNameReferenceImpl = new QNameReferenceImpl<T>(referencedAttributeName, referencedElementType, declaringType.getModel());
-
-    // register declaring type as a referencing type of referenced type
-    ModelElementTypeImpl referencedType = (ModelElementTypeImpl) declaringType.getModel().getType(referencedElementType);
-    referencedType.registerReferencingType(instanceType);
   }
 
   public Reference<T> build() {
@@ -47,7 +43,9 @@ public class QNameReferenceBuilderImpl<T extends ModelElementInstance> implement
   }
 
   public void performModelBuild(Model model) {
-    // do nothing
+    // register declaring type as a referencing type of referenced type
+    ModelElementTypeImpl referencedType = (ModelElementTypeImpl) declaringType.getModel().getType(referencedElementType);
+    referencedType.registerReferencingType(declaringType);
   }
 
 }

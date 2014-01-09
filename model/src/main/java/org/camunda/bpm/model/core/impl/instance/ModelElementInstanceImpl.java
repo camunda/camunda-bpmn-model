@@ -20,6 +20,7 @@ import org.camunda.bpm.model.core.impl.type.ModelElementTypeImpl;
 import org.camunda.bpm.model.core.impl.util.DomUtil;
 import org.camunda.bpm.model.core.impl.util.ModelUtil;
 import org.camunda.bpm.model.core.instance.ModelElementInstance;
+import org.camunda.bpm.model.core.type.ModelElementType;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -225,7 +226,7 @@ public abstract class ModelElementInstanceImpl implements ModelElementInstance {
     DomUtil.removeAttributeNs(domElement, attributeName, namespaceUri);
   }
 
-  public ModelElementTypeImpl getElementType() {
+  public ModelElementType getElementType() {
     return elementType;
   }
 

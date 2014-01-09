@@ -39,9 +39,11 @@ import org.w3c.dom.Element;
  */
 public class ModelElementTypeImpl implements ModelElementType {
 
-  protected ModelImpl model;
+  protected final ModelImpl model;
 
-  protected String typeName;
+  protected final String typeName;
+
+  protected final Class<? extends ModelElementInstance> instanceType;
 
   protected String typeNamespace;
 
@@ -55,7 +57,7 @@ public class ModelElementTypeImpl implements ModelElementType {
 
   protected List<Reference<?>> references = new ArrayList<Reference<?>>();
 
-  protected List<Class<? extends ModelElementInstance>> registeredReferencingTypes = new ArrayList<Class<? extends ModelElementInstance>>();
+  protected List<ModelElementType> registeredReferencingTypes = new ArrayList<ModelElementType>();
 
   protected Collection<ModelElementType> referencingTypes = null;
 
@@ -63,13 +65,14 @@ public class ModelElementTypeImpl implements ModelElementType {
 
   protected boolean isAbstract;
 
-
   /**
    * @param name
+   * @param instanceType
    */
-  public ModelElementTypeImpl(ModelImpl model, String name) {
+  public ModelElementTypeImpl(ModelImpl model, String name, Class<? extends ModelElementInstance> instanceType) {
     this.model = model;
     this.typeName = name;
+    this.instanceType = instanceType;
   }
 
   public ModelElementInstance newInstance(ModelInstance modelInstance) {
@@ -99,8 +102,8 @@ public class ModelElementTypeImpl implements ModelElementType {
     extendingTypes.add(modelType);
   }
 
-  public void registerReferencingType(Class<? extends ModelElementInstance> modelInstanceType) {
-    registeredReferencingTypes.add(modelInstanceType);
+  public void registerReferencingType(ModelElementType type) {
+    registeredReferencingTypes.add(type);
   }
 
   protected ModelElementInstance createModelElementIntance(ModelTypeInstanceContext instanceContext) {
@@ -117,6 +120,10 @@ public class ModelElementTypeImpl implements ModelElementType {
 
   public String getTypeName() {
     return typeName;
+  }
+
+  public Class<? extends ModelElementInstance> getInstanceType() {
+    return instanceType;
   }
 
   public void setTypeNamespace(String typeNamespace) {

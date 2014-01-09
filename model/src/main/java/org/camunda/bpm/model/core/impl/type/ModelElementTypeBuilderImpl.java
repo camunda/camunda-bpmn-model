@@ -47,7 +47,7 @@ public class ModelElementTypeBuilderImpl implements ModelElementTypeBuilder, Mod
   public ModelElementTypeBuilderImpl(Class<? extends ModelElementInstance> instanceType, String name, ModelImpl model) {
     this.instanceType = instanceType;
     this.model = model;
-    modelType = new ModelElementTypeImpl(model, name);
+    modelType = new ModelElementTypeImpl(model, name, instanceType);
   }
 
   public ModelElementTypeBuilder extendsType(Class<? extends ModelElementInstance> extendedType) {
@@ -84,7 +84,7 @@ public class ModelElementTypeBuilderImpl implements ModelElementTypeBuilder, Mod
   }
 
   public <V extends ModelElementInstance> ReferenceBuilder<V> qNameReference(Class<V> referencedElementType, String referencedAttributeName) {
-    QNameReferenceBuilderImpl<V> builder = new QNameReferenceBuilderImpl<V>(referencedAttributeName, referencedElementType, modelType, instanceType);
+    QNameReferenceBuilderImpl<V> builder = new QNameReferenceBuilderImpl<V>(referencedAttributeName, referencedElementType, modelType);
     modelBuildOperations.add(builder);
     return builder;
   }

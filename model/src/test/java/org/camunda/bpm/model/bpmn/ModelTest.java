@@ -20,7 +20,6 @@ import java.util.List;
 
 import org.camunda.bpm.model.core.Model;
 import org.camunda.bpm.model.core.impl.util.ModelUtil;
-import org.camunda.bpm.model.core.instance.ModelElementInstance;
 import org.camunda.bpm.model.core.type.ModelElementType;
 import org.junit.Test;
 
@@ -44,24 +43,25 @@ public class ModelTest {
   public void testBaseTypeCalculation() {
     BpmnModelInstance bpmnModelInstance = Bpmn.createEmptyModel();
     Model model = bpmnModelInstance.getModel();
-    Collection<ModelElementType> allBaseTypes = ModelUtil.calculateAllBaseTypes(model, StartEvent.class);
+    Collection<ModelElementType> allBaseTypes = ModelUtil.calculateAllBaseTypes(model, model.getType(StartEvent.class));
     assertThat(allBaseTypes).hasSize(5);
 
-    allBaseTypes = ModelUtil.calculateAllBaseTypes(model, MessageEventDefinition.class);
+    allBaseTypes = ModelUtil.calculateAllBaseTypes(model, model.getType(MessageEventDefinition.class));
     assertThat(allBaseTypes).hasSize(3);
 
-    allBaseTypes = ModelUtil.calculateAllBaseTypes(model, BaseElement.class);
+    allBaseTypes = ModelUtil.calculateAllBaseTypes(model, model.getType(BaseElement.class));
     assertThat(allBaseTypes).hasSize(0);
   }
 
   @Test
   public void testExtendingTypeCalculation() {
     BpmnModelInstance bpmnModelInstance = Bpmn.createEmptyModel();
-    List<Class<? extends ModelElementInstance>> baseInstanceTypes = new ArrayList<Class<? extends ModelElementInstance>>();
-    baseInstanceTypes.add(Event.class);
-    baseInstanceTypes.add(CatchEvent.class);
-    baseInstanceTypes.add(ExtensionElements.class);
-    baseInstanceTypes.add(EventDefinition.class);
+    Model model = bpmnModelInstance.getModel();
+    List<ModelElementType> baseInstanceTypes = new ArrayList<ModelElementType>();
+    baseInstanceTypes.add(model.getType(Event.class));
+    baseInstanceTypes.add(model.getType(CatchEvent.class));
+    baseInstanceTypes.add(model.getType(ExtensionElements.class));
+    baseInstanceTypes.add(model.getType(EventDefinition.class));
     Collection<ModelElementType> allExtendingTypes = ModelUtil.calculateAllExtendingTypes(bpmnModelInstance.getModel(), baseInstanceTypes);
     assertThat(allExtendingTypes).hasSize(3);
   }

@@ -47,8 +47,7 @@ import org.camunda.bpm.model.bpmn.impl.StartEventImpl;
 import org.camunda.bpm.model.core.Model;
 import org.camunda.bpm.model.core.ModelBuilder;
 import org.camunda.bpm.model.core.ModelParseException;
-import org.camunda.bpm.model.core.impl.ModelBuilderImpl;
-import org.camunda.bpm.model.core.impl.ModelImpl;
+import org.camunda.bpm.model.core.ModelValidationException;
 import org.camunda.bpm.model.core.impl.util.IoUtil;
 
 /**
@@ -211,8 +210,8 @@ public class Bpmn {
     ExtensionElementsImpl.registerType(bpmnModelBuilder);
     CallableElementImpl.registerType(bpmnModelBuilder);
     ProcessImpl.registerType(bpmnModelBuilder);
-    MessageImpl.registerType(bpmnModelBuilder);
     EventDefinitionImpl.registerType(bpmnModelBuilder);
+    MessageImpl.registerType(bpmnModelBuilder);
     MessageEventDefinitionImpl.registerType(bpmnModelBuilder);
     FlowElementImpl.registerType(bpmnModelBuilder);
     FlowNodeImpl.registerType(bpmnModelBuilder);
