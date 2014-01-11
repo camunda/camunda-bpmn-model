@@ -12,27 +12,23 @@
  */
 package org.camunda.bpm.model.core;
 
-import java.util.Collection;
+import static org.camunda.bpm.model.core.testmodel.TestModelConstants.*;
+import static org.fest.assertions.Assertions.*;
 
-import org.camunda.bpm.model.core.instance.ModelElementInstance;
-import org.camunda.bpm.model.core.type.ModelElementType;
+import org.junit.Test;
 
 /**
- * Use {@link ModelBuilder} to create an instance of a {@link Model}.
- *
  * @author Daniel Meyer
  *
  */
-public interface Model {
+public class ModelBuilderTest {
 
-  public Collection<ModelElementType> getTypes();
+  @Test
+  public void shouldSetModelName() {
+    Model model = ModelBuilder.createInstance(MODEL_NAME)
+      .build();
 
-  public ModelElementType getType(Class<? extends ModelElementInstance> type);
-
-  public <T extends ModelElementInstance> ModelElementType getTypeForName(String typeName);
-
-  public ModelElementType getTypeForName(String typeName, String namespaceUri);
-
-  String getModelName();
+    assertThat(model.getModelName()).isEqualTo(MODEL_NAME);
+  }
 
 }

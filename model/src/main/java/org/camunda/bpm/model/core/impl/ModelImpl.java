@@ -66,6 +66,10 @@ public class ModelImpl implements Model {
     typesByClass.put(instanceType, modelElementType);
   }
 
+  public String getModelName() {
+    return modelName;
+  }
+
   @Override
   public int hashCode() {
     final int prime = 31;
