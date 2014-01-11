@@ -30,8 +30,8 @@ public class ModelBuilderImpl extends ModelBuilder {
   protected List<ModelElementTypeBuilderImpl> typeBuilders = new ArrayList<ModelElementTypeBuilderImpl>();
   protected ModelImpl model;
 
-  public ModelBuilderImpl() {
-    model = new ModelImpl();
+  public ModelBuilderImpl(String modelName) {
+    model = new ModelImpl(modelName);
   }
 
   public ModelElementTypeBuilder defineType(Class<? extends ModelElementInstance> modelInstanceType, String typeName) {

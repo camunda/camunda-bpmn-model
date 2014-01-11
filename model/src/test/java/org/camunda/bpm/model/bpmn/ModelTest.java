@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.camunda.bpm.model.bpmn.impl.BpmnModelConstants;
 import org.camunda.bpm.model.core.Model;
 import org.camunda.bpm.model.core.impl.util.ModelUtil;
 import org.camunda.bpm.model.core.type.ModelElementType;
@@ -64,6 +65,59 @@ public class ModelTest {
     baseInstanceTypes.add(model.getType(EventDefinition.class));
     Collection<ModelElementType> allExtendingTypes = ModelUtil.calculateAllExtendingTypes(bpmnModelInstance.getModel(), baseInstanceTypes);
     assertThat(allExtendingTypes).hasSize(3);
+  }
+
+  @Test
+  public void testShouldUpdateReferenceOnIdChange() {
+    BpmnModelInstance bpmnModelInstance = Bpmn.createEmptyModel();
+    Definitions definitions = bpmnModelInstance.newInstance(Definitions.class);
+    bpmnModelInstance.setDefinitions(definitions);
+
+    Message message = bpmnModelInstance.newInstance(Message.class);
+    message.setId("new-message");
+    definitions.getRootElements().add(message);
+
+    Process process = bpmnModelInstance.newInstance(Process.class);
+    definitions.getRootElements().add(process);
+
+    StartEvent startEvent = bpmnModelInstance.newInstance(StartEvent.class);
+    process.getFlowElements().add(startEvent);
+
+    MessageEventDefinition messageEventDefinition = bpmnModelInstance.newInstance(MessageEventDefinition.class);
+    messageEventDefinition.setMessage(message);
+    startEvent.getEventDefinitions().add(messageEventDefinition);
+
+    assertThat(messageEventDefinition.getAttributeValue(BpmnModelConstants.BPMN_ATTRIBUTE_MESSAGE_REF)).isEqualTo(message.getId());
+
+    message.setId("changed-message");
+    assertThat(messageEventDefinition.getAttributeValue(BpmnModelConstants.BPMN_ATTRIBUTE_MESSAGE_REF)).isEqualTo(message.getId());
+  }
+  @Test
+  public void testShouldRemoveReferenceIfReferencingElementIsRemove() {
+    BpmnModelInstance bpmnModelInstance = Bpmn.createEmptyModel();
+    Definitions definitions = bpmnModelInstance.newInstance(Definitions.class);
+    bpmnModelInstance.setDefinitions(definitions);
+
+    Message message = bpmnModelInstance.newInstance(Message.class);
+    message.setId("new-message");
+    definitions.getRootElements().add(message);
+
+    Process process = bpmnModelInstance.newInstance(Process.class);
+    definitions.getRootElements().add(process);
+
+    StartEvent startEvent = bpmnModelInstance.newInstance(StartEvent.class);
+    process.getFlowElements().add(startEvent);
+
+    MessageEventDefinition messageEventDefinition = bpmnModelInstance.newInstance(MessageEventDefinition.class);
+    messageEventDefinition.setMessage(message);
+    startEvent.getEventDefinitions().add(messageEventDefinition);
+
+    assertThat(messageEventDefinition.getAttributeValue(BpmnModelConstants.BPMN_ATTRIBUTE_MESSAGE_REF)).isEqualTo(message.getId());
+
+    definitions.getRootElements().remove(message);
+
+    assertThat(messageEventDefinition.getAttributeValue(BpmnModelConstants.BPMN_ATTRIBUTE_MESSAGE_REF)).isNull();
+
   }
 
 }

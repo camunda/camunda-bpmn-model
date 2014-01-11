@@ -140,7 +140,7 @@ public class Bpmn {
    * Register known types of the BPMN model
    */
   public Bpmn() {
-    ModelBuilder bpmnModelBuilder = ModelBuilder.createInstance();
+    ModelBuilder bpmnModelBuilder = ModelBuilder.createInstance("BPMN Model");
     doRegisterTypes(bpmnModelBuilder);
     bpmnModel = bpmnModelBuilder.build();
   }

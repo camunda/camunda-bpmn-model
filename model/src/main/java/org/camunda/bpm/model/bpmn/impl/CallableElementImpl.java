@@ -12,11 +12,12 @@
  */
 package org.camunda.bpm.model.bpmn.impl;
 
-import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.*;
+import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN20_NS;
+import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN_ATTRIBUTE_NAME;
+import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN_TYPE_CALLABLE_ELEMENT;
 
 import org.camunda.bpm.model.bpmn.CallableElement;
 import org.camunda.bpm.model.bpmn.RootElement;
-import org.camunda.bpm.model.core.Model;
 import org.camunda.bpm.model.core.ModelBuilder;
 import org.camunda.bpm.model.core.impl.instance.ModelTypeInstanceContext;
 import org.camunda.bpm.model.core.type.Attribute;

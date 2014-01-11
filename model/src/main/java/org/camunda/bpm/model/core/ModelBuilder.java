@@ -28,8 +28,8 @@ public abstract class ModelBuilder {
 
   public abstract Model build();
 
-  public static ModelBuilder createInstance() {
-    return new ModelBuilderImpl();
+  public static ModelBuilder createInstance(String modelName) {
+    return new ModelBuilderImpl(modelName);
   }
 
 }

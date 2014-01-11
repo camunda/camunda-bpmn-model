@@ -21,15 +21,14 @@ import org.camunda.bpm.model.core.impl.ModelBuildOperation;
 import org.camunda.bpm.model.core.impl.ModelImpl;
 import org.camunda.bpm.model.core.impl.type.attribute.BooleanAttributeBuilder;
 import org.camunda.bpm.model.core.impl.type.attribute.EnumAttributeBuilder;
-import org.camunda.bpm.model.core.impl.type.attribute.StringAttributeBuilder;
+import org.camunda.bpm.model.core.impl.type.attribute.StringAttributeBuilderImpl;
 import org.camunda.bpm.model.core.impl.type.child.SequenceBuilder;
 import org.camunda.bpm.model.core.impl.type.child.SequenceBuilderImpl;
-import org.camunda.bpm.model.core.impl.type.reference.QNameReferenceBuilderImpl;
 import org.camunda.bpm.model.core.instance.ModelElementInstance;
 import org.camunda.bpm.model.core.type.AttributeBuilder;
 import org.camunda.bpm.model.core.type.ModelElementType;
 import org.camunda.bpm.model.core.type.ModelElementTypeBuilder;
-import org.camunda.bpm.model.core.type.ReferenceBuilder;
+import org.camunda.bpm.model.core.type.StringAttributeBuilder;
 
 /**
  * @author Daniel Meyer
@@ -71,20 +70,14 @@ public class ModelElementTypeBuilderImpl implements ModelElementTypeBuilder, Mod
     return builder;
   }
 
-  public AttributeBuilder<String> stringAttribute(String attributeName) {
-    StringAttributeBuilder builder = new StringAttributeBuilder(attributeName, modelType);
+  public StringAttributeBuilder stringAttribute(String attributeName) {
+    StringAttributeBuilderImpl builder = new StringAttributeBuilderImpl(attributeName, modelType);
     modelBuildOperations.add(builder);
     return builder;
   }
 
   public <V extends Enum<V>> AttributeBuilder<V> enumAttribute(String attributeName, Class<V> enumType) {
     EnumAttributeBuilder<V> builder = new EnumAttributeBuilder<V>(attributeName, modelType, enumType);
-    modelBuildOperations.add(builder);
-    return builder;
-  }
-
-  public <V extends ModelElementInstance> ReferenceBuilder<V> qNameReference(Class<V> referencedElementType, String referencedAttributeName) {
-    QNameReferenceBuilderImpl<V> builder = new QNameReferenceBuilderImpl<V>(referencedAttributeName, referencedElementType, modelType);
     modelBuildOperations.add(builder);
     return builder;
   }

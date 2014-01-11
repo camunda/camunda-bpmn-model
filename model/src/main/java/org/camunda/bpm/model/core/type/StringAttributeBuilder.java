@@ -10,20 +10,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.camunda.bpm.model.core.impl.type.attribute;
+package org.camunda.bpm.model.core.type;
 
-import org.camunda.bpm.model.core.impl.type.ModelElementTypeImpl;
-
+import org.camunda.bpm.model.core.instance.ModelElementInstance;
 
 /**
- *
- * @author Daniel Meyer
+ * @author Sebastian Menski
  *
  */
-public class StringAttributeBuilder extends AttributeBuilderImpl<String> {
+public interface StringAttributeBuilder extends AttributeBuilder<String> {
 
-  public StringAttributeBuilder(String attributeName, ModelElementTypeImpl modelType) {
-    super(attributeName, modelType, new StringAttribute());
-  }
+  <V extends ModelElementInstance> ReferenceBuilder<V> qNameReference(Class<V> referencedElementType);
 
 }

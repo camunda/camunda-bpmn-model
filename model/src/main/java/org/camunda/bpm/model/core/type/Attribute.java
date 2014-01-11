@@ -45,4 +45,6 @@ public interface Attribute<T> {
    */
   String getAttributeName();
 
+  ModelElementType getOwningElementType();
+
 }

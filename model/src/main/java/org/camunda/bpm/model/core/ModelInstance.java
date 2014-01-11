@@ -12,6 +12,8 @@
  */
 package org.camunda.bpm.model.core;
 
+import java.util.Collection;
+
 import org.camunda.bpm.model.core.instance.ModelElementInstance;
 import org.camunda.bpm.model.core.type.ModelElementType;
 
@@ -34,5 +36,11 @@ public interface ModelInstance {
   Model getModel();
 
   ModelElementInstance findModelElementById(String id);
+
+  /**
+   * @param referencingType
+   * @return
+   */
+  Collection<ModelElementInstance> findModelElementsByType(ModelElementType referencingType);
 
 }

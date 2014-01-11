@@ -33,6 +33,12 @@ public class ModelImpl implements Model {
 
   protected Map<QName, ModelElementType> typesByName = new HashMap<QName, ModelElementType>();
   protected Map<Class<? extends ModelElementInstance>, ModelElementType> typesByClass = new HashMap<Class<? extends ModelElementInstance>, ModelElementType>();
+  protected final String modelName;
+
+
+  public ModelImpl(String modelName) {
+    this.modelName = modelName;
+  }
 
   public Collection<ModelElementType> getTypes() {
     return new ArrayList<ModelElementType>(typesByName.values());
@@ -60,4 +66,28 @@ public class ModelImpl implements Model {
     typesByClass.put(instanceType, modelElementType);
   }
 
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + ((modelName == null) ? 0 : modelName.hashCode());
+    return result;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (obj == null)
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    ModelImpl other = (ModelImpl) obj;
+    if (modelName == null) {
+      if (other.modelName != null)
+        return false;
+    } else if (!modelName.equals(other.modelName))
+      return false;
+    return true;
+  }
 }

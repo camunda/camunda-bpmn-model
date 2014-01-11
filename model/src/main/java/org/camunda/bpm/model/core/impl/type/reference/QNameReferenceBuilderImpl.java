@@ -12,10 +12,17 @@
  */
 package org.camunda.bpm.model.core.impl.type.reference;
 
+import java.util.Collection;
+
 import org.camunda.bpm.model.core.Model;
+import org.camunda.bpm.model.core.ModelException;
 import org.camunda.bpm.model.core.impl.ModelBuildOperation;
 import org.camunda.bpm.model.core.impl.type.ModelElementTypeImpl;
+import org.camunda.bpm.model.core.impl.type.attribute.AttributeImpl;
+import org.camunda.bpm.model.core.impl.util.ModelUtil;
 import org.camunda.bpm.model.core.instance.ModelElementInstance;
+import org.camunda.bpm.model.core.type.Attribute;
+import org.camunda.bpm.model.core.type.ModelElementType;
 import org.camunda.bpm.model.core.type.Reference;
 import org.camunda.bpm.model.core.type.ReferenceBuilder;
 
@@ -27,25 +34,58 @@ import org.camunda.bpm.model.core.type.ReferenceBuilder;
  */
 public class QNameReferenceBuilderImpl<T extends ModelElementInstance> implements ReferenceBuilder<T>, ModelBuildOperation {
 
-  protected final QNameReferenceImpl<T> qNameReferenceImpl;
-  protected final ModelElementTypeImpl declaringType;
-  protected Class<T> referencedElementType;
+  protected final AttributeImpl<String> referencingAttribute;
+  protected QNameReferenceImpl<T> qNameReferenceImpl;
+  protected final Class<T> referencedElementType;
 
-  public QNameReferenceBuilderImpl(String referencedAttributeName, Class<T> referencedElementType, ModelElementTypeImpl declaringType) {
+  public QNameReferenceBuilderImpl(AttributeImpl<String> referencingAttribute, Class<T> referencedElementType) {
+    this.referencingAttribute = referencingAttribute;
     this.referencedElementType = referencedElementType;
-    this.declaringType = declaringType;
-    qNameReferenceImpl = new QNameReferenceImpl<T>(referencedAttributeName, referencedElementType, declaringType.getModel());
+    qNameReferenceImpl = new QNameReferenceImpl<T>(referencingAttribute);
   }
 
   public Reference<T> build() {
-    declaringType.registerReference(qNameReferenceImpl);
+    referencingAttribute.registerOutgoingReference(qNameReferenceImpl);
     return qNameReferenceImpl;
   }
 
   public void performModelBuild(Model model) {
     // register declaring type as a referencing type of referenced type
-    ModelElementTypeImpl referencedType = (ModelElementTypeImpl) declaringType.getModel().getType(referencedElementType);
-    referencedType.registerReferencingType(declaringType);
+    ModelElementTypeImpl referencedType = (ModelElementTypeImpl) model.getType(referencedElementType);
+
+    // the actual referenced type
+    qNameReferenceImpl.setReferencedElementType(referencedType);
+
+    // the referenced attribute may be declared on a base type of the referenced type.
+    AttributeImpl<String> idAttribute = getIdAttribute(referencedType, model);
+    if(idAttribute != null) {
+      idAttribute.registerIncoming(qNameReferenceImpl);
+      qNameReferenceImpl.setReferencedAttribute(idAttribute);
+    } else {
+      throw new ModelException();
+    }
+  }
+
+  /**
+   * @param referencedType
+   * @return
+   */
+  @SuppressWarnings("unchecked")
+  protected AttributeImpl<String> getIdAttribute(ModelElementTypeImpl referencedType, Model model) {
+    for (Attribute<?> attr : referencedType.getAttributes()) {
+      if(attr.getAttributeName().equals("id")) {
+        return (AttributeImpl<String>) attr;
+      }
+    }
+    Collection<ModelElementType> baseTypes = ModelUtil.calculateAllBaseTypes(model, referencedType);
+    for (ModelElementType baseType : baseTypes) {
+      for (Attribute<?> attr : baseType.getAttributes()) {
+        if (attr.getAttributeName().equals("id")) {
+          return (AttributeImpl<String>) attr;
+        }
+      }
+    }
+    return null;
   }
 
 }

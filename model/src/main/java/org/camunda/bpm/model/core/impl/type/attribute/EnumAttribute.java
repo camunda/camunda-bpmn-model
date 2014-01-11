@@ -12,6 +12,8 @@
  */
 package org.camunda.bpm.model.core.impl.type.attribute;
 
+import org.camunda.bpm.model.core.type.ModelElementType;
+
 /**
  * <p>An attribute exposing an Enum value</p>
  *
@@ -22,7 +24,8 @@ public class EnumAttribute<T extends Enum<T>> extends AttributeImpl<T> {
 
   protected Class<T> type;
 
-  public EnumAttribute(Class<T> type) {
+  public EnumAttribute(ModelElementType owningElementType, Class<T> type) {
+    super(owningElementType);
     this.type = type;
   }
 

@@ -12,10 +12,16 @@
  */
 package org.camunda.bpm.model.core.impl;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+
 import org.camunda.bpm.model.core.Model;
 import org.camunda.bpm.model.core.ModelException;
 import org.camunda.bpm.model.core.ModelInstance;
 import org.camunda.bpm.model.core.impl.instance.ModelElementInstanceImpl;
+import org.camunda.bpm.model.core.impl.type.ModelElementTypeImpl;
 import org.camunda.bpm.model.core.impl.util.DomUtil;
 import org.camunda.bpm.model.core.impl.util.ModelUtil;
 import org.camunda.bpm.model.core.instance.ModelElementInstance;
@@ -96,5 +102,19 @@ public abstract class ModelInstanceImpl implements ModelInstance {
     } else {
       return null;
     }
+  }
+
+  public Collection<ModelElementInstance> findModelElementsByType(ModelElementType type) {
+    HashSet<ModelElementType> extendingTypes = new HashSet<ModelElementType>();
+    extendingTypes.add(type);
+    ((ModelElementTypeImpl)type).resolveExtendingTypes(extendingTypes);
+
+    List<ModelElementInstance> instances = new ArrayList<ModelElementInstance>();
+    for (ModelElementType modelElementType : extendingTypes) {
+      if(!modelElementType.isAbstract()) {
+        instances.addAll(modelElementType.getInstances(this));
+      }
+    }
+    return instances;
   }
 }

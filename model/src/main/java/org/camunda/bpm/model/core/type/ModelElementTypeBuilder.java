@@ -33,15 +33,13 @@ public interface ModelElementTypeBuilder {
 
   AttributeBuilder<Boolean> booleanAttribute(String attributeName);
 
-  AttributeBuilder<String> stringAttribute(String attributeName);
+  StringAttributeBuilder stringAttribute(String attributeName);
 
   <V extends Enum<V>> AttributeBuilder<V> enumAttribute(String attributeName, Class<V> enumType);
 
   SequenceBuilder sequence();
 
   ModelElementType build();
-
-  <V extends ModelElementInstance> ReferenceBuilder<V> qNameReference(Class<V> referencedElementType, String referencedAttributeName);
 
   public static interface ModelTypeIntanceProvider<T extends ModelElementInstance> {
     T newInstance(ModelTypeInstanceContext instanceContext);

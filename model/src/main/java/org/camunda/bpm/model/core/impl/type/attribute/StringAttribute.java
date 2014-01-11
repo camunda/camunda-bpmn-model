@@ -12,6 +12,8 @@
  */
 package org.camunda.bpm.model.core.impl.type.attribute;
 
+import org.camunda.bpm.model.core.type.ModelElementType;
+
 /**
  * <p>Base class for String attributes
  *
@@ -19,6 +21,10 @@ package org.camunda.bpm.model.core.impl.type.attribute;
  *
  */
 public class StringAttribute extends AttributeImpl<String> {
+
+  public StringAttribute(ModelElementType owningElementType) {
+    super(owningElementType);
+  }
 
   protected String convertXmlValueToModelValue(String rawValue) {
     return rawValue;

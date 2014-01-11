@@ -25,22 +25,24 @@ import org.camunda.bpm.model.core.instance.ModelElementInstance;
  */
 public interface ModelElementType {
 
-  public String getTypeName();
+  String getTypeName();
 
-  public String getTypeNamespace();
+  String getTypeNamespace();
 
-  public Class<? extends ModelElementInstance> getInstanceType();
+  Class<? extends ModelElementInstance> getInstanceType();
 
-  public List<Attribute<?>> getAttributes();
+  List<Attribute<?>> getAttributes();
 
-  public ModelElementInstance newInstance(ModelInstance modelInstance);
+  ModelElementInstance newInstance(ModelInstance modelInstance);
 
-  public ModelElementType getBaseType();
+  ModelElementType getBaseType();
 
   boolean isAbstract();
 
   Collection<ModelElementType> getExtendingTypes();
 
   Model getModel();
+
+  Collection<ModelElementInstance> getInstances(ModelInstance modelInstanceImpl);
 
 }

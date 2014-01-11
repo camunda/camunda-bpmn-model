@@ -365,6 +365,17 @@ public class DomUtil {
     domElement.removeAttributeNS(namespaceUri, attributeName);
   }
 
+  /**
+   * @param document
+   * @param typeName
+   * @param typeNamespace
+   * @return
+   */
+  public static List<Element> findElementByNameNs(Document document, String typeName, String typeNamespace) {
+    NodeList elementList = document.getElementsByTagNameNS(typeNamespace, typeName);
+    return filterNodeList(elementList, new ElementNodeListFilter());
+  }
+
 
 
 }

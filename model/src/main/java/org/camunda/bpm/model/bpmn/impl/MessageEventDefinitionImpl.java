@@ -25,10 +25,12 @@ import org.camunda.bpm.model.core.impl.instance.ModelTypeInstanceContext;
 import org.camunda.bpm.model.core.impl.type.reference.QNameReferenceImpl;
 import org.camunda.bpm.model.core.impl.util.QName;
 import org.camunda.bpm.model.core.instance.ModelElementInstance;
+import org.camunda.bpm.model.core.type.Attribute;
 import org.camunda.bpm.model.core.type.ModelElementType;
 import org.camunda.bpm.model.core.type.ModelElementTypeBuilder;
 import org.camunda.bpm.model.core.type.ModelElementTypeBuilder.ModelTypeIntanceProvider;
 import org.camunda.bpm.model.core.type.Reference;
+import org.camunda.bpm.model.core.type.StringAttributeBuilder;
 
 /**
 *
@@ -39,6 +41,7 @@ public class MessageEventDefinitionImpl extends EventDefinitionImpl implements M
 
   public static ModelElementType MODEL_TYPE;
 
+  static Attribute<String>  messageRefAttr;
   static Reference<Message> messageRef;
 
   public static void registerType(ModelBuilder modelBuilder) {
@@ -51,8 +54,9 @@ public class MessageEventDefinitionImpl extends EventDefinitionImpl implements M
         }
       });
 
-    messageRef = typeBuilder.qNameReference(Message.class, BPMN_ATTRIBUTE_MESSAGE_REF)
-      .build();
+    StringAttributeBuilder messageRefAttrBuilder = typeBuilder.stringAttribute(BPMN_ATTRIBUTE_MESSAGE_REF);
+    messageRef = messageRefAttrBuilder.qNameReference(Message.class).build();
+    messageRefAttr = messageRefAttrBuilder.build();
 
     MODEL_TYPE = typeBuilder.build();
   }
@@ -95,10 +99,6 @@ public class MessageEventDefinitionImpl extends EventDefinitionImpl implements M
 
   public void setMessage(Message message) {
     messageRef.setReferencedElement(this, message);
-  }
-
-  public String getReferencedAttributeName() {
-    return messageRef.getReferenceAttributeName();
   }
 
 }

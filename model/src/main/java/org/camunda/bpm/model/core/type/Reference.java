@@ -26,7 +26,8 @@ public interface Reference<T extends ModelElementInstance> {
 
   void setReferencedElement(ModelElementInstance modelElement, T referencedElement);
 
-  String getReferenceAttributeName();
+  Attribute<String> getReferencingAttribute();
 
-  ModelElementType getReferencedElementType();
+  Attribute<String> getReferencedAttribute();
+
 }

@@ -13,6 +13,7 @@
 package org.camunda.bpm.model.core.impl.type.attribute;
 
 import org.camunda.bpm.model.core.impl.util.ModelUtil;
+import org.camunda.bpm.model.core.type.ModelElementType;
 
 /**
  * <p>class for providing Boolean value attributes. Takes care of type conversion and
@@ -22,6 +23,10 @@ import org.camunda.bpm.model.core.impl.util.ModelUtil;
  *
  */
 public class BooleanAttribute extends AttributeImpl<Boolean> {
+
+  public BooleanAttribute(ModelElementType owningElementType) {
+    super(owningElementType);
+  }
 
   protected Boolean convertXmlValueToModelValue(String rawValue) {
     return ModelUtil.valueAsBoolean(rawValue);

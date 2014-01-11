@@ -12,8 +12,14 @@
  */
 package org.camunda.bpm.model.core.impl.type.attribute;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.camunda.bpm.model.core.impl.type.reference.ReferenceImpl;
 import org.camunda.bpm.model.core.instance.ModelElementInstance;
 import org.camunda.bpm.model.core.type.Attribute;
+import org.camunda.bpm.model.core.type.ModelElementType;
+import org.camunda.bpm.model.core.type.Reference;
 
 /**
  * <p>Base class for implementing primitive value attributes</p>
@@ -39,6 +45,16 @@ public abstract class AttributeImpl<T> implements Attribute<T> {
 
   protected boolean isIdAttribute = false;
 
+  protected List<Reference<?>> outgoingReferences = new ArrayList<Reference<?>>();
+
+  protected List<Reference<?>> incomingReferences = new ArrayList<Reference<?>>();
+
+  protected final ModelElementType owningElementType;
+
+  public AttributeImpl(ModelElementType owningElementType) {
+    this.owningElementType = owningElementType;
+  }
+
   /**
    * to be implemented by subclasses: converts the raw (String) value of the
    * attribute to the type required by the model
@@ -54,6 +70,10 @@ public abstract class AttributeImpl<T> implements Attribute<T> {
    * @return the converted value
    */
   protected abstract String convertModelValueToXmlValue(T modelValue);
+
+  public ModelElementType getOwningElementType() {
+    return owningElementType;
+  }
 
   /**
    * returns the value of the attribute.
@@ -83,13 +103,18 @@ public abstract class AttributeImpl<T> implements Attribute<T> {
    */
   public void setValue(ModelElementInstance modelElement, T value) {
     String xmlValue = convertModelValueToXmlValue(value);
+    String oldValue = null;
     if(namespaceUri == null) {
+      oldValue = modelElement.getAttributeValue(attributeName);
       modelElement.setAttributeValue(attributeName, xmlValue, isIdAttribute);
     } else {
+      oldValue = modelElement.getAttributeValueNs(attributeName, namespaceUri);
       modelElement.setAttributeValueNs(attributeName, namespaceUri, xmlValue, isIdAttribute);
     }
-    if (isIdAttribute) {
-      // TODO: update references to new value
+    if (!incomingReferences.isEmpty()) {
+      for (Reference<?> incomingReference : incomingReferences) {
+        ((ReferenceImpl<?>) incomingReference).referencedElementUpdated(modelElement, oldValue, xmlValue);
+      }
     }
   }
 
@@ -150,6 +175,28 @@ public abstract class AttributeImpl<T> implements Attribute<T> {
    */
   public void setId(boolean isIdAttribute) {
     this.isIdAttribute = isIdAttribute;
+  }
+
+  /**
+   * @return the incomingReferences
+   */
+  public List<Reference<?>> getIncomingReferences() {
+    return incomingReferences;
+  }
+
+  /**
+   * @return the outgoingReferences
+   */
+  public List<Reference<?>> getOutgoingReferences() {
+    return outgoingReferences;
+  }
+
+  public void registerOutgoingReference(Reference<?> ref) {
+    outgoingReferences.add(ref);
+  }
+
+  public void registerIncoming(Reference<?> ref) {
+    incomingReferences.add(ref);
   }
 
 }

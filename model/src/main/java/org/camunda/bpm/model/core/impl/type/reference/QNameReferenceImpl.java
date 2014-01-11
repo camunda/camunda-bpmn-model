@@ -12,9 +12,9 @@
  */
 package org.camunda.bpm.model.core.impl.type.reference;
 
-import org.camunda.bpm.model.core.Model;
 import org.camunda.bpm.model.core.ModelReferenceException;
 import org.camunda.bpm.model.core.impl.instance.ModelElementInstanceImpl;
+import org.camunda.bpm.model.core.impl.type.attribute.AttributeImpl;
 import org.camunda.bpm.model.core.impl.util.QName;
 import org.camunda.bpm.model.core.instance.ModelElementInstance;
 
@@ -24,16 +24,15 @@ import org.camunda.bpm.model.core.instance.ModelElementInstance;
  */
 public class QNameReferenceImpl<T extends ModelElementInstance> extends ReferenceImpl<T> {
 
-  /**
-   * @param referencedAttributeName
-   * @param referencedElementType
-   * @param model
-   */
-  public QNameReferenceImpl(String referencedAttributeName, Class<T> referencedElementType, Model model) {
-    super(referencedAttributeName, referencedElementType, model);
-  }
+  protected final String idAttributeName = "id";
 
-  private final String idAttributeName = "id";
+  /**
+   * @param referencingAttribute
+   * @param referencedElementType
+   */
+  public QNameReferenceImpl(AttributeImpl<String> referencingAttribute) {
+    super(referencingAttribute);
+  }
 
   protected String getReferenceIdentifier(ModelElementInstance referencedElement) {
     String id = referencedElement.getAttributeValue(getIdAttributeName());
@@ -55,8 +54,8 @@ public class QNameReferenceImpl<T extends ModelElementInstance> extends Referenc
         return (T) referencedElement;
 
       } catch(ClassCastException e) {
-        throw new ModelReferenceException("Element "+modelElement+" references element "+referencedElement+" of wrong type. "
-            + "Expecting "+getReferencedElementType()+" got "+referencedElement.getElementType());
+        throw new ModelReferenceException("Element " + modelElement + " references element " + referencedElement + " of wrong type. "
+            + "Expecting " + referencedAttribute.getOwningElementType() + " got " + referencedElement.getElementType());
       }
 
     } else {

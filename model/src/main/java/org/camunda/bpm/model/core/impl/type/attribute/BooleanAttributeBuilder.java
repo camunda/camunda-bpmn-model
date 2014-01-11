@@ -24,7 +24,7 @@ import org.camunda.bpm.model.core.impl.type.ModelElementTypeImpl;
 public class BooleanAttributeBuilder extends AttributeBuilderImpl<Boolean> {
 
   public BooleanAttributeBuilder(String attributeName, ModelElementTypeImpl modelType) {
-    super(attributeName, modelType, new BooleanAttribute());
+    super(attributeName, modelType, new BooleanAttribute(modelType));
   }
 
 }

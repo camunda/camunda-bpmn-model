@@ -24,12 +24,12 @@ import org.camunda.bpm.model.core.ModelInstance;
 import org.camunda.bpm.model.core.impl.ModelImpl;
 import org.camunda.bpm.model.core.impl.ModelInstanceImpl;
 import org.camunda.bpm.model.core.impl.instance.ModelTypeInstanceContext;
+import org.camunda.bpm.model.core.impl.util.DomUtil;
 import org.camunda.bpm.model.core.impl.util.ModelUtil;
 import org.camunda.bpm.model.core.instance.ModelElementInstance;
 import org.camunda.bpm.model.core.type.Attribute;
 import org.camunda.bpm.model.core.type.ModelElementType;
 import org.camunda.bpm.model.core.type.ModelElementTypeBuilder.ModelTypeIntanceProvider;
-import org.camunda.bpm.model.core.type.Reference;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -54,12 +54,6 @@ public class ModelElementTypeImpl implements ModelElementType {
   protected List<Attribute<?>> attributes = new ArrayList<Attribute<?>>();
 
   protected List<Class<?>> childElementTypes = new ArrayList<Class<?>>();
-
-  protected List<Reference<?>> references = new ArrayList<Reference<?>>();
-
-  protected List<ModelElementType> registeredReferencingTypes = new ArrayList<ModelElementType>();
-
-  protected Collection<ModelElementType> referencingTypes = null;
 
   protected ModelTypeIntanceProvider<?> instanceProvider;
 
@@ -94,16 +88,8 @@ public class ModelElementTypeImpl implements ModelElementType {
     childElementTypes.add(childElementType);
   }
 
-  public void registerReference(Reference<?> reference) {
-    references.add(reference);
-  }
-
   public void registerExtendingType(ModelElementType modelType) {
     extendingTypes.add(modelType);
-  }
-
-  public void registerReferencingType(ModelElementType type) {
-    registeredReferencingTypes.add(type);
   }
 
   protected ModelElementInstance createModelElementIntance(ModelTypeInstanceContext instanceContext) {
@@ -187,13 +173,6 @@ public class ModelElementTypeImpl implements ModelElementType {
     }
   }
 
-  public Collection<ModelElementType> getReferencingTypes() {
-    if (referencingTypes == null) {
-      Collection<ModelElementType> allReferencingTypes = ModelUtil.calculateAllExtendingTypes(model, registeredReferencingTypes);
-      referencingTypes = Collections.unmodifiableCollection(allReferencingTypes);
-    }
-    return referencingTypes;
-  }
 
   public ModelElementType getBaseType() {
     return baseType;
@@ -210,6 +189,68 @@ public class ModelElementTypeImpl implements ModelElementType {
     }
     allChildElementTypes.addAll(childElementTypes);
     return allChildElementTypes;
+  }
+
+  public Collection<ModelElementInstance> getInstances(ModelInstance modelInstance) {
+    ModelInstanceImpl modelInstanceImpl = (ModelInstanceImpl) modelInstance;
+    Document document = modelInstanceImpl.getDocument();
+    List<Element> elements = DomUtil.findElementByNameNs(document, typeName, typeNamespace);
+    List<ModelElementInstance> resultList = new ArrayList<ModelElementInstance>();
+    for (Element element : elements) {
+      resultList.add(ModelUtil.getModelElement(element, modelInstanceImpl));
+    }
+    return resultList;
+  }
+
+
+  /**
+   * @param elementType
+   * @return
+   */
+  public boolean isBaseTypeOf(ModelElementType elementType) {
+    if (this.equals(elementType)) {
+      return true;
+    }
+    else {
+      Collection<ModelElementType> baseTypes = ModelUtil.calculateAllBaseTypes(model, elementType);
+      return baseTypes.contains(this);
+    }
+  }
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + ((model == null) ? 0 : model.hashCode());
+    result = prime * result + ((typeName == null) ? 0 : typeName.hashCode());
+    result = prime * result + ((typeNamespace == null) ? 0 : typeNamespace.hashCode());
+    return result;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (obj == null)
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    ModelElementTypeImpl other = (ModelElementTypeImpl) obj;
+    if (model == null) {
+      if (other.model != null)
+        return false;
+    } else if (!model.equals(other.model))
+      return false;
+    if (typeName == null) {
+      if (other.typeName != null)
+        return false;
+    } else if (!typeName.equals(other.typeName))
+      return false;
+    if (typeNamespace == null) {
+      if (other.typeNamespace != null)
+        return false;
+    } else if (!typeNamespace.equals(other.typeNamespace))
+      return false;
+    return true;
   }
 
 }

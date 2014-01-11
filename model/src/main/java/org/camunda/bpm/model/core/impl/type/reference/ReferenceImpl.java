@@ -12,11 +12,15 @@
  */
 package org.camunda.bpm.model.core.impl.type.reference;
 
-import org.camunda.bpm.model.core.Model;
+import java.util.Collection;
+
 import org.camunda.bpm.model.core.ModelInstance;
 import org.camunda.bpm.model.core.ModelReferenceException;
 import org.camunda.bpm.model.core.impl.instance.ModelElementInstanceImpl;
+import org.camunda.bpm.model.core.impl.type.ModelElementTypeImpl;
+import org.camunda.bpm.model.core.impl.type.attribute.AttributeImpl;
 import org.camunda.bpm.model.core.instance.ModelElementInstance;
+import org.camunda.bpm.model.core.type.Attribute;
 import org.camunda.bpm.model.core.type.ModelElementType;
 import org.camunda.bpm.model.core.type.Reference;
 
@@ -26,47 +30,54 @@ import org.camunda.bpm.model.core.type.Reference;
  */
 public abstract class ReferenceImpl<T extends ModelElementInstance> implements Reference<T> {
 
-  protected final String referencedAttributeName;
-  protected final Class<T> referencedElementType;
-  protected final Model model;
+  protected final AttributeImpl<String> referencingAttribute;
+  protected AttributeImpl<String> referencedAttribute;
 
-  public ReferenceImpl(String referencedAttributeName, Class<T> referencedElementType, Model model) {
-    this.referencedAttributeName = referencedAttributeName;
-    this.referencedElementType = referencedElementType;
-    this.model = model;
+  /** the actual type, may be different (a subtype of) {@link AttributeImpl#getOwningElementType()} */
+  protected ModelElementTypeImpl referencedElementType;
+
+  public ReferenceImpl(AttributeImpl<String> referencingAttribute) {
+    this.referencingAttribute = referencingAttribute;
   }
 
   public T getReferencedElement(ModelElementInstance modelElement) {
-    String referenceIdentifier = modelElement.getAttributeValue(referencedAttributeName);
+    String referenceIdentifier = referencingAttribute.getValue(modelElement);
     return resolveReference((ModelElementInstanceImpl) modelElement, referenceIdentifier);
   }
 
 
   public void setReferencedElement(ModelElementInstance modelElement, T referencedElement) {
-    String referenceIdentifier = getReferenceIdentifier(referencedElement);
     ModelInstance modelInstance = modelElement.getModelInstance();
+    ModelElementInstance existingElement = modelInstance.findModelElementById(referencedAttribute.getValue(referencedElement));
 
-    ModelElementInstance existingElement = modelInstance.findModelElementById(referenceIdentifier);
     if(existingElement == null || !existingElement.equals(referencedElement)) {
       throw new ModelReferenceException("Cannot create reference to model element "+referencedElement+": element is not part of model. "
           + "Please connect element to the model first.");
 
     } else {
-      modelElement.setAttributeValue(referencedAttributeName, referenceIdentifier, false);
+      referencingAttribute.setValue(modelElement, referencedAttribute.getValue(existingElement));
 
     }
 
   }
 
-  /**
-   * Gets the reference identifier
-   *
-   * @param referencedElement
-   */
-  protected abstract String getReferenceIdentifier(T referencedElement);
+  public void setReferencedAttribute(AttributeImpl<String> referencedAttribute) {
+    this.referencedAttribute = referencedAttribute;
+  }
 
-  public String getReferenceAttributeName() {
-    return referencedAttributeName;
+  public Attribute<String> getReferencingAttribute() {
+    return referencingAttribute;
+  }
+
+  public AttributeImpl<String> getReferencedAttribute() {
+    return referencedAttribute;
+  }
+
+  /**
+   * @param referencedElementType the referencedElementType to set
+   */
+  public void setReferencedElementType(ModelElementTypeImpl referencedElementType) {
+    this.referencedElementType = referencedElementType;
   }
 
   /**
@@ -78,7 +89,22 @@ public abstract class ReferenceImpl<T extends ModelElementInstance> implements R
    */
   protected abstract T resolveReference(ModelElementInstanceImpl modelElement, String referenceIdentifier);
 
-  public ModelElementType getReferencedElementType() {
-    return model.getType(referencedElementType);
+  /**
+   * @param modelElement
+   * @param oldValue
+   * @param newValue
+   */
+  public void referencedElementUpdated(ModelElementInstance modelElement, String oldValue, String newValue) {
+    if(referencedElementType.isBaseTypeOf(modelElement.getElementType())) {
+      ModelElementType owningElementType = referencingAttribute.getOwningElementType();
+      Collection<ModelElementInstance> referencingElement = modelElement.getModelInstance().findModelElementsByType(owningElementType);
+      for (ModelElementInstance modelElementInstance : referencingElement) {
+        String referencingAttributeValue = referencingAttribute.getValue(modelElementInstance);
+        if(oldValue != null && oldValue.equals(referencingAttributeValue)) {
+          referencingAttribute.setValue(modelElementInstance, newValue);
+        }
+      }
+    }
   }
+
 }
