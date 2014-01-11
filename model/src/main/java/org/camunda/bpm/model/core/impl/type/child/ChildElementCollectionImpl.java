@@ -21,6 +21,7 @@ import org.camunda.bpm.model.core.impl.util.DomUtil;
 import org.camunda.bpm.model.core.impl.util.DomUtil.ElementNodeListFilter;
 import org.camunda.bpm.model.core.impl.util.ModelUtil;
 import org.camunda.bpm.model.core.instance.ModelElementInstance;
+import org.camunda.bpm.model.core.type.ChildElementCollection;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
@@ -30,16 +31,27 @@ import org.w3c.dom.NodeList;
  * @author Daniel Meyer
  *
  */
-public abstract class ChildElementCollection<T extends ModelElementInstance> {
+public abstract class ChildElementCollectionImpl<T extends ModelElementInstance> implements ChildElementCollection<T> {
 
+  /** the minimal count of child elements in the collection
+   */
+  protected int minOccurs = 0;
+
+  /** the maximum count of child elements in the collection.
+   * An unbounded collection has a negative maxOccurs.
+   */
+  protected int maxOccurs = -1;
+
+  /** indicates whether this collection is mutable.
+   */
   protected boolean isMutable = true;
 
   public void setMutable(boolean isMutable) {
     this.isMutable = isMutable;
   }
 
-  public boolean isMutable() {
-    return isMutable;
+  public boolean isImmutable() {
+    return !isMutable;
   }
 
   // view /////////////////////////////////////////////////////////
@@ -65,7 +77,38 @@ public abstract class ChildElementCollection<T extends ModelElementInstance> {
     return DomUtil.filterNodeList(childNodes, getFilter(modelElement));
   }
 
-  // interface implementation ////////////////////////////////
+  public int getMinOccurs() {
+    return minOccurs;
+  }
+
+  public void setMinOccurs(int minOccurs) {
+    this.minOccurs = minOccurs;
+  }
+
+  public int getMaxOccurs() {
+    return maxOccurs;
+  }
+
+  public void setMaxOccurs(int maxOccurs) {
+    this.maxOccurs = maxOccurs;
+  }
+
+  /** the "add" operation used by the collection */
+  protected void performAddOperation(ModelElementInstanceImpl modelElement, T e) {
+    modelElement.addChildElement(e);
+  }
+
+  /** the "remove" operation used by this collection */
+  protected boolean performRemoveOperation(ModelElementInstanceImpl modelElement, Object e) {
+    return modelElement.removeChildElement((ModelElementInstanceImpl)e);
+  }
+
+  /** the "clear" operation used by this collection */
+  protected void performClearOperation(ModelElementInstanceImpl modelElement, Collection<Element> elementsToRemove) {
+    for (Element element : elementsToRemove) {
+      DomUtil.removeChild(modelElement.getDomElement(), element);
+    }
+  }
 
   public Collection<T> get(ModelElementInstance element) {
 
@@ -120,7 +163,7 @@ public abstract class ChildElementCollection<T extends ModelElementInstance> {
         if(!isMutable) {
           throw new UnsupportedModelOperationException("add()", "collection is immutable");
         }
-        modelElement.addChildElement(e);
+        performAddOperation(modelElement, e);
         return true;
       }
 
@@ -140,9 +183,7 @@ public abstract class ChildElementCollection<T extends ModelElementInstance> {
           throw new UnsupportedModelOperationException("clear()", "collection is immutable");
         }
         Collection<Element> view = getView(modelElement);
-        for (Element element : view) {
-          DomUtil.removeChild(modelElement.getDomElement(), element);
-        }
+        performClearOperation(modelElement, view);
       }
 
       public boolean remove(Object e) {
@@ -150,7 +191,7 @@ public abstract class ChildElementCollection<T extends ModelElementInstance> {
           throw new UnsupportedModelOperationException("remove()", "collection is immutable");
         }
         ModelUtil.ensureInstanceOf(e, ModelElementInstanceImpl.class);
-        return modelElement.removeChildElement((ModelElementInstanceImpl)e);
+        return performRemoveOperation(modelElement, e);
       }
 
       public boolean removeAll(Collection<?> c) {
@@ -167,6 +208,8 @@ public abstract class ChildElementCollection<T extends ModelElementInstance> {
       public boolean retainAll(Collection<?> c) {
         throw new UnsupportedModelOperationException("retainAll()", "not implemented");
       }
+
     };
   }
+
 }

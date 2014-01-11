@@ -13,7 +13,6 @@
 package org.camunda.bpm.model.core.type;
 
 import org.camunda.bpm.model.core.impl.instance.ModelTypeInstanceContext;
-import org.camunda.bpm.model.core.impl.type.child.SequenceBuilder;
 import org.camunda.bpm.model.core.instance.ModelElementInstance;
 
 /**

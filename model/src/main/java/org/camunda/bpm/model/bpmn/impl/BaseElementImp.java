@@ -21,12 +21,12 @@ import org.camunda.bpm.model.bpmn.Documentation;
 import org.camunda.bpm.model.bpmn.ExtensionElements;
 import org.camunda.bpm.model.core.ModelBuilder;
 import org.camunda.bpm.model.core.impl.instance.ModelTypeInstanceContext;
-import org.camunda.bpm.model.core.impl.type.child.ChildElement;
-import org.camunda.bpm.model.core.impl.type.child.ChildElementCollection;
-import org.camunda.bpm.model.core.impl.type.child.SequenceBuilder;
 import org.camunda.bpm.model.core.type.Attribute;
+import org.camunda.bpm.model.core.type.ChildElement;
+import org.camunda.bpm.model.core.type.ChildElementCollection;
 import org.camunda.bpm.model.core.type.ModelElementType;
 import org.camunda.bpm.model.core.type.ModelElementTypeBuilder;
+import org.camunda.bpm.model.core.type.SequenceBuilder;
 
 /**
  * @author Daniel Meyer
@@ -52,8 +52,7 @@ public abstract class BaseElementImp extends AbstractBpmnModelElement implements
 
     SequenceBuilder sequenceBuilder = typeBuilder.sequence();
 
-    extensionElementsChild = sequenceBuilder.<ExtensionElements>element(ExtensionElements.class, BPMN_ELEMENT_EXTENSION_ELEMENTS)
-      .namespaceUri(BPMN20_NS)
+    extensionElementsChild = sequenceBuilder.element(ExtensionElements.class, BPMN_ELEMENT_EXTENSION_ELEMENTS)
       .build();
 
     TYPE = typeBuilder.build();
@@ -76,11 +75,11 @@ public abstract class BaseElementImp extends AbstractBpmnModelElement implements
   }
 
   public ExtensionElements getExtensionElements() {
-    return extensionElementsChild.get(this);
+    return extensionElementsChild.getChild(this);
   }
 
   public void setExtensionElements(ExtensionElements extensionElements) {
-    extensionElementsChild.set(this, extensionElements);
+    extensionElementsChild.setChild(this, extensionElements);
   }
 
 }

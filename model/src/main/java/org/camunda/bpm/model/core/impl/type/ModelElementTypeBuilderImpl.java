@@ -22,12 +22,12 @@ import org.camunda.bpm.model.core.impl.ModelImpl;
 import org.camunda.bpm.model.core.impl.type.attribute.BooleanAttributeBuilder;
 import org.camunda.bpm.model.core.impl.type.attribute.EnumAttributeBuilder;
 import org.camunda.bpm.model.core.impl.type.attribute.StringAttributeBuilderImpl;
-import org.camunda.bpm.model.core.impl.type.child.SequenceBuilder;
 import org.camunda.bpm.model.core.impl.type.child.SequenceBuilderImpl;
 import org.camunda.bpm.model.core.instance.ModelElementInstance;
 import org.camunda.bpm.model.core.type.AttributeBuilder;
 import org.camunda.bpm.model.core.type.ModelElementType;
 import org.camunda.bpm.model.core.type.ModelElementTypeBuilder;
+import org.camunda.bpm.model.core.type.SequenceBuilder;
 import org.camunda.bpm.model.core.type.StringAttributeBuilder;
 
 /**

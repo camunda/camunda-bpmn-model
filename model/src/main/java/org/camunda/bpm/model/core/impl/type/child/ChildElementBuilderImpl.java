@@ -12,40 +12,28 @@
  */
 package org.camunda.bpm.model.core.impl.type.child;
 
-import org.camunda.bpm.model.core.Model;
-import org.camunda.bpm.model.core.impl.ModelBuildOperation;
-import org.camunda.bpm.model.core.impl.type.ModelElementTypeImpl;
 import org.camunda.bpm.model.core.instance.ModelElementInstance;
+import org.camunda.bpm.model.core.type.ChildElement;
+import org.camunda.bpm.model.core.type.ChildElementBuilder;
+import org.camunda.bpm.model.core.type.ModelElementType;
 
 /**
  * @author Daniel Meyer
  *
  */
-public class ChildElementBuilderImpl<T extends ModelElementInstance> implements ChildElementBuilder<T>, ModelBuildOperation {
+public class ChildElementBuilderImpl<T extends ModelElementInstance> extends ChildElementCollectionBuilderImpl<T> implements ChildElementBuilder<T> {
 
-  protected final ModelElementTypeImpl containingType;
-  protected final ChildElement<T> childElement;
-  protected Class<T> childElementType;
-
-  public ChildElementBuilderImpl(Class<T> childElementType, String localName, ModelElementTypeImpl containingType) {
-    this.childElementType = childElementType;
-    this.containingType = containingType;
-    childElement = new ChildElement<T>(localName);
-    childElement.setNamespace(containingType.getTypeNamespace());
-  }
-
-  public ChildElementBuilder<T> namespaceUri(String namespaceUri) {
-    childElement.setNamespace(namespaceUri);
-    return this;
+  public ChildElementBuilderImpl(Class<T> childElementType, String localName, String namespaceUri, ModelElementType containingType) {
+    super(childElementType, localName, namespaceUri, containingType);
   }
 
   public ChildElement<T> build() {
-    containingType.registerChildElementType(childElementType);
-    return childElement;
+    return (ChildElement<T>) super.build();
   }
 
-  public void performModelBuild(Model model) {
-    // do nothing
+  @Override
+  protected ChildElementCollectionImpl<T> createCollectionInstance(String localName, String namespaceUri) {
+    return new ChildElementImpl<T>(childElementType, localName, namespaceUri);
   }
 
 }

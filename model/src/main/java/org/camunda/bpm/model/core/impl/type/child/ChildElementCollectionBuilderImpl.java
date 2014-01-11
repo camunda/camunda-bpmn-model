@@ -16,6 +16,8 @@ import org.camunda.bpm.model.core.Model;
 import org.camunda.bpm.model.core.impl.ModelBuildOperation;
 import org.camunda.bpm.model.core.impl.type.ModelElementTypeImpl;
 import org.camunda.bpm.model.core.instance.ModelElementInstance;
+import org.camunda.bpm.model.core.type.ChildElementCollectionBuilder;
+import org.camunda.bpm.model.core.type.ChildElementCollection;
 import org.camunda.bpm.model.core.type.ModelElementType;
 
 /**
@@ -25,23 +27,41 @@ import org.camunda.bpm.model.core.type.ModelElementType;
 public class ChildElementCollectionBuilderImpl<T extends ModelElementInstance> implements ChildElementCollectionBuilder<T>, ModelBuildOperation {
 
   protected final ModelElementTypeImpl containingType;
-  protected ChildElementCollection<T> collection;
-  protected Class<T> childElementType;
+  protected final ChildElementCollectionImpl<T> collection;
+  protected final Class<T> childElementType;
 
   public ChildElementCollectionBuilderImpl(Class<T> childElementType, String localName, String namespaceUri, ModelElementType containingType) {
     this.childElementType = childElementType;
     this.containingType = (ModelElementTypeImpl) containingType;
-    collection = new NamedChildElementCollection<T>(localName, namespaceUri);
+    this.collection = createCollectionInstance(localName, namespaceUri);
   }
 
   public ChildElementCollectionBuilderImpl(Class<T> type, ModelElementType containingType) {
     this.childElementType = type;
     this.containingType = (ModelElementTypeImpl) containingType;
-    collection = new TypedChildElementCollection<T>(type);
+    this.collection = createCollectionInstance(type);
+  }
+
+  protected ChildElementCollectionImpl<T> createCollectionInstance(Class<T> type) {
+    return new TypedChildElementCollectionImpl<T>(type);
+  }
+
+  protected ChildElementCollectionImpl<T> createCollectionInstance(String localName, String namespaceUri) {
+    return new NamedChildElementCollection<T>(localName, namespaceUri);
   }
 
   public ChildElementCollectionBuilder<T> immutable() {
     collection.setMutable(false);
+    return this;
+  }
+
+  public ChildElementCollectionBuilder<T> maxOccurs(int i) {
+    collection.setMaxOccurs(i);
+    return this;
+  }
+
+  public ChildElementCollectionBuilder<T> minOccurs(int i) {
+    collection.setMinOccurs(i);
     return this;
   }
 

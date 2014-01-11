@@ -19,6 +19,9 @@ import org.camunda.bpm.model.core.Model;
 import org.camunda.bpm.model.core.impl.ModelBuildOperation;
 import org.camunda.bpm.model.core.impl.type.ModelElementTypeImpl;
 import org.camunda.bpm.model.core.instance.ModelElementInstance;
+import org.camunda.bpm.model.core.type.ChildElementBuilder;
+import org.camunda.bpm.model.core.type.ChildElementCollectionBuilder;
+import org.camunda.bpm.model.core.type.SequenceBuilder;
 
 /**
  * @author Daniel Meyer
@@ -26,32 +29,34 @@ import org.camunda.bpm.model.core.instance.ModelElementInstance;
  */
 public class SequenceBuilderImpl implements SequenceBuilder, ModelBuildOperation {
 
-  protected final ModelElementTypeImpl modelType;
+  protected final ModelElementTypeImpl elementType;
 
   protected List<ModelBuildOperation> modelBuildOperations = new ArrayList<ModelBuildOperation>();
 
   public SequenceBuilderImpl(ModelElementTypeImpl modelType) {
-    this.modelType = modelType;
+    this.elementType = modelType;
   }
 
-  public <T extends ModelElementInstance> ChildElementBuilder<T> element(Class<T> childElementType, String elementName) {
-    ChildElementBuilderImpl<T> builder = new ChildElementBuilderImpl<T>(childElementType, elementName, modelType);
-    modelBuildOperations.add(builder);
-    return builder;
+  public <T extends ModelElementInstance> ChildElementBuilder<T> element(Class<T> childElementType, String localName) {
+    return element(childElementType, localName, elementType.getTypeNamespace());
+  }
+
+  public <T extends ModelElementInstance> ChildElementBuilder<T> element(Class<T> childElementType, String localName, String namespaceUri) {
+    return new ChildElementBuilderImpl<T>(childElementType, localName, namespaceUri, elementType);
   }
 
   public <T extends ModelElementInstance> ChildElementCollectionBuilder<T> elementCollection(Class<T> childElementType, String localName) {
-    return elementCollection(childElementType, localName, modelType.getTypeNamespace());
+    return elementCollection(childElementType, localName, elementType.getTypeNamespace());
   }
 
   public <T extends ModelElementInstance> ChildElementCollectionBuilder<T> elementCollection(Class<T> childElementType, String localName, String namespaceUri) {
-    ChildElementCollectionBuilderImpl<T> builder = new ChildElementCollectionBuilderImpl<T>(childElementType, localName, namespaceUri, modelType);
+    ChildElementCollectionBuilderImpl<T> builder = new ChildElementCollectionBuilderImpl<T>(childElementType, localName, namespaceUri, elementType);
     modelBuildOperations.add(builder);
     return builder;
   }
 
   public <T extends ModelElementInstance> ChildElementCollectionBuilder<T> elementCollection(Class<T> childElementType) {
-    ChildElementCollectionBuilderImpl<T> builder = new ChildElementCollectionBuilderImpl<T>(childElementType, modelType);
+    ChildElementCollectionBuilderImpl<T> builder = new ChildElementCollectionBuilderImpl<T>(childElementType, elementType);
     modelBuildOperations.add(builder);
     return builder;
   }

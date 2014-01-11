@@ -12,22 +12,31 @@
  */
 package org.camunda.bpm.model.core;
 
-import java.util.Collection;
-
 /**
- * <p>Exception thrown if a user attempts to perform an unsupported
- * model operation. Example: call {@link Collection#add(Object)} on an
- * immutable collection.</p>
+ * {@link IllegalStateException} thrown if the model refuses to perform a state altering
+ * operation which would result in the model being put in an illegal state.
  *
  * @author Daniel Meyer
  *
  */
-public class UnsupportedModelOperationException extends UnsupportedOperationException {
+public class IllegalModelStateException extends IllegalStateException {
 
   private static final long serialVersionUID = 1L;
 
-  public UnsupportedModelOperationException(String operationName, String reason) {
-    super("The operation "+operationName+" is unsupported: "+reason+".");
+  public IllegalModelStateException() {
+    super();
+  }
+
+  public IllegalModelStateException(String message, Throwable cause) {
+    super(message, cause);
+  }
+
+  public IllegalModelStateException(String s) {
+    super(s);
+  }
+
+  public IllegalModelStateException(Throwable cause) {
+    super(cause);
   }
 
 }

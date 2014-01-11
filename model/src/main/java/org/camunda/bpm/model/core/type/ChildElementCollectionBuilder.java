@@ -10,7 +10,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.camunda.bpm.model.core.impl.type.child;
+package org.camunda.bpm.model.core.type;
 
 import org.camunda.bpm.model.core.instance.ModelElementInstance;
 
@@ -18,14 +18,14 @@ import org.camunda.bpm.model.core.instance.ModelElementInstance;
  * @author Daniel Meyer
  *
  */
-public interface SequenceBuilder {
+public interface ChildElementCollectionBuilder<T extends ModelElementInstance> {
 
-  <T extends ModelElementInstance> ChildElementBuilder<T> element(Class<T> childElementType, String elementName);
+  ChildElementCollectionBuilder<T> immutable();
 
-  <T extends ModelElementInstance> ChildElementCollectionBuilder<T> elementCollection(Class<T> childElementType, String localName);
+  ChildElementCollectionBuilder<T> minOccurs(int i);
 
-  <T extends ModelElementInstance> ChildElementCollectionBuilder<T> elementCollection(Class<T> childElementType, String localName, String namespaceUri);
+  ChildElementCollectionBuilder<T> maxOccurs(int i);
 
-  <T extends ModelElementInstance> ChildElementCollectionBuilder<T> elementCollection(Class<T> childElementType);
+  ChildElementCollection<T> build();
 
 }

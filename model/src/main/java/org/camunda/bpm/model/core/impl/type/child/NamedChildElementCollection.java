@@ -23,7 +23,7 @@ import org.camunda.bpm.model.core.instance.ModelElementInstance;
  * @author Daniel Meyer
  *
  */
-public class NamedChildElementCollection<T extends ModelElementInstance> extends ChildElementCollection<T> {
+public class NamedChildElementCollection<T extends ModelElementInstance> extends ChildElementCollectionImpl<T> {
 
   /** the filter to use */
   protected ElementNodeListFilter filter;

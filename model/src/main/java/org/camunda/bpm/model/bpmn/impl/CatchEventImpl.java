@@ -23,10 +23,10 @@ import org.camunda.bpm.model.bpmn.Event;
 import org.camunda.bpm.model.bpmn.EventDefinition;
 import org.camunda.bpm.model.core.ModelBuilder;
 import org.camunda.bpm.model.core.impl.instance.ModelTypeInstanceContext;
-import org.camunda.bpm.model.core.impl.type.child.ChildElementCollection;
-import org.camunda.bpm.model.core.impl.type.child.SequenceBuilder;
+import org.camunda.bpm.model.core.type.ChildElementCollection;
 import org.camunda.bpm.model.core.type.ModelElementType;
 import org.camunda.bpm.model.core.type.ModelElementTypeBuilder;
+import org.camunda.bpm.model.core.type.SequenceBuilder;
 
 /**
  * @author Sebastian Menski

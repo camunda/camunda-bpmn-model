@@ -10,7 +10,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.camunda.bpm.model.core.impl.type.child;
+package org.camunda.bpm.model.core.type;
 
 import org.camunda.bpm.model.core.instance.ModelElementInstance;
 
@@ -18,10 +18,8 @@ import org.camunda.bpm.model.core.instance.ModelElementInstance;
  * @author Daniel Meyer
  *
  */
-public interface ChildElementBuilder<T extends ModelElementInstance> {
+public interface ChildElementBuilder<T extends ModelElementInstance> extends ChildElementCollectionBuilder<T> {
 
-  ChildElementBuilder<T> namespaceUri(String namespaceUri);
-
-  ChildElement<T> build();
+  public ChildElement<T> build();
 
 }

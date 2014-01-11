@@ -23,11 +23,11 @@ import org.camunda.bpm.model.core.instance.ModelElementInstance;
  * @author Daniel Meyer
  *
  */
-public class TypedChildElementCollection<T extends ModelElementInstance> extends ChildElementCollection<T> {
+public class TypedChildElementCollectionImpl<T extends ModelElementInstance> extends ChildElementCollectionImpl<T> {
 
   protected Class<T> type;
 
-  public TypedChildElementCollection(Class<T> type) {
+  public TypedChildElementCollectionImpl(Class<T> type) {
     this.type = type;
   }
 
