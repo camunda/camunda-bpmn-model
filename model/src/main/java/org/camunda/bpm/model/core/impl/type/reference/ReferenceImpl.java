@@ -13,6 +13,7 @@
 package org.camunda.bpm.model.core.impl.type.reference;
 
 import java.util.Collection;
+import java.util.Collections;
 
 import org.camunda.bpm.model.core.ModelInstance;
 import org.camunda.bpm.model.core.ModelReferenceException;
@@ -42,7 +43,12 @@ public abstract class ReferenceImpl<T extends ModelElementInstance> implements R
 
   public T getReferencedElement(ModelElementInstance modelElement) {
     String referenceIdentifier = referencingAttribute.getValue(modelElement);
-    return resolveReference((ModelElementInstanceImpl) modelElement, referenceIdentifier);
+    if (referenceIdentifier == null) {
+      return null;
+    }
+    else {
+      return resolveReference((ModelElementInstanceImpl) modelElement, referenceIdentifier);
+    }
   }
 
 
@@ -95,15 +101,27 @@ public abstract class ReferenceImpl<T extends ModelElementInstance> implements R
    * @param newValue
    */
   public void referencedElementUpdated(ModelElementInstance modelElement, String oldValue, String newValue) {
+    for (ModelElementInstance referencingElement : findReferencingElements(modelElement)) {
+      String referencingAttributeValue = referencingAttribute.getValue(referencingElement);
+      if(oldValue != null && oldValue.equals(referencingAttributeValue)) {
+        referencingAttribute.setValue(referencingElement, newValue);
+      }
+    }
+  }
+
+  private Collection<ModelElementInstance> findReferencingElements(ModelElementInstance modelElement) {
     if(referencedElementType.isBaseTypeOf(modelElement.getElementType())) {
       ModelElementType owningElementType = referencingAttribute.getOwningElementType();
-      Collection<ModelElementInstance> referencingElement = modelElement.getModelInstance().findModelElementsByType(owningElementType);
-      for (ModelElementInstance modelElementInstance : referencingElement) {
-        String referencingAttributeValue = referencingAttribute.getValue(modelElementInstance);
-        if(oldValue != null && oldValue.equals(referencingAttributeValue)) {
-          referencingAttribute.setValue(modelElementInstance, newValue);
-        }
-      }
+      return modelElement.getModelInstance().findModelElementsByType(owningElementType);
+    }
+    else {
+      return Collections.emptyList();
+    }
+  }
+
+  public void referencedElementRemoved(ModelElementInstance modelElement) {
+    for (ModelElementInstance referencingElement : findReferencingElements(modelElement)) {
+      referencingAttribute.removeAttribute(referencingElement);
     }
   }
 

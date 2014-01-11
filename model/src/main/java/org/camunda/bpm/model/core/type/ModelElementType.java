@@ -45,4 +45,5 @@ public interface ModelElementType {
 
   Collection<ModelElementInstance> getInstances(ModelInstance modelInstanceImpl);
 
+  List<ModelElementType> getChildElementTypes();
 }

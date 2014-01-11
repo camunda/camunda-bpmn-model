@@ -40,4 +40,6 @@ public interface ModelElementInstance {
 
   void removeAttributeNs(String attributeName, String namespaceUri);
 
+  void replaceElement(ModelElementInstance newElement);
+
 }

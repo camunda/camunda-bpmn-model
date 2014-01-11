@@ -215,6 +215,23 @@ public class ModelElementTypeImpl implements ModelElementType {
       return baseTypes.contains(this);
     }
   }
+
+  /**
+   * Returns a list of all attributes, including the attributes of all base types.
+   *
+   * @param modelElement the element to get all attributes for
+   * @return the list of all attributes
+   */
+  public Collection<Attribute<?>> getAllAttributes() {
+    List<Attribute<?>> allAttributes = new ArrayList<Attribute<?>>();
+    allAttributes.addAll(getAttributes());
+    Collection<ModelElementType> baseTypes = ModelUtil.calculateAllBaseTypes(model, this);
+    for (ModelElementType baseType : baseTypes) {
+      allAttributes.addAll(baseType.getAttributes());
+    }
+    return allAttributes;
+  }
+
   @Override
   public int hashCode() {
     final int prime = 31;

@@ -12,15 +12,20 @@
  */
 package org.camunda.bpm.model.core.impl.instance;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.camunda.bpm.model.core.ModelException;
 import org.camunda.bpm.model.core.impl.ModelInstanceImpl;
 import org.camunda.bpm.model.core.impl.type.ModelElementTypeImpl;
+import org.camunda.bpm.model.core.impl.type.attribute.AttributeImpl;
+import org.camunda.bpm.model.core.impl.type.reference.ReferenceImpl;
 import org.camunda.bpm.model.core.impl.util.DomUtil;
 import org.camunda.bpm.model.core.impl.util.ModelUtil;
 import org.camunda.bpm.model.core.instance.ModelElementInstance;
+import org.camunda.bpm.model.core.type.Attribute;
 import org.camunda.bpm.model.core.type.ModelElementType;
+import org.camunda.bpm.model.core.type.Reference;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -102,15 +107,38 @@ public abstract class ModelElementInstanceImpl implements ModelElementInstance {
    * @param existingChild the child element to replace
    * @param newChild the new child element
    */
+  @SuppressWarnings("unchecked")
   protected void replaceChildElement(ModelElementInstanceImpl existingChild, ModelElementInstanceImpl newChild) {
 
     Element existingChildDomElement = existingChild.getDomElement();
     Element newChildDomElement = newChild.getDomElement();
 
+    existingChild.unlinkAllChildReferences();
+
+    String oldId = existingChild.getAttributeValue("id");
+    if (oldId != null) {
+      Collection<Attribute<?>> attributes = ((ModelElementTypeImpl) newChild.getElementType()).getAllAttributes();
+      for (Attribute<?> attribute : attributes) {
+        if (attribute.isIdAttribute()) {
+          Attribute<String> idAttribute = (Attribute<String>) attribute;
+          for (Reference<?> incomingReference : attribute.getIncomingReferences()) {
+            ((ReferenceImpl<ModelElementInstance>) incomingReference).referencedElementUpdated(newChild, oldId, idAttribute.getValue(newChild));
+          }
+        }
+      }
+    }
+
     // replace the existing child with the new child in the DOM
     domElement.replaceChild(newChildDomElement, existingChildDomElement);
+  }
 
-    // TODO: update references from existing child to new child
+  public void replaceElement(ModelElementInstance newElement) {
+    Element parentDomElement = (Element) getDomElement().getParentNode();
+    if (parentDomElement == null) {
+      throw new ModelException("Unable to remove element without a parent");
+    }
+    ModelElementInstanceImpl parentElement = (ModelElementInstanceImpl) ModelUtil.getModelElement(parentDomElement, modelInstance);
+    parentElement.replaceChildElement(this, (ModelElementInstanceImpl)newElement);
   }
 
   /**
@@ -179,8 +207,18 @@ public abstract class ModelElementInstanceImpl implements ModelElementInstance {
    * @return true if the child element could be removed.
    */
   public boolean removeChildElement(ModelElementInstanceImpl child) {
-    // TODO: remove references
+    child.unlinkAllReferences();
+    child.unlinkAllChildReferences();
     return DomUtil.removeChild(domElement, child.getDomElement());
+  }
+
+  /**
+   * @param childElementType
+   * @return
+   */
+  protected Collection<ModelElementInstance> getChildElementsByType(ModelElementType childElementType) {
+    List<Element> elements = DomUtil.filterNodeListByName(DomUtil.getChildNodes(domElement), childElementType.getTypeName(), childElementType.getTypeNamespace());
+    return ModelUtil.getModelElementCollection(elements, modelInstance);
   }
 
   /**
@@ -228,6 +266,24 @@ public abstract class ModelElementInstanceImpl implements ModelElementInstance {
 
   public ModelElementType getElementType() {
     return elementType;
+  }
+
+  public void unlinkAllReferences() {
+    Collection<Attribute<?>> attributes = elementType.getAllAttributes();
+    for (Attribute<?> attribute : attributes) {
+      ((AttributeImpl<?>) attribute).unlinkReference(this);
+    }
+  }
+
+  public void unlinkAllChildReferences() {
+    List<ModelElementType> childElementTypes = elementType.getChildElementTypes();
+    for (ModelElementType type : childElementTypes) {
+      Collection<ModelElementInstance> childElementsForType = getChildElementsByType(type);
+      for (ModelElementInstance childElement : childElementsForType) {
+        ((ModelElementInstanceImpl) childElement).unlinkAllReferences();
+
+      }
+    }
   }
 
   @Override

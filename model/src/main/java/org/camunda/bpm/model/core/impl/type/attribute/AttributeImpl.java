@@ -150,6 +150,10 @@ public abstract class AttributeImpl<T> implements Attribute<T> {
     return attributeName;
   }
 
+  public boolean isIdAttribute() {
+    return isIdAttribute;
+  }
+
   /**
    * @param attributeName the attributeName to set
    */
@@ -157,15 +161,21 @@ public abstract class AttributeImpl<T> implements Attribute<T> {
     this.attributeName = attributeName;
   }
 
-  public void removeAttribute(ModelElementInstance modelElemement) {
+  public void removeAttribute(ModelElementInstance modelElement) {
+    unlinkReference(modelElement);
     if (namespaceUri == null) {
-      modelElemement.removeAttribute(attributeName);
+      modelElement.removeAttribute(attributeName);
     }
     else {
-      modelElemement.removeAttributeNs(attributeName, namespaceUri);
+      modelElement.removeAttributeNs(attributeName, namespaceUri);
     }
-    if (isIdAttribute) {
-      // TODO: remove references
+  }
+
+  public void unlinkReference(ModelElementInstance modelElement) {
+    if (!incomingReferences.isEmpty()) {
+      for (Reference<?> incomingReference : incomingReferences) {
+        ((ReferenceImpl<?>) incomingReference).referencedElementRemoved(modelElement);
+      }
     }
   }
 

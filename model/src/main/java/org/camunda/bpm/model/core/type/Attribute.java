@@ -12,6 +12,8 @@
  */
 package org.camunda.bpm.model.core.type;
 
+import java.util.List;
+
 import org.camunda.bpm.model.core.instance.ModelElementInstance;
 
 /**
@@ -45,6 +47,12 @@ public interface Attribute<T> {
    */
   String getAttributeName();
 
+  boolean isIdAttribute();
+
   ModelElementType getOwningElementType();
+
+  List<Reference<?>> getIncomingReferences();
+
+  List<Reference<?>> getOutgoingReferences();
 
 }
