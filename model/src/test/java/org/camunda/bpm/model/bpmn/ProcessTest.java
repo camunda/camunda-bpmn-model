@@ -15,6 +15,7 @@ package org.camunda.bpm.model.bpmn;
 import java.util.Collection;
 
 import org.camunda.bpm.model.bpmn.util.BpmnModelResource;
+import org.camunda.bpm.model.core.instance.ModelElementInstance;
 import org.junit.Test;
 
 import static org.fest.assertions.Assertions.*;
@@ -29,6 +30,9 @@ public class ProcessTest extends BpmnModelTest {
   @BpmnModelResource
   public void shouldImportProcess() {
 
+    ModelElementInstance modelElementById = bpmnModelInstance.getModelElementById("exampleProcessId");
+    assertThat(modelElementById).isNotNull();
+
     Collection<RootElement> rootElements = bpmnModelInstance.getDefinitions().getRootElements();
     assertThat(rootElements).hasSize(1);
     Process process = (Process) rootElements.iterator().next();
@@ -38,6 +42,8 @@ public class ProcessTest extends BpmnModelTest {
     assertThat(process.getProcessType()).isEqualTo(ProcessType.None);
     assertThat(process.isExecutable()).isFalse();
     assertThat(process.isClosed()).isFalse();
+
+
 
   }
 

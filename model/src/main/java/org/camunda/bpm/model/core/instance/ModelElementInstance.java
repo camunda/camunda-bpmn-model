@@ -42,4 +42,6 @@ public interface ModelElementInstance {
 
   void replaceElement(ModelElementInstance newElement);
 
+  String getTextContent();
+
 }

@@ -12,48 +12,51 @@
  */
 package org.camunda.bpm.model.core.testmodel;
 
+import static org.camunda.bpm.model.core.testmodel.TestModelConstants.*;
+
+import java.util.Collection;
+
 import org.camunda.bpm.model.core.ModelBuilder;
 import org.camunda.bpm.model.core.impl.instance.ModelElementInstanceImpl;
 import org.camunda.bpm.model.core.impl.instance.ModelTypeInstanceContext;
-import org.camunda.bpm.model.core.instance.ModelElementInstance;
-import org.camunda.bpm.model.core.type.Attribute;
+import org.camunda.bpm.model.core.type.ChildElementCollection;
 import org.camunda.bpm.model.core.type.ModelElementTypeBuilder;
-
-import static org.camunda.bpm.model.core.testmodel.TestModelConstants.*;
+import org.camunda.bpm.model.core.type.ModelElementTypeBuilder.ModelTypeIntanceProvider;
+import org.camunda.bpm.model.core.type.SequenceBuilder;
 
 /**
  * @author Daniel Meyer
  *
  */
-public abstract class Animal extends ModelElementInstanceImpl implements ModelElementInstance {
+public class Animals extends ModelElementInstanceImpl {
 
-  static Attribute<String> idAttr;
+  static ChildElementCollection<Animal> animalColl;
 
   static void registerType(ModelBuilder modelBuilder) {
 
-    ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(Animal.class, TYPE_NAME_ANIMAL)
+    ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(Animals.class, ELEMENT_NAME_ANIMALS)
       .namespaceUri(MODEL_NAMESPACE)
-      .abstractType();
+      .instanceProvider(new ModelTypeIntanceProvider<Animals>() {
+        public Animals newInstance(ModelTypeInstanceContext instanceContext) {
+          return new Animals(instanceContext);
+        }
+      });
 
-    idAttr = typeBuilder.stringAttribute(ATTRIBUTE_NAME_ID)
-      .idAttribute()
+    SequenceBuilder sequence = typeBuilder.sequence();
+
+    animalColl = sequence.elementCollection(Animal.class)
       .build();
 
     typeBuilder.build();
 
   }
 
-  public Animal(ModelTypeInstanceContext instanceContext) {
+  public Animals(ModelTypeInstanceContext instanceContext) {
     super(instanceContext);
   }
 
-  public String getId() {
-    return idAttr.getValue(this);
+  public Collection<Animal> getAnimals() {
+    return animalColl.get(this);
   }
-
-  public void setId(String id) {
-    idAttr.setValue(this, id);
-  }
-
 
 }

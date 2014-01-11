@@ -268,6 +268,10 @@ public abstract class ModelElementInstanceImpl implements ModelElementInstance {
     return elementType;
   }
 
+  public String getTextContent() {
+    return DomUtil.getTextContent(domElement);
+  }
+
   public void unlinkAllReferences() {
     Collection<Attribute<?>> attributes = elementType.getAllAttributes();
     for (Attribute<?> attribute : attributes) {

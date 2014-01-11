@@ -23,7 +23,6 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.camunda.bpm.model.core.ModelParseException;
 import org.camunda.bpm.model.core.impl.ModelInstanceImpl;
-import org.camunda.bpm.model.core.impl.instance.ModelElementInstanceImpl;
 import org.camunda.bpm.model.core.instance.ModelElementInstance;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
@@ -375,6 +374,14 @@ public class DomUtil {
   public static List<Element> findElementByNameNs(Document document, String typeName, String typeNamespace) {
     NodeList elementList = document.getElementsByTagNameNS(typeNamespace, typeName);
     return filterNodeList(elementList, new ElementNodeListFilter());
+  }
+
+  /**
+   * @param domElement
+   * @return
+   */
+  public static String getTextContent(Element domElement) {
+    return domElement.getTextContent();
   }
 
 }

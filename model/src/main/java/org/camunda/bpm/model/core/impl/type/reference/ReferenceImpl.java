@@ -54,7 +54,7 @@ public abstract class ReferenceImpl<T extends ModelElementInstance> implements R
 
   public void setReferencedElement(ModelElementInstance modelElement, T referencedElement) {
     ModelInstance modelInstance = modelElement.getModelInstance();
-    ModelElementInstance existingElement = modelInstance.findModelElementById(referencedAttribute.getValue(referencedElement));
+    ModelElementInstance existingElement = modelInstance.getModelElementById(referencedAttribute.getValue(referencedElement));
 
     if(existingElement == null || !existingElement.equals(referencedElement)) {
       throw new ModelReferenceException("Cannot create reference to model element "+referencedElement+": element is not part of model. "
@@ -112,7 +112,7 @@ public abstract class ReferenceImpl<T extends ModelElementInstance> implements R
   private Collection<ModelElementInstance> findReferencingElements(ModelElementInstance modelElement) {
     if(referencedElementType.isBaseTypeOf(modelElement.getElementType())) {
       ModelElementType owningElementType = referencingAttribute.getOwningElementType();
-      return modelElement.getModelInstance().findModelElementsByType(owningElementType);
+      return modelElement.getModelInstance().getModelElementsByType(owningElementType);
     }
     else {
       return Collections.emptyList();

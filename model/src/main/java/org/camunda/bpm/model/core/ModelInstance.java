@@ -35,12 +35,12 @@ public interface ModelInstance {
 
   Model getModel();
 
-  ModelElementInstance findModelElementById(String id);
+  ModelElementInstance getModelElementById(String id);
 
   /**
    * @param referencingType
    * @return
    */
-  Collection<ModelElementInstance> findModelElementsByType(ModelElementType referencingType);
+  Collection<ModelElementInstance> getModelElementsByType(ModelElementType referencingType);
 
 }

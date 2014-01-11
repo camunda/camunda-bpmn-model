@@ -48,7 +48,7 @@ public abstract class AbstractModelParser {
    * @param dbf the factory to configure
    */
   protected void configureFactory(DocumentBuilderFactory dbf) {
-    dbf.setValidating(false);
+    dbf.setValidating(true);
     dbf.setIgnoringComments(false);
     dbf.setIgnoringElementContentWhitespace(false);
     dbf.setNamespaceAware(true);

@@ -34,7 +34,7 @@ import org.w3c.dom.Element;
  * @author Sebastian Menski
  *
  */
-public abstract class ModelInstanceImpl implements ModelInstance {
+public class ModelInstanceImpl implements ModelInstance {
 
   protected Document document;
   protected ModelImpl model;
@@ -95,7 +95,7 @@ public abstract class ModelInstanceImpl implements ModelInstance {
     return model;
   }
 
-  public ModelElementInstance findModelElementById(String id) {
+  public ModelElementInstance getModelElementById(String id) {
     Element element = DomUtil.findElementById(document, id);
     if(element != null) {
       return ModelUtil.getModelElement(element, this);
@@ -104,7 +104,7 @@ public abstract class ModelInstanceImpl implements ModelInstance {
     }
   }
 
-  public Collection<ModelElementInstance> findModelElementsByType(ModelElementType type) {
+  public Collection<ModelElementInstance> getModelElementsByType(ModelElementType type) {
     HashSet<ModelElementType> extendingTypes = new HashSet<ModelElementType>();
     extendingTypes.add(type);
     ((ModelElementTypeImpl)type).resolveExtendingTypes(extendingTypes);

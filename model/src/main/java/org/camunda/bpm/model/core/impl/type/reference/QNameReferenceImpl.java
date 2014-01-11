@@ -48,7 +48,7 @@ public class QNameReferenceImpl<T extends ModelElementInstance> extends Referenc
     QName qName = QName.parseQName(referenceIdentifier, modelElement);
     String id = qName.getLocalName();
 
-    ModelElementInstance referencedElement = modelElement.getModelInstance().findModelElementById(id);
+    ModelElementInstance referencedElement = modelElement.getModelInstance().getModelElementById(id);
     if(referencedElement != null) {
       try {
         return (T) referencedElement;

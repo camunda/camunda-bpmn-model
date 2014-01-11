@@ -79,7 +79,7 @@ public class MessageEventDefinitionImpl extends EventDefinitionImpl implements M
   public void setMessageRef(QName qname) {
     QNameReferenceImpl<Message> qnameRef = (QNameReferenceImpl<Message>) messageRef;
     if (qnameRef.getIdAttributeName().equals("id")) {
-      ModelElementInstance modelElement = modelInstance.findModelElementById(qname.getLocalName());
+      ModelElementInstance modelElement = modelInstance.getModelElementById(qname.getLocalName());
       try {
         Message message = (Message) modelElement;
         setMessage(message);

@@ -10,64 +10,52 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.camunda.bpm.model.bpmn.impl;
-
-import java.io.InputStream;
+package org.camunda.bpm.model.core.testmodel;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.validation.SchemaFactory;
 
-import org.camunda.bpm.model.bpmn.Bpmn;
+import org.camunda.bpm.model.core.ModelInstance;
 import org.camunda.bpm.model.core.ModelValidationException;
 import org.camunda.bpm.model.core.impl.ModelImpl;
+import org.camunda.bpm.model.core.impl.ModelInstanceImpl;
 import org.camunda.bpm.model.core.impl.parser.AbstractModelParser;
 import org.camunda.bpm.model.core.impl.util.ReflectUtil;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
 /**
- * <p>The parser used when parsing BPMN Files</p>
- *
  * @author Daniel Meyer
  *
  */
-public class BpmnParser extends AbstractModelParser {
+public class TestModelParser extends AbstractModelParser {
 
- private static final String JAXP_SCHEMA_SOURCE = "http://java.sun.com/xml/jaxp/properties/schemaSource";
- private static final String JAXP_SCHEMA_LANGUAGE = "http://java.sun.com/xml/jaxp/properties/schemaLanguage";
+  private static final String JAXP_SCHEMA_SOURCE = "http://java.sun.com/xml/jaxp/properties/schemaSource";
+  private static final String JAXP_SCHEMA_LANGUAGE = "http://java.sun.com/xml/jaxp/properties/schemaLanguage";
 
+  private static final String SCHEMA_LOCATION = "org/camunda/bpm/model/core/testmodel/Testmodel.xsd";
   private static final String W3C_XML_SCHEMA = "http://www.w3.org/2001/XMLSchema";
 
-  public BpmnParser() {
+  public TestModelParser() {
     super();
     this.schemaFactory = SchemaFactory.newInstance(W3C_XML_SCHEMA);
     try {
-      this.schema = schemaFactory.newSchema(ReflectUtil.getResource(BpmnModelConstants.BPMN_20_SCHEMA_LOCATION));
+      this.schema = schemaFactory.newSchema(ReflectUtil.getResource(SCHEMA_LOCATION));
     } catch (SAXException e) {
-      throw new ModelValidationException("Unable to parse schema:" + ReflectUtil.getResource(BpmnModelConstants.BPMN_20_SCHEMA_LOCATION).toString());
+      throw new ModelValidationException("Unable to parse schema:" + ReflectUtil.getResource(SCHEMA_LOCATION).toString());
     }
   }
 
   @Override
   protected void configureFactory(DocumentBuilderFactory dbf) {
     dbf.setAttribute(JAXP_SCHEMA_LANGUAGE, W3C_XML_SCHEMA);
-    dbf.setAttribute(JAXP_SCHEMA_SOURCE, ReflectUtil.getResource(BpmnModelConstants.BPMN_20_SCHEMA_LOCATION).toString());
+    dbf.setAttribute(JAXP_SCHEMA_SOURCE, ReflectUtil.getResource(SCHEMA_LOCATION).toString());
     super.configureFactory(dbf);
   }
 
   @Override
-  protected BpmnModelInstanceImpl createModelInstance(Document document) {
-    return new BpmnModelInstanceImpl((ModelImpl) Bpmn.INSTANCE.getBpmnModel(), document);
-  }
-
-  @Override
-  public BpmnModelInstanceImpl parseModelFromStream(InputStream inputStream) {
-    return (BpmnModelInstanceImpl) super.parseModelFromStream(inputStream);
-  }
-
-  @Override
-  public BpmnModelInstanceImpl getEmptyModel() {
-    return (BpmnModelInstanceImpl) super.getEmptyModel();
+  protected ModelInstance createModelInstance(Document document) {
+    return new ModelInstanceImpl((ModelImpl) TestModel.getTestModel(), document);
   }
 
 }

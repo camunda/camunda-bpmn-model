@@ -21,14 +21,20 @@ import org.camunda.bpm.model.core.ModelBuilder;
  */
 public class TestModel {
 
-  public static Model buildTestModel() {
-    ModelBuilder modelBuilder = ModelBuilder.createInstance(TestModelConstants.MODEL_NAME);
+  private static Model model;
 
-    Animal.registerType(modelBuilder);
-    FlyingAnimal.registerType(modelBuilder);
-    Bird.registerType(modelBuilder);
+  public static Model getTestModel() {
+    if(model == null) {
+      ModelBuilder modelBuilder = ModelBuilder.createInstance(TestModelConstants.MODEL_NAME);
 
-    return modelBuilder.build();
+      Animal.registerType(modelBuilder);
+      FlyingAnimal.registerType(modelBuilder);
+      Bird.registerType(modelBuilder);
+
+      model = modelBuilder.build();
+    }
+
+    return model;
   }
 
 }
