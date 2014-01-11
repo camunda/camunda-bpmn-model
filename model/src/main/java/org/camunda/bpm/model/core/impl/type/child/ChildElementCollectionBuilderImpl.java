@@ -13,6 +13,7 @@
 package org.camunda.bpm.model.core.impl.type.child;
 
 import org.camunda.bpm.model.core.Model;
+import org.camunda.bpm.model.core.ModelException;
 import org.camunda.bpm.model.core.impl.ModelBuildOperation;
 import org.camunda.bpm.model.core.impl.type.ModelElementTypeImpl;
 import org.camunda.bpm.model.core.instance.ModelElementInstance;
@@ -66,12 +67,15 @@ public class ChildElementCollectionBuilderImpl<T extends ModelElementInstance> i
   }
 
   public ChildElementCollection<T> build() {
-    containingType.registerChildElementType(childElementType);
     return collection;
   }
 
   public void performModelBuild(Model model) {
-    // do nothing
+    ModelElementType elementType = model.getType(childElementType);
+    if(elementType == null) {
+      throw new ModelException(containingType+" declares undefined child element of type "+childElementType+".");
+    }
+    containingType.registerChildElementType(elementType);
   }
 
 }

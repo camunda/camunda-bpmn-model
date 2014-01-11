@@ -42,7 +42,9 @@ public class SequenceBuilderImpl implements SequenceBuilder, ModelBuildOperation
   }
 
   public <T extends ModelElementInstance> ChildElementBuilder<T> element(Class<T> childElementType, String localName, String namespaceUri) {
-    return new ChildElementBuilderImpl<T>(childElementType, localName, namespaceUri, elementType);
+    ChildElementBuilderImpl<T> builder = new ChildElementBuilderImpl<T>(childElementType, localName, namespaceUri, elementType);
+    modelBuildOperations.add(builder);
+    return builder;
   }
 
   public <T extends ModelElementInstance> ChildElementCollectionBuilder<T> elementCollection(Class<T> childElementType, String localName) {

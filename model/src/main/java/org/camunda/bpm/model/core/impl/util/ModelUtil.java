@@ -169,12 +169,12 @@ public class ModelUtil {
    * Find the index of the type of a model element in a list of element types
    *
    * @param modelElement the model element which type is searched for
-   * @param elementList the list to search the type
+   * @param childElementTypes the list to search the type
    * @return the index of the model element type in the list or -1 if it is not found
    */
-  public static int getIndexOfElementType(ModelElementInstance modelElement, List<Class<?>> elementList) {
-    for (int index = 0; index < elementList.size(); index++) {
-      if(elementList.get(index).isAssignableFrom(modelElement.getClass())) {
+  public static int getIndexOfElementType(ModelElementInstance modelElement, List<ModelElementType> childElementTypes) {
+    for (int index = 0; index < childElementTypes.size(); index++) {
+      if(childElementTypes.get(index).getInstanceType().isAssignableFrom(modelElement.getClass())) {
         return index;
       }
     }

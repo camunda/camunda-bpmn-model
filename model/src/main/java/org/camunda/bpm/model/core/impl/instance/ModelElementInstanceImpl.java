@@ -127,7 +127,7 @@ public abstract class ModelElementInstanceImpl implements ModelElementInstance {
     NodeList childDomElements = domElement.getChildNodes();
     Node beforeNewChildDomElement = null;
     Node childDomElement = null;
-    List<Class<?>> childElementTypes = elementType.getChildElementTypes();
+    List<ModelElementType> childElementTypes = elementType.getChildElementTypes();
     int newChildTypeIndex = ModelUtil.getIndexOfElementType(newChild, childElementTypes);
     if (newChildTypeIndex == -1) {
       throw new ModelException("New child for " + elementType.getTypeName() + " is not a valid child element type: " + newChild.getElementType().getTypeName() +"; valid types are: " + childElementTypes);

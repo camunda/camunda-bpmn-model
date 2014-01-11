@@ -53,7 +53,7 @@ public class ModelElementTypeImpl implements ModelElementType {
 
   protected List<Attribute<?>> attributes = new ArrayList<Attribute<?>>();
 
-  protected List<Class<?>> childElementTypes = new ArrayList<Class<?>>();
+  protected List<ModelElementType> childElementTypes = new ArrayList<ModelElementType>();
 
   protected ModelTypeIntanceProvider<?> instanceProvider;
 
@@ -84,7 +84,7 @@ public class ModelElementTypeImpl implements ModelElementType {
     attributes.add(attribute);
   }
 
-  public void registerChildElementType(Class<?> childElementType) {
+  public void registerChildElementType(ModelElementType childElementType) {
     childElementTypes.add(childElementType);
   }
 
@@ -182,8 +182,8 @@ public class ModelElementTypeImpl implements ModelElementType {
     return model;
   }
 
-  public List<Class<?>> getChildElementTypes() {
-    List<Class<?>> allChildElementTypes = new ArrayList<Class<?>>();
+  public List<ModelElementType> getChildElementTypes() {
+    List<ModelElementType> allChildElementTypes = new ArrayList<ModelElementType>();
     if (baseType != null) {
       allChildElementTypes.addAll(baseType.getChildElementTypes());
     }
@@ -201,7 +201,6 @@ public class ModelElementTypeImpl implements ModelElementType {
     }
     return resultList;
   }
-
 
   /**
    * @param elementType
