@@ -133,12 +133,23 @@ public abstract class ModelElementInstanceImpl implements ModelElementInstance {
   }
 
   public void replaceElement(ModelElementInstance newElement) {
-    Element parentDomElement = (Element) getDomElement().getParentNode();
-    if (parentDomElement == null) {
-      throw new ModelException("Unable to remove element without a parent");
+    ModelElementInstanceImpl parentElement = (ModelElementInstanceImpl) getParentElement();
+    if (parentElement != null) {
+      parentElement.replaceChildElement(this, (ModelElementInstanceImpl) newElement);
     }
-    ModelElementInstanceImpl parentElement = (ModelElementInstanceImpl) ModelUtil.getModelElement(parentDomElement, modelInstance);
-    parentElement.replaceChildElement(this, (ModelElementInstanceImpl) newElement);
+    else {
+      throw new ModelException("Unable to remove replace without parent");
+    }
+  }
+
+  public ModelElementInstance getParentElement() {
+    Element parentDomElement = DomUtil.getParentElement(domElement);
+    if (parentDomElement != null) {
+      return ModelUtil.getModelElement(parentDomElement, modelInstance);
+    }
+    else {
+      return null;
+    }
   }
 
   /**

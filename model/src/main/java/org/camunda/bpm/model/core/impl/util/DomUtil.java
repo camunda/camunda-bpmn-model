@@ -23,6 +23,7 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.camunda.bpm.model.core.ModelParseException;
 import org.camunda.bpm.model.core.impl.ModelInstanceImpl;
+import org.camunda.bpm.model.core.impl.instance.ModelElementInstanceImpl;
 import org.camunda.bpm.model.core.instance.ModelElementInstance;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
@@ -382,6 +383,15 @@ public class DomUtil {
    */
   public static String getTextContent(Element domElement) {
     return domElement.getTextContent();
+  }
+
+  /**
+   * Get parent node of DOM element
+   * @param domElement
+   * @return
+   */
+  public static Element getParentElement(Element domElement) {
+    return (Element) domElement.getParentNode();
   }
 
 }

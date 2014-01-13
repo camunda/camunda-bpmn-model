@@ -34,6 +34,8 @@ public interface ModelElementInstance {
 
   ModelElementType getElementType();
 
+  ModelElementInstance getParentElement();
+
   ModelInstance getModelInstance();
 
   void removeAttribute(String attributeName);
