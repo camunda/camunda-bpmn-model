@@ -138,7 +138,7 @@ public abstract class ModelElementInstanceImpl implements ModelElementInstance {
       throw new ModelException("Unable to remove element without a parent");
     }
     ModelElementInstanceImpl parentElement = (ModelElementInstanceImpl) ModelUtil.getModelElement(parentDomElement, modelInstance);
-    parentElement.replaceChildElement(this, (ModelElementInstanceImpl)newElement);
+    parentElement.replaceChildElement(this, (ModelElementInstanceImpl) newElement);
   }
 
   /**
@@ -154,7 +154,7 @@ public abstract class ModelElementInstanceImpl implements ModelElementInstance {
     // add new element to the DOM
     NodeList childDomElements = domElement.getChildNodes();
     Node beforeNewChildDomElement = null;
-    Node childDomElement = null;
+    Node childDomElement;
     List<ModelElementType> childElementTypes = elementType.getChildElementTypes();
     int newChildTypeIndex = ModelUtil.getIndexOfElementType(newChild, childElementTypes);
     if (newChildTypeIndex == -1) {
@@ -213,8 +213,10 @@ public abstract class ModelElementInstanceImpl implements ModelElementInstance {
   }
 
   /**
-   * @param childElementType
-   * @return
+   * Return all child elements of a given type
+   *
+   * @param childElementType the child element type to search for
+   * @return a collection of elements of the given type
    */
   protected Collection<ModelElementInstance> getChildElementsByType(ModelElementType childElementType) {
     List<Element> elements = DomUtil.filterNodeListByName(DomUtil.getChildNodes(domElement), childElementType.getTypeName(), childElementType.getTypeNamespace());
@@ -222,25 +224,32 @@ public abstract class ModelElementInstanceImpl implements ModelElementInstance {
   }
 
   /**
-   * @param attributeName
-   * @return
+   * Return the attribute value for the given attribute name
+   *
+   * @param attributeName the name of the attribute
+   * @return the value of the attribute
    */
   public String getAttributeValue(String attributeName) {
     return DomUtil.getAttributeValue(attributeName, domElement);
   }
 
   /**
-   * @param attributeName
-   * @param namespaceUri
-   * @return
+   * Return the attribute value for the given attribute name and namespace URI
+   *
+   * @param attributeName the attribute name of the attribute
+   * @param namespaceUri the namespace URI of the attribute
+   * @return the value of the attribute
    */
   public String getAttributeValueNs(String attributeName, String namespaceUri) {
     return DomUtil.getAttributeValueNs(attributeName, namespaceUri, domElement);
   }
 
   /**
-   * @param attributeName
-   * @param xmlValue
+   * Set attribute value
+   *
+   * @param attributeName the name of the attribute
+   * @param xmlValue the value to set
+   * @param isIdAttribute is the attribute an ID attribute
    */
   public void setAttributeValue(String attributeName, String xmlValue, boolean isIdAttribute) {
     DomUtil.setAttributeValue(attributeName, xmlValue, domElement);
@@ -268,7 +277,22 @@ public abstract class ModelElementInstanceImpl implements ModelElementInstance {
     return elementType;
   }
 
+  /**
+   * Return the text content of the DOM element without leading and trailing spaces. For
+   * raw text content see {@link ModelElementInstanceImpl#getRawTextContent()}.
+   *
+   * @return text content of underlying DOM element with leading and trailing whitespace trimmed
+   */
   public String getTextContent() {
+    return getRawTextContent().trim();
+  }
+
+  /**
+   * Return the text content of the DOM element
+   *
+   * @return text content of underlying DOM element
+   */
+  public String getRawTextContent() {
     return DomUtil.getTextContent(domElement);
   }
 

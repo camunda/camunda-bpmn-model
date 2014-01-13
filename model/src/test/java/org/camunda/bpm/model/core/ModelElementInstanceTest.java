@@ -36,10 +36,28 @@ public class ModelElementInstanceTest {
     assertThat(donald.getTextContent()).isEqualTo("some text content");
 
     ModelElementInstance daisy = modelInstance.getModelElementById("daisy");
-    assertThat(daisy.getTextContent()).isEqualTo("\n        some text content with outer line breaks\n    ");
+    assertThat(daisy.getTextContent()).isEqualTo("some text content with outer line breaks");
 
     ModelElementInstance hedwig = modelInstance.getModelElementById("hedwig");
-    assertThat(hedwig.getTextContent()).isEqualTo("\n        some text content with inner\n        line breaks\n    ");
+    assertThat(hedwig.getTextContent()).isEqualTo("some text content with inner\n        line breaks");
+  }
+
+  @Test
+  public void shouldReturnRawTextContent() {
+    ModelInstance modelInstance = new TestModelParser()
+      .parseModelFromStream(getClass().getResourceAsStream("ModelElementInstanceTest.textContent.xml"));
+
+    ModelElementInstance tweety = modelInstance.getModelElementById("tweety");
+    assertThat(tweety.getRawTextContent()).isEqualTo("");
+
+    ModelElementInstance donald = modelInstance.getModelElementById("donald");
+    assertThat(donald.getRawTextContent()).isEqualTo("some text content");
+
+    ModelElementInstance daisy = modelInstance.getModelElementById("daisy");
+    assertThat(daisy.getRawTextContent()).isEqualTo("\n        some text content with outer line breaks\n    ");
+
+    ModelElementInstance hedwig = modelInstance.getModelElementById("hedwig");
+    assertThat(hedwig.getRawTextContent()).isEqualTo("\n        some text content with inner\n        line breaks\n    ");
   }
 
 }

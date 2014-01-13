@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" targetNamespace="Examples">
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="Examples" typeLanguage="http://www.w3.org/2001/XMLSchema">
   <!-- Comment for first import "here" -->
   <import importType="example" location="here" namespace="Imports"/>
   <import importType="example" location="there" namespace="Imports"/>
   <!-- Comment for first process "some-process-id" -->
-  <process id="some-process-id"/>
+  <process id="some-process-id" isClosed="false" processType="None"/>
   <process id="another-process-id"/>
 </definitions>
