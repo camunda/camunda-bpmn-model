@@ -15,6 +15,7 @@ package org.camunda.bpm.model.core.type;
 import java.util.List;
 
 import org.camunda.bpm.model.core.instance.ModelElementInstance;
+import org.camunda.bpm.model.core.type.reference.Reference;
 
 /**
  * @author meyerd

@@ -15,9 +15,10 @@ package org.camunda.bpm.model.core.impl.type.attribute;
 import org.camunda.bpm.model.core.Model;
 import org.camunda.bpm.model.core.ModelException;
 import org.camunda.bpm.model.core.impl.type.ModelElementTypeImpl;
-import org.camunda.bpm.model.core.impl.type.reference.QNameReferenceBuilderImpl;
+import org.camunda.bpm.model.core.impl.type.reference.QNameAttributeReferenceBuilderImpl;
 import org.camunda.bpm.model.core.instance.ModelElementInstance;
-import org.camunda.bpm.model.core.type.ReferenceBuilder;
+import org.camunda.bpm.model.core.type.reference.AttributeReferenceBuilder;
+import org.camunda.bpm.model.core.type.reference.ReferenceBuilder;
 import org.camunda.bpm.model.core.type.StringAttributeBuilder;
 
 
@@ -28,17 +29,23 @@ import org.camunda.bpm.model.core.type.StringAttributeBuilder;
  */
 public class StringAttributeBuilderImpl extends AttributeBuilderImpl<String> implements StringAttributeBuilder {
 
-  protected QNameReferenceBuilderImpl<?> referenceBuilder;
+  protected QNameAttributeReferenceBuilderImpl<?> referenceBuilder;
 
   public StringAttributeBuilderImpl(String attributeName, ModelElementTypeImpl modelType) {
     super(attributeName, modelType, new StringAttribute(modelType));
   }
 
-  public <V extends ModelElementInstance> ReferenceBuilder<V> qNameReference(Class<V> referencedElementType) {
+  /**
+   * Create a new {@link AttributeReferenceBuilder} for the reference source element instance
+   *
+   * @param referenceTargetElement the reference target model element instance
+   * @return the new attribute reference builder
+   */
+  public <V extends ModelElementInstance> AttributeReferenceBuilder<V> qNameAttributeReference(Class<V> referenceTargetElement) {
     if (referenceBuilder != null) {
-      throw new ModelException("Attribute have more than one reference");
+      throw new ModelException("An attribute cannot have more than one reference");
     }
-    QNameReferenceBuilderImpl<V> referenceBuilder = new QNameReferenceBuilderImpl<V>(attribute, referencedElementType);
+    QNameAttributeReferenceBuilderImpl<V> referenceBuilder = new QNameAttributeReferenceBuilderImpl<V>(attribute, referenceTargetElement);
     this.referenceBuilder = referenceBuilder;
     return referenceBuilder;
   }

@@ -2,7 +2,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -10,17 +10,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.camunda.bpm.model.core.type;
+
+package org.camunda.bpm.model.core.type.reference;
 
 import org.camunda.bpm.model.core.instance.ModelElementInstance;
+import org.camunda.bpm.model.core.type.Attribute;
+import org.camunda.bpm.model.core.type.reference.Reference;
 
 /**
  * @author Sebastian Menski
- *
- * @param <T> the type of the referenced element
  */
-public interface ReferenceBuilder<T extends ModelElementInstance> {
+public interface AttributeReference<T extends ModelElementInstance> extends Reference<T> {
 
-  Reference<T> build();
+  Attribute<String> getReferenceSourceAttribute();
 
 }

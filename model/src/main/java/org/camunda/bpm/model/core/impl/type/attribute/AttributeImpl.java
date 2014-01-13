@@ -19,7 +19,7 @@ import org.camunda.bpm.model.core.impl.type.reference.ReferenceImpl;
 import org.camunda.bpm.model.core.instance.ModelElementInstance;
 import org.camunda.bpm.model.core.type.Attribute;
 import org.camunda.bpm.model.core.type.ModelElementType;
-import org.camunda.bpm.model.core.type.Reference;
+import org.camunda.bpm.model.core.type.reference.Reference;
 
 /**
  * <p>Base class for implementing primitive value attributes</p>
@@ -103,17 +103,17 @@ public abstract class AttributeImpl<T> implements Attribute<T> {
    */
   public void setValue(ModelElementInstance modelElement, T value) {
     String xmlValue = convertModelValueToXmlValue(value);
-    String oldValue = null;
     if(namespaceUri == null) {
-      oldValue = modelElement.getAttributeValue(attributeName);
       modelElement.setAttributeValue(attributeName, xmlValue, isIdAttribute);
     } else {
-      oldValue = modelElement.getAttributeValueNs(attributeName, namespaceUri);
       modelElement.setAttributeValueNs(attributeName, namespaceUri, xmlValue, isIdAttribute);
     }
+  }
+
+  public void updateIncomingReferences(ModelElementInstance modelElement, String newIdentifier, String oldIdentifier) {
     if (!incomingReferences.isEmpty()) {
       for (Reference<?> incomingReference : incomingReferences) {
-        ((ReferenceImpl<?>) incomingReference).referencedElementUpdated(modelElement, oldValue, xmlValue);
+        ((ReferenceImpl<?>) incomingReference).referencedElementUpdated(modelElement, oldIdentifier, newIdentifier);
       }
     }
   }
@@ -162,7 +162,6 @@ public abstract class AttributeImpl<T> implements Attribute<T> {
   }
 
   public void removeAttribute(ModelElementInstance modelElement) {
-    unlinkReference(modelElement);
     if (namespaceUri == null) {
       modelElement.removeAttribute(attributeName);
     }

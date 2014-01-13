@@ -10,17 +10,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.camunda.bpm.model.core.type;
+package org.camunda.bpm.model.core.type.reference;
 
 import org.camunda.bpm.model.core.instance.ModelElementInstance;
-import org.camunda.bpm.model.core.type.reference.AttributeReferenceBuilder;
 
 /**
  * @author Sebastian Menski
- *
  */
-public interface StringAttributeBuilder extends AttributeBuilder<String> {
+public interface AttributeReferenceBuilder<T extends ModelElementInstance> extends ReferenceBuilder<T> {
 
-  <V extends ModelElementInstance> AttributeReferenceBuilder<V> qNameAttributeReference(Class<V> referenceTargetElement);
+  AttributeReference<T> build();
 
 }

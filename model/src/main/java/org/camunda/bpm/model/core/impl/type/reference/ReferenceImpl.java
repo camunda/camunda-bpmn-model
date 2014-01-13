@@ -23,7 +23,7 @@ import org.camunda.bpm.model.core.impl.type.attribute.AttributeImpl;
 import org.camunda.bpm.model.core.instance.ModelElementInstance;
 import org.camunda.bpm.model.core.type.Attribute;
 import org.camunda.bpm.model.core.type.ModelElementType;
-import org.camunda.bpm.model.core.type.Reference;
+import org.camunda.bpm.model.core.type.reference.Reference;
 
 /**
  * @author Sebastian Menski
@@ -31,97 +31,152 @@ import org.camunda.bpm.model.core.type.Reference;
  */
 public abstract class ReferenceImpl<T extends ModelElementInstance> implements Reference<T> {
 
-  protected final AttributeImpl<String> referencingAttribute;
-  protected AttributeImpl<String> referencedAttribute;
+  protected AttributeImpl<String> referenceTargetAttribute;
 
   /** the actual type, may be different (a subtype of) {@link AttributeImpl#getOwningElementType()} */
-  protected ModelElementTypeImpl referencedElementType;
+  protected ModelElementTypeImpl referenceTargetElementType;
 
-  public ReferenceImpl(AttributeImpl<String> referencingAttribute) {
-    this.referencingAttribute = referencingAttribute;
-  }
 
-  public T getReferencedElement(ModelElementInstance modelElement) {
-    String referenceIdentifier = referencingAttribute.getValue(modelElement);
-    if (referenceIdentifier == null) {
-      return null;
+  /**
+   * Set the reference identifier in the reference source
+   *
+   * @param referenceSourceElement the reference source model element instance
+   * @param referenceIdentifier the new reference identifier
+   */
+  public abstract void setReferenceIdentifier(ModelElementInstance referenceSourceElement, String referenceIdentifier);
+
+  /**
+   * Get the reference target model element instance
+   *
+   * @param referenceSourceElement the reference source model element instance
+   * @return the reference target model element instance or null if not set
+   */
+  public T getReferencedElement(ModelElementInstance referenceSourceElement) {
+    String referenceIdentifier = getReferenceIdentifier(referenceSourceElement);
+    if (referenceIdentifier != null) {
+      return resolveReference((ModelElementInstanceImpl) referenceSourceElement, referenceIdentifier);
     }
     else {
-      return resolveReference((ModelElementInstanceImpl) modelElement, referenceIdentifier);
+      return null;
     }
   }
 
-
-  public void setReferencedElement(ModelElementInstance modelElement, T referencedElement) {
-    ModelInstance modelInstance = modelElement.getModelInstance();
-    ModelElementInstance existingElement = modelInstance.getModelElementById(referencedAttribute.getValue(referencedElement));
-
-    if(existingElement == null || !existingElement.equals(referencedElement)) {
-      throw new ModelReferenceException("Cannot create reference to model element "+referencedElement+": element is not part of model. "
-          + "Please connect element to the model first.");
-
-    } else {
-      referencingAttribute.setValue(modelElement, referencedAttribute.getValue(existingElement));
-
-    }
-
-  }
-
-  public void setReferencedAttribute(AttributeImpl<String> referencedAttribute) {
-    this.referencedAttribute = referencedAttribute;
-  }
-
-  public Attribute<String> getReferencingAttribute() {
-    return referencingAttribute;
-  }
-
-  public AttributeImpl<String> getReferencedAttribute() {
-    return referencedAttribute;
-  }
-
   /**
-   * @param referencedElementType the referencedElementType to set
-   */
-  public void setReferencedElementType(ModelElementTypeImpl referencedElementType) {
-    this.referencedElementType = referencedElementType;
-  }
-
-  /**
-   * resolves the reference.
+   * Set the reference target model element instance
    *
-   * @param modelElement
-   * @param referenceIdentifier
-   * @return
+   * @param referenceSourceElement the reference source model element instance
+   * @param referenceTargetElement the reference target model element instance
+   * @throws ModelReferenceException if element is not already added to the model
+   */
+  public void setReferencedElement(ModelElementInstance referenceSourceElement, T referenceTargetElement) {
+    ModelInstance modelInstance = referenceSourceElement.getModelInstance();
+    String referenceTargetIdentifier = referenceTargetAttribute.getValue(referenceTargetElement);
+    ModelElementInstance existingElement = modelInstance.getModelElementById(referenceTargetIdentifier);
+
+    if(existingElement == null || !existingElement.equals(referenceTargetElement)) {
+      throw new ModelReferenceException("Cannot create reference to model element " + referenceTargetElement
+          +": element is not part of model. Please connect element to the model first.");
+    } else {
+      setReferenceIdentifier(referenceSourceElement, referenceTargetIdentifier);
+    }
+  }
+
+  /**
+   * Set the reference target attribute
+   *
+   * @param referenceTargetAttribute the reference target string attribute
+   */
+  public void setReferenceTargetAttribute(AttributeImpl<String> referenceTargetAttribute) {
+    this.referenceTargetAttribute = referenceTargetAttribute;
+  }
+
+  /**
+   * Get the reference target attribute
+   *
+   * @return the reference target string attribute
+   */
+  public Attribute<String> getReferenceTargetAttribute() {
+    return referenceTargetAttribute;
+  }
+
+  /**
+   * Set the reference target model element type
+   *
+   * @param referenceTargetElementType the referenceTargetElementType to set
+   */
+  public void setReferenceTargetElementType(ModelElementTypeImpl referenceTargetElementType) {
+    this.referenceTargetElementType = referenceTargetElementType;
+  }
+
+  /**
+   * Resolve the reference by the reference identifier
+   *
+   * @param modelElement the reference source model element instance
+   * @param referenceIdentifier the reference identifier
+   * @return the target model element instance or null if not found
    */
   protected abstract T resolveReference(ModelElementInstanceImpl modelElement, String referenceIdentifier);
 
   /**
-   * @param modelElement
-   * @param oldValue
-   * @param newValue
+   * Return the model element type of the reference source
+   *
+   * @return the model element type of the reference source
    */
-  public void referencedElementUpdated(ModelElementInstance modelElement, String oldValue, String newValue) {
-    for (ModelElementInstance referencingElement : findReferencingElements(modelElement)) {
-      String referencingAttributeValue = referencingAttribute.getValue(referencingElement);
-      if(oldValue != null && oldValue.equals(referencingAttributeValue)) {
-        referencingAttribute.setValue(referencingElement, newValue);
-      }
-    }
-  }
+  protected abstract ModelElementType getReferenceSourceOwningElementType();
 
-  private Collection<ModelElementInstance> findReferencingElements(ModelElementInstance modelElement) {
-    if(referencedElementType.isBaseTypeOf(modelElement.getElementType())) {
-      ModelElementType owningElementType = referencingAttribute.getOwningElementType();
-      return modelElement.getModelInstance().getModelElementsByType(owningElementType);
+  /**
+   * Find all reference source element instances of the reference target model element instance
+   *
+   * @param referenceTargetElement the reference target model element instance
+   * @return the collection of all reference source element instances
+   */
+  private Collection<ModelElementInstance> findReferenceSourceElements(ModelElementInstance referenceTargetElement) {
+    if(referenceTargetElementType.isBaseTypeOf(referenceTargetElement.getElementType())) {
+      ModelElementType owningElementType = getReferenceSourceOwningElementType();
+      return referenceTargetElement.getModelInstance().getModelElementsByType(owningElementType);
     }
     else {
       return Collections.emptyList();
     }
   }
 
-  public void referencedElementRemoved(ModelElementInstance modelElement) {
-    for (ModelElementInstance referencingElement : findReferencingElements(modelElement)) {
-      referencingAttribute.removeAttribute(referencingElement);
+  /**
+   * Update the reference identifier of the reference source model element instance
+   *
+   * @param referenceSourceElement the reference source model element instance
+   * @param oldIdentifier the old reference identifier
+   * @param newIdentifier the new reference identifier
+   */
+  protected abstract void updateReference(ModelElementInstance referenceSourceElement, String oldIdentifier, String newIdentifier);
+
+  /**
+   * Update the reference identifier
+   *
+   * @param referenceTargetElement the reference target model element instance
+   * @param oldIdentifier the old reference identifier
+   * @param newIdentifier the new reference identifier
+   */
+  public void referencedElementUpdated(ModelElementInstance referenceTargetElement, String oldIdentifier, String newIdentifier) {
+    for (ModelElementInstance referenceSourceElement : findReferenceSourceElements(referenceTargetElement)) {
+      updateReference(referenceSourceElement, oldIdentifier, newIdentifier);
+    }
+  }
+
+  /**
+   * Remove the reference in the reference source model element instance
+   *
+   * @param referenceSourceElement the reference source model element instance
+   */
+  protected abstract void removeReference(ModelElementInstance referenceSourceElement);
+
+  /**
+   * Remove the reference if the target element is removed
+   *
+   * @param referenceTargetElement the reference target model element instance, which is removed
+   */
+  public void referencedElementRemoved(ModelElementInstance referenceTargetElement) {
+    for (ModelElementInstance referenceSourceElement : findReferenceSourceElements(referenceTargetElement)) {
+      removeReference(referenceSourceElement);
     }
   }
 

@@ -22,14 +22,14 @@ import org.camunda.bpm.model.bpmn.MessageEventDefinition;
 import org.camunda.bpm.model.core.ModelBuilder;
 import org.camunda.bpm.model.core.ModelReferenceException;
 import org.camunda.bpm.model.core.impl.instance.ModelTypeInstanceContext;
-import org.camunda.bpm.model.core.impl.type.reference.QNameReferenceImpl;
+import org.camunda.bpm.model.core.impl.type.reference.AttributeReference;
+import org.camunda.bpm.model.core.impl.type.reference.AttributeReferenceImpl;
 import org.camunda.bpm.model.core.impl.util.QName;
 import org.camunda.bpm.model.core.instance.ModelElementInstance;
 import org.camunda.bpm.model.core.type.Attribute;
 import org.camunda.bpm.model.core.type.ModelElementType;
 import org.camunda.bpm.model.core.type.ModelElementTypeBuilder;
 import org.camunda.bpm.model.core.type.ModelElementTypeBuilder.ModelTypeIntanceProvider;
-import org.camunda.bpm.model.core.type.Reference;
 import org.camunda.bpm.model.core.type.StringAttributeBuilder;
 
 /**
@@ -42,7 +42,7 @@ public class MessageEventDefinitionImpl extends EventDefinitionImpl implements M
   public static ModelElementType MODEL_TYPE;
 
   static Attribute<String>  messageRefAttr;
-  static Reference<Message> messageRef;
+  static AttributeReference<Message> messageRef;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(MessageEventDefinition.class, BPMN_ELEMENT_MESSAGE_EVENT_DEFINITION)
@@ -55,7 +55,7 @@ public class MessageEventDefinitionImpl extends EventDefinitionImpl implements M
       });
 
     StringAttributeBuilder messageRefAttrBuilder = typeBuilder.stringAttribute(BPMN_ATTRIBUTE_MESSAGE_REF);
-    messageRef = messageRefAttrBuilder.qNameReference(Message.class).build();
+    messageRef = messageRefAttrBuilder.qNameAttributeReference(Message.class).build();
     messageRefAttr = messageRefAttrBuilder.build();
 
     MODEL_TYPE = typeBuilder.build();
@@ -65,40 +65,51 @@ public class MessageEventDefinitionImpl extends EventDefinitionImpl implements M
     super(context);
   }
 
-  public String getMessageRef() {
-    QNameReferenceImpl<Message> qnameRef = (QNameReferenceImpl<Message>) messageRef;
-    Message message = getMessage();
-    if (message != null) {
-      return message.getAttributeValue(qnameRef.getIdAttributeName());
-    }
-    else {
-      return null;
-    }
-  }
-
-  public void setMessageRef(QName qname) {
-    QNameReferenceImpl<Message> qnameRef = (QNameReferenceImpl<Message>) messageRef;
-    if (qnameRef.getIdAttributeName().equals("id")) {
-      ModelElementInstance modelElement = modelInstance.getModelElementById(qname.getLocalName());
-      try {
-        Message message = (Message) modelElement;
-        setMessage(message);
-      }
-      catch (ClassCastException e) {
-        throw new ModelReferenceException("Expected type " + Message.class + " but found " + modelElement.getClass());
-      }
-    }
-    else {
-      throw new ModelReferenceException("Unable to get model element by " + qnameRef.getIdAttributeName() + " attribute");
-    }
-  }
-
+  /**
+   * Get the reference target message
+   * @return the message or null if not set
+   */
   public Message getMessage() {
     return messageRef.getReferencedElement(this);
   }
 
+  /**
+   * Get the QName of the reference target message
+   * @return the QName of the message
+   */
+  public String getMessageRef() {
+    return messageRef.getReferenceIdentifier(this);
+  }
+
+  /**
+   * Set message as reference target by QName
+   *
+   * @param qname the QName of the reference target message
+   */
+  public void setMessageRef(QName qname) {
+    String referenceIdentifier = qname.getLocalName();
+    ModelElementInstance referenceTargetElement = modelInstance.getModelElementById(referenceIdentifier);
+    if (referenceTargetElement != null) {
+      try {
+        setMessage((Message) referenceTargetElement);
+      }
+      catch (ClassCastException e) {
+        throw new ModelReferenceException("Expected type " + Message.class + " for reference target but found " +
+          referenceTargetElement.getClass());
+      }
+    }
+    else {
+      throw new ModelReferenceException("Unable to find model element for id " + referenceIdentifier +
+        ". Please add model element before referencing to the model");
+    }
+  }
+
+  /**
+   * Set the reference target message
+   * @param message the reference target message
+   */
   public void setMessage(Message message) {
-    messageRef.setReferencedElement(this, message);
+    ((AttributeReferenceImpl<Message>) messageRef).setReferencedElement(this, message);
   }
 
 }

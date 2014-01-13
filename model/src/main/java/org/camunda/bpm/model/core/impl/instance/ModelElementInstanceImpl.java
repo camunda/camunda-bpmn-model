@@ -15,6 +15,7 @@ package org.camunda.bpm.model.core.impl.instance;
 import java.util.Collection;
 import java.util.List;
 
+import org.camunda.bpm.model.core.Model;
 import org.camunda.bpm.model.core.ModelException;
 import org.camunda.bpm.model.core.impl.ModelInstanceImpl;
 import org.camunda.bpm.model.core.impl.type.ModelElementTypeImpl;
@@ -25,7 +26,7 @@ import org.camunda.bpm.model.core.impl.util.ModelUtil;
 import org.camunda.bpm.model.core.instance.ModelElementInstance;
 import org.camunda.bpm.model.core.type.Attribute;
 import org.camunda.bpm.model.core.type.ModelElementType;
-import org.camunda.bpm.model.core.type.Reference;
+import org.camunda.bpm.model.core.type.reference.Reference;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -235,13 +236,28 @@ public abstract class ModelElementInstanceImpl implements ModelElementInstance {
   }
 
   /**
-   * Return the attribute value for the given attribute name
+   * Return the attribute value for the attribute name
    *
    * @param attributeName the name of the attribute
    * @return the value of the attribute
    */
   public String getAttributeValue(String attributeName) {
     return DomUtil.getAttributeValue(attributeName, domElement);
+  }
+
+  /**
+   * Return the attribute for the attribute name
+   *
+   * @param attributeName the name of the attribute
+   * @return the attribute or null if it not exists
+   */
+  public Attribute<?> getAttribute(String attributeName) {
+    for (Attribute<?> attribute : elementType.getAllAttributes()) {
+      if (attribute.getAttributeName().equals(attributeName)) {
+        return attribute;
+      }
+    }
+    return null;
   }
 
   /**
@@ -263,24 +279,42 @@ public abstract class ModelElementInstanceImpl implements ModelElementInstance {
    * @param isIdAttribute is the attribute an ID attribute
    */
   public void setAttributeValue(String attributeName, String xmlValue, boolean isIdAttribute) {
+    String oldValue = getAttributeValue(attributeName);
     DomUtil.setAttributeValue(attributeName, xmlValue, domElement);
     if(isIdAttribute) {
       DomUtil.setIdAttribute(domElement, attributeName);
     }
+    Attribute<?> attribute = getAttribute(attributeName);
+    if (attribute != null) {
+      ((AttributeImpl<?>) attribute).updateIncomingReferences(this, xmlValue, oldValue);
+    }
   }
 
   public void setAttributeValueNs(String attributeName, String namespaceUri, String xmlValue, boolean isIdAttribute) {
+    String oldValue = getAttributeValueNs(attributeName, namespaceUri);
     DomUtil.setAttributeValueNs(attributeName, namespaceUri, xmlValue, domElement);
     if(isIdAttribute) {
       DomUtil.setIdAttributeNs(domElement, attributeName, namespaceUri);
     }
+    Attribute<?> attribute = getAttribute(attributeName);
+    if (attribute != null) {
+      ((AttributeImpl<?>) attribute).updateIncomingReferences(this, xmlValue, oldValue);
+    }
   }
 
   public void removeAttribute(String attributeName) {
+    Attribute<?> attribute = getAttribute(attributeName);
+    if (attribute != null) {
+      ((AttributeImpl<?>) attribute).unlinkReference(this);
+    }
     DomUtil.removeAttribute(domElement, attributeName);
   }
 
   public void removeAttributeNs(String attributeName, String namespaceUri) {
+    Attribute<?> attribute = getAttribute(attributeName);
+    if (attribute != null) {
+      ((AttributeImpl<?>) attribute).unlinkReference(this);
+    }
     DomUtil.removeAttributeNs(domElement, attributeName, namespaceUri);
   }
 

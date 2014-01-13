@@ -56,6 +56,10 @@ public class ReferenceTest extends BpmnModelTest {
     message.setId("changed-message-id");
     assertThat(message.getId()).isEqualTo("changed-message-id");
     assertThat(messageEventDefinition.getMessageRef()).isEqualTo(message.getId());
+
+    message.setAttributeValue("id", "another-message-id", true);
+    assertThat(message.getId()).isEqualTo("another-message-id");
+    assertThat(messageEventDefinition.getMessageRef()).isEqualTo(message.getId());
   }
 
   @Test

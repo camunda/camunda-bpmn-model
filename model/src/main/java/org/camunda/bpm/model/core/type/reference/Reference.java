@@ -10,9 +10,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.camunda.bpm.model.core.type;
+package org.camunda.bpm.model.core.type.reference;
 
 import org.camunda.bpm.model.core.instance.ModelElementInstance;
+import org.camunda.bpm.model.core.type.Attribute;
 
 /**
  *
@@ -22,12 +23,16 @@ import org.camunda.bpm.model.core.instance.ModelElementInstance;
  */
 public interface Reference<T extends ModelElementInstance> {
 
+  /**
+   * Get the reference identifier which is set in the reference source
+   *
+   * @param referenceSourceElement the reference source model element instance
+   * @return the reference identifier
+   */
+  String getReferenceIdentifier(ModelElementInstance referenceSourceElement);
+
   T getReferencedElement(ModelElementInstance modelElement);
 
-  void setReferencedElement(ModelElementInstance modelElement, T referencedElement);
-
-  Attribute<String> getReferencingAttribute();
-
-  Attribute<String> getReferencedAttribute();
+  Attribute<String> getReferenceTargetAttribute();
 
 }
