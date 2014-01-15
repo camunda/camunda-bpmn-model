@@ -26,28 +26,12 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-import org.camunda.bpm.model.bpmn.impl.BaseElementImp;
-import org.camunda.bpm.model.bpmn.impl.BpmnModelInstanceImpl;
-import org.camunda.bpm.model.bpmn.impl.BpmnParser;
-import org.camunda.bpm.model.bpmn.impl.CallableElementImpl;
-import org.camunda.bpm.model.bpmn.impl.CatchEventImpl;
-import org.camunda.bpm.model.bpmn.impl.DefinitionsImpl;
-import org.camunda.bpm.model.bpmn.impl.EventDefinitionImpl;
-import org.camunda.bpm.model.bpmn.impl.EventImpl;
-import org.camunda.bpm.model.bpmn.impl.ExtensionElementsImpl;
-import org.camunda.bpm.model.bpmn.impl.FlowElementImpl;
-import org.camunda.bpm.model.bpmn.impl.FlowNodeImpl;
-import org.camunda.bpm.model.bpmn.impl.ImportImpl;
-import org.camunda.bpm.model.bpmn.impl.MessageEventDefinitionImpl;
-import org.camunda.bpm.model.bpmn.impl.MessageImpl;
-import org.camunda.bpm.model.bpmn.impl.ProcessImpl;
-import org.camunda.bpm.model.bpmn.impl.PropertyImpl;
-import org.camunda.bpm.model.bpmn.impl.RootElementImpl;
-import org.camunda.bpm.model.bpmn.impl.StartEventImpl;
+import org.camunda.bpm.model.bpmn.impl.*;
 import org.camunda.bpm.model.core.Model;
 import org.camunda.bpm.model.core.ModelBuilder;
 import org.camunda.bpm.model.core.ModelParseException;
 import org.camunda.bpm.model.core.ModelValidationException;
+import org.camunda.bpm.model.core.impl.instance.EventDefinitionRefImpl;
 import org.camunda.bpm.model.core.impl.util.IoUtil;
 
 /**
@@ -60,7 +44,7 @@ public class Bpmn {
 
   /** the singleton instance of {@link Bpmn}. If you want to customize the behavior of Bpmn,
    * replace this instance with an instance of a custom subclass of {@link Bpmn}. */
-  public static Bpmn INSTANCE = new Bpmn();
+  public final static Bpmn INSTANCE = new Bpmn();
 
   /** the parser used by the Bpmn implementation. */
   protected BpmnParser bpmnParser = new BpmnParser();
@@ -202,6 +186,7 @@ public class Bpmn {
   }
 
   protected void doRegisterTypes(ModelBuilder bpmnModelBuilder) {
+    EventDefinitionRefImpl.registerType(bpmnModelBuilder);
     DefinitionsImpl.registerType(bpmnModelBuilder);
     ImportImpl.registerType(bpmnModelBuilder);
     BaseElementImp.registerType(bpmnModelBuilder);

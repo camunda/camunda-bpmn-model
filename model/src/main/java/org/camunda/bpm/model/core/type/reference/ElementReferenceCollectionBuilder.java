@@ -2,7 +2,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -10,18 +10,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.camunda.bpm.model.core.type;
 
+package org.camunda.bpm.model.core.type.reference;
+
+import org.camunda.bpm.model.core.impl.ModelBuildOperation;
 import org.camunda.bpm.model.core.instance.ModelElementInstance;
-import org.camunda.bpm.model.core.type.reference.AttributeReferenceBuilder;
 
 /**
  * @author Sebastian Menski
- *
  */
-public interface StringAttributeBuilder extends AttributeBuilder<String> {
+public interface ElementReferenceCollectionBuilder<T extends ModelElementInstance, V extends ModelElementInstance> extends ModelBuildOperation {
 
-  <V extends ModelElementInstance> AttributeReferenceBuilder<V> qNameAttributeReference(Class<V> referenceTargetElement);
+  ElementReferenceCollection<T, V> build();
 
-  <V extends ModelElementInstance> AttributeReferenceBuilder<V> idAttributeReference(Class<V>  referenceTargetElement);
 }

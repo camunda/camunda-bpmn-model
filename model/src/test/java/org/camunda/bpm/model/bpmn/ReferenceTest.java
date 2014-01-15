@@ -14,8 +14,11 @@ package org.camunda.bpm.model.bpmn;
 
 import static org.fest.assertions.Assertions.assertThat;
 
+import org.camunda.bpm.model.bpmn.util.BpmnModelResource;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.Collection;
 
 /**
  * @author Sebastian Menski
@@ -23,31 +26,35 @@ import org.junit.Test;
  */
 public class ReferenceTest extends BpmnModelTest {
 
-  protected BpmnModelInstance bpmnModelInstance;
+  protected BpmnModelInstance testBpmnModelInstance;
   protected Message message;
   protected MessageEventDefinition messageEventDefinition;
+  protected StartEvent startEvent;
 
   @Before
   public void createModel() {
-    bpmnModelInstance = Bpmn.createEmptyModel();
-    Definitions definitions = bpmnModelInstance.newInstance(Definitions.class);
-    bpmnModelInstance.setDefinitions(definitions);
+    testBpmnModelInstance = Bpmn.createEmptyModel();
+    Definitions definitions = testBpmnModelInstance.newInstance(Definitions.class);
+    testBpmnModelInstance.setDefinitions(definitions);
 
-    message = bpmnModelInstance.newInstance(Message.class);
+    message = testBpmnModelInstance.newInstance(Message.class);
     message.setId("message-id");
     definitions.getRootElements().add(message);
 
-    Process process = bpmnModelInstance.newInstance(Process.class);
+    Process process = testBpmnModelInstance.newInstance(Process.class);
     process.setId("process-id");
     definitions.getRootElements().add(process);
 
-    StartEvent startEvent = bpmnModelInstance.newInstance(StartEvent.class);
+    startEvent = testBpmnModelInstance.newInstance(StartEvent.class);
+    startEvent.setId("start-event-id");
     process.getFlowElements().add(startEvent);
 
-    messageEventDefinition = bpmnModelInstance.newInstance(MessageEventDefinition.class);
+    messageEventDefinition = testBpmnModelInstance.newInstance(MessageEventDefinition.class);
     messageEventDefinition.setId("msg-def-id");
     messageEventDefinition.setMessage(message);
     startEvent.getEventDefinitions().add(messageEventDefinition);
+
+    startEvent.getEventDefinitionRefs().add(messageEventDefinition);
   }
 
   @Test
@@ -66,7 +73,7 @@ public class ReferenceTest extends BpmnModelTest {
   public void testShouldRemoveReferenceIfReferencingElementIsRemoved() {
     assertThat(messageEventDefinition.getMessageRef()).isEqualTo(message.getId());
 
-    Definitions definitions = bpmnModelInstance.getDefinitions();
+    Definitions definitions = testBpmnModelInstance.getDefinitions();
     definitions.getRootElements().remove(message);
 
     assertThat(messageEventDefinition.getId()).isEqualTo("msg-def-id");
@@ -86,7 +93,7 @@ public class ReferenceTest extends BpmnModelTest {
   @Test
   public void testShouldUpdateReferenceIfReferencingElementIsReplaced() {
     assertThat(messageEventDefinition.getMessageRef()).isEqualTo(message.getId());
-    Message newMessage = bpmnModelInstance.newInstance(Message.class);
+    Message newMessage = testBpmnModelInstance.newInstance(Message.class);
     newMessage.setId("new-message-id");
 
     message.replaceElement(newMessage);
@@ -94,4 +101,79 @@ public class ReferenceTest extends BpmnModelTest {
     assertThat(messageEventDefinition.getMessageRef()).isEqualTo(newMessage.getId());
   }
 
+  @Test
+  public void testShouldAddMessageEventDefinitionRef() {
+    Collection<EventDefinition> eventDefinitionRefs = startEvent.getEventDefinitionRefs();
+    assertThat(eventDefinitionRefs).isNotEmpty();
+    assertThat(eventDefinitionRefs).contains(messageEventDefinition);
+  }
+
+  @Test
+  public void testShouldUpdateMessageEventDefinitionRefOnIdChange() {
+    Collection<EventDefinition> eventDefinitionRefs = startEvent.getEventDefinitionRefs();
+    assertThat(eventDefinitionRefs).contains(messageEventDefinition);
+    messageEventDefinition.setId("changed-message-event-definition-id");
+    assertThat(eventDefinitionRefs).contains(messageEventDefinition);
+    messageEventDefinition.setAttributeValue("id", "another-message-event-definition-id", true);
+  }
+
+  @Test
+  public void testShouldRemoveMessageEventDefinitionRefIfMessageEventDefinitionIsRemoved() {
+    startEvent.getEventDefinitions().remove(messageEventDefinition);
+    Collection<EventDefinition> eventDefinitionRefs = startEvent.getEventDefinitionRefs();
+    assertThat(eventDefinitionRefs).excludes(messageEventDefinition);
+    assertThat(eventDefinitionRefs).isEmpty();
+  }
+
+  @Test
+  public void testShouldReplaceMessageEventDefinitionRefIfMessageEventDefinitionIsReplaced() {
+    MessageEventDefinition otherMessageEventDefinition = testBpmnModelInstance.newInstance(MessageEventDefinition.class);
+    otherMessageEventDefinition.setId("other-message-event-definition-id");
+    Collection<EventDefinition> eventDefinitionRefs = startEvent.getEventDefinitionRefs();
+    assertThat(eventDefinitionRefs).contains(messageEventDefinition);
+    messageEventDefinition.replaceElement(otherMessageEventDefinition);
+    assertThat(eventDefinitionRefs).excludes(messageEventDefinition);
+    assertThat(eventDefinitionRefs).contains(otherMessageEventDefinition);
+  }
+
+  @Test
+  public void testShouldRemoveMessageEventDefinitionRefIfIdIsRemovedOfMessageEventDefinition() {
+    Collection<EventDefinition> eventDefinitionRefs = startEvent.getEventDefinitionRefs();
+    assertThat(eventDefinitionRefs).contains(messageEventDefinition);
+    messageEventDefinition.removeAttribute("id");
+    assertThat(eventDefinitionRefs).excludes(messageEventDefinition);
+    assertThat(eventDefinitionRefs).isEmpty();
+  }
+
+  @Test
+  @BpmnModelResource
+  public void shouldFindReferenceWithNamespace() {
+    MessageEventDefinition messageEventDefinition = (MessageEventDefinition) bpmnModelInstance.getModelElementById("message-event-definition");
+    Message message = (Message) bpmnModelInstance.getModelElementById("message-id");
+    assertThat(messageEventDefinition.getMessage()).isNotNull();
+    assertThat(messageEventDefinition.getMessage()).isEqualTo(message);
+    message.setId("changed-message");
+    assertThat(messageEventDefinition.getMessage()).isNotNull();
+    assertThat(messageEventDefinition.getMessage()).isEqualTo(message);
+    message.setAttributeValue("id", "again-changed-message", true);
+    assertThat(messageEventDefinition.getMessage()).isNotNull();
+    assertThat(messageEventDefinition.getMessage()).isEqualTo(message);
+
+    StartEvent startEvent = (StartEvent) bpmnModelInstance.getModelElementById("start-event");
+    Collection<EventDefinition> eventDefinitionRefs = startEvent.getEventDefinitionRefs();
+    assertThat(eventDefinitionRefs).isNotEmpty();
+    assertThat(eventDefinitionRefs).contains(messageEventDefinition);
+    messageEventDefinition.setId("changed-message-event");
+    assertThat(eventDefinitionRefs).isNotEmpty();
+    assertThat(eventDefinitionRefs).contains(messageEventDefinition);
+    messageEventDefinition.setAttributeValue("id", "again-changed-message-event", true);
+    assertThat(eventDefinitionRefs).isNotEmpty();
+    assertThat(eventDefinitionRefs).contains(messageEventDefinition);
+
+    message.removeAttribute("id");
+    assertThat(messageEventDefinition.getMessage()).isNull();
+    messageEventDefinition.removeAttribute("id");
+    assertThat(eventDefinitionRefs).excludes(messageEventDefinition);
+    assertThat(eventDefinitionRefs).isEmpty();
+  }
 }

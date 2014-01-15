@@ -34,7 +34,7 @@ public class BpmnModelInstanceImpl extends ModelInstanceImpl implements BpmnMode
   }
 
   public void setDefinitions(Definitions definitions) {
-    setDocumentElement((DefinitionsImpl) definitions);
+    setDocumentElement(definitions);
   }
 
 }

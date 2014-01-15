@@ -22,6 +22,7 @@ import org.camunda.bpm.model.core.impl.util.DomUtil.ElementNodeListFilter;
 import org.camunda.bpm.model.core.impl.util.ModelUtil;
 import org.camunda.bpm.model.core.instance.ModelElementInstance;
 import org.camunda.bpm.model.core.type.ChildElementCollection;
+import org.camunda.bpm.model.core.type.ModelElementType;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
@@ -45,6 +46,9 @@ public abstract class ChildElementCollectionImpl<T extends ModelElementInstance>
   /** indicates whether this collection is mutable.
    */
   protected boolean isMutable = true;
+
+  /** the containing type of the collection */
+  protected ModelElementType containingType;
 
   public void setMutable(boolean isMutable) {
     this.isMutable = isMutable;
@@ -87,6 +91,11 @@ public abstract class ChildElementCollectionImpl<T extends ModelElementInstance>
 
   public int getMaxOccurs() {
     return maxOccurs;
+  }
+
+  @Override
+  public ModelElementType getContainingType() {
+    return containingType;
   }
 
   public void setMaxOccurs(int maxOccurs) {
@@ -151,7 +160,7 @@ public abstract class ChildElementCollectionImpl<T extends ModelElementInstance>
         return getView(modelElement).toArray();
       }
 
-      public <U extends Object> U[] toArray(U[] a) {
+      public <U> U[] toArray(U[] a) {
         return getView(modelElement).toArray(a);
       }
 

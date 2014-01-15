@@ -2,7 +2,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -10,90 +10,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.camunda.bpm.model.core.impl.type.reference;
 
-import java.util.Collection;
-
-import org.camunda.bpm.model.core.Model;
-import org.camunda.bpm.model.core.ModelException;
-import org.camunda.bpm.model.core.impl.ModelBuildOperation;
-import org.camunda.bpm.model.core.impl.type.ModelElementTypeImpl;
 import org.camunda.bpm.model.core.impl.type.attribute.AttributeImpl;
-import org.camunda.bpm.model.core.impl.util.ModelUtil;
 import org.camunda.bpm.model.core.instance.ModelElementInstance;
-import org.camunda.bpm.model.core.type.Attribute;
-import org.camunda.bpm.model.core.type.ModelElementType;
-import org.camunda.bpm.model.core.type.reference.AttributeReferenceBuilder;
 
 /**
- * A builder for a attribute model reference based on a QNname
- *
  * @author Sebastian Menski
- *
  */
-public class QNameAttributeReferenceBuilderImpl<T extends ModelElementInstance> implements AttributeReferenceBuilder<T>, ModelBuildOperation {
-
-  protected final AttributeImpl<String> referenceSourceAttribute;
-  protected QNameAttributeReferenceImpl<T> qNameAttributeReferenceImpl;
-  protected final Class<T> referenceTargetElement;
+public class QNameAttributeReferenceBuilderImpl<T extends ModelElementInstance> extends AttributeReferenceBuilderImpl<T> {
 
   /**
-   * Create a new {@link QNameAttributeReferenceBuilderImpl} from the reference source attribute
+   * Create a new {@link org.camunda.bpm.model.core.impl.type.reference.AttributeReferenceBuilderImpl} from the reference source attribute
    * to the reference target model element instance
-   * 
+   *
    * @param referenceSourceAttribute the reference source attribute
-   * @param referenceTargetElement the reference target model element instance
+   * @param referenceTargetElement   the reference target model element instance
    */
   public QNameAttributeReferenceBuilderImpl(AttributeImpl<String> referenceSourceAttribute, Class<T> referenceTargetElement) {
-    this.referenceSourceAttribute = referenceSourceAttribute;
-    this.referenceTargetElement = referenceTargetElement;
-    qNameAttributeReferenceImpl = new QNameAttributeReferenceImpl<T>(referenceSourceAttribute);
+    super(referenceSourceAttribute, referenceTargetElement);
+    this.attributeReferenceImpl = new QNameAttributeReferenceImpl<T>(referenceSourceAttribute);
   }
-
-  public AttributeReference<T> build() {
-    referenceSourceAttribute.registerOutgoingReference(qNameAttributeReferenceImpl);
-    return qNameAttributeReferenceImpl;
-  }
-
-  public void performModelBuild(Model model) {
-    // register declaring type as a referencing type of referenced type
-    ModelElementTypeImpl referencedType = (ModelElementTypeImpl) model.getType(referenceTargetElement);
-
-    // the actual referenced type
-    qNameAttributeReferenceImpl.setReferenceTargetElementType(referencedType);
-
-    // the referenced attribute may be declared on a base type of the referenced type.
-    AttributeImpl<String> idAttribute = getIdAttribute(referencedType, model);
-    if(idAttribute != null) {
-      idAttribute.registerIncoming(qNameAttributeReferenceImpl);
-      qNameAttributeReferenceImpl.setReferenceTargetAttribute(idAttribute);
-    } else {
-      throw new ModelException();
-    }
-  }
-
-  /**
-   * Return the id attribute of the reference
-   * 
-   * @param referenceTargetType the reference target model element type
-   * @return the id attribute or null if it not exists
-   */
-  @SuppressWarnings("unchecked")
-  protected AttributeImpl<String> getIdAttribute(ModelElementTypeImpl referenceTargetType, Model model) {
-    for (Attribute<?> attr : referenceTargetType.getAttributes()) {
-      if(attr.getAttributeName().equals("id")) {
-        return (AttributeImpl<String>) attr;
-      }
-    }
-    Collection<ModelElementType> baseTypes = ModelUtil.calculateAllBaseTypes(model, referenceTargetType);
-    for (ModelElementType baseType : baseTypes) {
-      for (Attribute<?> attr : baseType.getAttributes()) {
-        if (attr.getAttributeName().equals("id")) {
-          return (AttributeImpl<String>) attr;
-        }
-      }
-    }
-    return null;
-  }
-
 }

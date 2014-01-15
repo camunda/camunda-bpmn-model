@@ -41,9 +41,12 @@ public interface ModelElementType {
 
   Collection<ModelElementType> getExtendingTypes();
 
+  Attribute<?> getAttribute(String attributeName);
+
   Model getModel();
 
   Collection<ModelElementInstance> getInstances(ModelInstance modelInstanceImpl);
 
   List<ModelElementType> getChildElementTypes();
+
 }

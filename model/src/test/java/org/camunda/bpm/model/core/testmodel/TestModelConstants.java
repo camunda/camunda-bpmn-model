@@ -22,12 +22,16 @@ public abstract class TestModelConstants {
   public final static String MODEL_NAMESPACE = "http://camunda.org/animals";
 
   public final static String TYPE_NAME_ANIMAL = "animal";
-  public final static String TYPE_NAME_FYING_ANIMAL = "flyingAnimal";
+  public final static String TYPE_NAME_FLYING_ANIMAL = "flyingAnimal";
 
   public final static String ELEMENT_NAME_ANIMALS = "animals";
   public final static String ELEMENT_NAME_BIRD = "bird";
+  public final static String ELEMENT_NAME_FRIEND_REF = "friendRef";
+  public final static String ELEMENT_NAME_PARTNER_REF = "partnerRef";
 
   public final static String ATTRIBUTE_NAME_ID = "id";
+  public final static String ATTRIBUTE_NAME_FATHER = "father";
+  public final static String ATTRIBUTE_NAME_MOTHER = "mother";
 
   private TestModelConstants() {
 

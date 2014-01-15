@@ -42,6 +42,7 @@ public class BpmnModelConstants {
   public static final String BPMN_ELEMENT_MESSAGE_EVENT_DEFINITION = "messageEventDefinition";
   public static final String BPMN_ELEMENT_START_EVENT = "startEvent";
   public static final String BPMN_ELEMENT_PROPERTY = "property";
+  public static final String BPMN_ELEMENT_EVENT_DEFINITION_REF = "eventDefinitionRef";
 
   // abstract types //////////////////////////////////
 

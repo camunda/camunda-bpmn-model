@@ -25,11 +25,9 @@ import org.camunda.bpm.model.core.ModelException;
 public abstract class ReflectUtil {
 
   public static InputStream getResourceAsStream(String name) {
-    InputStream resourceStream = null;
-
     // Try the current Thread context classloader
     ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-    resourceStream = classLoader.getResourceAsStream(name);
+    InputStream resourceStream = classLoader.getResourceAsStream(name);
     if (resourceStream == null) {
       // Finally, try the classloader for this class
       classLoader = ReflectUtil.class.getClassLoader();
@@ -40,10 +38,9 @@ public abstract class ReflectUtil {
   }
 
   public static URL getResource(String name) {
-    URL url = null;
     // Try the current Thread context classloader
     ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-    url = classLoader.getResource(name);
+    URL url = classLoader.getResource(name);
     if (url == null) {
       // Finally, try the classloader for this class
       classLoader = ReflectUtil.class.getClassLoader();

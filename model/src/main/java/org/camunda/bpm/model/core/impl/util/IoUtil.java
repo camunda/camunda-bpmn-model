@@ -46,13 +46,29 @@ public class IoUtil {
    * @throws IOException
    */
   public static String getStringFromInputStream(InputStream inputStream) throws IOException {
+    return getStringFromInputStream(inputStream, true);
+  }
+
+  /**
+   * Converst an {@link InputStream} to a {@link String}
+   *
+   * @param inputStream the {@link InputStream} to convert
+   * @param trim trigger if whitespaces are trimmed in the output
+   * @return the resulting {@link String}
+   * @throws IOException
+   */  public static String getStringFromInputStream(InputStream inputStream, boolean trim) throws IOException {
     BufferedReader bufferdReader = null;
     StringBuilder stringBuilder = new StringBuilder();
     try {
       bufferdReader = new BufferedReader(new InputStreamReader(inputStream));
       String line;
       while ((line = bufferdReader.readLine()) != null) {
-        stringBuilder.append(line.trim());
+        if (trim) {
+          stringBuilder.append(line.trim());
+        }
+        else {
+          stringBuilder.append(line).append("\n");
+        }
       }
     }
     finally {
@@ -71,7 +87,6 @@ public class IoUtil {
    */
   public static InputStream convertOutputStreamToInputStream(OutputStream outputStream) {
     byte[] data = ((ByteArrayOutputStream) outputStream).toByteArray();
-    InputStream inputStream = new ByteArrayInputStream(data);
-    return inputStream;
+    return new ByteArrayInputStream(data);
   }
 }

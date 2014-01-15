@@ -13,6 +13,7 @@
 package org.camunda.bpm.model.core.impl.type.child;
 
 import org.camunda.bpm.model.core.impl.instance.ModelElementInstanceImpl;
+import org.camunda.bpm.model.core.impl.type.ModelElementTypeImpl;
 import org.camunda.bpm.model.core.impl.util.DomUtil.ElementByNameListFilter;
 import org.camunda.bpm.model.core.impl.util.DomUtil.ElementNodeListFilter;
 import org.camunda.bpm.model.core.instance.ModelElementInstance;
@@ -37,10 +38,12 @@ public class NamedChildElementCollection<T extends ModelElementInstance> extends
    *
    * @param localName the local name of the elements in the same namespace as xmlElement
    * @param namespaceUri
+   * @param containingType
    */
-  public NamedChildElementCollection(String localName, String namespaceUri) {
+  public NamedChildElementCollection(String localName, String namespaceUri, ModelElementTypeImpl containingType) {
     this.localName = localName;
     this.namespaceUri = namespaceUri;
+    this.containingType = containingType;
     filter = new ElementByNameListFilter(localName, namespaceUri);
   }
 

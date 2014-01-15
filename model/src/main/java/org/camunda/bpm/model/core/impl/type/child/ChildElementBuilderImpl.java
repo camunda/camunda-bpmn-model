@@ -33,7 +33,7 @@ public class ChildElementBuilderImpl<T extends ModelElementInstance> extends Chi
 
   @Override
   protected ChildElementCollectionImpl<T> createCollectionInstance(String localName, String namespaceUri) {
-    return new ChildElementImpl<T>(childElementType, localName, namespaceUri);
+    return new ChildElementImpl<T>(childElementType, localName, namespaceUri, containingType);
   }
 
 }

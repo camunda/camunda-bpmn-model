@@ -13,6 +13,7 @@
 package org.camunda.bpm.model.core.impl.type.child;
 
 import org.camunda.bpm.model.core.impl.instance.ModelElementInstanceImpl;
+import org.camunda.bpm.model.core.impl.type.ModelElementTypeImpl;
 import org.camunda.bpm.model.core.impl.util.ModelUtil;
 import org.camunda.bpm.model.core.instance.ModelElementInstance;
 import org.camunda.bpm.model.core.type.ChildElement;
@@ -27,8 +28,8 @@ public class ChildElementImpl<T extends ModelElementInstance> extends NamedChild
 
   protected Class<T> elementType;
 
-  public ChildElementImpl(Class<T> elementType, String localName, String namespaceUri) {
-    super(localName, namespaceUri);
+  public ChildElementImpl(Class<T> elementType, String localName, String namespaceUri, ModelElementTypeImpl containingType) {
+    super(localName, namespaceUri, containingType);
     this.elementType = elementType;
     this.maxOccurs = 1;
   }

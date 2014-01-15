@@ -47,4 +47,6 @@ public interface ModelElementInstance {
   String getTextContent();
 
   String getRawTextContent();
+
+  void setTextContent(String textContent);
 }

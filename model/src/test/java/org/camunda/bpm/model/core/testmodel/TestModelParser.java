@@ -42,7 +42,7 @@ public class TestModelParser extends AbstractModelParser {
     try {
       this.schema = schemaFactory.newSchema(ReflectUtil.getResource(SCHEMA_LOCATION));
     } catch (SAXException e) {
-      throw new ModelValidationException("Unable to parse schema:" + ReflectUtil.getResource(SCHEMA_LOCATION).toString());
+      throw new ModelValidationException("Unable to parse schema:" + ReflectUtil.getResource(SCHEMA_LOCATION).toString(), e);
     }
   }
 

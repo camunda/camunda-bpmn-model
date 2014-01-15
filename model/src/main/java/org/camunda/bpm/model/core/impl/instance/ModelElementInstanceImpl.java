@@ -15,7 +15,6 @@ package org.camunda.bpm.model.core.impl.instance;
 import java.util.Collection;
 import java.util.List;
 
-import org.camunda.bpm.model.core.Model;
 import org.camunda.bpm.model.core.ModelException;
 import org.camunda.bpm.model.core.impl.ModelInstanceImpl;
 import org.camunda.bpm.model.core.impl.type.ModelElementTypeImpl;
@@ -246,21 +245,6 @@ public abstract class ModelElementInstanceImpl implements ModelElementInstance {
   }
 
   /**
-   * Return the attribute for the attribute name
-   *
-   * @param attributeName the name of the attribute
-   * @return the attribute or null if it not exists
-   */
-  public Attribute<?> getAttribute(String attributeName) {
-    for (Attribute<?> attribute : elementType.getAllAttributes()) {
-      if (attribute.getAttributeName().equals(attributeName)) {
-        return attribute;
-      }
-    }
-    return null;
-  }
-
-  /**
    * Return the attribute value for the given attribute name and namespace URI
    *
    * @param attributeName the attribute name of the attribute
@@ -284,7 +268,7 @@ public abstract class ModelElementInstanceImpl implements ModelElementInstance {
     if(isIdAttribute) {
       DomUtil.setIdAttribute(domElement, attributeName);
     }
-    Attribute<?> attribute = getAttribute(attributeName);
+    Attribute<?> attribute = elementType.getAttribute(attributeName);
     if (attribute != null) {
       ((AttributeImpl<?>) attribute).updateIncomingReferences(this, xmlValue, oldValue);
     }
@@ -296,14 +280,14 @@ public abstract class ModelElementInstanceImpl implements ModelElementInstance {
     if(isIdAttribute) {
       DomUtil.setIdAttributeNs(domElement, attributeName, namespaceUri);
     }
-    Attribute<?> attribute = getAttribute(attributeName);
+    Attribute<?> attribute = elementType.getAttribute(attributeName);
     if (attribute != null) {
       ((AttributeImpl<?>) attribute).updateIncomingReferences(this, xmlValue, oldValue);
     }
   }
 
   public void removeAttribute(String attributeName) {
-    Attribute<?> attribute = getAttribute(attributeName);
+    Attribute<?> attribute = elementType.getAttribute(attributeName);
     if (attribute != null) {
       ((AttributeImpl<?>) attribute).unlinkReference(this);
     }
@@ -311,7 +295,7 @@ public abstract class ModelElementInstanceImpl implements ModelElementInstance {
   }
 
   public void removeAttributeNs(String attributeName, String namespaceUri) {
-    Attribute<?> attribute = getAttribute(attributeName);
+    Attribute<?> attribute = elementType.getAttribute(attributeName);
     if (attribute != null) {
       ((AttributeImpl<?>) attribute).unlinkReference(this);
     }
@@ -341,6 +325,15 @@ public abstract class ModelElementInstanceImpl implements ModelElementInstance {
     return DomUtil.getTextContent(domElement);
   }
 
+  /**
+   * Set the text content of the DOM element
+   *
+   * @param textContent the new text content
+   */
+  public void setTextContent(String textContent) {
+    DomUtil.setTextContent(domElement, textContent);
+  }
+
   public void unlinkAllReferences() {
     Collection<Attribute<?>> attributes = elementType.getAllAttributes();
     for (Attribute<?> attribute : attributes) {
@@ -357,6 +350,11 @@ public abstract class ModelElementInstanceImpl implements ModelElementInstance {
 
       }
     }
+  }
+
+  @Override
+  public int hashCode() {
+    return domElement.hashCode();
   }
 
   @Override

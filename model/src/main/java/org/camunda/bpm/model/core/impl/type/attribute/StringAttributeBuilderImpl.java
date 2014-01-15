@@ -15,10 +15,10 @@ package org.camunda.bpm.model.core.impl.type.attribute;
 import org.camunda.bpm.model.core.Model;
 import org.camunda.bpm.model.core.ModelException;
 import org.camunda.bpm.model.core.impl.type.ModelElementTypeImpl;
+import org.camunda.bpm.model.core.impl.type.reference.AttributeReferenceBuilderImpl;
 import org.camunda.bpm.model.core.impl.type.reference.QNameAttributeReferenceBuilderImpl;
 import org.camunda.bpm.model.core.instance.ModelElementInstance;
 import org.camunda.bpm.model.core.type.reference.AttributeReferenceBuilder;
-import org.camunda.bpm.model.core.type.reference.ReferenceBuilder;
 import org.camunda.bpm.model.core.type.StringAttributeBuilder;
 
 
@@ -29,7 +29,7 @@ import org.camunda.bpm.model.core.type.StringAttributeBuilder;
  */
 public class StringAttributeBuilderImpl extends AttributeBuilderImpl<String> implements StringAttributeBuilder {
 
-  protected QNameAttributeReferenceBuilderImpl<?> referenceBuilder;
+  protected AttributeReferenceBuilderImpl<?> referenceBuilder;
 
   public StringAttributeBuilderImpl(String attributeName, ModelElementTypeImpl modelType) {
     super(attributeName, modelType, new StringAttribute(modelType));
@@ -42,13 +42,25 @@ public class StringAttributeBuilderImpl extends AttributeBuilderImpl<String> imp
    * @return the new attribute reference builder
    */
   public <V extends ModelElementInstance> AttributeReferenceBuilder<V> qNameAttributeReference(Class<V> referenceTargetElement) {
-    if (referenceBuilder != null) {
-      throw new ModelException("An attribute cannot have more than one reference");
-    }
-    QNameAttributeReferenceBuilderImpl<V> referenceBuilder = new QNameAttributeReferenceBuilderImpl<V>(attribute, referenceTargetElement);
-    this.referenceBuilder = referenceBuilder;
+    AttributeReferenceBuilderImpl<V> referenceBuilder = new QNameAttributeReferenceBuilderImpl<V>(attribute, referenceTargetElement);
+    setAttributeReference(referenceBuilder);
     return referenceBuilder;
   }
+
+  @Override
+  public <V extends ModelElementInstance> AttributeReferenceBuilder<V> idAttributeReference(Class<V> referenceTargetElement) {
+    AttributeReferenceBuilderImpl<V> referenceBuilder = new AttributeReferenceBuilderImpl<V>(attribute, referenceTargetElement);
+    setAttributeReference(referenceBuilder);
+    return referenceBuilder;
+  }
+
+  protected <V extends ModelElementInstance> void setAttributeReference(AttributeReferenceBuilderImpl<V> referenceBuilder) {
+    if (this.referenceBuilder != null) {
+      throw new ModelException("An attribute cannot have more than one reference");
+    }
+    this.referenceBuilder = referenceBuilder;
+  }
+
 
   @Override
   public void performModelBuild(Model model) {

@@ -41,11 +41,10 @@ public class QName {
   }
 
   public static QName parseQName(String identifier, ModelElementInstanceImpl modelElement) {
-
-    String localPart = null;
+    String localPart;
     String namespaceUri = null;
 
-    String[] split = identifier.split(":",1);
+    String[] split = identifier.split(":", 2);
     if(split.length == 2) {
       localPart = split[1];
       namespaceUri = DomUtil.getNamespaceUriForPrefix(modelElement.getDomElement(), split[0]);

@@ -104,7 +104,7 @@ public class ModelElementTypeBuilderImpl implements ModelElementTypeBuilder, Mod
     if(extendedType != null) {
       ModelElementTypeImpl extendedModelElementType = (ModelElementTypeImpl) model.getType(extendedType);
       if(extendedModelElementType == null) {
-        throw new ModelException("Type "+modelType+" is defined to extend "+extendedModelElementType +" but no such type is defined.");
+        throw new ModelException("Type "+modelType+" is defined to extend "+extendedType+" but no such type is defined.");
 
       } else {
         modelType.setBaseType(extendedModelElementType);

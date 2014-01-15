@@ -64,7 +64,7 @@ public abstract class AbstractModelParser {
   public ModelInstance getEmptyModel() {
     Document document = DomUtil.getEmptyDocument(documentBuilderFactory);
     return createModelInstance(document);
-  };
+  }
 
   /**
    * Validate DOM document

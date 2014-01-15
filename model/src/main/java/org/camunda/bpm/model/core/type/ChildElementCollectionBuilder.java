@@ -13,6 +13,7 @@
 package org.camunda.bpm.model.core.type;
 
 import org.camunda.bpm.model.core.instance.ModelElementInstance;
+import org.camunda.bpm.model.core.type.reference.ElementReferenceCollectionBuilder;
 
 /**
  * @author Daniel Meyer
@@ -28,4 +29,7 @@ public interface ChildElementCollectionBuilder<T extends ModelElementInstance> {
 
   ChildElementCollection<T> build();
 
+  <V extends ModelElementInstance> ElementReferenceCollectionBuilder<V,T> qNameElementReferenceCollection(Class<V> referenceTargetType);
+
+  <V extends ModelElementInstance> ElementReferenceCollectionBuilder<V, T> idElementReferenceCollection(Class<V> referenceTargetType);
 }

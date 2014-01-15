@@ -13,6 +13,8 @@
 
 package org.camunda.bpm.model.core.impl.type.reference;
 
+import org.camunda.bpm.model.core.ModelReferenceException;
+import org.camunda.bpm.model.core.impl.instance.ModelElementInstanceImpl;
 import org.camunda.bpm.model.core.impl.type.attribute.AttributeImpl;
 import org.camunda.bpm.model.core.instance.ModelElementInstance;
 import org.camunda.bpm.model.core.type.Attribute;
@@ -22,7 +24,7 @@ import org.camunda.bpm.model.core.type.reference.AttributeReference;
 /**
  * @author Sebastian Menski
  */
-public abstract class AttributeReferenceImpl<T extends ModelElementInstance> extends ReferenceImpl<T> implements AttributeReference<T> {
+public class AttributeReferenceImpl<T extends ModelElementInstance> extends ReferenceImpl<T> implements AttributeReference<T> {
 
   protected final AttributeImpl<String> referenceSourceAttribute;
 
@@ -47,7 +49,7 @@ public abstract class AttributeReferenceImpl<T extends ModelElementInstance> ext
     return referenceSourceAttribute;
   }
 
-  protected ModelElementType getReferenceSourceOwningElementType() {
+  protected ModelElementType getReferenceSourceElementType() {
     return referenceSourceAttribute.getOwningElementType();
   }
 
@@ -60,5 +62,23 @@ public abstract class AttributeReferenceImpl<T extends ModelElementInstance> ext
 
   protected void removeReference(ModelElementInstance referenceSourceElement) {
     referenceSourceAttribute.removeAttribute(referenceSourceElement);
+  }
+
+  @SuppressWarnings("unchecked")
+  protected T resolveReference(ModelElementInstanceImpl referenceSourceElement, String referenceIdentifier) {
+    String identifier = getReferenceIdentifier(referenceSourceElement);
+
+    ModelElementInstance referenceTargetElement = referenceSourceElement.getModelInstance().getModelElementById(identifier);
+    if(referenceTargetElement != null) {
+      try {
+        return (T) referenceTargetElement;
+
+      } catch(ClassCastException e) {
+        throw new ModelReferenceException("Element " + referenceSourceElement + " references element " + referenceTargetElement + " of wrong type. "
+            + "Expecting " + referenceTargetAttribute.getOwningElementType() + " got " + referenceTargetElement.getElementType());
+      }
+    } else {
+      return null;
+    }
   }
 }

@@ -27,9 +27,12 @@ public class TestModel {
     if(model == null) {
       ModelBuilder modelBuilder = ModelBuilder.createInstance(TestModelConstants.MODEL_NAME);
 
+      Animals.registerType(modelBuilder);
       Animal.registerType(modelBuilder);
       FlyingAnimal.registerType(modelBuilder);
       Bird.registerType(modelBuilder);
+      FriendRef.registerType(modelBuilder);
+      PartnerRef.registerType(modelBuilder);
 
       model = modelBuilder.build();
     }

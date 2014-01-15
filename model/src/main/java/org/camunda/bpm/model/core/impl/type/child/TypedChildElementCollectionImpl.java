@@ -13,6 +13,7 @@
 package org.camunda.bpm.model.core.impl.type.child;
 
 import org.camunda.bpm.model.core.impl.instance.ModelElementInstanceImpl;
+import org.camunda.bpm.model.core.impl.type.ModelElementTypeImpl;
 import org.camunda.bpm.model.core.impl.util.DomUtil.ElementByTypeListFilter;
 import org.camunda.bpm.model.core.impl.util.DomUtil.ElementNodeListFilter;
 import org.camunda.bpm.model.core.instance.ModelElementInstance;
@@ -27,8 +28,9 @@ public class TypedChildElementCollectionImpl<T extends ModelElementInstance> ext
 
   protected Class<T> type;
 
-  public TypedChildElementCollectionImpl(Class<T> type) {
+  public TypedChildElementCollectionImpl(Class<T> type, ModelElementTypeImpl containingType) {
     this.type = type;
+    this.containingType = containingType;
   }
 
   protected ElementNodeListFilter getFilter(ModelElementInstanceImpl modelElement) {

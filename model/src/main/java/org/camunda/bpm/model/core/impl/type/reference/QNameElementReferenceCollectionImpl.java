@@ -2,7 +2,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -10,26 +10,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.camunda.bpm.model.core.impl.type.reference;
 
 import org.camunda.bpm.model.core.impl.instance.ModelElementInstanceImpl;
-import org.camunda.bpm.model.core.impl.type.attribute.AttributeImpl;
 import org.camunda.bpm.model.core.impl.util.QName;
 import org.camunda.bpm.model.core.instance.ModelElementInstance;
+import org.camunda.bpm.model.core.type.ChildElementCollection;
 
 /**
  * @author Sebastian Menski
- *
  */
-public class QNameAttributeReferenceImpl<T extends ModelElementInstance> extends AttributeReferenceImpl<T> {
+public class QNameElementReferenceCollectionImpl<T extends ModelElementInstance, V extends ModelElementInstance> extends ElementReferenceCollectionImpl<T, V> {
 
-  /**
-   * Create a new QName reference outgoing from the reference source attribute
-   *
-   * @param referenceSourceAttribute the reference source attribute
-   */
-  public QNameAttributeReferenceImpl(AttributeImpl<String> referenceSourceAttribute) {
-    super(referenceSourceAttribute);
+  public QNameElementReferenceCollectionImpl(ChildElementCollection<V> referenceSourceCollection) {
+    super(referenceSourceCollection);
   }
 
   @Override

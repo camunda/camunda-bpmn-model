@@ -12,21 +12,18 @@
  */
 package org.camunda.bpm.model.bpmn.impl;
 
-import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN20_NS;
-import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN_TYPE_CATCH_EVENT;
-import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN_TYPE_EVENT_DEFINITION;
-
 import java.util.Collection;
 
 import org.camunda.bpm.model.bpmn.CatchEvent;
 import org.camunda.bpm.model.bpmn.Event;
 import org.camunda.bpm.model.bpmn.EventDefinition;
 import org.camunda.bpm.model.core.ModelBuilder;
+import org.camunda.bpm.model.core.impl.instance.EventDefinitionRefImpl;
 import org.camunda.bpm.model.core.impl.instance.ModelTypeInstanceContext;
-import org.camunda.bpm.model.core.type.ChildElementCollection;
-import org.camunda.bpm.model.core.type.ModelElementType;
-import org.camunda.bpm.model.core.type.ModelElementTypeBuilder;
-import org.camunda.bpm.model.core.type.SequenceBuilder;
+import org.camunda.bpm.model.core.type.*;
+import org.camunda.bpm.model.core.type.reference.ElementReferenceCollection;
+
+import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.*;
 
 /**
  * @author Sebastian Menski
@@ -37,6 +34,8 @@ public abstract class CatchEventImpl extends EventImpl implements CatchEvent {
   public static ModelElementType MODEL_TYPE;
 
   static ChildElementCollection<EventDefinition> eventDefinitionsColl;
+
+  static ElementReferenceCollection<EventDefinition, EventDefinitionRefImpl> eventDefinitionsRefColl;
 
   public static void registerType(ModelBuilder modelBuilder) {
 
@@ -50,6 +49,10 @@ public abstract class CatchEventImpl extends EventImpl implements CatchEvent {
     eventDefinitionsColl = sequence.elementCollection(EventDefinition.class, BPMN_TYPE_EVENT_DEFINITION)
       .build();
 
+    eventDefinitionsRefColl = sequence.elementCollection(EventDefinitionRefImpl.class, BPMN_ELEMENT_EVENT_DEFINITION_REF)
+      .qNameElementReferenceCollection(EventDefinition.class)
+      .build();
+
     MODEL_TYPE = builder.build();
   }
   public CatchEventImpl(ModelTypeInstanceContext context) {
@@ -60,4 +63,7 @@ public abstract class CatchEventImpl extends EventImpl implements CatchEvent {
     return eventDefinitionsColl.get(this);
   }
 
+  public Collection<EventDefinition> getEventDefinitionRefs() {
+    return eventDefinitionsRefColl.getReferenceTargetElements(this);
+  }
 }

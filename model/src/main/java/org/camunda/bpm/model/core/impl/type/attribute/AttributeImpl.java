@@ -81,7 +81,7 @@ public abstract class AttributeImpl<T> implements Attribute<T> {
    * @return the value of the attribute.
    */
   public T getValue(ModelElementInstance modelElement) {
-    String value = null;
+    String value;
     if(namespaceUri == null) {
       value = modelElement.getAttributeValue(attributeName);
     } else {

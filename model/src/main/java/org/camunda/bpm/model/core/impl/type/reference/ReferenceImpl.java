@@ -111,18 +111,18 @@ public abstract class ReferenceImpl<T extends ModelElementInstance> implements R
   /**
    * Resolve the reference by the reference identifier
    *
-   * @param modelElement the reference source model element instance
+   * @param referenceSourceElement the reference source model element instance
    * @param referenceIdentifier the reference identifier
    * @return the target model element instance or null if not found
    */
-  protected abstract T resolveReference(ModelElementInstanceImpl modelElement, String referenceIdentifier);
+  protected abstract T resolveReference(ModelElementInstanceImpl referenceSourceElement, String referenceIdentifier);
 
   /**
    * Return the model element type of the reference source
    *
    * @return the model element type of the reference source
    */
-  protected abstract ModelElementType getReferenceSourceOwningElementType();
+  protected abstract ModelElementType getReferenceSourceElementType();
 
   /**
    * Find all reference source element instances of the reference target model element instance
@@ -132,7 +132,7 @@ public abstract class ReferenceImpl<T extends ModelElementInstance> implements R
    */
   private Collection<ModelElementInstance> findReferenceSourceElements(ModelElementInstance referenceTargetElement) {
     if(referenceTargetElementType.isBaseTypeOf(referenceTargetElement.getElementType())) {
-      ModelElementType owningElementType = getReferenceSourceOwningElementType();
+      ModelElementType owningElementType = getReferenceSourceElementType();
       return referenceTargetElement.getModelInstance().getModelElementsByType(owningElementType);
     }
     else {

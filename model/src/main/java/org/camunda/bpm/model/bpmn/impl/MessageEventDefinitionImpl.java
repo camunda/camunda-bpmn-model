@@ -22,7 +22,6 @@ import org.camunda.bpm.model.bpmn.MessageEventDefinition;
 import org.camunda.bpm.model.core.ModelBuilder;
 import org.camunda.bpm.model.core.ModelReferenceException;
 import org.camunda.bpm.model.core.impl.instance.ModelTypeInstanceContext;
-import org.camunda.bpm.model.core.impl.type.reference.AttributeReference;
 import org.camunda.bpm.model.core.impl.type.reference.AttributeReferenceImpl;
 import org.camunda.bpm.model.core.impl.util.QName;
 import org.camunda.bpm.model.core.instance.ModelElementInstance;
@@ -31,6 +30,7 @@ import org.camunda.bpm.model.core.type.ModelElementType;
 import org.camunda.bpm.model.core.type.ModelElementTypeBuilder;
 import org.camunda.bpm.model.core.type.ModelElementTypeBuilder.ModelTypeIntanceProvider;
 import org.camunda.bpm.model.core.type.StringAttributeBuilder;
+import org.camunda.bpm.model.core.type.reference.AttributeReference;
 
 /**
 *

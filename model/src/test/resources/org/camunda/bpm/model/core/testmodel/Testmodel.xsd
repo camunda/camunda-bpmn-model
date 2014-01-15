@@ -1,36 +1,41 @@
-<?xml version="1.0" encoding="UTF-8"?><schema 
-    xmlns="http://www.w3.org/2001/XMLSchema"   
+<?xml version="1.0" encoding="UTF-8"?>
+<schema
+    xmlns="http://www.w3.org/2001/XMLSchema"
 
     xmlns:tns="http://camunda.org/animals" 
     targetNamespace="http://camunda.org/animals">
 
-    <element name="animals" type="tns:tAnimals"></element>    
+    <element name="animals" type="tns:tAnimals"/>
     <complexType name="tAnimals">
       <sequence>
         <element ref="tns:animal" minOccurs="0" maxOccurs="unbounded" />
       </sequence>
     </complexType>
 
-    <element name="animal" type="tns:tAnimal"></element>
-    <complexType name="tAnimal" abstract="true">
-      <attribute name="id" type="ID"></attribute>
+    <element name="animal" type="tns:tAnimal"/>
+    <complexType name="tAnimal" abstract="true" mixed="true">
+      <sequence>
+        <element name="friendRef" type="QName" minOccurs="0" maxOccurs="unbounded"/>
+        <element name="partnerRef" type="IDREF" minOccurs="0" maxOccurs="unbounded"/>
+      </sequence>
+      <attribute name="id" type="ID"/>
+      <attribute name="father" type="QName"/>
+      <attribute name="mother" type="IDREF"/>
+      <anyAttribute namespace="##other" processContents="lax"/>
     </complexType>
 
-    <element name="flyingAnimal" type="tns:tFlyingAnimal"></element>
+    <element name="flyingAnimal" type="tns:tFlyingAnimal"/>
     <complexType name="tFlyingAnimal" abstract="true">
       <complexContent>
-        <extension base="tns:tAnimal"></extension>
+        <extension base="tns:tAnimal"/>
       </complexContent>
     </complexType>
 
-    <element name="bird" type="tns:tBird" substitutionGroup="tns:animal"></element>
-    <complexType name="tBird" mixed="true">
+    <element name="bird" type="tns:tBird" substitutionGroup="tns:animal"/>
+    <complexType name="tBird">
       <complexContent>
-        <extension base="tns:tFlyingAnimal">
-          <sequence>
-            <any minOccurs="0" maxOccurs="unbounded"></any>
-          </sequence>
-        </extension>
+        <extension base="tns:tFlyingAnimal"/>
       </complexContent>
     </complexType>
+
 </schema>

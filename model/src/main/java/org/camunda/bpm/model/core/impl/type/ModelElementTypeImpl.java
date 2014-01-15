@@ -232,6 +232,22 @@ public class ModelElementTypeImpl implements ModelElementType {
     return allAttributes;
   }
 
+  /**
+   * Return the attribute for the attribute name
+   *
+   * @param attributeName the name of the attribute
+   * @return the attribute or null if it not exists
+   */
+  @Override
+  public Attribute<?> getAttribute(String attributeName) {
+    for (Attribute<?> attribute : getAllAttributes()) {
+      if (attribute.getAttributeName().equals(attributeName)) {
+        return attribute;
+      }
+    }
+    return null;
+  }
+
   @Override
   public int hashCode() {
     final int prime = 31;

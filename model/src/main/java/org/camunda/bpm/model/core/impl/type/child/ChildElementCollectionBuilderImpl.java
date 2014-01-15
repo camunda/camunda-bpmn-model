@@ -16,10 +16,16 @@ import org.camunda.bpm.model.core.Model;
 import org.camunda.bpm.model.core.ModelException;
 import org.camunda.bpm.model.core.impl.ModelBuildOperation;
 import org.camunda.bpm.model.core.impl.type.ModelElementTypeImpl;
+import org.camunda.bpm.model.core.impl.type.reference.ElementReferenceCollectionBuilderImpl;
+import org.camunda.bpm.model.core.impl.type.reference.QNameElementReferenceCollectionBuilderImpl;
 import org.camunda.bpm.model.core.instance.ModelElementInstance;
 import org.camunda.bpm.model.core.type.ChildElementCollectionBuilder;
 import org.camunda.bpm.model.core.type.ChildElementCollection;
 import org.camunda.bpm.model.core.type.ModelElementType;
+import org.camunda.bpm.model.core.type.reference.ElementReferenceCollectionBuilder;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Daniel Meyer
@@ -27,9 +33,14 @@ import org.camunda.bpm.model.core.type.ModelElementType;
  */
 public class ChildElementCollectionBuilderImpl<T extends ModelElementInstance> implements ChildElementCollectionBuilder<T>, ModelBuildOperation {
 
+  /** The {@link ModelElementType} of the element containing the collection */
   protected final ModelElementTypeImpl containingType;
   protected final ChildElementCollectionImpl<T> collection;
   protected final Class<T> childElementType;
+
+  protected ElementReferenceCollectionBuilder<?, ?> referenceBuilder;
+
+  protected List<ModelBuildOperation> modelBuildOperations = new ArrayList<ModelBuildOperation>();
 
   public ChildElementCollectionBuilderImpl(Class<T> childElementType, String localName, String namespaceUri, ModelElementType containingType) {
     this.childElementType = childElementType;
@@ -44,11 +55,11 @@ public class ChildElementCollectionBuilderImpl<T extends ModelElementInstance> i
   }
 
   protected ChildElementCollectionImpl<T> createCollectionInstance(Class<T> type) {
-    return new TypedChildElementCollectionImpl<T>(type);
+    return new TypedChildElementCollectionImpl<T>(type, containingType);
   }
 
   protected ChildElementCollectionImpl<T> createCollectionInstance(String localName, String namespaceUri) {
-    return new NamedChildElementCollection<T>(localName, namespaceUri);
+    return new NamedChildElementCollection<T>(localName, namespaceUri, containingType);
   }
 
   public ChildElementCollectionBuilder<T> immutable() {
@@ -70,12 +81,37 @@ public class ChildElementCollectionBuilderImpl<T extends ModelElementInstance> i
     return collection;
   }
 
+  @Override
+  public <V extends ModelElementInstance> ElementReferenceCollectionBuilder<V,T> qNameElementReferenceCollection(Class<V> referenceTargetType) {
+    QNameElementReferenceCollectionBuilderImpl<V,T> builder = new QNameElementReferenceCollectionBuilderImpl<V,T>(childElementType, referenceTargetType, collection, containingType);
+    setReferenceBuilder(builder);
+    return builder;
+  }
+
+  @Override
+  public <V extends ModelElementInstance> ElementReferenceCollectionBuilder<V, T> idElementReferenceCollection(Class<V> referenceTargetType) {
+    ElementReferenceCollectionBuilder<V,T> builder = new ElementReferenceCollectionBuilderImpl<V,T>(childElementType, referenceTargetType, collection, containingType);
+    setReferenceBuilder(builder);
+    return builder;
+  }
+
+  public void setReferenceBuilder(ElementReferenceCollectionBuilder<?, ?> referenceBuilder) {
+    if (this.referenceBuilder != null) {
+      throw new ModelException("An collection cannot have more than one reference");
+    }
+    this.referenceBuilder = referenceBuilder;
+    modelBuildOperations.add(referenceBuilder);
+  }
+
   public void performModelBuild(Model model) {
     ModelElementType elementType = model.getType(childElementType);
     if(elementType == null) {
       throw new ModelException(containingType+" declares undefined child element of type "+childElementType+".");
     }
     containingType.registerChildElementType(elementType);
+    for (ModelBuildOperation modelBuildOperation : modelBuildOperations) {
+      modelBuildOperation.performModelBuild(model);
+    }
   }
 
 }
