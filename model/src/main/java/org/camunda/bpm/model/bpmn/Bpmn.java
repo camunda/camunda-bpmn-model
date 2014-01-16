@@ -32,7 +32,7 @@ import org.camunda.bpm.model.core.ModelBuilder;
 import org.camunda.bpm.model.core.ModelException;
 import org.camunda.bpm.model.core.ModelParseException;
 import org.camunda.bpm.model.core.ModelValidationException;
-import org.camunda.bpm.model.core.impl.instance.EventDefinitionRefImpl;
+import org.camunda.bpm.model.bpmn.impl.EventDefinitionRefImpl;
 import org.camunda.bpm.model.core.impl.util.IoUtil;
 
 /**

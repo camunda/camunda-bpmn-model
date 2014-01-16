@@ -30,6 +30,7 @@ package org.camunda.bpm.model.core.testmodel;
 import org.camunda.bpm.model.core.ModelBuilder;
 import org.camunda.bpm.model.core.impl.instance.ModelElementInstanceImpl;
 import org.camunda.bpm.model.core.impl.instance.ModelTypeInstanceContext;
+import org.camunda.bpm.model.core.instance.ModelElementInstance;
 import org.camunda.bpm.model.core.instance.QNameElement;
 import org.camunda.bpm.model.core.type.ModelElementTypeBuilder;
 
@@ -39,7 +40,7 @@ import static org.camunda.bpm.model.core.testmodel.TestModelConstants.MODEL_NAME
 /**
  * @author Sebastian Menski
  */
-public class PartnerRef extends ModelElementInstanceImpl implements QNameElement {
+public class PartnerRef extends ModelElementInstanceImpl implements ModelElementInstance {
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(PartnerRef.class, ELEMENT_NAME_PARTNER_REF)

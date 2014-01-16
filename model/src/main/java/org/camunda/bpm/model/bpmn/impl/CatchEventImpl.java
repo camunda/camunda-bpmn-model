@@ -18,7 +18,6 @@ import org.camunda.bpm.model.bpmn.CatchEvent;
 import org.camunda.bpm.model.bpmn.Event;
 import org.camunda.bpm.model.bpmn.EventDefinition;
 import org.camunda.bpm.model.core.ModelBuilder;
-import org.camunda.bpm.model.core.impl.instance.EventDefinitionRefImpl;
 import org.camunda.bpm.model.core.impl.instance.ModelTypeInstanceContext;
 import org.camunda.bpm.model.core.type.*;
 import org.camunda.bpm.model.core.type.reference.ElementReferenceCollection;

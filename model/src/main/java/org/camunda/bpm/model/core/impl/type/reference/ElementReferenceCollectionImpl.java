@@ -67,7 +67,7 @@ public class ElementReferenceCollectionImpl<T extends ModelElementInstance, V ex
     }
     else {
       Collection<V> referenceSourceElements = referenceSourceCollection.get(referenceSourceParentElement);
-      QNameElement referenceSourceElement = modelInstance.newInstance(referenceSourceType);
+      V referenceSourceElement = modelInstance.newInstance(referenceSourceType);
       referenceSourceElements.add((V) referenceSourceElement);
       setReferenceIdentifier(referenceSourceElement, referenceTargetIdentifier);
     }

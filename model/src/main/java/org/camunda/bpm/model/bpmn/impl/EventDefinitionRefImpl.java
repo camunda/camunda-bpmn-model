@@ -11,11 +11,13 @@
  * limitations under the License.
  */
 
-package org.camunda.bpm.model.core.impl.instance;
+package org.camunda.bpm.model.bpmn.impl;
 
 import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.*;
 
 import org.camunda.bpm.model.core.ModelBuilder;
+import org.camunda.bpm.model.core.impl.instance.ModelElementInstanceImpl;
+import org.camunda.bpm.model.core.impl.instance.ModelTypeInstanceContext;
 import org.camunda.bpm.model.core.instance.QNameElement;
 import org.camunda.bpm.model.core.type.ModelElementTypeBuilder;
 
