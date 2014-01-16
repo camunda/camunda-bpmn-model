@@ -10,11 +10,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.camunda.bpm.xml.model;
+package org.camunda.bpm.xml.model.testmodel;
 
+import org.camunda.bpm.xml.model.ModelInstance;
 import org.camunda.bpm.xml.model.instance.ModelElementInstance;
-import org.camunda.bpm.xml.model.testmodel.Animals;
-import org.camunda.bpm.xml.model.testmodel.Bird;
+import org.camunda.bpm.xml.model.testmodel.instance.Animals;
+import org.camunda.bpm.xml.model.testmodel.instance.Bird;
 import org.camunda.bpm.xml.model.testmodel.TestModelParser;
 import org.junit.Test;
 

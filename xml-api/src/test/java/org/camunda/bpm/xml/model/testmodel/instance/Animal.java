@@ -10,16 +10,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.camunda.bpm.xml.model.testmodel;
+package org.camunda.bpm.xml.model.testmodel.instance;
 
 import org.camunda.bpm.xml.model.ModelBuilder;
 import org.camunda.bpm.xml.model.impl.instance.ModelElementInstanceImpl;
 import org.camunda.bpm.xml.model.impl.instance.ModelTypeInstanceContext;
 import org.camunda.bpm.xml.model.impl.type.reference.AttributeReferenceImpl;
 import org.camunda.bpm.xml.model.instance.ModelElementInstance;
-import org.camunda.bpm.xml.model.type.Attribute;
+import org.camunda.bpm.xml.model.type.attribute.Attribute;
 import org.camunda.bpm.xml.model.type.ModelElementTypeBuilder;
-import org.camunda.bpm.xml.model.type.SequenceBuilder;
+import org.camunda.bpm.xml.model.type.child.SequenceBuilder;
 import org.camunda.bpm.xml.model.type.reference.AttributeReference;
 import org.camunda.bpm.xml.model.type.reference.ElementReferenceCollection;
 
@@ -39,7 +39,7 @@ public abstract class Animal extends ModelElementInstanceImpl implements ModelEl
   private static ElementReferenceCollection<Animal, FriendRef> friendRefColl;
   private static ElementReferenceCollection<Animal, PartnerRef> partnerRefColl;
 
-  static void registerType(ModelBuilder modelBuilder) {
+  public static void registerType(ModelBuilder modelBuilder) {
 
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(Animal.class, TYPE_NAME_ANIMAL)
       .namespaceUri(MODEL_NAMESPACE)

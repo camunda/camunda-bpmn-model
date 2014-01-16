@@ -13,7 +13,7 @@
 package org.camunda.bpm.xml.model.type.reference;
 
 import org.camunda.bpm.xml.model.instance.ModelElementInstance;
-import org.camunda.bpm.xml.model.type.Attribute;
+import org.camunda.bpm.xml.model.type.attribute.Attribute;
 
 /**
  *

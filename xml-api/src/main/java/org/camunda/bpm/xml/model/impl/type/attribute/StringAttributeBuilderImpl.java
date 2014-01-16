@@ -19,7 +19,7 @@ import org.camunda.bpm.xml.model.impl.type.reference.AttributeReferenceBuilderIm
 import org.camunda.bpm.xml.model.impl.type.reference.QNameAttributeReferenceBuilderImpl;
 import org.camunda.bpm.xml.model.instance.ModelElementInstance;
 import org.camunda.bpm.xml.model.type.reference.AttributeReferenceBuilder;
-import org.camunda.bpm.xml.model.type.StringAttributeBuilder;
+import org.camunda.bpm.xml.model.type.attribute.StringAttributeBuilder;
 
 
 /**

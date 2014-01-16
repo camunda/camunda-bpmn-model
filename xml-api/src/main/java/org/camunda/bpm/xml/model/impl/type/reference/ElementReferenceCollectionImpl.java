@@ -22,7 +22,7 @@ import org.camunda.bpm.xml.model.impl.type.ModelElementTypeImpl;
 import org.camunda.bpm.xml.model.impl.util.DomUtil;
 import org.camunda.bpm.xml.model.impl.util.ModelUtil;
 import org.camunda.bpm.xml.model.instance.ModelElementInstance;
-import org.camunda.bpm.xml.model.type.ChildElementCollection;
+import org.camunda.bpm.xml.model.type.child.ChildElementCollection;
 import org.camunda.bpm.xml.model.type.ModelElementType;
 import org.camunda.bpm.xml.model.type.reference.ElementReferenceCollection;
 import org.w3c.dom.Document;

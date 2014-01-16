@@ -25,7 +25,7 @@
  * limitations under the License.
  */
 
-package org.camunda.bpm.xml.model.testmodel;
+package org.camunda.bpm.xml.model.testmodel.instance;
 
 import org.camunda.bpm.xml.model.ModelBuilder;
 import org.camunda.bpm.xml.model.impl.instance.ModelElementInstanceImpl;

@@ -10,11 +10,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.camunda.bpm.xml.model;
+package org.camunda.bpm.xml.model.testmodel;
 
 import static org.camunda.bpm.xml.model.testmodel.TestModelConstants.*;
 import static org.fest.assertions.Assertions.assertThat;
 
+import org.camunda.bpm.xml.model.Model;
+import org.camunda.bpm.xml.model.ModelBuilder;
 import org.junit.Test;
 
 /**

@@ -10,11 +10,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.camunda.bpm.xml.model.type;
+package org.camunda.bpm.xml.model.type.attribute;
 
 import java.util.List;
 
 import org.camunda.bpm.xml.model.instance.ModelElementInstance;
+import org.camunda.bpm.xml.model.type.ModelElementType;
 import org.camunda.bpm.xml.model.type.reference.Reference;
 
 /**

@@ -10,11 +10,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.camunda.bpm.xml.model.type;
+package org.camunda.bpm.xml.model.type.child;
 
 import java.util.Collection;
 
 import org.camunda.bpm.xml.model.instance.ModelElementInstance;
+import org.camunda.bpm.xml.model.type.ModelElementType;
 
 /**
  * <p>A collection containing all or a subset of the child
@@ -54,7 +55,7 @@ public interface ChildElementCollection<T extends ModelElementInstance> {
   /**
    * Get the model element type of the elements contained in this collection
    *
-   * @return the containing {@link ModelElementType}
+   * @return the containing {@link org.camunda.bpm.xml.model.type.ModelElementType}
    */
   ModelElementType getContainingType();
 

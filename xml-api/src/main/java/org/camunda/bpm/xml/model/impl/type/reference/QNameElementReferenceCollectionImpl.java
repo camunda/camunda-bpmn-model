@@ -16,7 +16,7 @@ package org.camunda.bpm.xml.model.impl.type.reference;
 import org.camunda.bpm.xml.model.impl.instance.ModelElementInstanceImpl;
 import org.camunda.bpm.xml.model.impl.util.QName;
 import org.camunda.bpm.xml.model.instance.ModelElementInstance;
-import org.camunda.bpm.xml.model.type.ChildElementCollection;
+import org.camunda.bpm.xml.model.type.child.ChildElementCollection;
 
 /**
  * @author Sebastian Menski

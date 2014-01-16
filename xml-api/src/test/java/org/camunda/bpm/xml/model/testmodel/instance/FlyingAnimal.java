@@ -10,37 +10,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.camunda.bpm.xml.model.testmodel;
+package org.camunda.bpm.xml.model.testmodel.instance;
 
 import static org.camunda.bpm.xml.model.testmodel.TestModelConstants.*;
 
 import org.camunda.bpm.xml.model.ModelBuilder;
 import org.camunda.bpm.xml.model.impl.instance.ModelTypeInstanceContext;
 import org.camunda.bpm.xml.model.type.ModelElementTypeBuilder;
-import org.camunda.bpm.xml.model.type.ModelElementTypeBuilder.ModelTypeInstanceProvider;
 
 /**
  * @author Daniel Meyer
  *
  */
-public class Bird extends FlyingAnimal {
+public class FlyingAnimal extends Animal {
 
-  static void registerType(ModelBuilder modelBuilder) {
+  public static void registerType(ModelBuilder modelBuilder) {
 
-    ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(Bird.class, ELEMENT_NAME_BIRD)
+    ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(FlyingAnimal.class, TYPE_NAME_FLYING_ANIMAL)
       .namespaceUri(MODEL_NAMESPACE)
-      .extendsType(FlyingAnimal.class)
-      .instanceProvider(new ModelTypeInstanceProvider<Bird>() {
-        public Bird newInstance(ModelTypeInstanceContext instanceContext) {
-          return new Bird(instanceContext);
-        }
-      });
+      .extendsType(Animal.class)
+      .abstractType();
 
     typeBuilder.build();
 
   }
 
-  public Bird(ModelTypeInstanceContext instanceContext) {
+  FlyingAnimal(ModelTypeInstanceContext instanceContext) {
     super(instanceContext);
   }
 

@@ -18,6 +18,10 @@ import org.camunda.bpm.model.bpmn.ExtensionElements;
 import org.camunda.bpm.xml.model.ModelBuilder;
 import org.camunda.bpm.xml.model.impl.instance.ModelTypeInstanceContext;
 import org.camunda.bpm.xml.model.type.*;
+import org.camunda.bpm.xml.model.type.attribute.Attribute;
+import org.camunda.bpm.xml.model.type.child.ChildElement;
+import org.camunda.bpm.xml.model.type.child.ChildElementCollection;
+import org.camunda.bpm.xml.model.type.child.SequenceBuilder;
 
 import java.util.Collection;
 

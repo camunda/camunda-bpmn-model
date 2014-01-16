@@ -15,7 +15,7 @@ package org.camunda.bpm.xml.model.type.reference;
 
 import org.camunda.bpm.xml.model.impl.instance.ModelElementInstanceImpl;
 import org.camunda.bpm.xml.model.instance.ModelElementInstance;
-import org.camunda.bpm.xml.model.type.ChildElementCollection;
+import org.camunda.bpm.xml.model.type.child.ChildElementCollection;
 
 import java.util.Collection;
 

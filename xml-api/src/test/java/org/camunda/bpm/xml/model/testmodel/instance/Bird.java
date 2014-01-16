@@ -10,53 +10,38 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.camunda.bpm.xml.model.testmodel;
+package org.camunda.bpm.xml.model.testmodel.instance;
 
 import static org.camunda.bpm.xml.model.testmodel.TestModelConstants.*;
 
-import java.util.Collection;
-
 import org.camunda.bpm.xml.model.ModelBuilder;
-import org.camunda.bpm.xml.model.impl.instance.ModelElementInstanceImpl;
 import org.camunda.bpm.xml.model.impl.instance.ModelTypeInstanceContext;
-import org.camunda.bpm.xml.model.type.ChildElementCollection;
 import org.camunda.bpm.xml.model.type.ModelElementTypeBuilder;
 import org.camunda.bpm.xml.model.type.ModelElementTypeBuilder.ModelTypeInstanceProvider;
-import org.camunda.bpm.xml.model.type.SequenceBuilder;
 
 /**
  * @author Daniel Meyer
  *
  */
-public class Animals extends ModelElementInstanceImpl {
+public class Bird extends FlyingAnimal {
 
-  private static ChildElementCollection<Animal> animalColl;
+  public static void registerType(ModelBuilder modelBuilder) {
 
-  static void registerType(ModelBuilder modelBuilder) {
-
-    ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(Animals.class, ELEMENT_NAME_ANIMALS)
+    ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(Bird.class, ELEMENT_NAME_BIRD)
       .namespaceUri(MODEL_NAMESPACE)
-      .instanceProvider(new ModelTypeInstanceProvider<Animals>() {
-        public Animals newInstance(ModelTypeInstanceContext instanceContext) {
-          return new Animals(instanceContext);
+      .extendsType(FlyingAnimal.class)
+      .instanceProvider(new ModelTypeInstanceProvider<Bird>() {
+        public Bird newInstance(ModelTypeInstanceContext instanceContext) {
+          return new Bird(instanceContext);
         }
       });
-
-    SequenceBuilder sequence = typeBuilder.sequence();
-
-    animalColl = sequence.elementCollection(Animal.class)
-      .build();
 
     typeBuilder.build();
 
   }
 
-  public Animals(ModelTypeInstanceContext instanceContext) {
+  public Bird(ModelTypeInstanceContext instanceContext) {
     super(instanceContext);
-  }
-
-  public Collection<Animal> getAnimals() {
-    return animalColl.get(this);
   }
 
 }

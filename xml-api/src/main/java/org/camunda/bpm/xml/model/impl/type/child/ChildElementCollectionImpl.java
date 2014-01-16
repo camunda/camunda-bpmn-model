@@ -21,7 +21,7 @@ import org.camunda.bpm.xml.model.impl.util.DomUtil;
 import org.camunda.bpm.xml.model.impl.util.DomUtil.ElementNodeListFilter;
 import org.camunda.bpm.xml.model.impl.util.ModelUtil;
 import org.camunda.bpm.xml.model.instance.ModelElementInstance;
-import org.camunda.bpm.xml.model.type.ChildElementCollection;
+import org.camunda.bpm.xml.model.type.child.ChildElementCollection;
 import org.camunda.bpm.xml.model.type.ModelElementType;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;

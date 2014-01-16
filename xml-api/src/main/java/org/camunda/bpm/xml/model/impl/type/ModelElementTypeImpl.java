@@ -27,7 +27,7 @@ import org.camunda.bpm.xml.model.impl.instance.ModelTypeInstanceContext;
 import org.camunda.bpm.xml.model.impl.util.DomUtil;
 import org.camunda.bpm.xml.model.impl.util.ModelUtil;
 import org.camunda.bpm.xml.model.instance.ModelElementInstance;
-import org.camunda.bpm.xml.model.type.Attribute;
+import org.camunda.bpm.xml.model.type.attribute.Attribute;
 import org.camunda.bpm.xml.model.type.ModelElementType;
 import org.camunda.bpm.xml.model.type.ModelElementTypeBuilder;
 import org.w3c.dom.Document;

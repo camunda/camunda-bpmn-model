@@ -19,9 +19,9 @@ import org.camunda.bpm.xml.model.Model;
 import org.camunda.bpm.xml.model.impl.ModelBuildOperation;
 import org.camunda.bpm.xml.model.impl.type.ModelElementTypeImpl;
 import org.camunda.bpm.xml.model.instance.ModelElementInstance;
-import org.camunda.bpm.xml.model.type.ChildElementBuilder;
-import org.camunda.bpm.xml.model.type.ChildElementCollectionBuilder;
-import org.camunda.bpm.xml.model.type.SequenceBuilder;
+import org.camunda.bpm.xml.model.type.child.ChildElementBuilder;
+import org.camunda.bpm.xml.model.type.child.ChildElementCollectionBuilder;
+import org.camunda.bpm.xml.model.type.child.SequenceBuilder;
 
 /**
  * @author Daniel Meyer

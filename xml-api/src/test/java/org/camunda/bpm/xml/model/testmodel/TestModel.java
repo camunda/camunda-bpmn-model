@@ -14,6 +14,7 @@ package org.camunda.bpm.xml.model.testmodel;
 
 import org.camunda.bpm.xml.model.Model;
 import org.camunda.bpm.xml.model.ModelBuilder;
+import org.camunda.bpm.xml.model.testmodel.instance.*;
 
 /**
  * @author Daniel Meyer

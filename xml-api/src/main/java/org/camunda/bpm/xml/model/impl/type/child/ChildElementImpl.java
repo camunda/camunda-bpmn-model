@@ -16,7 +16,7 @@ import org.camunda.bpm.xml.model.impl.instance.ModelElementInstanceImpl;
 import org.camunda.bpm.xml.model.impl.type.ModelElementTypeImpl;
 import org.camunda.bpm.xml.model.impl.util.ModelUtil;
 import org.camunda.bpm.xml.model.instance.ModelElementInstance;
-import org.camunda.bpm.xml.model.type.ChildElement;
+import org.camunda.bpm.xml.model.type.child.ChildElement;
 
 /**
  * Represents a single Child Element (ie. maxOccurs = 1);

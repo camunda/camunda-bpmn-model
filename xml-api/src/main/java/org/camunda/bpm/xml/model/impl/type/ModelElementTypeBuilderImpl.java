@@ -24,11 +24,11 @@ import org.camunda.bpm.xml.model.impl.type.attribute.EnumAttributeBuilder;
 import org.camunda.bpm.xml.model.impl.type.attribute.StringAttributeBuilderImpl;
 import org.camunda.bpm.xml.model.impl.type.child.SequenceBuilderImpl;
 import org.camunda.bpm.xml.model.instance.ModelElementInstance;
-import org.camunda.bpm.xml.model.type.AttributeBuilder;
+import org.camunda.bpm.xml.model.type.attribute.AttributeBuilder;
 import org.camunda.bpm.xml.model.type.ModelElementType;
 import org.camunda.bpm.xml.model.type.ModelElementTypeBuilder;
-import org.camunda.bpm.xml.model.type.SequenceBuilder;
-import org.camunda.bpm.xml.model.type.StringAttributeBuilder;
+import org.camunda.bpm.xml.model.type.child.SequenceBuilder;
+import org.camunda.bpm.xml.model.type.attribute.StringAttributeBuilder;
 
 /**
  * @author Daniel Meyer

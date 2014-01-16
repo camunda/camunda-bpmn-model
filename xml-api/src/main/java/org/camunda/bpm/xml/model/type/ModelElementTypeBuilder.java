@@ -14,6 +14,9 @@ package org.camunda.bpm.xml.model.type;
 
 import org.camunda.bpm.xml.model.impl.instance.ModelTypeInstanceContext;
 import org.camunda.bpm.xml.model.instance.ModelElementInstance;
+import org.camunda.bpm.xml.model.type.attribute.AttributeBuilder;
+import org.camunda.bpm.xml.model.type.attribute.StringAttributeBuilder;
+import org.camunda.bpm.xml.model.type.child.SequenceBuilder;
 
 /**
  * @author Daniel Meyer

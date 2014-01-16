@@ -15,8 +15,8 @@ package org.camunda.bpm.xml.model.impl.type.attribute;
 import org.camunda.bpm.xml.model.Model;
 import org.camunda.bpm.xml.model.impl.ModelBuildOperation;
 import org.camunda.bpm.xml.model.impl.type.ModelElementTypeImpl;
-import org.camunda.bpm.xml.model.type.Attribute;
-import org.camunda.bpm.xml.model.type.AttributeBuilder;
+import org.camunda.bpm.xml.model.type.attribute.Attribute;
+import org.camunda.bpm.xml.model.type.attribute.AttributeBuilder;
 
 
 /**

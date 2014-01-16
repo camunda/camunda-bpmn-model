@@ -3,7 +3,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
     xsi:schemaLocation="http://camunda.org/animals testmodel/Testmodel.xsd ">
 
-    <bird id="tweety"></bird>
+    <bird id="tweety"/>
     <bird id="donald">some text content</bird>
     <bird id="daisy">
         some text content with outer line breaks

@@ -20,7 +20,7 @@ import org.camunda.bpm.xml.model.ModelReferenceException;
 import org.camunda.bpm.xml.model.impl.type.ModelElementTypeImpl;
 import org.camunda.bpm.xml.model.impl.type.attribute.AttributeImpl;
 import org.camunda.bpm.xml.model.instance.ModelElementInstance;
-import org.camunda.bpm.xml.model.type.Attribute;
+import org.camunda.bpm.xml.model.type.attribute.Attribute;
 import org.camunda.bpm.xml.model.type.ModelElementType;
 import org.camunda.bpm.xml.model.type.reference.Reference;
 

@@ -17,10 +17,10 @@ import org.camunda.bpm.model.bpmn.Event;
 import org.camunda.bpm.model.bpmn.EventDefinition;
 import org.camunda.bpm.xml.model.ModelBuilder;
 import org.camunda.bpm.xml.model.impl.instance.ModelTypeInstanceContext;
-import org.camunda.bpm.xml.model.type.ChildElementCollection;
+import org.camunda.bpm.xml.model.type.child.ChildElementCollection;
 import org.camunda.bpm.xml.model.type.ModelElementType;
 import org.camunda.bpm.xml.model.type.ModelElementTypeBuilder;
-import org.camunda.bpm.xml.model.type.SequenceBuilder;
+import org.camunda.bpm.xml.model.type.child.SequenceBuilder;
 import org.camunda.bpm.xml.model.type.reference.ElementReferenceCollection;
 
 import java.util.Collection;

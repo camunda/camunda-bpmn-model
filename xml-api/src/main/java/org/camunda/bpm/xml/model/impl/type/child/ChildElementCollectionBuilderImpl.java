@@ -19,8 +19,8 @@ import org.camunda.bpm.xml.model.impl.type.ModelElementTypeImpl;
 import org.camunda.bpm.xml.model.impl.type.reference.ElementReferenceCollectionBuilderImpl;
 import org.camunda.bpm.xml.model.impl.type.reference.QNameElementReferenceCollectionBuilderImpl;
 import org.camunda.bpm.xml.model.instance.ModelElementInstance;
-import org.camunda.bpm.xml.model.type.ChildElementCollectionBuilder;
-import org.camunda.bpm.xml.model.type.ChildElementCollection;
+import org.camunda.bpm.xml.model.type.child.ChildElementCollectionBuilder;
+import org.camunda.bpm.xml.model.type.child.ChildElementCollection;
 import org.camunda.bpm.xml.model.type.ModelElementType;
 import org.camunda.bpm.xml.model.type.reference.ElementReferenceCollectionBuilder;
 
