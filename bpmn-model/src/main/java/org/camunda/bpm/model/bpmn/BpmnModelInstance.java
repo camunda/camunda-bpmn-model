@@ -12,7 +12,7 @@
  */
 package org.camunda.bpm.model.bpmn;
 
-import org.camunda.bpm.xml.model.ModelInstance;
+import org.camunda.bpm.model.xml.ModelInstance;
 
 /**
  * <p>A BPMN 2.0 Model</p>

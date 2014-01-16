@@ -13,7 +13,7 @@
 
 package org.camunda.bpm.model.bpmn;
 
-import org.camunda.bpm.xml.model.impl.util.QName;
+import org.camunda.bpm.model.xml.impl.util.QName;
 
 /**
 * <p>The BPMN message event definition element</p>

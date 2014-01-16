@@ -13,11 +13,11 @@
 
 package org.camunda.bpm.model.bpmn.impl;
 
-import org.camunda.bpm.xml.model.ModelBuilder;
-import org.camunda.bpm.xml.model.impl.instance.ModelElementInstanceImpl;
-import org.camunda.bpm.xml.model.impl.instance.ModelTypeInstanceContext;
-import org.camunda.bpm.xml.model.instance.ModelElementInstance;
-import org.camunda.bpm.xml.model.type.ModelElementTypeBuilder;
+import org.camunda.bpm.model.xml.ModelBuilder;
+import org.camunda.bpm.model.xml.impl.instance.ModelElementInstanceImpl;
+import org.camunda.bpm.model.xml.impl.instance.ModelTypeInstanceContext;
+import org.camunda.bpm.model.xml.instance.ModelElementInstance;
+import org.camunda.bpm.model.xml.type.ModelElementTypeBuilder;
 
 import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN20_NS;
 import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN_ELEMENT_EVENT_DEFINITION_REF;

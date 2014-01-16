@@ -16,13 +16,13 @@ import org.camunda.bpm.model.bpmn.CallableElement;
 import org.camunda.bpm.model.bpmn.FlowElement;
 import org.camunda.bpm.model.bpmn.Process;
 import org.camunda.bpm.model.bpmn.ProcessType;
-import org.camunda.bpm.xml.model.ModelBuilder;
-import org.camunda.bpm.xml.model.impl.instance.ModelTypeInstanceContext;
-import org.camunda.bpm.xml.model.type.*;
-import org.camunda.bpm.xml.model.type.ModelElementTypeBuilder.ModelTypeInstanceProvider;
-import org.camunda.bpm.xml.model.type.attribute.Attribute;
-import org.camunda.bpm.xml.model.type.child.ChildElementCollection;
-import org.camunda.bpm.xml.model.type.child.SequenceBuilder;
+import org.camunda.bpm.model.xml.ModelBuilder;
+import org.camunda.bpm.model.xml.impl.instance.ModelTypeInstanceContext;
+import org.camunda.bpm.model.xml.type.*;
+import org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeInstanceProvider;
+import org.camunda.bpm.model.xml.type.attribute.Attribute;
+import org.camunda.bpm.model.xml.type.child.ChildElementCollection;
+import org.camunda.bpm.model.xml.type.child.SequenceBuilder;
 
 import java.util.Collection;
 

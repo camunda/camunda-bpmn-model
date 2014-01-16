@@ -14,8 +14,8 @@ package org.camunda.bpm.model.bpmn;
 
 import org.camunda.bpm.model.bpmn.impl.*;
 import org.camunda.bpm.model.bpmn.impl.ProcessImpl;
-import org.camunda.bpm.xml.model.*;
-import org.camunda.bpm.xml.model.impl.util.IoUtil;
+import org.camunda.bpm.model.xml.*;
+import org.camunda.bpm.model.xml.impl.util.IoUtil;
 
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;

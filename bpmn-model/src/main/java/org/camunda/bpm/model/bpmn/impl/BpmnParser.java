@@ -13,10 +13,10 @@
 package org.camunda.bpm.model.bpmn.impl;
 
 import org.camunda.bpm.model.bpmn.Bpmn;
-import org.camunda.bpm.xml.model.ModelValidationException;
-import org.camunda.bpm.xml.model.impl.ModelImpl;
-import org.camunda.bpm.xml.model.impl.parser.AbstractModelParser;
-import org.camunda.bpm.xml.model.impl.util.ReflectUtil;
+import org.camunda.bpm.model.xml.ModelValidationException;
+import org.camunda.bpm.model.xml.impl.ModelImpl;
+import org.camunda.bpm.model.xml.impl.parser.AbstractModelParser;
+import org.camunda.bpm.model.xml.impl.util.ReflectUtil;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 

@@ -14,10 +14,10 @@ package org.camunda.bpm.model.bpmn;
 
 import org.camunda.bpm.model.bpmn.impl.BpmnModelInstanceImpl;
 import org.camunda.bpm.model.bpmn.util.BpmnModelResource;
-import org.camunda.bpm.xml.model.ModelReferenceException;
-import org.camunda.bpm.xml.model.ModelValidationException;
-import org.camunda.bpm.xml.model.impl.util.IoUtil;
-import org.camunda.bpm.xml.model.impl.util.QName;
+import org.camunda.bpm.model.xml.ModelReferenceException;
+import org.camunda.bpm.model.xml.ModelValidationException;
+import org.camunda.bpm.model.xml.impl.util.IoUtil;
+import org.camunda.bpm.model.xml.impl.util.QName;
 import org.junit.Assert;
 import org.junit.Test;
 

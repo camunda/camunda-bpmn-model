@@ -14,11 +14,11 @@ package org.camunda.bpm.model.bpmn.impl;
 
 import org.camunda.bpm.model.bpmn.CallableElement;
 import org.camunda.bpm.model.bpmn.RootElement;
-import org.camunda.bpm.xml.model.ModelBuilder;
-import org.camunda.bpm.xml.model.impl.instance.ModelTypeInstanceContext;
-import org.camunda.bpm.xml.model.type.attribute.Attribute;
-import org.camunda.bpm.xml.model.type.ModelElementType;
-import org.camunda.bpm.xml.model.type.ModelElementTypeBuilder;
+import org.camunda.bpm.model.xml.ModelBuilder;
+import org.camunda.bpm.model.xml.impl.instance.ModelTypeInstanceContext;
+import org.camunda.bpm.model.xml.type.attribute.Attribute;
+import org.camunda.bpm.model.xml.type.ModelElementType;
+import org.camunda.bpm.model.xml.type.ModelElementTypeBuilder;
 
 import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.*;
 

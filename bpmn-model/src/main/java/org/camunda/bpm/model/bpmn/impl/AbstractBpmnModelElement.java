@@ -13,8 +13,8 @@
 package org.camunda.bpm.model.bpmn.impl;
 
 import org.camunda.bpm.model.bpmn.BpmnModelElementInstance;
-import org.camunda.bpm.xml.model.impl.instance.ModelElementInstanceImpl;
-import org.camunda.bpm.xml.model.impl.instance.ModelTypeInstanceContext;
+import org.camunda.bpm.model.xml.impl.instance.ModelElementInstanceImpl;
+import org.camunda.bpm.model.xml.impl.instance.ModelTypeInstanceContext;
 
 /**
  * <p>Shared Base Class for all BPMN Model Elements. Provides

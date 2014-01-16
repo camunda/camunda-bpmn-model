@@ -15,12 +15,12 @@ package org.camunda.bpm.model.bpmn.impl;
 import org.camunda.bpm.model.bpmn.Event;
 import org.camunda.bpm.model.bpmn.FlowNode;
 import org.camunda.bpm.model.bpmn.Property;
-import org.camunda.bpm.xml.model.ModelBuilder;
-import org.camunda.bpm.xml.model.impl.instance.ModelTypeInstanceContext;
-import org.camunda.bpm.xml.model.type.child.ChildElementCollection;
-import org.camunda.bpm.xml.model.type.ModelElementType;
-import org.camunda.bpm.xml.model.type.ModelElementTypeBuilder;
-import org.camunda.bpm.xml.model.type.child.SequenceBuilder;
+import org.camunda.bpm.model.xml.ModelBuilder;
+import org.camunda.bpm.model.xml.impl.instance.ModelTypeInstanceContext;
+import org.camunda.bpm.model.xml.type.child.ChildElementCollection;
+import org.camunda.bpm.model.xml.type.ModelElementType;
+import org.camunda.bpm.model.xml.type.ModelElementTypeBuilder;
+import org.camunda.bpm.model.xml.type.child.SequenceBuilder;
 
 import java.util.Collection;
 

@@ -15,15 +15,15 @@ package org.camunda.bpm.model.bpmn.impl;
 import org.camunda.bpm.model.bpmn.EventDefinition;
 import org.camunda.bpm.model.bpmn.Message;
 import org.camunda.bpm.model.bpmn.MessageEventDefinition;
-import org.camunda.bpm.xml.model.ModelBuilder;
-import org.camunda.bpm.xml.model.ModelReferenceException;
-import org.camunda.bpm.xml.model.impl.instance.ModelTypeInstanceContext;
-import org.camunda.bpm.xml.model.impl.type.reference.AttributeReferenceImpl;
-import org.camunda.bpm.xml.model.impl.util.QName;
-import org.camunda.bpm.xml.model.instance.ModelElementInstance;
-import org.camunda.bpm.xml.model.type.ModelElementType;
-import org.camunda.bpm.xml.model.type.ModelElementTypeBuilder;
-import org.camunda.bpm.xml.model.type.reference.AttributeReference;
+import org.camunda.bpm.model.xml.ModelBuilder;
+import org.camunda.bpm.model.xml.ModelReferenceException;
+import org.camunda.bpm.model.xml.impl.instance.ModelTypeInstanceContext;
+import org.camunda.bpm.model.xml.impl.type.reference.AttributeReferenceImpl;
+import org.camunda.bpm.model.xml.impl.util.QName;
+import org.camunda.bpm.model.xml.instance.ModelElementInstance;
+import org.camunda.bpm.model.xml.type.ModelElementType;
+import org.camunda.bpm.model.xml.type.ModelElementTypeBuilder;
+import org.camunda.bpm.model.xml.type.reference.AttributeReference;
 
 import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.*;
 

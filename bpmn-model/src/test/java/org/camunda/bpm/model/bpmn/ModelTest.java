@@ -12,9 +12,9 @@
  */
 package org.camunda.bpm.model.bpmn;
 
-import org.camunda.bpm.xml.model.Model;
-import org.camunda.bpm.xml.model.impl.util.ModelUtil;
-import org.camunda.bpm.xml.model.type.ModelElementType;
+import org.camunda.bpm.model.xml.Model;
+import org.camunda.bpm.model.xml.impl.util.ModelUtil;
+import org.camunda.bpm.model.xml.type.ModelElementType;
 import org.junit.Test;
 
 import java.util.ArrayList;

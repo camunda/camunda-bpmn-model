@@ -14,7 +14,7 @@ package org.camunda.bpm.model.bpmn.util;
 
 import org.camunda.bpm.model.bpmn.Bpmn;
 import org.camunda.bpm.model.bpmn.BpmnModelInstance;
-import org.camunda.bpm.xml.model.impl.util.IoUtil;
+import org.camunda.bpm.model.xml.impl.util.IoUtil;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
 

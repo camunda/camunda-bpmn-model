@@ -13,7 +13,7 @@
 package org.camunda.bpm.model.bpmn;
 
 import org.camunda.bpm.model.bpmn.util.BpmnModelResource;
-import org.camunda.bpm.xml.model.instance.ModelElementInstance;
+import org.camunda.bpm.model.xml.instance.ModelElementInstance;
 import org.junit.Test;
 
 import java.util.Collection;

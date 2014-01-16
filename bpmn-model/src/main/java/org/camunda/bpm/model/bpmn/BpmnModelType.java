@@ -12,7 +12,7 @@
  */
 package org.camunda.bpm.model.bpmn;
 
-import org.camunda.bpm.xml.model.type.ModelElementType;
+import org.camunda.bpm.model.xml.type.ModelElementType;
 
 /**
  * @author Daniel Meyer

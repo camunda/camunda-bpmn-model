@@ -12,7 +12,7 @@
  */
 package org.camunda.bpm.model.bpmn;
 
-import org.camunda.bpm.xml.model.ModelException;
+import org.camunda.bpm.model.xml.ModelException;
 
 /**
  * <p>A {@link RuntimeException} in the Bpmn Model.</p>

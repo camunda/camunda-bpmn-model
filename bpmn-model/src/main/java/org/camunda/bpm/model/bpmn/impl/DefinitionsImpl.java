@@ -15,12 +15,12 @@ package org.camunda.bpm.model.bpmn.impl;
 import org.camunda.bpm.model.bpmn.Definitions;
 import org.camunda.bpm.model.bpmn.Import;
 import org.camunda.bpm.model.bpmn.RootElement;
-import org.camunda.bpm.xml.model.ModelBuilder;
-import org.camunda.bpm.xml.model.impl.instance.ModelTypeInstanceContext;
-import org.camunda.bpm.xml.model.type.*;
-import org.camunda.bpm.xml.model.type.attribute.Attribute;
-import org.camunda.bpm.xml.model.type.child.ChildElementCollection;
-import org.camunda.bpm.xml.model.type.child.SequenceBuilder;
+import org.camunda.bpm.model.xml.ModelBuilder;
+import org.camunda.bpm.model.xml.impl.instance.ModelTypeInstanceContext;
+import org.camunda.bpm.model.xml.type.*;
+import org.camunda.bpm.model.xml.type.attribute.Attribute;
+import org.camunda.bpm.model.xml.type.child.ChildElementCollection;
+import org.camunda.bpm.model.xml.type.child.SequenceBuilder;
 
 import java.util.Collection;
 
