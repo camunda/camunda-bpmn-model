@@ -123,10 +123,9 @@ public abstract class AttributeImpl<T> implements Attribute<T> {
   }
 
   /**
-   * @param isRequired the isRequired to set
    */
-  public void setRequired(boolean isRequired) {
-    this.isRequired = isRequired;
+  public void setRequired() {
+    this.isRequired = true;
   }
 
   /**
@@ -181,10 +180,9 @@ public abstract class AttributeImpl<T> implements Attribute<T> {
   /**
    * Indicate whether this attribute is an Id attribute
    *
-   * @param isIdAttribute true if attribute is an Id attribute, false otherwise
    */
-  public void setId(boolean isIdAttribute) {
-    this.isIdAttribute = isIdAttribute;
+  public void setId() {
+    this.isIdAttribute = true;
   }
 
   /**

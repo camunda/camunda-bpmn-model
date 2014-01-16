@@ -63,7 +63,7 @@ public class ChildElementCollectionBuilderImpl<T extends ModelElementInstance> i
   }
 
   public ChildElementCollectionBuilder<T> immutable() {
-    collection.setMutable(false);
+    collection.setImmutable();
     return this;
   }
 
@@ -90,7 +90,7 @@ public class ChildElementCollectionBuilderImpl<T extends ModelElementInstance> i
 
   @Override
   public <V extends ModelElementInstance> ElementReferenceCollectionBuilder<V, T> idElementReferenceCollection(Class<V> referenceTargetType) {
-    ElementReferenceCollectionBuilder<V,T> builder = new ElementReferenceCollectionBuilderImpl<V,T>(childElementType, referenceTargetType, collection, containingType);
+    ElementReferenceCollectionBuilder<V,T> builder = new ElementReferenceCollectionBuilderImpl<V,T>(childElementType, referenceTargetType, collection);
     setReferenceBuilder(builder);
     return builder;
   }

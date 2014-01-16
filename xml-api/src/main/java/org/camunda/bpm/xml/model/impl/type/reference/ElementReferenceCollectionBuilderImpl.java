@@ -43,16 +43,12 @@ public class ElementReferenceCollectionBuilderImpl<T extends ModelElementInstanc
 
   private final Class<V> childElementType;
   private final Class<T> referenceTargetClass;
-  private final ChildElementCollectionImpl<V> collection;
-  private final ModelElementTypeImpl containingType;
 
   ElementReferenceCollectionImpl<T, V> elementReferenceCollectionImpl;
 
-  public ElementReferenceCollectionBuilderImpl(Class<V> childElementType, Class<T> referenceTargetClass, ChildElementCollectionImpl<V> collection, ModelElementTypeImpl containingType) {
+  public ElementReferenceCollectionBuilderImpl(Class<V> childElementType, Class<T> referenceTargetClass, ChildElementCollectionImpl<V> collection) {
     this.childElementType = childElementType;
     this.referenceTargetClass = referenceTargetClass;
-    this.collection = collection;
-    this.containingType = containingType;
     this.elementReferenceCollectionImpl = new ElementReferenceCollectionImpl<T, V>(collection);
   }
 

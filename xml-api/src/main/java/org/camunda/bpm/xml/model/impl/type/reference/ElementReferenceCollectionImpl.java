@@ -67,7 +67,7 @@ public class ElementReferenceCollectionImpl<T extends ModelElementInstance, V ex
     else {
       Collection<V> referenceSourceElements = referenceSourceCollection.get(referenceSourceParentElement);
       V referenceSourceElement = modelInstance.newInstance(referenceSourceType);
-      referenceSourceElements.add((V) referenceSourceElement);
+      referenceSourceElements.add(referenceSourceElement);
       setReferenceIdentifier(referenceSourceElement, referenceTargetIdentifier);
     }
   }

@@ -50,8 +50,8 @@ public abstract class ChildElementCollectionImpl<T extends ModelElementInstance>
   /** the containing type of the collection */
   ModelElementType containingType;
 
-  public void setMutable(boolean isMutable) {
-    this.isMutable = isMutable;
+  public void setImmutable() {
+    this.isMutable = false;
   }
 
   public boolean isImmutable() {

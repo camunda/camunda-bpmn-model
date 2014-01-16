@@ -134,8 +134,8 @@ public class ModelElementTypeImpl implements ModelElementType {
     return isAbstract;
   }
 
-  public void setAbstract(boolean isAbstract) {
-    this.isAbstract = isAbstract;
+  public void setAbstract() {
+    this.isAbstract = true;
   }
 
   public Collection<ModelElementType> getExtendingTypes() {

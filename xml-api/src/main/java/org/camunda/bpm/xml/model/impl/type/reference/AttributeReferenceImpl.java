@@ -34,7 +34,7 @@ public class AttributeReferenceImpl<T extends ModelElementInstance> extends Refe
     return referenceSourceAttribute.getValue(referenceSourceElement);
   }
 
-  public void setReferenceIdentifier(ModelElementInstance referenceSourceElement, String referenceIdentifier) {
+  protected void setReferenceIdentifier(ModelElementInstance referenceSourceElement, String referenceIdentifier) {
     referenceSourceAttribute.setValue(referenceSourceElement, referenceIdentifier);
   }
 

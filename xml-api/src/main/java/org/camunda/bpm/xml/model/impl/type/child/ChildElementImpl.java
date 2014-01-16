@@ -36,7 +36,7 @@ public class ChildElementImpl<T extends ModelElementInstance> extends NamedChild
 
   /** the add operation replaces the child */
   @Override
-  protected void performAddOperation(ModelElementInstanceImpl modelElement, T e) {
+  void performAddOperation(ModelElementInstanceImpl modelElement, T e) {
     modelElement.setUniqueChildElementByNameNs(e);
   }
 

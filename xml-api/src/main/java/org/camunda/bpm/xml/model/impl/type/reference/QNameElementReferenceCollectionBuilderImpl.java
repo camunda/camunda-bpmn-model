@@ -23,7 +23,7 @@ import org.camunda.bpm.xml.model.instance.ModelElementInstance;
 public class QNameElementReferenceCollectionBuilderImpl<T extends ModelElementInstance, V extends ModelElementInstance> extends ElementReferenceCollectionBuilderImpl<T,V> {
 
   public QNameElementReferenceCollectionBuilderImpl(Class<V> childElementType, Class<T> referenceTargetClass, ChildElementCollectionImpl<V> collection, ModelElementTypeImpl containingType) {
-    super(childElementType, referenceTargetClass, collection, containingType);
+    super(childElementType, referenceTargetClass, collection);
     this.elementReferenceCollectionImpl = new QNameElementReferenceCollectionImpl<T,V>(collection);
   }
 }

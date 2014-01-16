@@ -36,7 +36,7 @@ public abstract class AttributeBuilderImpl<T> implements AttributeBuilder<T>, Mo
   }
 
   public AttributeBuilder<T> idAttribute() {
-    attribute.setId(true);
+    attribute.setId();
     return this;
   }
 
@@ -47,7 +47,7 @@ public abstract class AttributeBuilderImpl<T> implements AttributeBuilder<T>, Mo
   }
 
   public AttributeBuilder<T> required() {
-    attribute.setRequired(true);
+    attribute.setRequired();
     return this;
   }
 
