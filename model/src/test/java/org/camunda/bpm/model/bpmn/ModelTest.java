@@ -43,13 +43,13 @@ public class ModelTest {
   public void testBaseTypeCalculation() {
     BpmnModelInstance bpmnModelInstance = Bpmn.createEmptyModel();
     Model model = bpmnModelInstance.getModel();
-    Collection<ModelElementType> allBaseTypes = ModelUtil.calculateAllBaseTypes(model, model.getType(StartEvent.class));
+    Collection<ModelElementType> allBaseTypes = ModelUtil.calculateAllBaseTypes(model.getType(StartEvent.class));
     assertThat(allBaseTypes).hasSize(5);
 
-    allBaseTypes = ModelUtil.calculateAllBaseTypes(model, model.getType(MessageEventDefinition.class));
+    allBaseTypes = ModelUtil.calculateAllBaseTypes(model.getType(MessageEventDefinition.class));
     assertThat(allBaseTypes).hasSize(3);
 
-    allBaseTypes = ModelUtil.calculateAllBaseTypes(model, model.getType(BaseElement.class));
+    allBaseTypes = ModelUtil.calculateAllBaseTypes(model.getType(BaseElement.class));
     assertThat(allBaseTypes).hasSize(0);
   }
 

@@ -12,10 +12,6 @@
  */
 package org.camunda.bpm.model.bpmn.impl;
 
-import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN20_NS;
-import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN_ATTRIBUTE_MESSAGE_REF;
-import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN_ELEMENT_MESSAGE_EVENT_DEFINITION;
-
 import org.camunda.bpm.model.bpmn.EventDefinition;
 import org.camunda.bpm.model.bpmn.Message;
 import org.camunda.bpm.model.bpmn.MessageEventDefinition;
@@ -25,12 +21,12 @@ import org.camunda.bpm.model.core.impl.instance.ModelTypeInstanceContext;
 import org.camunda.bpm.model.core.impl.type.reference.AttributeReferenceImpl;
 import org.camunda.bpm.model.core.impl.util.QName;
 import org.camunda.bpm.model.core.instance.ModelElementInstance;
-import org.camunda.bpm.model.core.type.Attribute;
 import org.camunda.bpm.model.core.type.ModelElementType;
 import org.camunda.bpm.model.core.type.ModelElementTypeBuilder;
 import org.camunda.bpm.model.core.type.ModelElementTypeBuilder.ModelTypeIntanceProvider;
-import org.camunda.bpm.model.core.type.StringAttributeBuilder;
 import org.camunda.bpm.model.core.type.reference.AttributeReference;
+
+import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.*;
 
 /**
 *
@@ -41,7 +37,6 @@ public class MessageEventDefinitionImpl extends EventDefinitionImpl implements M
 
   public static ModelElementType MODEL_TYPE;
 
-  static Attribute<String>  messageRefAttr;
   static AttributeReference<Message> messageRef;
 
   public static void registerType(ModelBuilder modelBuilder) {
@@ -54,9 +49,9 @@ public class MessageEventDefinitionImpl extends EventDefinitionImpl implements M
         }
       });
 
-    StringAttributeBuilder messageRefAttrBuilder = typeBuilder.stringAttribute(BPMN_ATTRIBUTE_MESSAGE_REF);
-    messageRef = messageRefAttrBuilder.qNameAttributeReference(Message.class).build();
-    messageRefAttr = messageRefAttrBuilder.build();
+    messageRef = typeBuilder.stringAttribute(BPMN_ATTRIBUTE_MESSAGE_REF)
+      .qNameAttributeReference(Message.class)
+      .build();
 
     MODEL_TYPE = typeBuilder.build();
   }

@@ -198,7 +198,7 @@ public class ModelUtil {
   /**
    * Calculate a collection of all base types for the given type
    */
-  public static Collection<ModelElementType> calculateAllBaseTypes(Model model, ModelElementType type) {
+  public static Collection<ModelElementType> calculateAllBaseTypes(ModelElementType type) {
     List<ModelElementType> baseTypes = new ArrayList<ModelElementType>();
     ModelElementTypeImpl typeImpl = (ModelElementTypeImpl) type;
     typeImpl.resolveBaseTypes(baseTypes);

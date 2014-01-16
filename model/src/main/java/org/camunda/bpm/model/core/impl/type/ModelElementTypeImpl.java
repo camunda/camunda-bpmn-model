@@ -211,7 +211,7 @@ public class ModelElementTypeImpl implements ModelElementType {
       return true;
     }
     else {
-      Collection<ModelElementType> baseTypes = ModelUtil.calculateAllBaseTypes(model, elementType);
+      Collection<ModelElementType> baseTypes = ModelUtil.calculateAllBaseTypes(elementType);
       return baseTypes.contains(this);
     }
   }
@@ -225,7 +225,7 @@ public class ModelElementTypeImpl implements ModelElementType {
   public Collection<Attribute<?>> getAllAttributes() {
     List<Attribute<?>> allAttributes = new ArrayList<Attribute<?>>();
     allAttributes.addAll(getAttributes());
-    Collection<ModelElementType> baseTypes = ModelUtil.calculateAllBaseTypes(model, this);
+    Collection<ModelElementType> baseTypes = ModelUtil.calculateAllBaseTypes(this);
     for (ModelElementType baseType : baseTypes) {
       allAttributes.addAll(baseType.getAttributes());
     }

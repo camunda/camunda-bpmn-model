@@ -64,21 +64,4 @@ public class AttributeReferenceImpl<T extends ModelElementInstance> extends Refe
     referenceSourceAttribute.removeAttribute(referenceSourceElement);
   }
 
-  @SuppressWarnings("unchecked")
-  protected T resolveReference(ModelElementInstanceImpl referenceSourceElement, String referenceIdentifier) {
-    String identifier = getReferenceIdentifier(referenceSourceElement);
-
-    ModelElementInstance referenceTargetElement = referenceSourceElement.getModelInstance().getModelElementById(identifier);
-    if(referenceTargetElement != null) {
-      try {
-        return (T) referenceTargetElement;
-
-      } catch(ClassCastException e) {
-        throw new ModelReferenceException("Element " + referenceSourceElement + " references element " + referenceTargetElement + " of wrong type. "
-            + "Expecting " + referenceTargetAttribute.getOwningElementType() + " got " + referenceTargetElement.getElementType());
-      }
-    } else {
-      return null;
-    }
-  }
 }

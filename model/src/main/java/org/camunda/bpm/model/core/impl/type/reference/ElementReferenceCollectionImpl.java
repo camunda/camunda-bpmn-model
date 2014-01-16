@@ -83,24 +83,6 @@ public class ElementReferenceCollectionImpl<T extends ModelElementInstance, V ex
     }
   }
 
-  @SuppressWarnings("unchecked")
-  protected T resolveReference(ModelElementInstanceImpl referenceSourceElement, String referenceIdentifier) {
-    String identifier = getReferenceIdentifier(referenceSourceElement);
-    ModelElementInstance referenceTargetElement = referenceSourceElement.getModelInstance().getModelElementById(identifier);
-    if (referenceTargetElement != null) {
-      try {
-        return (T) referenceTargetElement;
-
-      } catch(ClassCastException e) {
-        throw new ModelReferenceException("Element " + referenceSourceElement + " references element " + referenceTargetElement + " of wrong type. "
-          + "Expecting " + referenceTargetAttribute.getOwningElementType() + " got " + referenceTargetElement.getElementType());
-      }
-    }
-    else {
-      return null;
-    }
-  }
-
   @Override
   public String getReferenceIdentifier(ModelElementInstance referenceSourceElement) {
     return referenceSourceElement.getTextContent();

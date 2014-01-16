@@ -17,7 +17,6 @@ import java.util.Collections;
 
 import org.camunda.bpm.model.core.ModelInstance;
 import org.camunda.bpm.model.core.ModelReferenceException;
-import org.camunda.bpm.model.core.impl.instance.ModelElementInstanceImpl;
 import org.camunda.bpm.model.core.impl.type.ModelElementTypeImpl;
 import org.camunda.bpm.model.core.impl.type.attribute.AttributeImpl;
 import org.camunda.bpm.model.core.instance.ModelElementInstance;
@@ -45,16 +44,24 @@ public abstract class ReferenceImpl<T extends ModelElementInstance> implements R
    */
   public abstract void setReferenceIdentifier(ModelElementInstance referenceSourceElement, String referenceIdentifier);
 
-  /**
+   /**
    * Get the reference target model element instance
    *
    * @param referenceSourceElement the reference source model element instance
    * @return the reference target model element instance or null if not set
    */
+  @SuppressWarnings("unchecked")
   public T getReferencedElement(ModelElementInstance referenceSourceElement) {
-    String referenceIdentifier = getReferenceIdentifier(referenceSourceElement);
-    if (referenceIdentifier != null) {
-      return resolveReference((ModelElementInstanceImpl) referenceSourceElement, referenceIdentifier);
+    String identifier = getReferenceIdentifier(referenceSourceElement);
+    ModelElementInstance referenceTargetElement = referenceSourceElement.getModelInstance().getModelElementById(identifier);
+    if (referenceTargetElement != null) {
+      try {
+        return (T) referenceTargetElement;
+
+      } catch(ClassCastException e) {
+        throw new ModelReferenceException("Element " + referenceSourceElement + " references element " + referenceTargetElement + " of wrong type. "
+          + "Expecting " + referenceTargetAttribute.getOwningElementType() + " got " + referenceTargetElement.getElementType());
+      }
     }
     else {
       return null;
@@ -108,14 +115,6 @@ public abstract class ReferenceImpl<T extends ModelElementInstance> implements R
     this.referenceTargetElementType = referenceTargetElementType;
   }
 
-  /**
-   * Resolve the reference by the reference identifier
-   *
-   * @param referenceSourceElement the reference source model element instance
-   * @param referenceIdentifier the reference identifier
-   * @return the target model element instance or null if not found
-   */
-  protected abstract T resolveReference(ModelElementInstanceImpl referenceSourceElement, String referenceIdentifier);
 
   /**
    * Return the model element type of the reference source

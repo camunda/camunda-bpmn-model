@@ -96,6 +96,10 @@ public class ModelInstanceImpl implements ModelInstance {
   }
 
   public ModelElementInstance getModelElementById(String id) {
+    if (id == null) {
+      return null;
+    }
+
     Element element = DomUtil.findElementById(document, id);
     if(element != null) {
       return ModelUtil.getModelElement(element, this);
