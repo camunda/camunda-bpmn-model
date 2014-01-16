@@ -26,7 +26,6 @@ import org.camunda.bpm.model.core.type.ChildElementCollection;
 import org.camunda.bpm.model.core.type.ModelElementType;
 import org.camunda.bpm.model.core.type.ModelElementTypeBuilder;
 import org.camunda.bpm.model.core.type.SequenceBuilder;
-import org.camunda.bpm.model.core.type.ModelElementTypeBuilder.ModelTypeIntanceProvider;
 
 /**
  * The BPMN Definitions Element
@@ -35,8 +34,6 @@ import org.camunda.bpm.model.core.type.ModelElementTypeBuilder.ModelTypeIntanceP
  *
  */
 public class DefinitionsImpl extends AbstractBpmnModelElement implements Definitions {
-
-  public final static String ELEMENT_NAME = BPMN_ELEMENT_DEFINITIONS;
 
   public static ModelElementType MODEL_TYPE;
 
@@ -53,9 +50,9 @@ public class DefinitionsImpl extends AbstractBpmnModelElement implements Definit
 
   public static void registerType(ModelBuilder bpmnModelBuilder) {
 
-    ModelElementTypeBuilder typeBuilder = bpmnModelBuilder.defineType(Definitions.class, ELEMENT_NAME)
+    ModelElementTypeBuilder typeBuilder = bpmnModelBuilder.defineType(Definitions.class, BPMN_ELEMENT_DEFINITIONS)
       .namespaceUri(BPMN20_NS)
-      .instanceProvider(new ModelTypeIntanceProvider<Definitions>() {
+      .instanceProvider(new ModelElementTypeBuilder.ModelTypeInstanceProvider<Definitions>() {
         public Definitions newInstance(ModelTypeInstanceContext instanceContext) {
           return new DefinitionsImpl(instanceContext);
         }

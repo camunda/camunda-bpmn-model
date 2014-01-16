@@ -12,12 +12,6 @@
  */
 package org.camunda.bpm.model.core.impl.util;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import org.camunda.bpm.model.core.Model;
 import org.camunda.bpm.model.core.ModelException;
 import org.camunda.bpm.model.core.impl.ModelInstanceImpl;
@@ -25,9 +19,11 @@ import org.camunda.bpm.model.core.impl.instance.ModelElementInstanceImpl;
 import org.camunda.bpm.model.core.impl.type.ModelElementTypeImpl;
 import org.camunda.bpm.model.core.instance.ModelElementInstance;
 import org.camunda.bpm.model.core.type.ModelElementType;
-import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+
+import java.util.*;
 
 /**
  * Some Helpers useful when handling model elements.
@@ -37,7 +33,7 @@ import org.w3c.dom.Element;
  */
 public class ModelUtil {
 
-  public final static String MODEL_ELEMENT_KEY = "camunda.modelElementRef";
+  private final static String MODEL_ELEMENT_KEY = "camunda.modelElementRef";
 
   /**
    * Returns the {@link ModelElementInstanceImpl ModelElement} for a DOM element.
@@ -63,15 +59,9 @@ public class ModelUtil {
     return modelElement;
   }
 
-  public static void ensureSameDocument(Attr attributeToAdd, Document targetDocument) {
-    if(attributeToAdd.getOwnerDocument() == targetDocument) {
-      throw new WrongDocumentException(attributeToAdd, targetDocument);
-    }
-  }
-
-  public static void ensureSameDocument(Element elementToAdd, Document targetDocument) {
-    if(elementToAdd.getOwnerDocument() != targetDocument) {
-      throw new WrongDocumentException(elementToAdd, targetDocument);
+  public static void ensureSameDocument(Node nodeToAdd, Document targetDocument) {
+    if(DomUtil.getDocument(nodeToAdd) == targetDocument) {
+      throw new WrongDocumentException(nodeToAdd, targetDocument);
     }
   }
 
@@ -152,9 +142,11 @@ public class ModelUtil {
   }
 
   /**
-   * @param view
-   * @param model
-   * @return
+   * Get a collection of all model element instances in a view
+   *
+   * @param view the collection of DOM elements to find the model element instances for
+   * @param model the model of the elements
+   * @return the collection of model element instances of the view
    */
   @SuppressWarnings("unchecked")
   public static <T> Collection<T> getModelElementCollection(Collection<Element> view, ModelInstanceImpl model) {

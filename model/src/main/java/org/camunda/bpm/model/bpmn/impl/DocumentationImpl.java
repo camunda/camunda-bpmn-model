@@ -23,7 +23,7 @@ import org.camunda.bpm.model.core.impl.instance.ModelTypeInstanceContext;
 import org.camunda.bpm.model.core.type.Attribute;
 import org.camunda.bpm.model.core.type.ModelElementType;
 import org.camunda.bpm.model.core.type.ModelElementTypeBuilder;
-import org.camunda.bpm.model.core.type.ModelElementTypeBuilder.ModelTypeIntanceProvider;
+import org.camunda.bpm.model.core.type.ModelElementTypeBuilder.ModelTypeInstanceProvider;
 
 /**
  *
@@ -41,7 +41,7 @@ public class DocumentationImpl extends AbstractBpmnModelElement implements Docum
 
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(Documentation.class, BPMN_TYPE_BASE_ELEMENT)
       .namespaceUri(BPMN20_NS)
-      .instanceProvider(new ModelTypeIntanceProvider<Documentation>() {
+      .instanceProvider(new ModelTypeInstanceProvider<Documentation>() {
         public Documentation newInstance(ModelTypeInstanceContext instanceContext) {
           return new DocumentationImpl(instanceContext);
         }

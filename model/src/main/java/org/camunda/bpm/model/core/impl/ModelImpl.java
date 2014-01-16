@@ -31,9 +31,9 @@ import org.camunda.bpm.model.core.type.ModelElementTypeBuilder;
  */
 public class ModelImpl implements Model {
 
-  protected Map<QName, ModelElementType> typesByName = new HashMap<QName, ModelElementType>();
-  protected Map<Class<? extends ModelElementInstance>, ModelElementType> typesByClass = new HashMap<Class<? extends ModelElementInstance>, ModelElementType>();
-  protected final String modelName;
+  private final Map<QName, ModelElementType> typesByName = new HashMap<QName, ModelElementType>();
+  private final Map<Class<? extends ModelElementInstance>, ModelElementType> typesByClass = new HashMap<Class<? extends ModelElementInstance>, ModelElementType>();
+  private final String modelName;
 
 
   public ModelImpl(String modelName) {

@@ -21,7 +21,7 @@ import org.camunda.bpm.model.core.impl.instance.ModelElementInstanceImpl;
 import org.camunda.bpm.model.core.impl.instance.ModelTypeInstanceContext;
 import org.camunda.bpm.model.core.type.ChildElementCollection;
 import org.camunda.bpm.model.core.type.ModelElementTypeBuilder;
-import org.camunda.bpm.model.core.type.ModelElementTypeBuilder.ModelTypeIntanceProvider;
+import org.camunda.bpm.model.core.type.ModelElementTypeBuilder.ModelTypeInstanceProvider;
 import org.camunda.bpm.model.core.type.SequenceBuilder;
 
 /**
@@ -30,13 +30,13 @@ import org.camunda.bpm.model.core.type.SequenceBuilder;
  */
 public class Animals extends ModelElementInstanceImpl {
 
-  static ChildElementCollection<Animal> animalColl;
+  private static ChildElementCollection<Animal> animalColl;
 
   static void registerType(ModelBuilder modelBuilder) {
 
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(Animals.class, ELEMENT_NAME_ANIMALS)
       .namespaceUri(MODEL_NAMESPACE)
-      .instanceProvider(new ModelTypeIntanceProvider<Animals>() {
+      .instanceProvider(new ModelTypeInstanceProvider<Animals>() {
         public Animals newInstance(ModelTypeInstanceContext instanceContext) {
           return new Animals(instanceContext);
         }

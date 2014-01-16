@@ -38,8 +38,8 @@ import java.util.Iterator;
  */
 public class ElementReferenceCollectionImpl<T extends ModelElementInstance, V extends ModelElementInstance> extends  ReferenceImpl<T> implements ElementReferenceCollection<T, V> {
 
-  protected final ChildElementCollection<V> referenceSourceCollection;
-  protected ModelElementTypeImpl referenceSourceType;
+  private final ChildElementCollection<V> referenceSourceCollection;
+  private ModelElementTypeImpl referenceSourceType;
 
   public ElementReferenceCollectionImpl(ChildElementCollection<V> referenceSourceCollection) {
     this.referenceSourceCollection = referenceSourceCollection;

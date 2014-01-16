@@ -20,8 +20,8 @@ import org.camunda.bpm.model.core.impl.instance.ModelElementInstanceImpl;
  */
 public class QName {
 
-  protected final String namespaceUri;
-  protected final String localName;
+  private final String namespaceUri;
+  private final String localName;
 
   public QName(String localName) {
     this(localName, null);

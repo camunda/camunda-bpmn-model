@@ -26,10 +26,10 @@ import java.util.Collection;
  */
 public class ReferenceTest extends BpmnModelTest {
 
-  protected BpmnModelInstance testBpmnModelInstance;
-  protected Message message;
-  protected MessageEventDefinition messageEventDefinition;
-  protected StartEvent startEvent;
+  private BpmnModelInstance testBpmnModelInstance;
+  private Message message;
+  private MessageEventDefinition messageEventDefinition;
+  private StartEvent startEvent;
 
   @Before
   public void createModel() {

@@ -14,7 +14,6 @@
 package org.camunda.bpm.model.core.testmodel;
 
 import static org.camunda.bpm.model.core.testmodel.TestModelConstants.*;
-import static org.camunda.bpm.model.core.type.ModelElementTypeBuilder.ModelTypeIntanceProvider;
 
 import org.camunda.bpm.model.core.ModelBuilder;
 import org.camunda.bpm.model.core.impl.instance.ModelElementInstanceImpl;
@@ -30,7 +29,7 @@ public class FriendRef extends ModelElementInstanceImpl implements QNameElement 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(FriendRef.class, ELEMENT_NAME_FRIEND_REF)
       .namespaceUri(MODEL_NAMESPACE)
-      .instanceProvider(new ModelTypeIntanceProvider<FriendRef>() {
+      .instanceProvider(new ModelElementTypeBuilder.ModelTypeInstanceProvider<FriendRef>() {
         public FriendRef newInstance(ModelTypeInstanceContext instanceContext) {
           return new FriendRef(instanceContext);
         }

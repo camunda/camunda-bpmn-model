@@ -33,11 +33,11 @@ import org.xml.sax.SAXException;
  */
 public abstract class AbstractModelParser {
 
-  protected DocumentBuilderFactory documentBuilderFactory;
+  private final DocumentBuilderFactory documentBuilderFactory;
   protected SchemaFactory schemaFactory;
   protected Schema schema;
 
-  public AbstractModelParser() {
+  protected AbstractModelParser() {
     DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
     configureFactory(dbf);
     this.documentBuilderFactory = dbf;
@@ -80,7 +80,7 @@ public abstract class AbstractModelParser {
     try {
       validator.validate(new DOMSource(document));
     } catch (IOException e) {
-      throw new ModelValidationException("Error during DOM docuement validation", e);
+      throw new ModelValidationException("Error during DOM document validation", e);
     } catch (SAXException e) {
       throw new ModelValidationException("DOM document is not valid", e);
     }

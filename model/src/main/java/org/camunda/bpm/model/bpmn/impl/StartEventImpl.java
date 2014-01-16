@@ -20,7 +20,6 @@ import org.camunda.bpm.model.core.ModelBuilder;
 import org.camunda.bpm.model.core.impl.instance.ModelTypeInstanceContext;
 import org.camunda.bpm.model.core.type.ModelElementType;
 import org.camunda.bpm.model.core.type.ModelElementTypeBuilder;
-import org.camunda.bpm.model.core.type.ModelElementTypeBuilder.ModelTypeIntanceProvider;
 
 /**
  * @author Sebastian Menski
@@ -35,7 +34,7 @@ public class StartEventImpl extends CatchEventImpl implements StartEvent {
     ModelElementTypeBuilder builder = modelBuilder.defineType(StartEvent.class, BPMN_ELEMENT_START_EVENT)
       .namespaceUri(BPMN20_NS)
       .extendsType(CatchEvent.class)
-      .instanceProvider(new ModelTypeIntanceProvider<StartEvent>() {
+      .instanceProvider(new ModelElementTypeBuilder.ModelTypeInstanceProvider<StartEvent>() {
         public StartEvent newInstance(ModelTypeInstanceContext instanceContext) {
           return new StartEventImpl(instanceContext);
         }

@@ -29,7 +29,7 @@ import org.camunda.bpm.model.core.impl.util.ModelUtil;
 import org.camunda.bpm.model.core.instance.ModelElementInstance;
 import org.camunda.bpm.model.core.type.Attribute;
 import org.camunda.bpm.model.core.type.ModelElementType;
-import org.camunda.bpm.model.core.type.ModelElementTypeBuilder.ModelTypeIntanceProvider;
+import org.camunda.bpm.model.core.type.ModelElementTypeBuilder;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -39,30 +39,26 @@ import org.w3c.dom.Element;
  */
 public class ModelElementTypeImpl implements ModelElementType {
 
-  protected final ModelImpl model;
+  private final ModelImpl model;
 
-  protected final String typeName;
+  private final String typeName;
 
-  protected final Class<? extends ModelElementInstance> instanceType;
+  private final Class<? extends ModelElementInstance> instanceType;
 
-  protected String typeNamespace;
+  private String typeNamespace;
 
-  protected ModelElementTypeImpl baseType;
+  private ModelElementTypeImpl baseType;
 
-  protected List<ModelElementType> extendingTypes = new ArrayList<ModelElementType>();
+  private final List<ModelElementType> extendingTypes = new ArrayList<ModelElementType>();
 
-  protected List<Attribute<?>> attributes = new ArrayList<Attribute<?>>();
+  private List<Attribute<?>> attributes = new ArrayList<Attribute<?>>();
 
-  protected List<ModelElementType> childElementTypes = new ArrayList<ModelElementType>();
+  private final List<ModelElementType> childElementTypes = new ArrayList<ModelElementType>();
 
-  protected ModelTypeIntanceProvider<?> instanceProvider;
+  private ModelElementTypeBuilder.ModelTypeInstanceProvider<?> instanceProvider;
 
-  protected boolean isAbstract;
+  private boolean isAbstract;
 
-  /**
-   * @param name
-   * @param instanceType
-   */
   public ModelElementTypeImpl(ModelImpl model, String name, Class<? extends ModelElementInstance> instanceType) {
     this.model = model;
     this.typeName = name;
@@ -77,7 +73,7 @@ public class ModelElementTypeImpl implements ModelElementType {
   }
 
   public ModelElementInstance newInstance(ModelInstanceImpl modelInstance, Element domElement) {
-    return createModelElementIntance(new ModelTypeInstanceContext(domElement, modelInstance, this));
+    return createModelElementInstance(new ModelTypeInstanceContext(domElement, modelInstance, this));
   }
 
   public void registerAttribute(Attribute<?> attribute) {
@@ -92,7 +88,7 @@ public class ModelElementTypeImpl implements ModelElementType {
     extendingTypes.add(modelType);
   }
 
-  protected ModelElementInstance createModelElementIntance(ModelTypeInstanceContext instanceContext) {
+  ModelElementInstance createModelElementInstance(ModelTypeInstanceContext instanceContext) {
     return instanceProvider.newInstance(instanceContext);
   }
 
@@ -130,7 +126,7 @@ public class ModelElementTypeImpl implements ModelElementType {
     }
   }
 
-  public void setInstanceProvider(ModelTypeIntanceProvider<?> instanceProvider) {
+  public void setInstanceProvider(ModelElementTypeBuilder.ModelTypeInstanceProvider<?> instanceProvider) {
     this.instanceProvider = instanceProvider;
   }
 
@@ -203,8 +199,10 @@ public class ModelElementTypeImpl implements ModelElementType {
   }
 
   /**
-   * @param elementType
-   * @return
+   * Test if a element type is a base type of this type. So this type extends the given element type.
+   *
+   * @param elementType the element type to test
+   * @return true if {@code elementType} is a base type of this type, else otherwise
    */
   public boolean isBaseTypeOf(ModelElementType elementType) {
     if (this.equals(elementType)) {
@@ -219,7 +217,6 @@ public class ModelElementTypeImpl implements ModelElementType {
   /**
    * Returns a list of all attributes, including the attributes of all base types.
    *
-   * @param modelElement the element to get all attributes for
    * @return the list of all attributes
    */
   public Collection<Attribute<?>> getAllAttributes() {

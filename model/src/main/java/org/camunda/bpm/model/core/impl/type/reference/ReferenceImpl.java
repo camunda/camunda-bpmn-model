@@ -30,10 +30,10 @@ import org.camunda.bpm.model.core.type.reference.Reference;
  */
 public abstract class ReferenceImpl<T extends ModelElementInstance> implements Reference<T> {
 
-  protected AttributeImpl<String> referenceTargetAttribute;
+  AttributeImpl<String> referenceTargetAttribute;
 
   /** the actual type, may be different (a subtype of) {@link AttributeImpl#getOwningElementType()} */
-  protected ModelElementTypeImpl referenceTargetElementType;
+  private ModelElementTypeImpl referenceTargetElementType;
 
 
   /**
@@ -42,7 +42,7 @@ public abstract class ReferenceImpl<T extends ModelElementInstance> implements R
    * @param referenceSourceElement the reference source model element instance
    * @param referenceIdentifier the new reference identifier
    */
-  public abstract void setReferenceIdentifier(ModelElementInstance referenceSourceElement, String referenceIdentifier);
+  protected abstract void setReferenceIdentifier(ModelElementInstance referenceSourceElement, String referenceIdentifier);
 
    /**
    * Get the reference target model element instance

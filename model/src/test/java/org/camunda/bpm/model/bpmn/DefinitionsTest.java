@@ -173,16 +173,16 @@ public class DefinitionsTest extends BpmnModelTest {
     definitions.getRootElements().add(message);
 
     // create and add message event definition
-    MessageEventDefinition messageEventDefintion = bpmnModelInstance.newInstance(MessageEventDefinition.class);
-    messageEventDefintion.setId("message-event-def-id");
-    messageEventDefintion.setMessage(message);
-    definitions.getRootElements().add(messageEventDefintion);
+    MessageEventDefinition messageEventDefinition = bpmnModelInstance.newInstance(MessageEventDefinition.class);
+    messageEventDefinition.setId("message-event-def-id");
+    messageEventDefinition.setMessage(message);
+    definitions.getRootElements().add(messageEventDefinition);
 
     // test if message was set correctly
-    Message setMessage = messageEventDefintion.getMessage();
+    Message setMessage = messageEventDefinition.getMessage();
     assertThat(setMessage).isEqualTo(message);
     String messageRefString = message.getId();
-    assertThat(messageRefString).isEqualTo(messageEventDefintion.getMessageRef());
+    assertThat(messageRefString).isEqualTo(messageEventDefinition.getMessageRef());
 
     // add process
     Process process = bpmnModelInstance.newInstance(Process.class);
@@ -263,7 +263,7 @@ public class DefinitionsTest extends BpmnModelTest {
     startEventMessageEventDefinition.setMessage(message);
     startEvent.getEventDefinitions().add(startEventMessageEventDefinition);
 
-    // add property after message event defintion
+    // add property after message event definition
     Property property = bpmnModelInstance.newInstance(Property.class);
     startEvent.getProperties().add(property);
 

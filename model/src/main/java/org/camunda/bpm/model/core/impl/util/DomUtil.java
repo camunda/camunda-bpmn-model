@@ -49,6 +49,7 @@ public class DomUtil {
   public static interface NodeListFilter<T extends Node> {
 
     /**
+     * Test if node matches the filter
      *
      * @param node the node to match
      * @return true if the filter does match the node, false otherwise
@@ -59,6 +60,7 @@ public class DomUtil {
 
   /**
    * Filter retaining only Nodes of type {@link Node#ELEMENT_NODE}
+   *
    */
   public static class ElementNodeListFilter implements NodeListFilter<Element> {
 
@@ -74,8 +76,8 @@ public class DomUtil {
    */
   public static class ElementByNameListFilter extends ElementNodeListFilter {
 
-    protected String localName;
-    protected String namespaceUri;
+    final String localName;
+    final String namespaceUri;
 
     /**
      * @param localName the local name to filter for
@@ -97,8 +99,8 @@ public class DomUtil {
 
   public static class ElementByTypeListFilter extends ElementNodeListFilter {
 
-    protected Class<?> type;
-    protected ModelInstanceImpl model;
+    final Class<?> type;
+    final ModelInstanceImpl model;
 
     public ElementByTypeListFilter(Class<?> type, ModelInstanceImpl modelInstance) {
       this.type =  type;
@@ -142,7 +144,7 @@ public class DomUtil {
    *
    * @param nodeList the {@link NodeList} to filter
    * @param localName the local element name to filter for
-   * @param namespaceUri the namespace fot the elements
+   * @param namespaceUri the namespace for the elements
    * @return the List of all Elements which match the filter
    */
   public static List<Element> filterNodeListByName(NodeList nodeList, String localName, String namespaceUri) {
@@ -160,8 +162,10 @@ public class DomUtil {
   }
 
   /**
-   * @param document
-   * @param domElement
+   * Set the document element of DOM document. Replace an existing if necessary
+   *
+   * @param document the DOM document to set the document element
+   * @param domElement the new document element
    */
   public static void setDocumentElement(Document document, Element domElement) {
     Element existingDocumentElement = getDocumentElement(document);
@@ -174,16 +178,21 @@ public class DomUtil {
   }
 
   /**
-   * @param domElement
-   * @return
+   * Get all child nodes of a DOM element
+   *
+   * @param domElement the DOM element to get the child nodes for
+   * @return the list of all child nodes
    */
   public static NodeList getChildNodes(Element domElement) {
     return domElement.getChildNodes();
   }
 
   /**
-   * @param domElement
-   * @param element
+   * Remove a child element of a DOM element
+   *
+   * @param domElement the DOM element to remove the child from
+   * @param element the child element to remove
+   * @return true if the child was removed, else false
    */
   public static boolean removeChild(Element domElement, Element element) {
     try {
@@ -192,22 +201,25 @@ public class DomUtil {
 
     } catch(DOMException e) {
       return false;
-
     }
-
   }
 
   /**
-   * @param domElement
-   * @return
+   * Get the namespace URI of a DOM element
+   *
+   * @param domElement the DOM element to get the URI for
+   * @return the namespace URI of the element
    */
   public static String getNamespaceUri(Element domElement) {
     return domElement.getNamespaceURI();
   }
 
   /**
-   * @param documentBuilderFactory
-   * @return
+   * Get an empty DOM document
+   *
+   * @param documentBuilderFactory the factory to build to DOM document
+   * @return the new empty document
+   * @throws ModelParseException if unable to create a new document
    */
   public static Document getEmptyDocument(DocumentBuilderFactory documentBuilderFactory) {
     DocumentBuilder documentBuilder;
@@ -215,14 +227,17 @@ public class DomUtil {
       documentBuilder = documentBuilderFactory.newDocumentBuilder();
       return documentBuilder.newDocument();
     } catch (ParserConfigurationException e) {
-      throw new ModelParseException("ParserConfigurationException while parsing input stream", e);
+      throw new ModelParseException("Unable to create a new document", e);
     }
   }
 
   /**
-   * @param documentBuilderFactory
-   * @param inputStream
-   * @return
+   * Create a new DOM document from the input stream
+   *
+   * @param documentBuilderFactory the factory to build to DOM document
+   * @param inputStream the input stream to parse
+   * @return the new DOM document
+   * @throws ModelParseException if a parsing or IO error is triggered
    */
   public static Document parseInputStream(DocumentBuilderFactory documentBuilderFactory, InputStream inputStream) {
     try {
@@ -300,7 +315,7 @@ public class DomUtil {
    * Find an element by Id
    *
    * @param id the id of the element to find
-   * @param document
+   * @param document the DOM document to search
    * @return the element or null if no such element exists
    */
   public static Element findElementById(Document document, String id) {
@@ -309,11 +324,11 @@ public class DomUtil {
 
   /**
    * Get the document for a DOM element
-   * @param domElement the element to get the document for
+   * @param domNode the element to get the document for
    * @return the Document for a DOM element
    */
-  public static Document getDocument(Element domElement) {
-    return domElement.getOwnerDocument();
+  public static Document getDocument(Node domNode) {
+    return domNode.getOwnerDocument();
   }
 
   /**
@@ -333,43 +348,54 @@ public class DomUtil {
   }
 
   /**
-   * @param domElement
-   * @param attributeName
+   * Set the id property of an attribute by name
+   *
+   * @param domElement the DOM element of the attribute
+   * @param attributeName the attribute name which is a id attribute
    */
   public static void setIdAttribute(Element domElement, String attributeName) {
     domElement.setIdAttribute(attributeName, true);
   }
 
   /**
-   * @param domElement
-   * @param attributeName
+   * Set the id property of an attribute by name and namespace URI
+   *
+   * @param domElement the DOM element of the attribute
+   * @param attributeName the attribute name which is a id attribute
+   * @param namespaceUri the namespace for the element
    */
   public static void setIdAttributeNs(Element domElement, String attributeName, String namespaceUri) {
     domElement.setIdAttributeNS(namespaceUri, attributeName, true);
   }
 
   /**
-   * @param domElement
-   * @param attributeName
+   * Remove an attribute from a DOM element by name
+   *
+   * @param domElement the DOM element of the attribute
+   * @param attributeName the attribute name which should be removed
    */
   public static void removeAttribute(Element domElement, String attributeName) {
     domElement.removeAttribute(attributeName);
   }
 
   /**
-   * @param domElement
-   * @param attributeName
-   * @param namespaceUri
+   * Remove an attribute from a DOM element by name and namespace URI
+   *
+   * @param domElement the DOM element of the attribute
+   * @param attributeName the attribute name which should be removed
+   * @param namespaceUri the namespace URI of the attribute
    */
   public static void removeAttributeNs(Element domElement, String attributeName, String namespaceUri) {
     domElement.removeAttributeNS(namespaceUri, attributeName);
   }
 
   /**
-   * @param document
-   * @param typeName
-   * @param typeNamespace
-   * @return
+   * Find all elements in a DOM document by name and namespace
+   *
+   * @param document the DOM document to search
+   * @param typeName the name of the element type
+   * @param typeNamespace the namespace of the element type
+   * @return the list of matching DOM elements
    */
   public static List<Element> findElementByNameNs(Document document, String typeName, String typeNamespace) {
     NodeList elementList = document.getElementsByTagNameNS(typeNamespace, typeName);
@@ -377,13 +403,21 @@ public class DomUtil {
   }
 
   /**
-   * @param domElement
-   * @return
+   * Get the text content of a DOM element
+   *
+   * @param domElement the DOM element to get the text content for
+   * @return the text content of the DOM element and its descendants
    */
   public static String getTextContent(Element domElement) {
     return domElement.getTextContent();
   }
 
+  /**
+   * Get the text content of a DOM element
+   *
+   * @param domElement the DOM element to set the text content for
+   * @param textContent the text content to set
+   */
   public static void setTextContent(Element domElement, String textContent) {
     domElement.setTextContent(textContent);
   }
@@ -391,8 +425,9 @@ public class DomUtil {
 
   /**
    * Get parent node of DOM element
-   * @param domElement
-   * @return
+   *
+   * @param domElement the DOM element to find the parent for
+   * @return the parent of the DOM element
    */
   public static Element getParentElement(Element domElement) {
     return (Element) domElement.getParentNode();

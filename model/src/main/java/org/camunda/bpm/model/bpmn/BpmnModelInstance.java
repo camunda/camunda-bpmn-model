@@ -17,21 +17,6 @@ import org.camunda.bpm.model.core.ModelInstance;
 /**
  * <p>A BPMN 2.0 Model</p>
  *
- * <p>Each {@link BpmnModelInstance} has its own {@link BpmnTypeInstanceFactory} which must
- * be used for creating instances of new {@link BpmnModelElementInstance BpmnModelElements}:
- *
- * <pre>
- * BpmnModel model = Bpmn.createEmptyModel();
- * BpmnElementFactory factory = model.getBpmnElementFactory();
- *
- * Definitions definitions = factory.createDefinitions();
- * // set model properties on definitions ...
- *
- * model.setDefinitions(definitions);
- * </pre>
- *
- * </p>
- *
  * @author Daniel Meyer
  *
  */

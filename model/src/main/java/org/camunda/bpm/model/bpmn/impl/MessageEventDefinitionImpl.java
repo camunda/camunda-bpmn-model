@@ -23,7 +23,6 @@ import org.camunda.bpm.model.core.impl.util.QName;
 import org.camunda.bpm.model.core.instance.ModelElementInstance;
 import org.camunda.bpm.model.core.type.ModelElementType;
 import org.camunda.bpm.model.core.type.ModelElementTypeBuilder;
-import org.camunda.bpm.model.core.type.ModelElementTypeBuilder.ModelTypeIntanceProvider;
 import org.camunda.bpm.model.core.type.reference.AttributeReference;
 
 import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.*;
@@ -43,7 +42,7 @@ public class MessageEventDefinitionImpl extends EventDefinitionImpl implements M
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(MessageEventDefinition.class, BPMN_ELEMENT_MESSAGE_EVENT_DEFINITION)
       .namespaceUri(BPMN20_NS)
       .extendsType(EventDefinition.class)
-      .instanceProvider(new ModelTypeIntanceProvider<MessageEventDefinition>() {
+      .instanceProvider(new ModelElementTypeBuilder.ModelTypeInstanceProvider<MessageEventDefinition>() {
         public MessageEventDefinition newInstance(ModelTypeInstanceContext instanceContext) {
           return new MessageEventDefinitionImpl(instanceContext);
         }

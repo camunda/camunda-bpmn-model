@@ -35,7 +35,6 @@ import org.camunda.bpm.model.core.type.ModelElementTypeBuilder;
 
 import static org.camunda.bpm.model.core.testmodel.TestModelConstants.ELEMENT_NAME_PARTNER_REF;
 import static org.camunda.bpm.model.core.testmodel.TestModelConstants.MODEL_NAMESPACE;
-import static org.camunda.bpm.model.core.type.ModelElementTypeBuilder.ModelTypeIntanceProvider;
 
 /**
  * @author Sebastian Menski
@@ -45,7 +44,7 @@ public class PartnerRef extends ModelElementInstanceImpl implements QNameElement
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(PartnerRef.class, ELEMENT_NAME_PARTNER_REF)
       .namespaceUri(MODEL_NAMESPACE)
-      .instanceProvider(new ModelTypeIntanceProvider<PartnerRef>() {
+      .instanceProvider(new ModelElementTypeBuilder.ModelTypeInstanceProvider<PartnerRef>() {
         public PartnerRef newInstance(ModelTypeInstanceContext instanceContext) {
           return new PartnerRef(instanceContext);
         }

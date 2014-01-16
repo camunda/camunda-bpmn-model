@@ -20,7 +20,7 @@ import org.camunda.bpm.model.core.instance.ModelElementInstance;
  * A single child element (child Element collection where {@link ChildElementCollection#getMaxOccurs()} returns 1.
  *
  * The {@link Collection#add(Object)} operation provided by this collection has special behavior: it will
- * replace an existing element if it existis.
+ * replace an existing element if it exists.
  *
  * @author Daniel Meyer
  *
@@ -31,16 +31,16 @@ public interface ChildElement<T extends ModelElementInstance> extends ChildEleme
   /**
    * Sets the child element, potentially replacing an existing child element.
    *
-   * @param element
-   * @param newChildElement
+   * @param element the parent element of the child element
+   * @param newChildElement the new child element to set
    */
   void setChild(ModelElementInstance element, T newChildElement);
 
   /**
    * Returns the child element.
    *
-   * @param element
-   * @return
+   * @param element the parent element of the child element
+   * @return the child element of the parent, or null if not exist
    */
   T getChild(ModelElementInstance element);
 

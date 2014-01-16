@@ -25,11 +25,11 @@ import org.camunda.bpm.model.core.ModelException;
 public abstract class ReflectUtil {
 
   public static InputStream getResourceAsStream(String name) {
-    // Try the current Thread context classloader
+    // Try the current Thread context class loader
     ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
     InputStream resourceStream = classLoader.getResourceAsStream(name);
     if (resourceStream == null) {
-      // Finally, try the classloader for this class
+      // Finally, try the class loader for this class
       classLoader = ReflectUtil.class.getClassLoader();
       resourceStream = classLoader.getResourceAsStream(name);
     }
@@ -38,11 +38,11 @@ public abstract class ReflectUtil {
   }
 
   public static URL getResource(String name) {
-    // Try the current Thread context classloader
+    // Try the current Thread context class loader
     ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
     URL url = classLoader.getResource(name);
     if (url == null) {
-      // Finally, try the classloader for this class
+      // Finally, try the class loader for this class
       classLoader = ReflectUtil.class.getClassLoader();
       url = classLoader.getResource(name);
     }
@@ -57,7 +57,7 @@ public abstract class ReflectUtil {
    * @param parameters the parameters to pass to the constructor
    * @return the created instance
    */
-  public static <T> T createIntance(Class<T> type, Object... parameters) {
+  public static <T> T createInstance(Class<T> type, Object... parameters) {
 
     // get types for parameters
     Class<?>[] parameterTypes = new Class<?>[parameters.length];

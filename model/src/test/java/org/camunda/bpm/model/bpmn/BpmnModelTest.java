@@ -23,7 +23,7 @@ import org.junit.Rule;
 public class BpmnModelTest {
 
   @Rule
-  public ParseBpmnModelRule parseBpmnModelRule = new ParseBpmnModelRule();
+  public final ParseBpmnModelRule parseBpmnModelRule = new ParseBpmnModelRule();
 
   protected BpmnModelInstance bpmnModelInstance;
 

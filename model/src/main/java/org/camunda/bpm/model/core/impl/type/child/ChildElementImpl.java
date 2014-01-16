@@ -26,7 +26,7 @@ import org.camunda.bpm.model.core.type.ChildElement;
  */
 public class ChildElementImpl<T extends ModelElementInstance> extends NamedChildElementCollection<T> implements ChildElement<T> {
 
-  protected Class<T> elementType;
+  private final Class<T> elementType;
 
   public ChildElementImpl(Class<T> elementType, String localName, String namespaceUri, ModelElementTypeImpl containingType) {
     super(localName, namespaceUri, containingType);

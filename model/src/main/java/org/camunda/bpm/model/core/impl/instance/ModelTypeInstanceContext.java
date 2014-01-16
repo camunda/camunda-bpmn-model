@@ -23,9 +23,9 @@ import org.w3c.dom.Element;
  */
 public final class ModelTypeInstanceContext {
 
-  protected final ModelInstanceImpl model;
-  protected final Element domElement;
-  protected final ModelElementTypeImpl modelType;
+  private final ModelInstanceImpl model;
+  private final Element domElement;
+  private final ModelElementTypeImpl modelType;
 
   public ModelTypeInstanceContext(Element domElement, ModelInstanceImpl model, ModelElementTypeImpl modelType) {
     this.domElement = domElement;

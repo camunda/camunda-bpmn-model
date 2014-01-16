@@ -27,8 +27,8 @@ import org.camunda.bpm.model.core.type.ModelElementTypeBuilder;
  */
 public class ModelBuilderImpl extends ModelBuilder {
 
-  protected List<ModelElementTypeBuilderImpl> typeBuilders = new ArrayList<ModelElementTypeBuilderImpl>();
-  protected ModelImpl model;
+  private final List<ModelElementTypeBuilderImpl> typeBuilders = new ArrayList<ModelElementTypeBuilderImpl>();
+  private final ModelImpl model;
 
   public ModelBuilderImpl(String modelName) {
     model = new ModelImpl(modelName);

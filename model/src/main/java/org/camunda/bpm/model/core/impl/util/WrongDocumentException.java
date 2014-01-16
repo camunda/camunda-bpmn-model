@@ -13,9 +13,8 @@
 package org.camunda.bpm.model.core.impl.util;
 
 import org.camunda.bpm.model.core.ModelException;
-import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 
 /**
  * <p>Thrown when a Model Element is added to the wrong document</p>
@@ -27,13 +26,8 @@ public class WrongDocumentException extends ModelException {
 
   private static final long serialVersionUID = 1L;
 
-  public WrongDocumentException(Attr attributeToAdd, Document targetDocument) {
-    super("Cannot add attribute '"+attributeToAdd+"' to document '"+targetDocument+"' not created by document.");
+  public WrongDocumentException(Node nodeToAdd, Document targetDocument) {
+    super("Cannot add attribute '"+ nodeToAdd +"' to document '" + targetDocument + "' not created by document.");
   }
-
-  public WrongDocumentException(Element elementToAdd, Document targetDocument) {
-    super("Cannot add element '"+elementToAdd+"' to document '"+targetDocument+"' not created by document.");
-  }
-
 
 }

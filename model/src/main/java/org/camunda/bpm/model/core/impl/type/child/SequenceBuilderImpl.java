@@ -29,9 +29,9 @@ import org.camunda.bpm.model.core.type.SequenceBuilder;
  */
 public class SequenceBuilderImpl implements SequenceBuilder, ModelBuildOperation {
 
-  protected final ModelElementTypeImpl elementType;
+  private final ModelElementTypeImpl elementType;
 
-  protected List<ModelBuildOperation> modelBuildOperations = new ArrayList<ModelBuildOperation>();
+  private final List<ModelBuildOperation> modelBuildOperations = new ArrayList<ModelBuildOperation>();
 
   public SequenceBuilderImpl(ModelElementTypeImpl modelType) {
     this.elementType = modelType;

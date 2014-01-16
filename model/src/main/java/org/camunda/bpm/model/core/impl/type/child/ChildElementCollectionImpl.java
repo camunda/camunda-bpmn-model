@@ -36,19 +36,19 @@ public abstract class ChildElementCollectionImpl<T extends ModelElementInstance>
 
   /** the minimal count of child elements in the collection
    */
-  protected int minOccurs = 0;
+  private int minOccurs = 0;
 
   /** the maximum count of child elements in the collection.
    * An unbounded collection has a negative maxOccurs.
    */
-  protected int maxOccurs = -1;
+  int maxOccurs = -1;
 
   /** indicates whether this collection is mutable.
    */
-  protected boolean isMutable = true;
+  private boolean isMutable = true;
 
   /** the containing type of the collection */
-  protected ModelElementType containingType;
+  ModelElementType containingType;
 
   public void setMutable(boolean isMutable) {
     this.isMutable = isMutable;
@@ -64,7 +64,6 @@ public abstract class ChildElementCollectionImpl<T extends ModelElementInstance>
    * <p>To be overridden by subclasses: allows subclasses to filter the
    * actual child elements of the element in order to build the collection of
    * elements to be contained in the view represented by this collection.</p>
-   * @param modelElement
    *
    * @param modelElement the element to check
    * @return true if the element should be contained in the collection. False otherwise.
@@ -76,7 +75,7 @@ public abstract class ChildElementCollectionImpl<T extends ModelElementInstance>
    *
    * @return the view represented by this collection
    */
-  protected Collection<Element> getView(ModelElementInstanceImpl modelElement) {
+  Collection<Element> getView(ModelElementInstanceImpl modelElement) {
     NodeList childNodes = DomUtil.getChildNodes(modelElement.getDomElement());
     return DomUtil.filterNodeList(childNodes, getFilter(modelElement));
   }
@@ -103,17 +102,17 @@ public abstract class ChildElementCollectionImpl<T extends ModelElementInstance>
   }
 
   /** the "add" operation used by the collection */
-  protected void performAddOperation(ModelElementInstanceImpl modelElement, T e) {
+  void performAddOperation(ModelElementInstanceImpl modelElement, T e) {
     modelElement.addChildElement(e);
   }
 
   /** the "remove" operation used by this collection */
-  protected boolean performRemoveOperation(ModelElementInstanceImpl modelElement, Object e) {
+  boolean performRemoveOperation(ModelElementInstanceImpl modelElement, Object e) {
     return modelElement.removeChildElement((ModelElementInstanceImpl)e);
   }
 
   /** the "clear" operation used by this collection */
-  protected void performClearOperation(ModelElementInstanceImpl modelElement, Collection<Element> elementsToRemove) {
+  void performClearOperation(ModelElementInstanceImpl modelElement, Collection<Element> elementsToRemove) {
     for (Element element : elementsToRemove) {
       DomUtil.removeChild(modelElement.getDomElement(), element);
     }

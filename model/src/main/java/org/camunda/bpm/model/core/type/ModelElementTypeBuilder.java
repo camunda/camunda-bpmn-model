@@ -17,8 +17,6 @@ import org.camunda.bpm.model.core.instance.ModelElementInstance;
 
 /**
  * @author Daniel Meyer
- *
- * @param <T>
  */
 public interface ModelElementTypeBuilder {
 
@@ -26,7 +24,7 @@ public interface ModelElementTypeBuilder {
 
   ModelElementTypeBuilder extendsType(Class<? extends ModelElementInstance> extendedType);
 
-  <T extends ModelElementInstance> ModelElementTypeBuilder instanceProvider(ModelTypeIntanceProvider<T> instanceProvider);
+  <T extends ModelElementInstance> ModelElementTypeBuilder instanceProvider(ModelTypeInstanceProvider<T> instanceProvider);
 
   ModelElementTypeBuilder abstractType();
 
@@ -40,7 +38,7 @@ public interface ModelElementTypeBuilder {
 
   ModelElementType build();
 
-  public static interface ModelTypeIntanceProvider<T extends ModelElementInstance> {
+  public static interface ModelTypeInstanceProvider<T extends ModelElementInstance> {
     T newInstance(ModelTypeInstanceContext instanceContext);
   }
 

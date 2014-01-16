@@ -39,7 +39,7 @@ public class IoUtil {
   }
 
   /**
-   * Converst an {@link InputStream} to a {@link String}
+   * Convert an {@link InputStream} to a {@link String}
    *
    * @param inputStream the {@link InputStream} to convert
    * @return the resulting {@link String}
@@ -50,19 +50,20 @@ public class IoUtil {
   }
 
   /**
-   * Converst an {@link InputStream} to a {@link String}
+   * Convert an {@link InputStream} to a {@link String}
    *
    * @param inputStream the {@link InputStream} to convert
    * @param trim trigger if whitespaces are trimmed in the output
    * @return the resulting {@link String}
    * @throws IOException
-   */  public static String getStringFromInputStream(InputStream inputStream, boolean trim) throws IOException {
-    BufferedReader bufferdReader = null;
+   */
+  private static String getStringFromInputStream(InputStream inputStream, boolean trim) throws IOException {
+    BufferedReader bufferedReader = null;
     StringBuilder stringBuilder = new StringBuilder();
     try {
-      bufferdReader = new BufferedReader(new InputStreamReader(inputStream));
+      bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
       String line;
-      while ((line = bufferdReader.readLine()) != null) {
+      while ((line = bufferedReader.readLine()) != null) {
         if (trim) {
           stringBuilder.append(line.trim());
         }
@@ -72,7 +73,7 @@ public class IoUtil {
       }
     }
     finally {
-      closeSilently(bufferdReader);
+      closeSilently(bufferedReader);
     }
 
     return stringBuilder.toString();

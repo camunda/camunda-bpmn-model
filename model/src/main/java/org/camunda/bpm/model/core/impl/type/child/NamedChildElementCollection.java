@@ -27,18 +27,18 @@ import org.camunda.bpm.model.core.instance.ModelElementInstance;
 public class NamedChildElementCollection<T extends ModelElementInstance> extends ChildElementCollectionImpl<T> {
 
   /** the filter to use */
-  protected ElementNodeListFilter filter;
+  private final ElementNodeListFilter filter;
 
-  protected String namespaceUri;
+  final String namespaceUri;
 
-  protected String localName;
+  final String localName;
 
   /**
    * Crates a mutable collection.
    *
    * @param localName the local name of the elements in the same namespace as xmlElement
-   * @param namespaceUri
-   * @param containingType
+   * @param namespaceUri the namespace URI of the elements
+   * @param containingType the containing type in the collection
    */
   public NamedChildElementCollection(String localName, String namespaceUri, ModelElementTypeImpl containingType) {
     this.localName = localName;

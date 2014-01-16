@@ -37,10 +37,6 @@ public interface ModelInstance {
 
   ModelElementInstance getModelElementById(String id);
 
-  /**
-   * @param referencingType
-   * @return
-   */
   Collection<ModelElementInstance> getModelElementsByType(ModelElementType referencingType);
 
 }

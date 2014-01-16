@@ -20,7 +20,7 @@ import org.camunda.bpm.model.core.impl.instance.ModelTypeInstanceContext;
 import org.camunda.bpm.model.core.type.Attribute;
 import org.camunda.bpm.model.core.type.ModelElementType;
 import org.camunda.bpm.model.core.type.ModelElementTypeBuilder;
-import org.camunda.bpm.model.core.type.ModelElementTypeBuilder.ModelTypeIntanceProvider;
+import org.camunda.bpm.model.core.type.ModelElementTypeBuilder.ModelTypeInstanceProvider;
 
 /**
  *
@@ -39,7 +39,7 @@ public class ImportImpl extends AbstractBpmnModelElement implements Import {
 
     ModelElementTypeBuilder builder = bpmnModelBuilder.defineType(Import.class, BPMN_ELEMENT_IMPORT)
       .namespaceUri(BPMN20_NS)
-      .instanceProvider(new ModelTypeIntanceProvider<Import>() {
+      .instanceProvider(new ModelTypeInstanceProvider<Import>() {
         public Import newInstance(ModelTypeInstanceContext instanceContext) {
           return new ImportImpl(instanceContext);
         }

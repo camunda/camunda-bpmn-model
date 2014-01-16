@@ -20,7 +20,6 @@ import org.camunda.bpm.model.core.instance.ModelElementInstance;
 import org.camunda.bpm.model.core.type.Attribute;
 import org.camunda.bpm.model.core.type.ModelElementTypeBuilder;
 import org.camunda.bpm.model.core.type.SequenceBuilder;
-import org.camunda.bpm.model.core.type.StringAttributeBuilder;
 import org.camunda.bpm.model.core.type.reference.AttributeReference;
 import org.camunda.bpm.model.core.type.reference.ElementReferenceCollection;
 
@@ -34,13 +33,11 @@ import static org.camunda.bpm.model.core.testmodel.TestModelConstants.*;
  */
 public abstract class Animal extends ModelElementInstanceImpl implements ModelElementInstance {
 
-  static Attribute<String> idAttr;
-  static Attribute<String> fatherAttr;
-  static AttributeReference<Animal> fatherRef;
-  static Attribute<String> motherAttr;
-  static AttributeReference<Animal> motherRef;
-  static ElementReferenceCollection<Animal, FriendRef> friendRefColl;
-  static ElementReferenceCollection<Animal, PartnerRef> partnerRefColl;
+  private static Attribute<String> idAttr;
+  private static AttributeReference<Animal> fatherRef;
+  private static AttributeReference<Animal> motherRef;
+  private static ElementReferenceCollection<Animal, FriendRef> friendRefColl;
+  private static ElementReferenceCollection<Animal, PartnerRef> partnerRefColl;
 
   static void registerType(ModelBuilder modelBuilder) {
 
@@ -52,15 +49,13 @@ public abstract class Animal extends ModelElementInstanceImpl implements ModelEl
       .idAttribute()
       .build();
 
-    StringAttributeBuilder fatherAttrBuilder = typeBuilder.stringAttribute(ATTRIBUTE_NAME_FATHER);
-    fatherRef = fatherAttrBuilder.qNameAttributeReference(Animal.class)
+    fatherRef = typeBuilder.stringAttribute(ATTRIBUTE_NAME_FATHER)
+      .qNameAttributeReference(Animal.class)
       .build();
-    fatherAttr = fatherAttrBuilder.build();
 
-    StringAttributeBuilder motherAttrBuilder = typeBuilder.stringAttribute(ATTRIBUTE_NAME_MOTHER);
-    motherRef = motherAttrBuilder.idAttributeReference(Animal.class)
+    motherRef = typeBuilder.stringAttribute(ATTRIBUTE_NAME_MOTHER)
+      .idAttributeReference(Animal.class)
       .build();
-    motherAttr = motherAttrBuilder.build();
 
     SequenceBuilder sequence = typeBuilder.sequence();
 

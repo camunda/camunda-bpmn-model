@@ -20,7 +20,6 @@ import org.camunda.bpm.model.core.ModelBuilder;
 import org.camunda.bpm.model.core.impl.instance.ModelTypeInstanceContext;
 import org.camunda.bpm.model.core.type.ModelElementType;
 import org.camunda.bpm.model.core.type.ModelElementTypeBuilder;
-import org.camunda.bpm.model.core.type.ModelElementTypeBuilder.ModelTypeIntanceProvider;
 
 /**
  * @author Sebastian Menski
@@ -34,7 +33,7 @@ public class PropertyImpl extends BaseElementImp implements Property {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(Property.class, BPMN_ELEMENT_PROPERTY)
       .namespaceUri(BPMN20_NS)
       .extendsType(BaseElement.class)
-      .instanceProvider(new ModelTypeIntanceProvider<Property>() {
+      .instanceProvider(new ModelElementTypeBuilder.ModelTypeInstanceProvider<Property>() {
         public Property newInstance(ModelTypeInstanceContext instanceContext) {
           return new PropertyImpl(instanceContext);
         }

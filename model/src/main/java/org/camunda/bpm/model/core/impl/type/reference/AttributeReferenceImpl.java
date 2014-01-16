@@ -13,8 +13,6 @@
 
 package org.camunda.bpm.model.core.impl.type.reference;
 
-import org.camunda.bpm.model.core.ModelReferenceException;
-import org.camunda.bpm.model.core.impl.instance.ModelElementInstanceImpl;
 import org.camunda.bpm.model.core.impl.type.attribute.AttributeImpl;
 import org.camunda.bpm.model.core.instance.ModelElementInstance;
 import org.camunda.bpm.model.core.type.Attribute;
@@ -26,7 +24,7 @@ import org.camunda.bpm.model.core.type.reference.AttributeReference;
  */
 public class AttributeReferenceImpl<T extends ModelElementInstance> extends ReferenceImpl<T> implements AttributeReference<T> {
 
-  protected final AttributeImpl<String> referenceSourceAttribute;
+  private final AttributeImpl<String> referenceSourceAttribute;
 
   public AttributeReferenceImpl(AttributeImpl<String> referenceSourceAttribute) {
     this.referenceSourceAttribute = referenceSourceAttribute;

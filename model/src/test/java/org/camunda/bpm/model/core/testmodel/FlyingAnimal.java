@@ -22,7 +22,7 @@ import org.camunda.bpm.model.core.type.ModelElementTypeBuilder;
  * @author Daniel Meyer
  *
  */
-public class FlyingAnimal extends Animal {
+class FlyingAnimal extends Animal {
 
   static void registerType(ModelBuilder modelBuilder) {
 
@@ -35,7 +35,7 @@ public class FlyingAnimal extends Animal {
 
   }
 
-  public FlyingAnimal(ModelTypeInstanceContext instanceContext) {
+  FlyingAnimal(ModelTypeInstanceContext instanceContext) {
     super(instanceContext);
   }
 

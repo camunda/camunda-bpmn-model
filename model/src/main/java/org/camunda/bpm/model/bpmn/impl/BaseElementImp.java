@@ -12,21 +12,16 @@
  */
 package org.camunda.bpm.model.bpmn.impl;
 
-import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.*;
-
-import java.util.Collection;
-
 import org.camunda.bpm.model.bpmn.BaseElement;
 import org.camunda.bpm.model.bpmn.Documentation;
 import org.camunda.bpm.model.bpmn.ExtensionElements;
 import org.camunda.bpm.model.core.ModelBuilder;
 import org.camunda.bpm.model.core.impl.instance.ModelTypeInstanceContext;
-import org.camunda.bpm.model.core.type.Attribute;
-import org.camunda.bpm.model.core.type.ChildElement;
-import org.camunda.bpm.model.core.type.ChildElementCollection;
-import org.camunda.bpm.model.core.type.ModelElementType;
-import org.camunda.bpm.model.core.type.ModelElementTypeBuilder;
-import org.camunda.bpm.model.core.type.SequenceBuilder;
+import org.camunda.bpm.model.core.type.*;
+
+import java.util.Collection;
+
+import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.*;
 
 /**
  * @author Daniel Meyer

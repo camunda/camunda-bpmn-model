@@ -21,7 +21,6 @@ import org.camunda.bpm.model.core.impl.instance.ModelTypeInstanceContext;
 import org.camunda.bpm.model.core.type.Attribute;
 import org.camunda.bpm.model.core.type.ModelElementType;
 import org.camunda.bpm.model.core.type.ModelElementTypeBuilder;
-import org.camunda.bpm.model.core.type.ModelElementTypeBuilder.ModelTypeIntanceProvider;
 
 /**
  * @author Sebastian Menski
@@ -38,7 +37,7 @@ public class MessageImpl extends RootElementImpl implements Message {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(Message.class, BPMN_ELEMENT_MESSAGE)
       .namespaceUri(BPMN20_NS)
       .extendsType(RootElement.class)
-      .instanceProvider(new ModelTypeIntanceProvider<Message>() {
+      .instanceProvider(new ModelElementTypeBuilder.ModelTypeInstanceProvider<Message>() {
         public Message newInstance(ModelTypeInstanceContext instanceContext) {
           return new MessageImpl(instanceContext);
         }

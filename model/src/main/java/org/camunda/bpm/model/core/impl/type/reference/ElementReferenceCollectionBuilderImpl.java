@@ -41,12 +41,12 @@ import org.camunda.bpm.model.core.type.reference.ElementReferenceCollectionBuild
  */
 public class ElementReferenceCollectionBuilderImpl<T extends ModelElementInstance, V extends ModelElementInstance> implements ElementReferenceCollectionBuilder<T, V> {
 
-  protected final Class<V> childElementType;
-  protected final Class<T> referenceTargetClass;
-  protected final ChildElementCollectionImpl<V> collection;
-  protected final ModelElementTypeImpl containingType;
+  private final Class<V> childElementType;
+  private final Class<T> referenceTargetClass;
+  private final ChildElementCollectionImpl<V> collection;
+  private final ModelElementTypeImpl containingType;
 
-  protected ElementReferenceCollectionImpl<T, V> elementReferenceCollectionImpl;
+  ElementReferenceCollectionImpl<T, V> elementReferenceCollectionImpl;
 
   public ElementReferenceCollectionBuilderImpl(Class<V> childElementType, Class<T> referenceTargetClass, ChildElementCollectionImpl<V> collection, ModelElementTypeImpl containingType) {
     this.childElementType = childElementType;

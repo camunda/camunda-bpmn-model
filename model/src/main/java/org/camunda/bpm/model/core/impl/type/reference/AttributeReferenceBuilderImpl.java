@@ -30,9 +30,9 @@ import org.camunda.bpm.model.core.type.reference.ReferenceBuilder;
  */
 public class AttributeReferenceBuilderImpl<T extends ModelElementInstance> implements AttributeReferenceBuilder<T>, ModelBuildOperation, ReferenceBuilder<T> {
 
-  protected final AttributeImpl<String> referenceSourceAttribute;
-  protected AttributeReferenceImpl<T> attributeReferenceImpl;
-  protected final Class<T> referenceTargetElement;
+  private final AttributeImpl<String> referenceSourceAttribute;
+  AttributeReferenceImpl<T> attributeReferenceImpl;
+  private final Class<T> referenceTargetElement;
 
   /**
    * Create a new {@link AttributeReferenceBuilderImpl} from the reference source attribute

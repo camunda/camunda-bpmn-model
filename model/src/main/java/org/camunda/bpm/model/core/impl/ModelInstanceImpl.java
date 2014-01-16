@@ -36,8 +36,8 @@ import org.w3c.dom.Element;
  */
 public class ModelInstanceImpl implements ModelInstance {
 
-  protected Document document;
-  protected ModelImpl model;
+  private final Document document;
+  private final ModelImpl model;
 
   public ModelInstanceImpl(ModelImpl model, Document document) {
     this.model = model;
@@ -82,7 +82,7 @@ public class ModelInstanceImpl implements ModelInstance {
     if(modelElementType != null) {
       return newInstance(modelElementType);
     } else {
-      throw new ModelException("Cannote create intance of ModelType "+type+": no such type registered.");
+      throw new ModelException("Cannot create instance of ModelType "+type+": no such type registered.");
     }
   }
 

@@ -17,7 +17,7 @@ import static org.camunda.bpm.model.core.testmodel.TestModelConstants.*;
 import org.camunda.bpm.model.core.ModelBuilder;
 import org.camunda.bpm.model.core.impl.instance.ModelTypeInstanceContext;
 import org.camunda.bpm.model.core.type.ModelElementTypeBuilder;
-import org.camunda.bpm.model.core.type.ModelElementTypeBuilder.ModelTypeIntanceProvider;
+import org.camunda.bpm.model.core.type.ModelElementTypeBuilder.ModelTypeInstanceProvider;
 
 /**
  * @author Daniel Meyer
@@ -30,7 +30,7 @@ public class Bird extends FlyingAnimal {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(Bird.class, ELEMENT_NAME_BIRD)
       .namespaceUri(MODEL_NAMESPACE)
       .extendsType(FlyingAnimal.class)
-      .instanceProvider(new ModelTypeIntanceProvider<Bird>() {
+      .instanceProvider(new ModelTypeInstanceProvider<Bird>() {
         public Bird newInstance(ModelTypeInstanceContext instanceContext) {
           return new Bird(instanceContext);
         }

@@ -34,13 +34,13 @@ import java.util.List;
 public class ChildElementCollectionBuilderImpl<T extends ModelElementInstance> implements ChildElementCollectionBuilder<T>, ModelBuildOperation {
 
   /** The {@link ModelElementType} of the element containing the collection */
-  protected final ModelElementTypeImpl containingType;
-  protected final ChildElementCollectionImpl<T> collection;
-  protected final Class<T> childElementType;
+  final ModelElementTypeImpl containingType;
+  private final ChildElementCollectionImpl<T> collection;
+  final Class<T> childElementType;
 
-  protected ElementReferenceCollectionBuilder<?, ?> referenceBuilder;
+  private ElementReferenceCollectionBuilder<?, ?> referenceBuilder;
 
-  protected List<ModelBuildOperation> modelBuildOperations = new ArrayList<ModelBuildOperation>();
+  private final List<ModelBuildOperation> modelBuildOperations = new ArrayList<ModelBuildOperation>();
 
   public ChildElementCollectionBuilderImpl(Class<T> childElementType, String localName, String namespaceUri, ModelElementType containingType) {
     this.childElementType = childElementType;
@@ -54,11 +54,11 @@ public class ChildElementCollectionBuilderImpl<T extends ModelElementInstance> i
     this.collection = createCollectionInstance(type);
   }
 
-  protected ChildElementCollectionImpl<T> createCollectionInstance(Class<T> type) {
+  ChildElementCollectionImpl<T> createCollectionInstance(Class<T> type) {
     return new TypedChildElementCollectionImpl<T>(type, containingType);
   }
 
-  protected ChildElementCollectionImpl<T> createCollectionInstance(String localName, String namespaceUri) {
+  ChildElementCollectionImpl<T> createCollectionInstance(String localName, String namespaceUri) {
     return new NamedChildElementCollection<T>(localName, namespaceUri, containingType);
   }
 
@@ -95,7 +95,7 @@ public class ChildElementCollectionBuilderImpl<T extends ModelElementInstance> i
     return builder;
   }
 
-  public void setReferenceBuilder(ElementReferenceCollectionBuilder<?, ?> referenceBuilder) {
+  void setReferenceBuilder(ElementReferenceCollectionBuilder<?, ?> referenceBuilder) {
     if (this.referenceBuilder != null) {
       throw new ModelException("An collection cannot have more than one reference");
     }

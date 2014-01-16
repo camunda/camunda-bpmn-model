@@ -30,28 +30,28 @@ import org.camunda.bpm.model.core.type.reference.Reference;
 public abstract class AttributeImpl<T> implements Attribute<T> {
 
   /** the local name of the attribute */
-  protected String attributeName;
+  private String attributeName;
 
   /** the namespace for this attribute */
-  protected String namespaceUri;
+  private String namespaceUri;
 
   /** the default value for this attribute: the default value is returned
-   * by the {@link #getValue()} method in case the attribute is not set on the
+   * by the {@link #getValue(ModelElementInstance)} method in case the attribute is not set on the
    * domElement.
    */
-  protected T defaultValue;
+  private T defaultValue;
 
-  protected boolean isRequired = false;
+  private boolean isRequired = false;
 
-  protected boolean isIdAttribute = false;
+  private boolean isIdAttribute = false;
 
-  protected List<Reference<?>> outgoingReferences = new ArrayList<Reference<?>>();
+  private final List<Reference<?>> outgoingReferences = new ArrayList<Reference<?>>();
 
-  protected List<Reference<?>> incomingReferences = new ArrayList<Reference<?>>();
+  private final List<Reference<?>> incomingReferences = new ArrayList<Reference<?>>();
 
-  protected final ModelElementType owningElementType;
+  private final ModelElementType owningElementType;
 
-  public AttributeImpl(ModelElementType owningElementType) {
+  AttributeImpl(ModelElementType owningElementType) {
     this.owningElementType = owningElementType;
   }
 
@@ -179,8 +179,9 @@ public abstract class AttributeImpl<T> implements Attribute<T> {
   }
 
   /**
-   * indicate whether this attribute is an Id attribtue
-   * @param b
+   * Indicate whether this attribute is an Id attribute
+   *
+   * @param isIdAttribute true if attribute is an Id attribute, false otherwise
    */
   public void setId(boolean isIdAttribute) {
     this.isIdAttribute = isIdAttribute;

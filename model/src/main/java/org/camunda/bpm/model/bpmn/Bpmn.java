@@ -29,6 +29,7 @@ import javax.xml.transform.stream.StreamResult;
 import org.camunda.bpm.model.bpmn.impl.*;
 import org.camunda.bpm.model.core.Model;
 import org.camunda.bpm.model.core.ModelBuilder;
+import org.camunda.bpm.model.core.ModelException;
 import org.camunda.bpm.model.core.ModelParseException;
 import org.camunda.bpm.model.core.ModelValidationException;
 import org.camunda.bpm.model.core.impl.instance.EventDefinitionRefImpl;
@@ -47,7 +48,7 @@ public class Bpmn {
   public final static Bpmn INSTANCE = new Bpmn();
 
   /** the parser used by the Bpmn implementation. */
-  protected BpmnParser bpmnParser = new BpmnParser();
+  protected final BpmnParser bpmnParser = new BpmnParser();
 
   /** The {@link Model}
    */
@@ -94,7 +95,7 @@ public class Bpmn {
    *
    * @param stream the {@link OutputStream} to write the {@link BpmnModelInstanceImpl} to
    * @param model the {@link BpmnModelInstanceImpl} to write
-   * @throws ModelModelException if the model cannot be written
+   * @throws ModelException if the model cannot be written
    * @throws ModelValidationException if the model is not valid
    */
   public static void writeModelToStream(OutputStream stream, BpmnModelInstanceImpl model) {
@@ -206,7 +207,7 @@ public class Bpmn {
   }
 
   /**
-   * @return the {@link BpmnModelTypeMap} instance to use
+   * @return the {@link Model} instance to use
    */
   public Model getBpmnModel() {
     return bpmnModel;

@@ -19,7 +19,7 @@ import org.camunda.bpm.model.core.ModelBuilder;
  * @author Daniel Meyer
  *
  */
-public class TestModel {
+class TestModel {
 
   private static Model model;
 

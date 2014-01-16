@@ -29,7 +29,7 @@ import org.camunda.bpm.model.core.type.StringAttributeBuilder;
  */
 public class StringAttributeBuilderImpl extends AttributeBuilderImpl<String> implements StringAttributeBuilder {
 
-  protected AttributeReferenceBuilderImpl<?> referenceBuilder;
+  private AttributeReferenceBuilderImpl<?> referenceBuilder;
 
   public StringAttributeBuilderImpl(String attributeName, ModelElementTypeImpl modelType) {
     super(attributeName, modelType, new StringAttribute(modelType));
@@ -54,7 +54,7 @@ public class StringAttributeBuilderImpl extends AttributeBuilderImpl<String> imp
     return referenceBuilder;
   }
 
-  protected <V extends ModelElementInstance> void setAttributeReference(AttributeReferenceBuilderImpl<V> referenceBuilder) {
+  <V extends ModelElementInstance> void setAttributeReference(AttributeReferenceBuilderImpl<V> referenceBuilder) {
     if (this.referenceBuilder != null) {
       throw new ModelException("An attribute cannot have more than one reference");
     }

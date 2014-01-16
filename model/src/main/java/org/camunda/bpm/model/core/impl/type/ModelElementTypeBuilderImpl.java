@@ -36,12 +36,12 @@ import org.camunda.bpm.model.core.type.StringAttributeBuilder;
  */
 public class ModelElementTypeBuilderImpl implements ModelElementTypeBuilder, ModelBuildOperation {
 
-  protected ModelElementTypeImpl modelType;
-  protected ModelImpl model;
-  protected Class<? extends ModelElementInstance> instanceType;
+  private final ModelElementTypeImpl modelType;
+  private final ModelImpl model;
+  private final Class<? extends ModelElementInstance> instanceType;
 
-  protected List<ModelBuildOperation> modelBuildOperations = new ArrayList<ModelBuildOperation>();
-  protected Class<? extends ModelElementInstance> extendedType;
+  private final List<ModelBuildOperation> modelBuildOperations = new ArrayList<ModelBuildOperation>();
+  private Class<? extends ModelElementInstance> extendedType;
 
   public ModelElementTypeBuilderImpl(Class<? extends ModelElementInstance> instanceType, String name, ModelImpl model) {
     this.instanceType = instanceType;
@@ -54,7 +54,7 @@ public class ModelElementTypeBuilderImpl implements ModelElementTypeBuilder, Mod
     return this;
   }
 
-  public <T extends ModelElementInstance> ModelElementTypeBuilder instanceProvider(ModelTypeIntanceProvider<T> instanceProvider) {
+  public <T extends ModelElementInstance> ModelElementTypeBuilder instanceProvider(ModelTypeInstanceProvider<T> instanceProvider) {
     modelType.setInstanceProvider(instanceProvider);
     return this;
   }

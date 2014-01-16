@@ -26,10 +26,10 @@ import org.camunda.bpm.model.core.type.AttributeBuilder;
  */
 public abstract class AttributeBuilderImpl<T> implements AttributeBuilder<T>, ModelBuildOperation {
 
-  protected final AttributeImpl<T> attribute;
-  protected final ModelElementTypeImpl modelType;
+  final AttributeImpl<T> attribute;
+  private final ModelElementTypeImpl modelType;
 
-  public AttributeBuilderImpl(String attributeName, ModelElementTypeImpl modelType, AttributeImpl<T> attribute) {
+  AttributeBuilderImpl(String attributeName, ModelElementTypeImpl modelType, AttributeImpl<T> attribute) {
     this.modelType = modelType;
     this.attribute = attribute;
     attribute.setAttributeName(attributeName);

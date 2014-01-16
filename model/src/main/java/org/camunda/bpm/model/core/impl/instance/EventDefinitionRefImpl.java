@@ -14,7 +14,6 @@
 package org.camunda.bpm.model.core.impl.instance;
 
 import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.*;
-import static org.camunda.bpm.model.core.type.ModelElementTypeBuilder.ModelTypeIntanceProvider;
 
 import org.camunda.bpm.model.core.ModelBuilder;
 import org.camunda.bpm.model.core.instance.QNameElement;
@@ -28,7 +27,7 @@ public class EventDefinitionRefImpl extends ModelElementInstanceImpl implements 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(EventDefinitionRefImpl.class, BPMN_ELEMENT_EVENT_DEFINITION_REF)
       .namespaceUri(BPMN20_NS)
-      .instanceProvider(new ModelTypeIntanceProvider<EventDefinitionRefImpl>() {
+      .instanceProvider(new ModelElementTypeBuilder.ModelTypeInstanceProvider<EventDefinitionRefImpl>() {
         public EventDefinitionRefImpl newInstance(ModelTypeInstanceContext instanceContext) {
           return new EventDefinitionRefImpl(instanceContext);
         }

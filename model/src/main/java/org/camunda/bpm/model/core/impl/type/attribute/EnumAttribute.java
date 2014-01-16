@@ -22,7 +22,7 @@ import org.camunda.bpm.model.core.type.ModelElementType;
  */
 public class EnumAttribute<T extends Enum<T>> extends AttributeImpl<T> {
 
-  protected Class<T> type;
+  private final Class<T> type;
 
   public EnumAttribute(ModelElementType owningElementType, Class<T> type) {
     super(owningElementType);

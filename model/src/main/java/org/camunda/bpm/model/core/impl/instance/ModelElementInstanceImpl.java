@@ -39,11 +39,11 @@ import org.w3c.dom.NodeList;
 public abstract class ModelElementInstanceImpl implements ModelElementInstance {
 
   /** the wrapped DOM {@link Element} */
-  protected final Element domElement;
+  private final Element domElement;
 
   protected final ModelInstanceImpl modelInstance;
 
-  protected final ModelElementTypeImpl elementType;
+  private final ModelElementTypeImpl elementType;
 
   public ModelElementInstanceImpl(ModelTypeInstanceContext instanceContext) {
     this.domElement = instanceContext.getDomElement();
@@ -108,7 +108,7 @@ public abstract class ModelElementInstanceImpl implements ModelElementInstance {
    * @param newChild the new child element
    */
   @SuppressWarnings("unchecked")
-  protected void replaceChildElement(ModelElementInstanceImpl existingChild, ModelElementInstanceImpl newChild) {
+  void replaceChildElement(ModelElementInstanceImpl existingChild, ModelElementInstanceImpl newChild) {
 
     Element existingChildDomElement = existingChild.getDomElement();
     Element newChildDomElement = newChild.getDomElement();
@@ -229,7 +229,7 @@ public abstract class ModelElementInstanceImpl implements ModelElementInstance {
    * @param childElementType the child element type to search for
    * @return a collection of elements of the given type
    */
-  protected Collection<ModelElementInstance> getChildElementsByType(ModelElementType childElementType) {
+  Collection<ModelElementInstance> getChildElementsByType(ModelElementType childElementType) {
     List<Element> elements = DomUtil.filterNodeListByName(DomUtil.getChildNodes(domElement), childElementType.getTypeName(), childElementType.getTypeNamespace());
     return ModelUtil.getModelElementCollection(elements, modelInstance);
   }
@@ -334,14 +334,14 @@ public abstract class ModelElementInstanceImpl implements ModelElementInstance {
     DomUtil.setTextContent(domElement, textContent);
   }
 
-  public void unlinkAllReferences() {
+  void unlinkAllReferences() {
     Collection<Attribute<?>> attributes = elementType.getAllAttributes();
     for (Attribute<?> attribute : attributes) {
       ((AttributeImpl<?>) attribute).unlinkReference(this);
     }
   }
 
-  public void unlinkAllChildReferences() {
+  void unlinkAllChildReferences() {
     List<ModelElementType> childElementTypes = elementType.getChildElementTypes();
     for (ModelElementType type : childElementTypes) {
       Collection<ModelElementInstance> childElementsForType = getChildElementsByType(type);

@@ -27,7 +27,7 @@ import org.camunda.bpm.model.core.type.ChildElementCollection;
 import org.camunda.bpm.model.core.type.ModelElementType;
 import org.camunda.bpm.model.core.type.ModelElementTypeBuilder;
 import org.camunda.bpm.model.core.type.SequenceBuilder;
-import org.camunda.bpm.model.core.type.ModelElementTypeBuilder.ModelTypeIntanceProvider;
+import org.camunda.bpm.model.core.type.ModelElementTypeBuilder.ModelTypeInstanceProvider;
 
 /**
  *
@@ -49,7 +49,7 @@ public class ProcessImpl extends CallableElementImpl implements Process {
     ModelElementTypeBuilder builder = modelBuilder.defineType(Process.class, BPMN_ELEMENT_PROCESS)
       .namespaceUri(BPMN20_NS)
       .extendsType(CallableElement.class)
-      .instanceProvider(new ModelTypeIntanceProvider<Process>() {
+      .instanceProvider(new ModelTypeInstanceProvider<Process>() {
         public Process newInstance(ModelTypeInstanceContext instanceContext) {
           return new ProcessImpl(instanceContext);
         }
