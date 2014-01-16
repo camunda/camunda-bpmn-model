@@ -17,8 +17,10 @@ import org.camunda.bpm.xml.model.impl.instance.ModelElementInstanceImpl;
 import org.camunda.bpm.xml.model.impl.instance.ModelTypeInstanceContext;
 import org.camunda.bpm.xml.model.impl.type.reference.AttributeReferenceImpl;
 import org.camunda.bpm.xml.model.instance.ModelElementInstance;
-import org.camunda.bpm.xml.model.type.attribute.Attribute;
+import org.camunda.bpm.xml.model.testmodel.Gender;
 import org.camunda.bpm.xml.model.type.ModelElementTypeBuilder;
+import org.camunda.bpm.xml.model.type.attribute.Attribute;
+import org.camunda.bpm.xml.model.type.child.ChildElementCollection;
 import org.camunda.bpm.xml.model.type.child.SequenceBuilder;
 import org.camunda.bpm.xml.model.type.reference.AttributeReference;
 import org.camunda.bpm.xml.model.type.reference.ElementReferenceCollection;
@@ -34,10 +36,14 @@ import static org.camunda.bpm.xml.model.testmodel.TestModelConstants.*;
 public abstract class Animal extends ModelElementInstanceImpl implements ModelElementInstance {
 
   private static Attribute<String> idAttr;
+  private static Attribute<String> nameAttr;
   private static AttributeReference<Animal> fatherRef;
   private static AttributeReference<Animal> motherRef;
-  private static ElementReferenceCollection<Animal, FriendRef> friendRefColl;
-  private static ElementReferenceCollection<Animal, PartnerRef> partnerRefColl;
+  private static Attribute<Boolean> isEndangeredAttr;
+  private static Attribute<Gender> genderAttr;
+  private static Attribute<Integer> ageAttr;
+  private static ChildElementCollection<RelationshipDefinition> relationshipDefinitionsColl;
+  private static ElementReferenceCollection<RelationshipDefinition, RelationshipDefinitionRef> relationshipDefinitionRefsColl;
 
   public static void registerType(ModelBuilder modelBuilder) {
 
@@ -49,24 +55,36 @@ public abstract class Animal extends ModelElementInstanceImpl implements ModelEl
       .idAttribute()
       .build();
 
+    nameAttr = typeBuilder.stringAttribute(ATTRIBUTE_NAME_NAME)
+      .build();
+
     fatherRef = typeBuilder.stringAttribute(ATTRIBUTE_NAME_FATHER)
       .qNameAttributeReference(Animal.class)
       .build();
 
     motherRef = typeBuilder.stringAttribute(ATTRIBUTE_NAME_MOTHER)
-      .idAttributeReference(Animal.class)
+      .qNameAttributeReference(Animal.class)
+      .build();
+
+    isEndangeredAttr = typeBuilder.booleanAttribute(ATTRIBUTE_NAME_IS_ENDANGERED)
+      .defaultValue(false)
+      .build();
+
+    genderAttr = typeBuilder.enumAttribute(ATTRIBUTE_NAME_GENDER, Gender.class)
+      .required()
+      .build();
+
+    ageAttr = typeBuilder.integerAttribute(ATTRIBUTE_NAME_AGE)
       .build();
 
     SequenceBuilder sequence = typeBuilder.sequence();
 
-    friendRefColl = sequence.elementCollection(FriendRef.class, ELEMENT_NAME_FRIEND_REF)
-      .qNameElementReferenceCollection(Animal.class)
+    relationshipDefinitionsColl = sequence.elementCollection(RelationshipDefinition.class, TYPE_NAME_RELATIONSHIP_DEFINITION)
       .build();
 
-    partnerRefColl = sequence.elementCollection(PartnerRef.class, ELEMENT_NAME_PARTNER_REF)
-      .idElementReferenceCollection(Animal.class)
+    relationshipDefinitionRefsColl = sequence.elementCollection(RelationshipDefinitionRef.class, ELEMENT_NAME_RELATIONSHIP_DEFINITION_REF)
+      .qNameElementReferenceCollection(RelationshipDefinition.class)
       .build();
-
 
     typeBuilder.build();
   }
@@ -83,27 +101,64 @@ public abstract class Animal extends ModelElementInstanceImpl implements ModelEl
     idAttr.setValue(this, id);
   }
 
-  public void setMother(Animal mother) {
-    ((AttributeReferenceImpl<Animal>) motherRef).setReferencedElement(this, mother);
+  public String getName() {
+    return nameAttr.getValue(this);
   }
 
-  public Animal getMother() {
-    return motherRef.getReferencedElement(this);
-  }
-
-  public void setFather(Animal father) {
-    ((AttributeReferenceImpl<Animal>) fatherRef).setReferencedElement(this, father);
+  public void setName(String name) {
+    nameAttr.setValue(this, name);
   }
 
   public Animal getFather() {
     return fatherRef.getReferencedElement(this);
   }
 
-  public Collection<Animal> getFriendRefs() {
-    return friendRefColl.getReferenceTargetElements(this);
+  public void setFather(Animal father) {
+    ((AttributeReferenceImpl<Animal>) fatherRef).setReferencedElement(this, father);
   }
 
-  public Collection<Animal> getPartnerRefs() {
-    return partnerRefColl.getReferenceTargetElements(this);
+  public Animal getMother() {
+    return motherRef.getReferencedElement(this);
   }
+
+  public void setMother(Animal mother) {
+    ((AttributeReferenceImpl<Animal>) motherRef).setReferencedElement(this, mother);
+  }
+
+  public boolean isEndangered() {
+    return isEndangeredAttr.getValue(this);
+  }
+
+  public void setIsEndangered(boolean isEndangered) {
+    isEndangeredAttr.setValue(this, isEndangered);
+  }
+
+  public Gender getGender() {
+    return genderAttr.getValue(this);
+  }
+
+  public void setGender(Gender gender) {
+    genderAttr.setValue(this, gender);
+  }
+
+  public int getAge() {
+    return ageAttr.getValue(this);
+  }
+
+  public void setAge(int age) {
+    ageAttr.setValue(this, age);
+  }
+
+  public Collection<RelationshipDefinition> getRelationshipDefinitions() {
+    return relationshipDefinitionsColl.get(this);
+  }
+
+  public Collection<RelationshipDefinition> getRelationshipDefinitionsRef() {
+    return relationshipDefinitionRefsColl.getReferenceTargetElements(this);
+  }
+
+  public Collection<RelationshipDefinitionRef> getRelationshipDefinitionRefElements() {
+    return relationshipDefinitionRefsColl.getReferenceSourceCollection().get(this);
+  }
+
 }

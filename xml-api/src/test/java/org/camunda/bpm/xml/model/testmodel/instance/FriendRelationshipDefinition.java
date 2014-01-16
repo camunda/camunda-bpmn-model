@@ -13,32 +13,35 @@
 
 package org.camunda.bpm.xml.model.testmodel.instance;
 
-import static org.camunda.bpm.xml.model.testmodel.TestModelConstants.*;
-
 import org.camunda.bpm.xml.model.ModelBuilder;
-import org.camunda.bpm.xml.model.impl.instance.ModelElementInstanceImpl;
 import org.camunda.bpm.xml.model.impl.instance.ModelTypeInstanceContext;
-import org.camunda.bpm.xml.model.instance.QNameElement;
 import org.camunda.bpm.xml.model.type.ModelElementTypeBuilder;
+
+import static org.camunda.bpm.xml.model.testmodel.TestModelConstants.MODEL_NAMESPACE;
+import static org.camunda.bpm.xml.model.testmodel.TestModelConstants.TYPE_NAME_FRIEND_RELATIONSHIP_DEFINITION;
+import static org.camunda.bpm.xml.model.type.ModelElementTypeBuilder.ModelTypeInstanceProvider;
 
 /**
  * @author Sebastian Menski
  */
-public class FriendRef extends ModelElementInstanceImpl implements QNameElement {
+public class FriendRelationshipDefinition extends RelationshipDefinition {
 
   public static void registerType(ModelBuilder modelBuilder) {
-    ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(FriendRef.class, ELEMENT_NAME_FRIEND_REF)
+    ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(FriendRelationshipDefinition.class, TYPE_NAME_FRIEND_RELATIONSHIP_DEFINITION)
       .namespaceUri(MODEL_NAMESPACE)
-      .instanceProvider(new ModelElementTypeBuilder.ModelTypeInstanceProvider<FriendRef>() {
-        public FriendRef newInstance(ModelTypeInstanceContext instanceContext) {
-          return new FriendRef(instanceContext);
+      .extendsType(RelationshipDefinition.class)
+      .instanceProvider(new ModelTypeInstanceProvider<FriendRelationshipDefinition>() {
+        @Override
+        public FriendRelationshipDefinition newInstance(ModelTypeInstanceContext instanceContext) {
+          return new FriendRelationshipDefinition(instanceContext);
         }
       });
 
     typeBuilder.build();
   }
 
-  public FriendRef(ModelTypeInstanceContext instanceContext) {
+  public FriendRelationshipDefinition(ModelTypeInstanceContext instanceContext) {
     super(instanceContext);
   }
+
 }

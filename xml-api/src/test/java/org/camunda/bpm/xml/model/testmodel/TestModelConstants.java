@@ -23,15 +23,22 @@ public abstract class TestModelConstants {
 
   public final static String TYPE_NAME_ANIMAL = "animal";
   public final static String TYPE_NAME_FLYING_ANIMAL = "flyingAnimal";
+  public final static String TYPE_NAME_CHILD_RELATIONSHIP_DEFINITION = "childRelationshipDefinition";
+  public final static String TYPE_NAME_FRIEND_RELATIONSHIP_DEFINITION = "friendRelationshipDefinition";
+  public final static String TYPE_NAME_RELATIONSHIP_DEFINITION = "relationshipDefinition";
 
   public final static String ELEMENT_NAME_ANIMALS = "animals";
   public final static String ELEMENT_NAME_BIRD = "bird";
-  public final static String ELEMENT_NAME_FRIEND_REF = "friendRef";
-  public final static String ELEMENT_NAME_PARTNER_REF = "partnerRef";
+  public final static String ELEMENT_NAME_RELATIONSHIP_DEFINITION_REF = "relationshipDefinitionRef";
+  public final static String ELEMENT_NAME_FLIGHT_PARTNER_REF = "flightPartnerRef";
 
   public final static String ATTRIBUTE_NAME_ID = "id";
+  public final static String ATTRIBUTE_NAME_NAME = "name";
   public final static String ATTRIBUTE_NAME_FATHER = "father";
   public final static String ATTRIBUTE_NAME_MOTHER = "mother";
+  public final static String ATTRIBUTE_NAME_IS_ENDANGERED = "isEndangered";
+  public final static String ATTRIBUTE_NAME_GENDER = "gender";
+  public final static String ATTRIBUTE_NAME_AGE = "age";
 
   private TestModelConstants() {
 

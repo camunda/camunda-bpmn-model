@@ -30,10 +30,13 @@ class TestModel {
 
       Animals.registerType(modelBuilder);
       Animal.registerType(modelBuilder);
-      FlyingAnimal.registerType(modelBuilder);
       Bird.registerType(modelBuilder);
-      FriendRef.registerType(modelBuilder);
-      PartnerRef.registerType(modelBuilder);
+      ChildRelationshipDefinition.registerType(modelBuilder);
+      FlightPartnerRef.registerType(modelBuilder);
+      FlyingAnimal.registerType(modelBuilder);
+      FriendRelationshipDefinition.registerType(modelBuilder);
+      RelationshipDefinition.registerType(modelBuilder);
+      RelationshipDefinitionRef.registerType(modelBuilder);
 
       model = modelBuilder.build();
     }

@@ -35,11 +35,14 @@ public interface ModelElementTypeBuilder {
 
   StringAttributeBuilder stringAttribute(String attributeName);
 
+  AttributeBuilder<Integer> integerAttribute(String attributeName);
+
   <V extends Enum<V>> AttributeBuilder<V> enumAttribute(String attributeName, Class<V> enumType);
 
   SequenceBuilder sequence();
 
   ModelElementType build();
+
 
   public static interface ModelTypeInstanceProvider<T extends ModelElementInstance> {
     T newInstance(ModelTypeInstanceContext instanceContext);

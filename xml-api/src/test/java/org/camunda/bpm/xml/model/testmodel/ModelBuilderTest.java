@@ -12,12 +12,12 @@
  */
 package org.camunda.bpm.xml.model.testmodel;
 
-import static org.camunda.bpm.xml.model.testmodel.TestModelConstants.*;
-import static org.fest.assertions.Assertions.assertThat;
-
 import org.camunda.bpm.xml.model.Model;
 import org.camunda.bpm.xml.model.ModelBuilder;
 import org.junit.Test;
+
+import static org.camunda.bpm.xml.model.testmodel.TestModelConstants.MODEL_NAME;
+import static org.fest.assertions.Assertions.assertThat;
 
 /**
  * @author Daniel Meyer

@@ -12,9 +12,6 @@
  */
 package org.camunda.bpm.xml.model.testmodel;
 
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.validation.SchemaFactory;
-
 import org.camunda.bpm.xml.model.ModelInstance;
 import org.camunda.bpm.xml.model.ModelValidationException;
 import org.camunda.bpm.xml.model.impl.ModelImpl;
@@ -23,6 +20,9 @@ import org.camunda.bpm.xml.model.impl.parser.AbstractModelParser;
 import org.camunda.bpm.xml.model.impl.util.ReflectUtil;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
+
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.validation.SchemaFactory;
 
 /**
  * @author Daniel Meyer

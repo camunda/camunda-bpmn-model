@@ -13,13 +13,13 @@
 package org.camunda.bpm.xml.model.testmodel;
 
 import org.camunda.bpm.xml.model.ModelInstance;
+import org.camunda.bpm.xml.model.impl.ModelInstanceImpl;
 import org.camunda.bpm.xml.model.instance.ModelElementInstance;
 import org.camunda.bpm.xml.model.testmodel.instance.Animals;
 import org.camunda.bpm.xml.model.testmodel.instance.Bird;
-import org.camunda.bpm.xml.model.testmodel.TestModelParser;
 import org.junit.Test;
 
-import static org.fest.assertions.Assertions.*;
+import static org.fest.assertions.Assertions.assertThat;
 
 /**
  * @author Daniel Meyer
@@ -63,29 +63,26 @@ public class ModelElementInstanceTest {
     assertThat(hedwig.getRawTextContent()).isEqualTo("\n        some text content with inner\n        line breaks\n    ");
   }
 
-  private static Bird createBird(ModelInstance modelInstance, String id) {
+  private static Bird createBird(ModelInstance modelInstance, String id, Gender gender) {
     Bird bird = modelInstance.newInstance(Bird.class);
     bird.setId(id);
+    bird.setGender(gender);
     ((Animals) modelInstance.getDocumentElement()).getAnimals().add(bird);
     return bird;
   }
 
   @Test
   public void shouldUpdateReference() {
-    ModelInstance modelInstance = new TestModelParser().getEmptyModel();
+    TestModelParser modelParser = new TestModelParser();
+    ModelInstance modelInstance = modelParser.getEmptyModel();
     Animals animals = modelInstance.newInstance(Animals.class);
     modelInstance.setDocumentElement(animals);
 
     // create some birds
-    Bird tweety = createBird(modelInstance, "tweety");
-    Bird fiffy = createBird(modelInstance, "fiffy");
-    Bird daffy = createBird(modelInstance, "daffy");
-    Bird donald = createBird(modelInstance, "donald");
-    Bird daisy = createBird(modelInstance, "daisy");
-    Bird henri = createBird(modelInstance, "henri");
-    Bird rowdy = createBird(modelInstance, "rowdy");
-    Bird speedy = createBird(modelInstance, "speedy");
-    Bird timmy = createBird(modelInstance, "timmy");
+    Bird tweety = createBird(modelInstance, "tweety", Gender.Female);
+    Bird fiffy = createBird(modelInstance, "fiffy", Gender.Female);
+    Bird daffy = createBird(modelInstance, "daffy", Gender.Male);
+    Bird timmy = createBird(modelInstance, "timmy", Gender.Unknown);
 
     // set references
     assertThat(tweety.getMother()).isNull();
@@ -98,42 +95,12 @@ public class ModelElementInstanceTest {
     assertThat(tweety.getFather()).isNotNull();
     assertThat(tweety.getFather()).isEqualTo(daffy);
 
-    assertThat(tweety.getFriendRefs()).isEmpty();
-    tweety.getFriendRefs().add(donald);
-    tweety.getFriendRefs().add(daisy);
-    tweety.getFriendRefs().add(henri);
-    assertThat(tweety.getFriendRefs()).isNotEmpty();
-    assertThat(tweety.getFriendRefs()).hasSize(3);
-    assertThat(tweety.getFriendRefs()).contains(donald, daisy, henri);
-    assertThat(tweety.getFriendRefs()).excludes(fiffy, daffy, rowdy, speedy, timmy);
-
-    assertThat(tweety.getPartnerRefs()).isEmpty();
-    tweety.getPartnerRefs().add(rowdy);
-    tweety.getPartnerRefs().add(speedy);
-    assertThat(tweety.getPartnerRefs()).isNotEmpty();
-    assertThat(tweety.getPartnerRefs()).hasSize(2);
-    assertThat(tweety.getPartnerRefs()).contains(rowdy, speedy);
-    assertThat(tweety.getPartnerRefs()).excludes(fiffy, daffy, donald, daisy, henri, timmy);
-
     // change ids
     fiffy.setId("mother");
     assertThat(tweety.getMother()).isEqualTo(fiffy);
 
     daffy.setId("father");
     assertThat(tweety.getFather()).isEqualTo(daffy);
-
-    donald.setId("friend1");
-    daisy.setId("friend2");
-    henri.setId("friend3");
-    assertThat(tweety.getFriendRefs()).hasSize(3);
-    assertThat(tweety.getFriendRefs()).contains(donald, daisy, henri);
-    assertThat(tweety.getFriendRefs()).excludes(fiffy, daffy, rowdy, speedy, timmy);
-
-    rowdy.setId("partner1");
-    speedy.setId("partner2");
-    assertThat(tweety.getPartnerRefs()).hasSize(2);
-    assertThat(tweety.getPartnerRefs()).contains(rowdy, speedy);
-    assertThat(tweety.getPartnerRefs()).excludes(fiffy, daffy, donald, daisy, henri, timmy);
 
     // replace birds
     fiffy.replaceElement(timmy);
@@ -146,24 +113,6 @@ public class ModelElementInstanceTest {
     timmy.replaceElement(daffy);
     assertThat(tweety.getFather()).isEqualTo(daffy);
 
-    daisy.replaceElement(timmy);
-    assertThat(tweety.getFriendRefs()).hasSize(3);
-    assertThat(tweety.getFriendRefs()).contains(donald, timmy, henri);
-    assertThat(tweety.getFriendRefs()).excludes(fiffy, daffy, rowdy, speedy, daisy);
-    timmy.replaceElement(daisy);
-    assertThat(tweety.getFriendRefs()).hasSize(3);
-    assertThat(tweety.getFriendRefs()).contains(donald, daisy, henri);
-    assertThat(tweety.getFriendRefs()).excludes(fiffy, daffy, rowdy, speedy, timmy);
-
-    speedy.replaceElement(timmy);
-    assertThat(tweety.getPartnerRefs()).hasSize(2);
-    assertThat(tweety.getPartnerRefs()).contains(rowdy, timmy);
-    assertThat(tweety.getPartnerRefs()).excludes(fiffy, daffy, donald, daisy, henri, speedy);
-    timmy.replaceElement(speedy);
-    assertThat(tweety.getPartnerRefs()).hasSize(2);
-    assertThat(tweety.getPartnerRefs()).contains(rowdy, speedy);
-    assertThat(tweety.getPartnerRefs()).excludes(fiffy, daffy, donald, daisy, henri, timmy);
-
     // remove id
     fiffy.removeAttribute("id");
     assertThat(tweety.getMother()).isNull();
@@ -171,15 +120,8 @@ public class ModelElementInstanceTest {
     daffy.removeAttribute("id");
     assertThat(tweety.getFather()).isNull();
 
-    donald.removeAttribute("id");
-    daisy.removeAttribute("id");
-    henri.removeAttribute("id");
-    assertThat(tweety.getFriendRefs()).isEmpty();
-
-    rowdy.removeAttribute("id");
-    speedy.removeAttribute("id");
-    assertThat(tweety.getPartnerRefs()).isEmpty();
-
+    // validate model
+    modelParser.validateModel(((ModelInstanceImpl) modelInstance).getDocument());
   }
 
 }

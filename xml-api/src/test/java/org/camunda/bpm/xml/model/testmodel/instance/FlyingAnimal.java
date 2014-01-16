@@ -12,17 +12,23 @@
  */
 package org.camunda.bpm.xml.model.testmodel.instance;
 
-import static org.camunda.bpm.xml.model.testmodel.TestModelConstants.*;
-
 import org.camunda.bpm.xml.model.ModelBuilder;
 import org.camunda.bpm.xml.model.impl.instance.ModelTypeInstanceContext;
 import org.camunda.bpm.xml.model.type.ModelElementTypeBuilder;
+import org.camunda.bpm.xml.model.type.child.SequenceBuilder;
+import org.camunda.bpm.xml.model.type.reference.ElementReferenceCollection;
+
+import java.util.Collection;
+
+import static org.camunda.bpm.xml.model.testmodel.TestModelConstants.*;
 
 /**
  * @author Daniel Meyer
  *
  */
-public class FlyingAnimal extends Animal {
+public abstract class FlyingAnimal extends Animal {
+
+  private static ElementReferenceCollection<FlyingAnimal, FlightPartnerRef> flightPartnerRefsColl;
 
   public static void registerType(ModelBuilder modelBuilder) {
 
@@ -30,6 +36,12 @@ public class FlyingAnimal extends Animal {
       .namespaceUri(MODEL_NAMESPACE)
       .extendsType(Animal.class)
       .abstractType();
+
+    SequenceBuilder sequence = typeBuilder.sequence();
+
+    flightPartnerRefsColl = sequence.elementCollection(FlightPartnerRef.class, ELEMENT_NAME_FLIGHT_PARTNER_REF)
+      .idElementReferenceCollection(FlyingAnimal.class)
+      .build();
 
     typeBuilder.build();
 
@@ -39,4 +51,11 @@ public class FlyingAnimal extends Animal {
     super(instanceContext);
   }
 
+  public Collection<FlyingAnimal> getFlightPartnerRefs() {
+    return flightPartnerRefsColl.getReferenceTargetElements(this);
+  }
+
+  public Collection<FlightPartnerRef> getFlightPartnerRefElements() {
+    return flightPartnerRefsColl.getReferenceSourceCollection().get(this);
+  }
 }

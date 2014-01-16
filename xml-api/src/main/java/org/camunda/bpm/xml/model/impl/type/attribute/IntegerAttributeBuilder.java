@@ -11,11 +11,16 @@
  * limitations under the License.
  */
 
-package org.camunda.bpm.xml.model.instance;
+package org.camunda.bpm.xml.model.impl.type.attribute;
+
+import org.camunda.bpm.xml.model.impl.type.ModelElementTypeImpl;
 
 /**
  * @author Sebastian Menski
  */
-public interface QNameElement extends ModelElementInstance {
+public class IntegerAttributeBuilder extends AttributeBuilderImpl<Integer> {
 
+  public IntegerAttributeBuilder(String attributeName, ModelElementTypeImpl modelType) {
+    super(attributeName, modelType, new IntegerAttribute(modelType));
+  }
 }
