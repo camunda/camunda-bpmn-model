@@ -96,7 +96,7 @@ public class ReferenceTest extends BpmnModelTest {
     Message newMessage = testBpmnModelInstance.newInstance(Message.class);
     newMessage.setId("new-message-id");
 
-    message.replaceElement(newMessage);
+    message.replaceWithElement(newMessage);
 
     assertThat(messageEventDefinition.getMessageRef()).isEqualTo(newMessage.getId());
   }
@@ -131,7 +131,7 @@ public class ReferenceTest extends BpmnModelTest {
     otherMessageEventDefinition.setId("other-message-event-definition-id");
     Collection<EventDefinition> eventDefinitionRefs = startEvent.getEventDefinitionRefs();
     assertThat(eventDefinitionRefs).contains(messageEventDefinition);
-    messageEventDefinition.replaceElement(otherMessageEventDefinition);
+    messageEventDefinition.replaceWithElement(otherMessageEventDefinition);
     assertThat(eventDefinitionRefs).excludes(messageEventDefinition);
     assertThat(eventDefinitionRefs).contains(otherMessageEventDefinition);
   }
