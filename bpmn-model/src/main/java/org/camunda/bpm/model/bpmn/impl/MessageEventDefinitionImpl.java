@@ -64,7 +64,7 @@ public class MessageEventDefinitionImpl extends EventDefinitionImpl implements M
    * @return the message or null if not set
    */
   public Message getMessage() {
-    return messageRef.getReferencedElement(this);
+    return messageRef.getReferenceTargetElement(this);
   }
 
   /**
@@ -103,7 +103,7 @@ public class MessageEventDefinitionImpl extends EventDefinitionImpl implements M
    * @param message the reference target message
    */
   public void setMessage(Message message) {
-    ((AttributeReferenceImpl<Message>) messageRef).setReferencedElement(this, message);
+    ((AttributeReferenceImpl<Message>) messageRef).setReferenceTargetElement(this, message);
   }
 
 }
