@@ -13,7 +13,8 @@
 package org.camunda.bpm.model.bpmn.impl;
 
 import org.camunda.bpm.model.bpmn.CallableElement;
-import org.camunda.bpm.model.bpmn.RootElement;
+import org.camunda.bpm.model.bpmn.impl.instance.RootElementImpl;
+import org.camunda.bpm.model.bpmn.instance.RootElement;
 import org.camunda.bpm.model.xml.ModelBuilder;
 import org.camunda.bpm.model.xml.impl.instance.ModelTypeInstanceContext;
 import org.camunda.bpm.model.xml.type.attribute.Attribute;
@@ -34,7 +35,7 @@ public abstract class CallableElementImpl extends RootElementImpl implements Cal
 
   public static void registerType(ModelBuilder bpmnModelBuilder) {
 
-    ModelElementTypeBuilder typeBuilder = bpmnModelBuilder.defineType(CallableElement.class, BPMN_TYPE_CALLABLE_ELEMENT)
+    ModelElementTypeBuilder typeBuilder = bpmnModelBuilder.defineType(CallableElement.class, BPMN_ELEMENT_CALLABLE_ELEMENT)
       .namespaceUri(BPMN20_NS)
       .abstractType()
       .extendsType(RootElement.class);

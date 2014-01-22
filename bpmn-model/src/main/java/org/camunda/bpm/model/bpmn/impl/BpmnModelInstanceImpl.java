@@ -13,7 +13,8 @@
 package org.camunda.bpm.model.bpmn.impl;
 
 import org.camunda.bpm.model.bpmn.BpmnModelInstance;
-import org.camunda.bpm.model.bpmn.Definitions;
+import org.camunda.bpm.model.bpmn.impl.instance.DefinitionsImpl;
+import org.camunda.bpm.model.bpmn.instance.Definitions;
 import org.camunda.bpm.model.xml.impl.ModelImpl;
 import org.camunda.bpm.model.xml.impl.ModelInstanceImpl;
 import org.w3c.dom.Document;

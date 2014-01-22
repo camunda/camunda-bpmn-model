@@ -10,21 +10,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package org.camunda.bpm.model.bpmn;
-
-import org.camunda.bpm.model.bpmn.instance.RootElement;
+package org.camunda.bpm.model.bpmn.instance;
 
 /**
-* <p>The BPMN message element</p>
-*
-* @author Sebastian Menski
-*
-*/
-public interface Message extends RootElement {
-
-  String getName();
-
-  void setName(String name);
+ * The BPMN rootElement element
+ *
+ * @author Daniel Meyer
+ */
+public interface RootElement extends BaseElement {
 
 }

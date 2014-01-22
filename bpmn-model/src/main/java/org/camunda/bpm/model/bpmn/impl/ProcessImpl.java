@@ -13,7 +13,7 @@
 package org.camunda.bpm.model.bpmn.impl;
 
 import org.camunda.bpm.model.bpmn.CallableElement;
-import org.camunda.bpm.model.bpmn.FlowElement;
+import org.camunda.bpm.model.bpmn.instance.FlowElement;
 import org.camunda.bpm.model.bpmn.Process;
 import org.camunda.bpm.model.bpmn.ProcessType;
 import org.camunda.bpm.model.xml.ModelBuilder;
@@ -68,7 +68,7 @@ public class ProcessImpl extends CallableElementImpl implements Process {
 
     SequenceBuilder sequence = builder.sequence();
 
-    flowElementsColl = sequence.elementCollection(FlowElement.class, BPMN_TYPE_FLOW_ELEMENT)
+    flowElementsColl = sequence.elementCollection(FlowElement.class)
       .build();
 
     MODEL_TYPE = builder.build();

@@ -41,17 +41,17 @@ public abstract class CatchEventImpl extends EventImpl implements CatchEvent {
 
   public static void registerType(ModelBuilder modelBuilder) {
 
-    ModelElementTypeBuilder builder = modelBuilder.defineType(CatchEvent.class, BPMN_TYPE_CATCH_EVENT)
+    ModelElementTypeBuilder builder = modelBuilder.defineType(CatchEvent.class, BPMN_ELEMENT_CATCH_EVENT)
       .namespaceUri(BPMN20_NS)
       .abstractType()
       .extendsType(Event.class);
 
     SequenceBuilder sequence = builder.sequence();
 
-    eventDefinitionsColl = sequence.elementCollection(EventDefinition.class, BPMN_TYPE_EVENT_DEFINITION)
+    eventDefinitionsColl = sequence.elementCollection(EventDefinition.class)
       .build();
 
-    eventDefinitionsRefColl = sequence.elementCollection(EventDefinitionRefImpl.class, BPMN_ELEMENT_EVENT_DEFINITION_REF)
+    eventDefinitionsRefColl = sequence.elementCollection(EventDefinitionRefImpl.class)
       .qNameElementReferenceCollection(EventDefinition.class)
       .build();
 

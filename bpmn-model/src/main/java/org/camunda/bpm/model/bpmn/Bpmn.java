@@ -12,9 +12,14 @@
  */
 package org.camunda.bpm.model.bpmn;
 
+import com.sun.media.sound.SF2Instrument;
 import org.camunda.bpm.model.bpmn.impl.*;
 import org.camunda.bpm.model.bpmn.impl.ProcessImpl;
+import org.camunda.bpm.model.bpmn.impl.instance.*;
+import org.camunda.bpm.model.bpmn.instance.CategoryValue;
+import org.camunda.bpm.model.bpmn.instance.FlowElement;
 import org.camunda.bpm.model.xml.*;
+import org.camunda.bpm.model.xml.impl.instance.ModelElementInstanceImpl;
 import org.camunda.bpm.model.xml.impl.util.IoUtil;
 
 import javax.xml.transform.Transformer;
@@ -177,20 +182,37 @@ public class Bpmn {
   }
 
   protected void doRegisterTypes(ModelBuilder bpmnModelBuilder) {
-    EventDefinitionRefImpl.registerType(bpmnModelBuilder);
+    ElementImpl.registerType(bpmnModelBuilder);
+    RelationshipImpl.registerType(bpmnModelBuilder);
+
+    AuditingImpl.registerType(bpmnModelBuilder);
+    BaseElementImpl.registerType(bpmnModelBuilder);
+    CategoryValueImpl.registerType(bpmnModelBuilder);
+    CategoryValueRef.registerType(bpmnModelBuilder);
+    ConditionExpression.registerType(bpmnModelBuilder);
     DefinitionsImpl.registerType(bpmnModelBuilder);
-    ImportImpl.registerType(bpmnModelBuilder);
-    BaseElementImp.registerType(bpmnModelBuilder);
-    PropertyImpl.registerType(bpmnModelBuilder);
-    RootElementImpl.registerType(bpmnModelBuilder);
+    DocumentationImpl.registerType(bpmnModelBuilder);
+    ExpressionImpl.registerType(bpmnModelBuilder);
     ExtensionElementsImpl.registerType(bpmnModelBuilder);
+    ExtensionImpl.registerType(bpmnModelBuilder);
+    FlowElementImpl.registerType(bpmnModelBuilder);
+    FlowNodeImpl.registerType(bpmnModelBuilder);
+    ImportImpl.registerType(bpmnModelBuilder);
+    Incoming.registerType(bpmnModelBuilder);
+    MonitoringImpl.registerType(bpmnModelBuilder);
+    Outgoing.registerType(bpmnModelBuilder);
+    RootElementImpl.registerType(bpmnModelBuilder);
+    SequenceFlowImpl.registerType(bpmnModelBuilder);
+    Source.registerType(bpmnModelBuilder);
+    Target.registerType(bpmnModelBuilder);
+
+    EventDefinitionRefImpl.registerType(bpmnModelBuilder);
+    PropertyImpl.registerType(bpmnModelBuilder);
     CallableElementImpl.registerType(bpmnModelBuilder);
     ProcessImpl.registerType(bpmnModelBuilder);
     EventDefinitionImpl.registerType(bpmnModelBuilder);
     MessageImpl.registerType(bpmnModelBuilder);
     MessageEventDefinitionImpl.registerType(bpmnModelBuilder);
-    FlowElementImpl.registerType(bpmnModelBuilder);
-    FlowNodeImpl.registerType(bpmnModelBuilder);
     EventImpl.registerType(bpmnModelBuilder);
     CatchEventImpl.registerType(bpmnModelBuilder);
     StartEventImpl.registerType(bpmnModelBuilder);

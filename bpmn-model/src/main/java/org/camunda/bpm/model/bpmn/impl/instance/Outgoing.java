@@ -2,7 +2,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -10,38 +10,37 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.camunda.bpm.model.bpmn.impl;
 
-import org.camunda.bpm.model.bpmn.FlowElement;
-import org.camunda.bpm.model.bpmn.FlowNode;
+package org.camunda.bpm.model.bpmn.impl.instance;
+
 import org.camunda.bpm.model.xml.ModelBuilder;
 import org.camunda.bpm.model.xml.impl.instance.ModelTypeInstanceContext;
-import org.camunda.bpm.model.xml.type.ModelElementType;
 import org.camunda.bpm.model.xml.type.ModelElementTypeBuilder;
 
 import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN20_NS;
-import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN_TYPE_FLOW_NODE;
+import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN_ELEMENT_OUTGOING;
+import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeInstanceProvider;
 
 /**
- * @author Sebastian Menski
+ * The BPMN outgoing element of the BPMN tFlowNode type
  *
+ * @author Sebastian Menski
  */
-public abstract class FlowNodeImpl extends FlowElementImpl implements FlowNode {
-
-  public static ModelElementType MODEL_TYPE;
+public class Outgoing extends BpmnModelElementInstanceImpl {
 
   public static void registerType(ModelBuilder modelBuilder) {
-
-    ModelElementTypeBuilder builder = modelBuilder.defineType(FlowNode.class, BPMN_TYPE_FLOW_NODE)
+    ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(Outgoing.class, BPMN_ELEMENT_OUTGOING)
       .namespaceUri(BPMN20_NS)
-      .abstractType()
-      .extendsType(FlowElement.class);
+      .instanceProvider(new ModelTypeInstanceProvider<Outgoing>() {
+        public Outgoing newInstance(ModelTypeInstanceContext instanceContext) {
+          return new Outgoing(instanceContext);
+        }
+      });
 
-    MODEL_TYPE = builder.build();
+    typeBuilder.build();
   }
 
-  public FlowNodeImpl(ModelTypeInstanceContext context) {
-    super(context);
+  public Outgoing(final ModelTypeInstanceContext instanceContext) {
+    super(instanceContext);
   }
-
 }

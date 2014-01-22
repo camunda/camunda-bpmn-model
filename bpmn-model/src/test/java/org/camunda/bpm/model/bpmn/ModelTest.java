@@ -12,6 +12,9 @@
  */
 package org.camunda.bpm.model.bpmn;
 
+import org.camunda.bpm.model.bpmn.instance.BaseElement;
+import org.camunda.bpm.model.bpmn.instance.Definitions;
+import org.camunda.bpm.model.bpmn.instance.ExtensionElements;
 import org.camunda.bpm.model.xml.Model;
 import org.camunda.bpm.model.xml.impl.util.ModelUtil;
 import org.camunda.bpm.model.xml.type.ModelElementType;

@@ -33,27 +33,38 @@ public class BpmnModelConstants {
 
   // elements ////////////////////////////////////////
 
+  public static final String BPMN_ELEMENT_BASE_ELEMENT = "baseElement";
   public static final String BPMN_ELEMENT_DEFINITIONS = "definitions";
-  public static final String BPMN_ELEMENT_IMPORT = "import";
   public static final String BPMN_ELEMENT_DOCUMENTATION = "documentation";
+  public static final String BPMN_ELEMENT_EXTENSION = "extension";
   public static final String BPMN_ELEMENT_EXTENSION_ELEMENTS = "extensionElements";
+  public static final String BPMN_ELEMENT_IMPORT = "import";
+  public static final String BPMN_ELEMENT_RELATIONSHIP = "relationship";
+  public static final String BPMN_ELEMENT_SOURCE = "source";
+  public static final String BPMN_ELEMENT_TARGET = "target";
+  public static final String BPMN_ELEMENT_ROOT_ELEMENT = "rootElement";
+  public static final String BPMN_ELEMENT_AUDITING = "auditing";
+  public static final String BPMN_ELEMENT_MONITORING = "monitoring";
+  public static final String BPMN_ELEMENT_CATEGORY_VALUE = "categoryValue";
+  public static final String BPMN_ELEMENT_FLOW_ELEMENT = "flowElement";
+  public static final String BPMN_ELEMENT_FLOW_NODE = "flowNode";
+  public static final String BPMN_ELEMENT_CATEGORY_VALUE_REF = "categoryValueRef";
+  public static final String BPMN_ELEMENT_EXPRESSION = "expression";
+  public static final String BPMN_ELEMENT_CONDITION_EXPRESSION = "conditionExpression";
+  public static final String BPMN_ELEMENT_SEQUENCE_FLOW = "sequenceFlow";
+  public static final String BPMN_ELEMENT_INCOMING = "incoming";
+  public static final String BPMN_ELEMENT_OUTGOING = "outgoing";
+
   public static final String BPMN_ELEMENT_PROCESS = "process";
   public static final String BPMN_ELEMENT_MESSAGE = "message";
   public static final String BPMN_ELEMENT_MESSAGE_EVENT_DEFINITION = "messageEventDefinition";
   public static final String BPMN_ELEMENT_START_EVENT = "startEvent";
   public static final String BPMN_ELEMENT_PROPERTY = "property";
   public static final String BPMN_ELEMENT_EVENT_DEFINITION_REF = "eventDefinitionRef";
-
-  // abstract types //////////////////////////////////
-
-  public static final String BPMN_TYPE_BASE_ELEMENT = "baseElement";
-  public static final String BPMN_TYPE_ROOT_ELEMENT = "rootElement";
-  public static final String BPMN_TYPE_CALLABLE_ELEMENT = "callableElement";
-  public static final String BPMN_TYPE_FLOW_ELEMENT = "flowElement";
-  public static final String BPMN_TYPE_EVENT_DEFINITION = "eventDefinition";
-  public static final String BPMN_TYPE_FLOW_NODE = "flowNode";
-  public static final String BPMN_TYPE_EVENT = "event";
-  public static final String BPMN_TYPE_CATCH_EVENT = "catchEvent";
+  public static final String BPMN_ELEMENT_CALLABLE_ELEMENT = "callableElement";
+  public static final String BPMN_ELEMENT_EVENT_DEFINITION = "eventDefinition";
+  public static final String BPMN_ELEMENT_EVENT = "event";
+  public static final String BPMN_ELEMENT_CATCH_EVENT = "catchEvent";
 
   // attributes //////////////////////////////////////
 
@@ -73,5 +84,12 @@ public class BpmnModelConstants {
   public static final String BPMN_ATTRIBUTE_IS_EXECUTABLE = "isExecutable";
   public static final String BPMN_ATTRIBUTE_DEFINITIONAL_COLLABORATION_REF = "definitionalCollaborationRef";
   public static final String BPMN_ATTRIBUTE_MESSAGE_REF = "messageRef";
+  public static final String BPMN_ATTRIBUTE_DEFINITION = "definition";
+  public static final String BPMN_ATTRIBUTE_MUST_UNDERSTAND = "mustUnderstand";
+  public static final String BPMN_ATTRIBUTE_TYPE = "type";
+  public static final String BPMN_ATTRIBUTE_DIRECTION = "direction";
+  public static final String BPMN_ATTRIBUTE_SOURCE_REF = "sourceRef";
+  public static final String BPMN_ATTRIBUTE_TARGET_REF = "targetRef";
+  public static final String BPMN_ATTRIBUTE_IS_IMMEDIATE = "isImmediate";
 
 }

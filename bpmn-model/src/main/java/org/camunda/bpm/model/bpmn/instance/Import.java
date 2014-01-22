@@ -10,18 +10,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.camunda.bpm.model.bpmn;
+package org.camunda.bpm.model.bpmn.instance;
 
 /**
- * <p>The Bpmn FlowElement</p>
+ * The BPMN Import element
  *
  * @author Daniel Meyer
- *
  */
-public interface FlowElement extends BaseElement {
+public interface Import extends BpmnModelElementInstance {
 
-  String getName();
+  String getNamespace();
 
-  void setName(String name);
+  void setNamespace(String namespace);
+
+  String getLocation();
+
+  void setLocation(String location);
+
+  String getImportType();
+
+  void setImportType(String importType);
 
 }

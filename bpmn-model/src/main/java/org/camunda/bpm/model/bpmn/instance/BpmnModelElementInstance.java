@@ -10,15 +10,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.camunda.bpm.model.bpmn;
+package org.camunda.bpm.model.bpmn.instance;
 
 import org.camunda.bpm.model.xml.instance.ModelElementInstance;
 
 /**
- * <p>Interface implemented by all elements in a BPMN Model</p>
+ * Interface implemented by all elements in a BPMN Model
  *
  * @author Daniel Meyer
- *
  */
 public interface BpmnModelElementInstance extends ModelElementInstance {
 

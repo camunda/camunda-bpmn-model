@@ -12,6 +12,8 @@
  */
 package org.camunda.bpm.model.bpmn;
 
+import org.camunda.bpm.model.bpmn.instance.FlowElement;
+
 import java.util.Collection;
 
 

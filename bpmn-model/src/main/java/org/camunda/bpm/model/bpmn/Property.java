@@ -12,6 +12,8 @@
  */
 package org.camunda.bpm.model.bpmn;
 
+import org.camunda.bpm.model.bpmn.instance.BaseElement;
+
 /**
  * <p>The BPMN property element </p>
  *

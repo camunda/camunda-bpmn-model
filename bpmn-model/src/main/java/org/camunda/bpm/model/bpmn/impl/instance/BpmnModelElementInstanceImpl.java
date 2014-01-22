@@ -10,22 +10,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.camunda.bpm.model.bpmn.impl;
+package org.camunda.bpm.model.bpmn.impl.instance;
 
-import org.camunda.bpm.model.bpmn.BpmnModelElementInstance;
+import org.camunda.bpm.model.bpmn.instance.BpmnModelElementInstance;
 import org.camunda.bpm.model.xml.impl.instance.ModelElementInstanceImpl;
 import org.camunda.bpm.model.xml.impl.instance.ModelTypeInstanceContext;
 
 /**
- * <p>Shared Base Class for all BPMN Model Elements. Provides
- * implementation of the {@link BpmnModelElementInstance} interface.</p>
+ * Shared base class for all BPMN Model Elements. Provides implementation
+ * of the {@link BpmnModelElementInstance} interface.
  *
  * @author Daniel Meyer
- *
  */
-public abstract class AbstractBpmnModelElement extends ModelElementInstanceImpl implements BpmnModelElementInstance {
+public abstract class BpmnModelElementInstanceImpl extends ModelElementInstanceImpl implements BpmnModelElementInstance {
 
-  public AbstractBpmnModelElement(ModelTypeInstanceContext instanceContext) {
+  public BpmnModelElementInstanceImpl(ModelTypeInstanceContext instanceContext) {
     super(instanceContext);
   }
 

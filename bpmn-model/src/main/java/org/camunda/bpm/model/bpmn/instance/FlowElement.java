@@ -10,22 +10,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.camunda.bpm.model.bpmn;
+package org.camunda.bpm.model.bpmn.instance;
+
+import java.util.Collection;
 
 /**
- * The Bpmn Documentation Element
+ * The BPMN flowElement element
  *
  * @author Daniel Meyer
- *
+ * @author Sebastian Menski
  */
-public interface Documentation extends BpmnModelElementInstance {
+public interface FlowElement extends BaseElement {
 
-  String getId();
+  String getName();
 
-  void setId(String id);
+  void setName(String name);
 
-  String getTextFormat();
+  Auditing getAuditing();
 
-  void setTextFormat(String textFormat);
+  void setAuditing(Auditing auditing);
 
+  Monitoring getMonitoring();
+
+  void setMonitoring(Monitoring monitoring);
+
+  Collection<CategoryValue> getCategoryValueRefs();
 }

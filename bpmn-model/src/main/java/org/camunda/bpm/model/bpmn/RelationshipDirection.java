@@ -2,7 +2,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -13,18 +13,14 @@
 
 package org.camunda.bpm.model.bpmn;
 
-import org.camunda.bpm.model.bpmn.instance.RootElement;
-
 /**
-* <p>The BPMN message element</p>
-*
-* @author Sebastian Menski
-*
-*/
-public interface Message extends RootElement {
-
-  String getName();
-
-  void setName(String name);
-
+ * The BPMN tRelationshipDirection type
+ *
+ * @author Sebastian Menski
+ */
+public enum RelationshipDirection {
+  None,
+  Forward,
+  Backward,
+  Both
 }

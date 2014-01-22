@@ -11,16 +11,31 @@
  * limitations under the License.
  */
 
-package org.camunda.bpm.model.xml.type.reference;
+package org.camunda.bpm.model.bpmn.instance;
 
-import org.camunda.bpm.model.xml.impl.ModelBuildOperation;
-import org.camunda.bpm.model.xml.instance.ModelElementInstance;
+import org.camunda.bpm.model.bpmn.impl.instance.ConditionExpression;
 
 /**
+ * The BPMN sequenceFlow element
+ *
  * @author Sebastian Menski
  */
-public interface ElementReferenceCollectionBuilder<Target extends ModelElementInstance, Source extends ModelElementInstance> extends ModelBuildOperation {
+public interface SequenceFlow extends FlowElement {
 
-  ElementReferenceCollection<Target, Source> build();
+  FlowNode getSourceRef();
+
+  void setSourceRef(FlowNode sourceRef);
+
+  FlowNode getTargetRef();
+
+  void setTargetRef(FlowNode targetRef);
+
+  boolean isImmediate();
+
+  void setIsImmediate(boolean isImmediate);
+
+  ConditionExpression getConditionExpression();
+
+  void setConditionExpression(ConditionExpression conditionExpression);
 
 }

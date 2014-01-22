@@ -13,14 +13,15 @@
 package org.camunda.bpm.model.bpmn.impl;
 
 import org.camunda.bpm.model.bpmn.EventDefinition;
-import org.camunda.bpm.model.bpmn.RootElement;
+import org.camunda.bpm.model.bpmn.impl.instance.RootElementImpl;
+import org.camunda.bpm.model.bpmn.instance.RootElement;
 import org.camunda.bpm.model.xml.ModelBuilder;
 import org.camunda.bpm.model.xml.impl.instance.ModelTypeInstanceContext;
 import org.camunda.bpm.model.xml.type.ModelElementType;
 import org.camunda.bpm.model.xml.type.ModelElementTypeBuilder;
 
 import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN20_NS;
-import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN_TYPE_EVENT_DEFINITION;
+import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN_ELEMENT_EVENT_DEFINITION;
 
 /**
  * @author Sebastian Menski
@@ -32,7 +33,7 @@ public abstract class EventDefinitionImpl extends RootElementImpl implements Eve
 
   public static void registerType(ModelBuilder modelBuilder) {
 
-    ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(EventDefinition.class, BPMN_TYPE_EVENT_DEFINITION)
+    ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(EventDefinition.class, BPMN_ELEMENT_EVENT_DEFINITION)
       .namespaceUri(BPMN20_NS)
       .abstractType()
       .extendsType(RootElement.class);

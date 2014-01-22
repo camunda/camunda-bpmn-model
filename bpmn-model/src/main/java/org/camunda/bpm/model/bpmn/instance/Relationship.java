@@ -11,16 +11,29 @@
  * limitations under the License.
  */
 
-package org.camunda.bpm.model.xml.type.reference;
+package org.camunda.bpm.model.bpmn.instance;
 
-import org.camunda.bpm.model.xml.impl.ModelBuildOperation;
+import org.camunda.bpm.model.bpmn.RelationshipDirection;
 import org.camunda.bpm.model.xml.instance.ModelElementInstance;
 
+import java.util.Collection;
+
 /**
+ * The BPMN relationship element
+ *
  * @author Sebastian Menski
  */
-public interface ElementReferenceCollectionBuilder<Target extends ModelElementInstance, Source extends ModelElementInstance> extends ModelBuildOperation {
+public interface Relationship extends BaseElement {
 
-  ElementReferenceCollection<Target, Source> build();
+  String getType();
 
+  void setType(String type);
+
+  RelationshipDirection getDirection();
+
+  void setDirection(RelationshipDirection direction);
+
+  Collection<Element> getSources();
+
+  Collection<Element> getTargets();
 }

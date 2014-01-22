@@ -13,7 +13,8 @@
 package org.camunda.bpm.model.bpmn.impl;
 
 import org.camunda.bpm.model.bpmn.Event;
-import org.camunda.bpm.model.bpmn.FlowNode;
+import org.camunda.bpm.model.bpmn.impl.instance.FlowNodeImpl;
+import org.camunda.bpm.model.bpmn.instance.FlowNode;
 import org.camunda.bpm.model.bpmn.Property;
 import org.camunda.bpm.model.xml.ModelBuilder;
 import org.camunda.bpm.model.xml.impl.instance.ModelTypeInstanceContext;
@@ -38,14 +39,14 @@ public abstract class EventImpl extends FlowNodeImpl implements Event {
 
   public static void registerType(ModelBuilder modelBuilder) {
 
-    ModelElementTypeBuilder builder = modelBuilder.defineType(Event.class, BPMN_TYPE_EVENT)
+    ModelElementTypeBuilder builder = modelBuilder.defineType(Event.class, BPMN_ELEMENT_EVENT)
       .namespaceUri(BPMN20_NS)
       .abstractType()
       .extendsType(FlowNode.class);
 
     SequenceBuilder sequence = builder.sequence();
 
-    propertiesColl = sequence.elementCollection(Property.class, BPMN_ELEMENT_PROPERTY)
+    propertiesColl = sequence.elementCollection(Property.class)
       .build();
 
     MODEL_TYPE = builder.build();

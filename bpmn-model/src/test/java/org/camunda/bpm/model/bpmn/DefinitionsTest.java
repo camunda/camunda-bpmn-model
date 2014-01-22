@@ -13,6 +13,9 @@
 package org.camunda.bpm.model.bpmn;
 
 import org.camunda.bpm.model.bpmn.impl.BpmnModelInstanceImpl;
+import org.camunda.bpm.model.bpmn.instance.Definitions;
+import org.camunda.bpm.model.bpmn.instance.ExtensionElements;
+import org.camunda.bpm.model.bpmn.instance.Import;
 import org.camunda.bpm.model.bpmn.util.BpmnModelResource;
 import org.camunda.bpm.model.xml.ModelReferenceException;
 import org.camunda.bpm.model.xml.ModelValidationException;

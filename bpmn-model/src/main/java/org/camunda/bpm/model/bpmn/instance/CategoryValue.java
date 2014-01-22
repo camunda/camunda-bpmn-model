@@ -2,7 +2,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -11,20 +11,16 @@
  * limitations under the License.
  */
 
-package org.camunda.bpm.model.bpmn;
-
-import org.camunda.bpm.model.bpmn.instance.RootElement;
+package org.camunda.bpm.model.bpmn.instance;
 
 /**
-* <p>The BPMN message element</p>
-*
-* @author Sebastian Menski
-*
-*/
-public interface Message extends RootElement {
+ * The BPMN categoryValue element
+ *
+ * @author Sebastian Menski
+ */
+public interface CategoryValue extends BaseElement {
 
   String getName();
 
   void setName(String name);
-
 }

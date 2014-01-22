@@ -10,33 +10,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.camunda.bpm.model.bpmn.impl;
+package org.camunda.bpm.model.bpmn.impl.instance;
 
-import org.camunda.bpm.model.bpmn.Documentation;
+import org.camunda.bpm.model.bpmn.instance.Documentation;
 import org.camunda.bpm.model.xml.ModelBuilder;
 import org.camunda.bpm.model.xml.impl.instance.ModelTypeInstanceContext;
-import org.camunda.bpm.model.xml.type.attribute.Attribute;
-import org.camunda.bpm.model.xml.type.ModelElementType;
 import org.camunda.bpm.model.xml.type.ModelElementTypeBuilder;
 import org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeInstanceProvider;
+import org.camunda.bpm.model.xml.type.attribute.Attribute;
 
 import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.*;
 
 /**
+ * The BPMN documentation element
  *
  * @author Daniel Meyer
- *
+ * @author Sebastian Menski
  */
-public class DocumentationImpl extends AbstractBpmnModelElement implements Documentation {
+public class DocumentationImpl extends BpmnModelElementInstanceImpl implements Documentation {
 
-  static Attribute<String> idAttr;
-  static Attribute<String> textFormatAttr;
-
-  public static ModelElementType MODEL_TYPE;
+  static Attribute<String> idAttribute;
+  static Attribute<String> textFormatAttribute;
 
   public static void registerType(ModelBuilder modelBuilder) {
 
-    ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(Documentation.class, BPMN_TYPE_BASE_ELEMENT)
+    ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(Documentation.class, BPMN_ELEMENT_DOCUMENTATION)
       .namespaceUri(BPMN20_NS)
       .instanceProvider(new ModelTypeInstanceProvider<Documentation>() {
         public Documentation newInstance(ModelTypeInstanceContext instanceContext) {
@@ -44,13 +42,15 @@ public class DocumentationImpl extends AbstractBpmnModelElement implements Docum
         }
       });
 
-    idAttr = typeBuilder.stringAttribute(BPMN_ATTRIBUTE_ID)
+    idAttribute = typeBuilder.stringAttribute(BPMN_ATTRIBUTE_ID)
+      .idAttribute()
       .build();
 
-    textFormatAttr = typeBuilder.stringAttribute(BPMN_ATTRIBUTE_TEXT_FORMAT)
+    textFormatAttribute = typeBuilder.stringAttribute(BPMN_ATTRIBUTE_TEXT_FORMAT)
+      .defaultValue("text/plain")
       .build();
 
-    MODEL_TYPE = typeBuilder.build();
+    typeBuilder.build();
   }
 
   public DocumentationImpl(ModelTypeInstanceContext context) {
@@ -58,19 +58,19 @@ public class DocumentationImpl extends AbstractBpmnModelElement implements Docum
   }
 
   public String getId() {
-    return idAttr.getValue(this);
+    return idAttribute.getValue(this);
   }
 
   public void setId(String id) {
-    idAttr.setValue(this, id);
+    idAttribute.setValue(this, id);
   }
 
   public String getTextFormat() {
-    return textFormatAttr.getValue(this);
+    return textFormatAttribute.getValue(this);
   }
 
   public void setTextFormat(String textFormat) {
-    textFormatAttr.setValue(this, textFormat);
+    textFormatAttribute.setValue(this, textFormat);
   }
 
 }

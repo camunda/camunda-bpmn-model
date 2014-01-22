@@ -10,48 +10,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.camunda.bpm.model.bpmn;
+package org.camunda.bpm.model.bpmn.instance;
 
 import java.util.Collection;
 
 /**
- * The BPMN Definitions Element.
+ * The BPMN baseElement element
  *
  * @author Daniel Meyer
- *
  */
-public interface Definitions extends BpmnModelElementInstance {
-
-  String getExporter();
-
-  void setExporter(String exporter);
-
-  String getExporterVersion();
-
-  void setExporterVersion(String exporterVersion);
-
-  String getExpressionLanguage();
-
-  void setExpressionLanguage(String expressionLanguage);
+public interface BaseElement extends BpmnModelElementInstance {
 
   String getId();
 
   void setId(String id);
 
-  String getName();
+  Collection<Documentation> getDocumentations();
 
-  void setName(String name);
+  ExtensionElements getExtensionElements();
 
-  String getTypeLanguage();
-
-  void setTypeLanguage(String typeLanguage);
-
-  String getTargetNamespace();
-
-  void setTargetNamespace(String namespace);
-
-  Collection<Import> getImports();
-
-  Collection<RootElement> getRootElements();
+  void setExtensionElements(ExtensionElements extensionElements);
 
 }

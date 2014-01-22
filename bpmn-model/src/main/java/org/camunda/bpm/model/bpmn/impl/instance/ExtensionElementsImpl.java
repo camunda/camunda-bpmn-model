@@ -10,24 +10,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.camunda.bpm.model.bpmn.impl;
+package org.camunda.bpm.model.bpmn.impl.instance;
 
-import org.camunda.bpm.model.bpmn.ExtensionElements;
+import org.camunda.bpm.model.bpmn.instance.ExtensionElements;
 import org.camunda.bpm.model.xml.ModelBuilder;
 import org.camunda.bpm.model.xml.impl.instance.ModelTypeInstanceContext;
-import org.camunda.bpm.model.xml.type.ModelElementType;
 import org.camunda.bpm.model.xml.type.ModelElementTypeBuilder;
 
 import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN20_NS;
 import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN_ELEMENT_EXTENSION_ELEMENTS;
 
 /**
- * @author Daniel Meyer
+ * The BPMN extensionElements
  *
+ * @author Daniel Meyer
+ * @author Sebastian Menski
  */
-public class ExtensionElementsImpl extends AbstractBpmnModelElement implements ExtensionElements {
-
-  public static ModelElementType TYPE;
+public class ExtensionElementsImpl extends BpmnModelElementInstanceImpl implements ExtensionElements {
 
   public static void registerType(ModelBuilder modelBuilder) {
 
@@ -39,7 +38,7 @@ public class ExtensionElementsImpl extends AbstractBpmnModelElement implements E
         }
       });
 
-    TYPE = typeBuilder.build();
+    typeBuilder.build();
   }
 
   public ExtensionElementsImpl(ModelTypeInstanceContext context) {

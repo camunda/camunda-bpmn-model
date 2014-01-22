@@ -13,6 +13,8 @@
 
 package org.camunda.bpm.model.bpmn;
 
+import org.camunda.bpm.model.bpmn.instance.RootElement;
+
 /**
 * <p>The BPMN event definition element</p>
 *

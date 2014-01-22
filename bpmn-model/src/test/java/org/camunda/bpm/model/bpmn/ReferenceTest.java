@@ -12,6 +12,7 @@
  */
 package org.camunda.bpm.model.bpmn;
 
+import org.camunda.bpm.model.bpmn.instance.Definitions;
 import org.camunda.bpm.model.bpmn.util.BpmnModelResource;
 import org.junit.Before;
 import org.junit.Test;

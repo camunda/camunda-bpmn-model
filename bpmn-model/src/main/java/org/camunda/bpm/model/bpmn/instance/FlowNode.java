@@ -10,13 +10,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.camunda.bpm.model.bpmn;
+package org.camunda.bpm.model.bpmn.instance;
+
+import java.util.Collection;
 
 /**
+ * The BPMN flowNode element
  *
- * @author Daniel Meyer
- *
+ * @author Sebastian Menski
  */
-public interface RootElement extends BaseElement {
+public interface FlowNode extends FlowElement {
+
+  Collection<SequenceFlow> getIncoming();
+
+  Collection<SequenceFlow> getOutgoing();
 
 }
