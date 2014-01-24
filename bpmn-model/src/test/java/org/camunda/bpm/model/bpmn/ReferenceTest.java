@@ -19,7 +19,7 @@ import org.junit.Test;
 
 import java.util.Collection;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Sebastian Menski
@@ -122,7 +122,7 @@ public class ReferenceTest extends BpmnModelTest {
   public void testShouldRemoveMessageEventDefinitionRefIfMessageEventDefinitionIsRemoved() {
     startEvent.getEventDefinitions().remove(messageEventDefinition);
     Collection<EventDefinition> eventDefinitionRefs = startEvent.getEventDefinitionRefs();
-    assertThat(eventDefinitionRefs).excludes(messageEventDefinition);
+    assertThat(eventDefinitionRefs).doesNotContain(messageEventDefinition);
     assertThat(eventDefinitionRefs).isEmpty();
   }
 
@@ -133,7 +133,7 @@ public class ReferenceTest extends BpmnModelTest {
     Collection<EventDefinition> eventDefinitionRefs = startEvent.getEventDefinitionRefs();
     assertThat(eventDefinitionRefs).contains(messageEventDefinition);
     messageEventDefinition.replaceWithElement(otherMessageEventDefinition);
-    assertThat(eventDefinitionRefs).excludes(messageEventDefinition);
+    assertThat(eventDefinitionRefs).doesNotContain(messageEventDefinition);
     assertThat(eventDefinitionRefs).contains(otherMessageEventDefinition);
   }
 
@@ -142,7 +142,7 @@ public class ReferenceTest extends BpmnModelTest {
     Collection<EventDefinition> eventDefinitionRefs = startEvent.getEventDefinitionRefs();
     assertThat(eventDefinitionRefs).contains(messageEventDefinition);
     messageEventDefinition.removeAttribute("id");
-    assertThat(eventDefinitionRefs).excludes(messageEventDefinition);
+    assertThat(eventDefinitionRefs).doesNotContain(messageEventDefinition);
     assertThat(eventDefinitionRefs).isEmpty();
   }
 
@@ -174,7 +174,7 @@ public class ReferenceTest extends BpmnModelTest {
     message.removeAttribute("id");
     assertThat(messageEventDefinition.getMessage()).isNull();
     messageEventDefinition.removeAttribute("id");
-    assertThat(eventDefinitionRefs).excludes(messageEventDefinition);
+    assertThat(eventDefinitionRefs).doesNotContain(messageEventDefinition);
     assertThat(eventDefinitionRefs).isEmpty();
   }
 }

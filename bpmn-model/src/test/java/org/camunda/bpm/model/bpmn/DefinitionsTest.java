@@ -31,7 +31,7 @@ import java.io.OutputStream;
 
 import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.XML_SCHEMA_NS;
 import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.XPATH_NS;
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Daniel Meyer
