@@ -12,14 +12,9 @@
  */
 package org.camunda.bpm.model.bpmn;
 
-import com.sun.media.sound.SF2Instrument;
 import org.camunda.bpm.model.bpmn.impl.*;
-import org.camunda.bpm.model.bpmn.impl.ProcessImpl;
 import org.camunda.bpm.model.bpmn.impl.instance.*;
-import org.camunda.bpm.model.bpmn.instance.CategoryValue;
-import org.camunda.bpm.model.bpmn.instance.FlowElement;
 import org.camunda.bpm.model.xml.*;
-import org.camunda.bpm.model.xml.impl.instance.ModelElementInstanceImpl;
 import org.camunda.bpm.model.xml.impl.util.IoUtil;
 
 import javax.xml.transform.Transformer;
@@ -40,14 +35,14 @@ public class Bpmn {
 
   /** the singleton instance of {@link Bpmn}. If you want to customize the behavior of Bpmn,
    * replace this instance with an instance of a custom subclass of {@link Bpmn}. */
-  public final static Bpmn INSTANCE = new Bpmn();
+  public static final Bpmn INSTANCE = new Bpmn();
 
   /** the parser used by the Bpmn implementation. */
-  protected final BpmnParser bpmnParser = new BpmnParser();
+  private final BpmnParser bpmnParser = new BpmnParser();
 
   /** The {@link Model}
    */
-  protected Model bpmnModel;
+  private Model bpmnModel;
 
   /**
    * Allows reading a {@link BpmnModelInstance} from a File.
@@ -119,7 +114,7 @@ public class Bpmn {
   /**
    * Register known types of the BPMN model
    */
-  public Bpmn() {
+  private Bpmn() {
     ModelBuilder bpmnModelBuilder = ModelBuilder.createInstance("BPMN Model");
     doRegisterTypes(bpmnModelBuilder);
     bpmnModel = bpmnModelBuilder.build();

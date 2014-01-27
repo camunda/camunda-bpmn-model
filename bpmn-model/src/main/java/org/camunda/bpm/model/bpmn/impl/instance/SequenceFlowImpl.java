@@ -68,7 +68,7 @@ public class SequenceFlowImpl extends FlowElementImpl implements SequenceFlow {
     typeBuilder.build();
   }
 
-  public SequenceFlowImpl(final ModelTypeInstanceContext context) {
+  public SequenceFlowImpl(ModelTypeInstanceContext context) {
     super(context);
   }
 
@@ -76,7 +76,7 @@ public class SequenceFlowImpl extends FlowElementImpl implements SequenceFlow {
     return sourceRefAttribute.getReferenceTargetElement(this);
   }
 
-  public void setSourceRef(final FlowNode sourceRef) {
+  public void setSourceRef(FlowNode sourceRef) {
     sourceRefAttribute.setReferenceTargetElement(this, sourceRef);
   }
 
@@ -84,7 +84,7 @@ public class SequenceFlowImpl extends FlowElementImpl implements SequenceFlow {
     return targetRefAttribute.getReferenceTargetElement(this);
   }
 
-  public void setTargetRef(final FlowNode targetRef) {
+  public void setTargetRef(FlowNode targetRef) {
     targetRefAttribute.setReferenceTargetElement(this, targetRef);
   }
 
@@ -92,7 +92,7 @@ public class SequenceFlowImpl extends FlowElementImpl implements SequenceFlow {
     return isImmediateAttribute.getValue(this);
   }
 
-  public void setIsImmediate(final boolean isImmediate) {
+  public void setIsImmediate(boolean isImmediate) {
     isImmediateAttribute.setValue(this, isImmediate);
   }
 
@@ -100,7 +100,7 @@ public class SequenceFlowImpl extends FlowElementImpl implements SequenceFlow {
     return conditionExpressionCollection.getChild(this);
   }
 
-  public void setConditionExpression(final ConditionExpression conditionExpression) {
+  public void setConditionExpression(ConditionExpression conditionExpression) {
     conditionExpressionCollection.setChild(this, conditionExpression);
   }
 }

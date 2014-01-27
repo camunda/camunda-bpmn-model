@@ -29,8 +29,8 @@ import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.*;
  */
 public class DocumentationImpl extends BpmnModelElementInstanceImpl implements Documentation {
 
-  static Attribute<String> idAttribute;
-  static Attribute<String> textFormatAttribute;
+  private static Attribute<String> idAttribute;
+  private static Attribute<String> textFormatAttribute;
 
   public static void registerType(ModelBuilder modelBuilder) {
 

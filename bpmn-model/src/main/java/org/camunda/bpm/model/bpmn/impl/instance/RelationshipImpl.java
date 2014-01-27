@@ -73,7 +73,7 @@ public class RelationshipImpl extends BaseElementImpl implements Relationship {
     typeBuilder.build();
   }
 
-  public RelationshipImpl(final ModelTypeInstanceContext instanceContext) {
+  public RelationshipImpl(ModelTypeInstanceContext instanceContext) {
     super(instanceContext);
   }
 
@@ -81,7 +81,7 @@ public class RelationshipImpl extends BaseElementImpl implements Relationship {
     return typeAttribute.getValue(this);
   }
 
-  public void setType(final String type) {
+  public void setType(String type) {
     typeAttribute.setValue(this, type);
   }
 
@@ -89,7 +89,7 @@ public class RelationshipImpl extends BaseElementImpl implements Relationship {
     return directionAttribute.getValue(this);
   }
 
-  public void setDirection(final RelationshipDirection direction) {
+  public void setDirection(RelationshipDirection direction) {
     directionAttribute.setValue(this, direction);
   }
 

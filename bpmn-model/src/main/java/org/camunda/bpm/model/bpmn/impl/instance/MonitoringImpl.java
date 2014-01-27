@@ -43,7 +43,7 @@ public class MonitoringImpl extends BaseElementImpl implements Monitoring {
     typeBuilder.build();
   }
 
-  public MonitoringImpl(final ModelTypeInstanceContext instanceContext) {
+  public MonitoringImpl(ModelTypeInstanceContext instanceContext) {
     super(instanceContext);
   }
 }

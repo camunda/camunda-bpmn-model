@@ -62,7 +62,7 @@ public class ExtensionImpl extends BpmnModelElementInstanceImpl implements Exten
     typeBuilder.build();
   }
 
-  public ExtensionImpl(final ModelTypeInstanceContext instanceContext) {
+  public ExtensionImpl(ModelTypeInstanceContext instanceContext) {
     super(instanceContext);
   }
 
@@ -70,7 +70,7 @@ public class ExtensionImpl extends BpmnModelElementInstanceImpl implements Exten
     return definitionAttribute.getValue(this);
   }
 
-  public void setDefinition(final String Definition) {
+  public void setDefinition(String Definition) {
     definitionAttribute.setValue(this, Definition);
   }
 
@@ -78,7 +78,7 @@ public class ExtensionImpl extends BpmnModelElementInstanceImpl implements Exten
     return mustUnderstandAttribute.getValue(this);
   }
 
-  public void setMustUnderstand(final boolean mustUnderstand) {
+  public void setMustUnderstand(boolean mustUnderstand) {
     mustUnderstandAttribute.setValue(this, mustUnderstand);
   }
 

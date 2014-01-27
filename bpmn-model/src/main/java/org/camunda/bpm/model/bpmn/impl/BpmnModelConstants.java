@@ -18,7 +18,7 @@ package org.camunda.bpm.model.bpmn.impl;
  * @author Daniel Meyer
  *
  */
-public class BpmnModelConstants {
+public final class BpmnModelConstants {
 
   /** The BPMN 2.0 namespace */
   public static final String BPMN20_NS = "http://www.omg.org/spec/BPMN/20100524/MODEL";

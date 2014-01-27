@@ -32,18 +32,18 @@ import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.*;
  */
 public class DefinitionsImpl extends BpmnModelElementInstanceImpl implements Definitions {
 
-  static Attribute<String> idAttribute;
-  static Attribute<String> nameAttribute;
-  static Attribute<String> targetNamespaceAttribute;
-  static Attribute<String> expressionLanguageAttribute;
-  static Attribute<String> typeLanguageAttribute;
-  static Attribute<String> exporterAttribute;
-  static Attribute<String> exporterVersionAttribute;
+  private static Attribute<String> idAttribute;
+  private static Attribute<String> nameAttribute;
+  private static Attribute<String> targetNamespaceAttribute;
+  private static Attribute<String> expressionLanguageAttribute;
+  private static Attribute<String> typeLanguageAttribute;
+  private static Attribute<String> exporterAttribute;
+  private static Attribute<String> exporterVersionAttribute;
 
-  static ChildElementCollection<Import> importCollection;
-  static ChildElementCollection<Extension> extensionCollection;
-  static ChildElementCollection<RootElement> rootElementCollection;
-  static ChildElementCollection<Relationship> relationshipCollection;
+  private static ChildElementCollection<Import> importCollection;
+  private static ChildElementCollection<Extension> extensionCollection;
+  private static ChildElementCollection<RootElement> rootElementCollection;
+  private static ChildElementCollection<Relationship> relationshipCollection;
 
   public static void registerType(ModelBuilder bpmnModelBuilder) {
 

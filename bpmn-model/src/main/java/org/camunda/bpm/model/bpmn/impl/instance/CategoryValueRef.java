@@ -27,7 +27,7 @@ import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeIn
  *
  * @author Sebastian Menski
  */
-public class CategoryValueRef extends BpmnModelElementInstanceImpl implements BpmnModelElementInstance {
+public class CategoryValueRef extends BpmnModelElementInstanceImpl {
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(CategoryValueRef.class, BPMN_ELEMENT_CATEGORY_VALUE_REF)
@@ -41,7 +41,7 @@ public class CategoryValueRef extends BpmnModelElementInstanceImpl implements Bp
     typeBuilder.build();
   }
 
-  public CategoryValueRef(final ModelTypeInstanceContext instanceContext) {
+  public CategoryValueRef(ModelTypeInstanceContext instanceContext) {
     super(instanceContext);
   }
 }

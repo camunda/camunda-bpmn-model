@@ -27,7 +27,7 @@ import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeIn
  *
  * @author Sebastian Menski
  */
-public class Target extends BpmnModelElementInstanceImpl implements BpmnModelElementInstance {
+public class Target extends BpmnModelElementInstanceImpl {
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(Target.class, BPMN_ELEMENT_TARGET)
@@ -41,7 +41,7 @@ public class Target extends BpmnModelElementInstanceImpl implements BpmnModelEle
     typeBuilder.build();
   }
 
-  public Target(final ModelTypeInstanceContext instanceContext) {
+  public Target(ModelTypeInstanceContext instanceContext) {
     super(instanceContext);
   }
 }

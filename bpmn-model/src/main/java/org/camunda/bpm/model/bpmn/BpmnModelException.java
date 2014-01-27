@@ -25,7 +25,6 @@ public class BpmnModelException extends ModelException {
   private static final long serialVersionUID = 1L;
 
   public BpmnModelException() {
-    super();
   }
 
   public BpmnModelException(String message, Throwable cause) {

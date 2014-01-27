@@ -43,7 +43,7 @@ public class ExpressionImpl extends BaseElementImpl implements Expression {
     typeBuilder.build();
   }
 
-  public ExpressionImpl(final ModelTypeInstanceContext instanceContext) {
+  public ExpressionImpl(ModelTypeInstanceContext instanceContext) {
     super(instanceContext);
   }
 }

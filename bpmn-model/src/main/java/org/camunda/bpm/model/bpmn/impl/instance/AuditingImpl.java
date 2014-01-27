@@ -43,7 +43,7 @@ public class AuditingImpl extends BaseElementImpl implements Auditing {
     typeBuilder.build();
   }
 
-  public AuditingImpl(final ModelTypeInstanceContext instanceContext) {
+  public AuditingImpl(ModelTypeInstanceContext instanceContext) {
     super(instanceContext);
   }
 }

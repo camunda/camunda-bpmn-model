@@ -25,7 +25,7 @@ import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeIn
 /**
  * @author Sebastian Menski
  */
-public class ConditionExpression extends ExpressionImpl implements Expression {
+public class ConditionExpression extends ExpressionImpl {
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(ConditionExpression.class, BPMN_ELEMENT_CONDITION_EXPRESSION)
@@ -40,7 +40,7 @@ public class ConditionExpression extends ExpressionImpl implements Expression {
     typeBuilder.build();
   }
 
-  public ConditionExpression(final ModelTypeInstanceContext instanceContext) {
+  public ConditionExpression(ModelTypeInstanceContext instanceContext) {
     super(instanceContext);
   }
 }

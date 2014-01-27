@@ -79,7 +79,7 @@ public abstract class FlowElementImpl extends BaseElementImpl implements FlowEle
     return auditingChild.getChild(this);
   }
 
-  public void setAuditing(final Auditing auditing) {
+  public void setAuditing(Auditing auditing) {
     auditingChild.setChild(this, auditing);
   }
 
@@ -87,7 +87,7 @@ public abstract class FlowElementImpl extends BaseElementImpl implements FlowEle
     return monitoringChild.getChild(this);
   }
 
-  public void setMonitoring(final Monitoring monitoring) {
+  public void setMonitoring(Monitoring monitoring) {
     monitoringChild.setChild(this, monitoring);
   }
 

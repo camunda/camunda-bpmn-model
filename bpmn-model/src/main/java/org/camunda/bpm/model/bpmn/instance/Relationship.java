@@ -14,7 +14,6 @@
 package org.camunda.bpm.model.bpmn.instance;
 
 import org.camunda.bpm.model.bpmn.RelationshipDirection;
-import org.camunda.bpm.model.xml.instance.ModelElementInstance;
 
 import java.util.Collection;
 

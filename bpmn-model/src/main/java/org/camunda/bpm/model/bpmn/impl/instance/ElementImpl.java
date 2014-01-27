@@ -44,7 +44,7 @@ public abstract class ElementImpl extends ModelElementInstanceImpl implements El
     typeBuilder.build();
   }
 
-  public ElementImpl(final ModelTypeInstanceContext instanceContext) {
+  public ElementImpl(ModelTypeInstanceContext instanceContext) {
     super(instanceContext);
   }
 

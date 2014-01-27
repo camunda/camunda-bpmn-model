@@ -29,9 +29,9 @@ import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.*;
  */
 public class ImportImpl extends BpmnModelElementInstanceImpl implements Import {
 
-  static Attribute<String> namespaceAttribute;
-  static Attribute<String> locationAttribute;
-  static Attribute<String> importTypeAttribute;
+  private static Attribute<String> namespaceAttribute;
+  private static Attribute<String> locationAttribute;
+  private static Attribute<String> importTypeAttribute;
 
   public static void registerType(ModelBuilder bpmnModelBuilder) {
     ModelElementTypeBuilder typeBuilder = bpmnModelBuilder.defineType(Import.class, BPMN_ELEMENT_IMPORT)

@@ -46,7 +46,7 @@ public class CategoryValueImpl extends BaseElementImpl implements CategoryValue 
     typeBuilder.build();
   }
 
-  public CategoryValueImpl(final ModelTypeInstanceContext instanceContext) {
+  public CategoryValueImpl(ModelTypeInstanceContext instanceContext) {
     super(instanceContext);
   }
 
@@ -54,7 +54,7 @@ public class CategoryValueImpl extends BaseElementImpl implements CategoryValue 
     return nameAttribute.getValue(this);
   }
 
-  public void setName(final String name) {
+  public void setName(String name) {
     nameAttribute.setValue(this, name);
   }
 }

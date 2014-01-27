@@ -38,12 +38,11 @@ public class BpmnParser extends AbstractModelParser {
   private static final String W3C_XML_SCHEMA = "http://www.w3.org/2001/XMLSchema";
 
   public BpmnParser() {
-    super();
     this.schemaFactory = SchemaFactory.newInstance(W3C_XML_SCHEMA);
     try {
       this.schema = schemaFactory.newSchema(ReflectUtil.getResource(BpmnModelConstants.BPMN_20_SCHEMA_LOCATION));
     } catch (SAXException e) {
-      throw new ModelValidationException("Unable to parse schema:" + ReflectUtil.getResource(BpmnModelConstants.BPMN_20_SCHEMA_LOCATION).toString());
+      throw new ModelValidationException("Unable to parse schema:" + ReflectUtil.getResource(BpmnModelConstants.BPMN_20_SCHEMA_LOCATION));
     }
   }
 

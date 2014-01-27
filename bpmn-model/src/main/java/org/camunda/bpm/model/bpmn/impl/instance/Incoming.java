@@ -40,7 +40,7 @@ public class Incoming extends BpmnModelElementInstanceImpl {
     typeBuilder.build();
   } 
   
-  public Incoming(final ModelTypeInstanceContext instanceContext) {
+  public Incoming(ModelTypeInstanceContext instanceContext) {
     super(instanceContext);
   }
 }
