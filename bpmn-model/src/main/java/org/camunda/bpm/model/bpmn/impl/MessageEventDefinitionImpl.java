@@ -34,9 +34,9 @@ import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.*;
 */
 public class MessageEventDefinitionImpl extends EventDefinitionImpl implements MessageEventDefinition {
 
-  public static ModelElementType MODEL_TYPE;
+  private static ModelElementType MODEL_TYPE;
 
-  static AttributeReference<Message> messageRef;
+  private static AttributeReference<Message> messageRef;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(MessageEventDefinition.class, BPMN_ELEMENT_MESSAGE_EVENT_DEFINITION)
@@ -103,7 +103,7 @@ public class MessageEventDefinitionImpl extends EventDefinitionImpl implements M
    * @param message the reference target message
    */
   public void setMessage(Message message) {
-    ((AttributeReferenceImpl<Message>) messageRef).setReferenceTargetElement(this, message);
+    messageRef.setReferenceTargetElement(this, message);
   }
 
 }

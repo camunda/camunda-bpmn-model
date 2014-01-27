@@ -28,6 +28,8 @@ import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.*;
 import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeInstanceProvider;
 
 /**
+ * The BPMN sequenceFlow element
+ *
  * @author Sebastian Menski
  */
 public class SequenceFlowImpl extends FlowElementImpl implements SequenceFlow {
@@ -92,7 +94,7 @@ public class SequenceFlowImpl extends FlowElementImpl implements SequenceFlow {
     return isImmediateAttribute.getValue(this);
   }
 
-  public void setIsImmediate(boolean isImmediate) {
+  public void setImmediate(boolean isImmediate) {
     isImmediateAttribute.setValue(this, isImmediate);
   }
 
@@ -102,5 +104,9 @@ public class SequenceFlowImpl extends FlowElementImpl implements SequenceFlow {
 
   public void setConditionExpression(ConditionExpression conditionExpression) {
     conditionExpressionCollection.setChild(this, conditionExpression);
+  }
+
+  public void removeConditionExpression() {
+    conditionExpressionCollection.removeChild(this);
   }
 }

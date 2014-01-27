@@ -28,7 +28,7 @@ import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN_ELEMENT_ST
  */
 public class StartEventImpl extends CatchEventImpl implements StartEvent {
 
-  public static ModelElementType MODEL_TYPE;
+  private static ModelElementType MODEL_TYPE;
 
   public static void registerType(ModelBuilder modelBuilder) {
 

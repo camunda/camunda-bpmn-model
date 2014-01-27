@@ -25,7 +25,7 @@ import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN_ELEMENT_EV
 /**
  * @author Sebastian Menski
  */
-public class EventDefinitionRefImpl extends ModelElementInstanceImpl implements ModelElementInstance {
+public class EventDefinitionRefImpl extends ModelElementInstanceImpl {
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(EventDefinitionRefImpl.class, BPMN_ELEMENT_EVENT_DEFINITION_REF)

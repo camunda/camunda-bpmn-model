@@ -32,10 +32,11 @@ public interface SequenceFlow extends FlowElement {
 
   boolean isImmediate();
 
-  void setIsImmediate(boolean isImmediate);
+  void setImmediate(boolean isImmediate);
 
   ConditionExpression getConditionExpression();
 
   void setConditionExpression(ConditionExpression conditionExpression);
 
+  void removeConditionExpression();
 }

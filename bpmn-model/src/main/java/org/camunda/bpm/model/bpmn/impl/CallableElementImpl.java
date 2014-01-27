@@ -29,9 +29,9 @@ import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.*;
  */
 public abstract class CallableElementImpl extends RootElementImpl implements CallableElement {
 
-  public static ModelElementType MODEL_TYPE;
+  private static ModelElementType MODEL_TYPE;
 
-  static Attribute<String> nameAttr;
+  private static Attribute<String> nameAttr;
 
   public static void registerType(ModelBuilder bpmnModelBuilder) {
 

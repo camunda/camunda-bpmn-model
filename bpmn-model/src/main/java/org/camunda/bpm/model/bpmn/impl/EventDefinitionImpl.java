@@ -29,7 +29,7 @@ import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN_ELEMENT_EV
  */
 public abstract class EventDefinitionImpl extends RootElementImpl implements EventDefinition {
 
-  public static ModelElementType MODEL_TYPE;
+  private static ModelElementType MODEL_TYPE;
 
   public static void registerType(ModelBuilder modelBuilder) {
 

@@ -33,11 +33,11 @@ import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.*;
  */
 public abstract class CatchEventImpl extends EventImpl implements CatchEvent {
 
-  public static ModelElementType MODEL_TYPE;
+  private static ModelElementType MODEL_TYPE;
 
-  static ChildElementCollection<EventDefinition> eventDefinitionsColl;
+  private static ChildElementCollection<EventDefinition> eventDefinitionsColl;
 
-  static ElementReferenceCollection<EventDefinition, EventDefinitionRefImpl> eventDefinitionsRefColl;
+  private static ElementReferenceCollection<EventDefinition, EventDefinitionRefImpl> eventDefinitionsRefColl;
 
   public static void registerType(ModelBuilder modelBuilder) {
 

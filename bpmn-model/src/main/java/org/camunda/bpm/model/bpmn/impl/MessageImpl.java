@@ -29,9 +29,9 @@ import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.*;
  */
 public class MessageImpl extends RootElementImpl implements Message {
 
-  public static ModelElementType MODEL_TYPE;
+  private static ModelElementType MODEL_TYPE;
 
-  static Attribute<String> nameAttr;
+  private static Attribute<String> nameAttr;
 
   public static void registerType(ModelBuilder modelBuilder) {
 

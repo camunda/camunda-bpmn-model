@@ -39,6 +39,7 @@ public class Bpmn {
 
   /** the parser used by the Bpmn implementation. */
   private final BpmnParser bpmnParser = new BpmnParser();
+  private ModelBuilder bpmnModelBuilder;
 
   /** The {@link Model}
    */
@@ -115,7 +116,7 @@ public class Bpmn {
    * Register known types of the BPMN model
    */
   private Bpmn() {
-    ModelBuilder bpmnModelBuilder = ModelBuilder.createInstance("BPMN Model");
+    bpmnModelBuilder = ModelBuilder.createInstance("BPMN Model");
     doRegisterTypes(bpmnModelBuilder);
     bpmnModel = bpmnModelBuilder.build();
   }
@@ -218,6 +219,10 @@ public class Bpmn {
    */
   public Model getBpmnModel() {
     return bpmnModel;
+  }
+
+  public ModelBuilder getBpmnModelBuilder() {
+    return bpmnModelBuilder;
   }
 
   /**

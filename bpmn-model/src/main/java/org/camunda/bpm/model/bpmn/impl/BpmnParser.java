@@ -55,7 +55,7 @@ public class BpmnParser extends AbstractModelParser {
 
   @Override
   protected BpmnModelInstanceImpl createModelInstance(Document document) {
-    return new BpmnModelInstanceImpl((ModelImpl) Bpmn.INSTANCE.getBpmnModel(), document);
+    return new BpmnModelInstanceImpl((ModelImpl) Bpmn.INSTANCE.getBpmnModel(), Bpmn.INSTANCE.getBpmnModelBuilder(), document);
   }
 
   @Override

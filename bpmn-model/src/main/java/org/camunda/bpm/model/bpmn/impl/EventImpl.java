@@ -33,9 +33,9 @@ import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.*;
  */
 public abstract class EventImpl extends FlowNodeImpl implements Event {
 
-  public static ModelElementType MODEL_TYPE;
+  private static ModelElementType MODEL_TYPE;
 
-  static ChildElementCollection<Property> propertiesColl;
+  private static ChildElementCollection<Property> propertiesColl;
 
   public static void registerType(ModelBuilder modelBuilder) {
 

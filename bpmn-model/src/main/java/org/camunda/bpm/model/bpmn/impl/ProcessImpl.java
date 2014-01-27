@@ -35,13 +35,13 @@ import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.*;
  */
 public class ProcessImpl extends CallableElementImpl implements Process {
 
-  public static ModelElementType MODEL_TYPE;
+  private static ModelElementType MODEL_TYPE;
 
-  static Attribute<ProcessType> processTypeAttr;
-  static Attribute<Boolean> isClosedAttr;
-  static Attribute<Boolean> isExecutableAttr;
+  private static Attribute<ProcessType> processTypeAttr;
+  private static Attribute<Boolean> isClosedAttr;
+  private static Attribute<Boolean> isExecutableAttr;
 
-  static ChildElementCollection<FlowElement> flowElementsColl;
+  private static ChildElementCollection<FlowElement> flowElementsColl;
 
   public static void registerType(ModelBuilder modelBuilder) {
 
