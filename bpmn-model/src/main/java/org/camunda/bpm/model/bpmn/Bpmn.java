@@ -12,10 +12,12 @@
  */
 package org.camunda.bpm.model.bpmn;
 
-import org.camunda.bpm.model.bpmn.impl.*;
-import org.camunda.bpm.model.bpmn.impl.instance.*;
+import org.camunda.bpm.model.bpmn.impl.BpmnModelInstanceImpl;
+import org.camunda.bpm.model.bpmn.impl.BpmnParser;
+import org.camunda.bpm.model.bpmn.impl.instance.BpmnModelElementInstanceImpl;
 import org.camunda.bpm.model.xml.*;
 import org.camunda.bpm.model.xml.impl.util.IoUtil;
+import org.reflections.Reflections;
 
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
@@ -24,6 +26,9 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.*;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.Set;
 
 /**
  * <p>Provides access to the camunda BPMN model api.</p>
@@ -39,7 +44,7 @@ public class Bpmn {
 
   /** the parser used by the Bpmn implementation. */
   private final BpmnParser bpmnParser = new BpmnParser();
-  private ModelBuilder bpmnModelBuilder;
+  private final ModelBuilder bpmnModelBuilder;
 
   /** The {@link Model}
    */
@@ -178,39 +183,21 @@ public class Bpmn {
   }
 
   protected void doRegisterTypes(ModelBuilder bpmnModelBuilder) {
+    Reflections reflections = new Reflections("org.camunda.bpm.model.bpmn");
+    Set<Class<? extends BpmnModelElementInstanceImpl>> subTypesOf = reflections.getSubTypesOf(BpmnModelElementInstanceImpl.class);
 
-    AuditingImpl.registerType(bpmnModelBuilder);
-    BaseElementImpl.registerType(bpmnModelBuilder);
-    CategoryValueImpl.registerType(bpmnModelBuilder);
-    CategoryValueRef.registerType(bpmnModelBuilder);
-    ConditionExpression.registerType(bpmnModelBuilder);
-    DefinitionsImpl.registerType(bpmnModelBuilder);
-    DocumentationImpl.registerType(bpmnModelBuilder);
-    ExpressionImpl.registerType(bpmnModelBuilder);
-    ExtensionElementsImpl.registerType(bpmnModelBuilder);
-    ExtensionImpl.registerType(bpmnModelBuilder);
-    FlowElementImpl.registerType(bpmnModelBuilder);
-    FlowNodeImpl.registerType(bpmnModelBuilder);
-    ImportImpl.registerType(bpmnModelBuilder);
-    Incoming.registerType(bpmnModelBuilder);
-    MonitoringImpl.registerType(bpmnModelBuilder);
-    Outgoing.registerType(bpmnModelBuilder);
-    RootElementImpl.registerType(bpmnModelBuilder);
-    SequenceFlowImpl.registerType(bpmnModelBuilder);
-    Source.registerType(bpmnModelBuilder);
-    Target.registerType(bpmnModelBuilder);
-    RelationshipImpl.registerType(bpmnModelBuilder);
-
-    EventDefinitionRefImpl.registerType(bpmnModelBuilder);
-    PropertyImpl.registerType(bpmnModelBuilder);
-    CallableElementImpl.registerType(bpmnModelBuilder);
-    ProcessImpl.registerType(bpmnModelBuilder);
-    EventDefinitionImpl.registerType(bpmnModelBuilder);
-    MessageImpl.registerType(bpmnModelBuilder);
-    MessageEventDefinitionImpl.registerType(bpmnModelBuilder);
-    EventImpl.registerType(bpmnModelBuilder);
-    CatchEventImpl.registerType(bpmnModelBuilder);
-    StartEventImpl.registerType(bpmnModelBuilder);
+    for (Class<? extends BpmnModelElementInstanceImpl> instanceImpl : subTypesOf) {
+      try {
+        Method registerTypeMethod = instanceImpl.getMethod("registerType", ModelBuilder.class);
+        registerTypeMethod.invoke(null, bpmnModelBuilder);
+      } catch (NoSuchMethodException e) {
+        throw new BpmnModelException("Class " + instanceImpl + " has nor registerType method", e);
+      } catch (InvocationTargetException e) {
+        throw new BpmnModelException("Unable to call registerType method on class " + instanceImpl, e);
+      } catch (IllegalAccessException e) {
+        throw new BpmnModelException("Unable to call registerType method on class " + instanceImpl, e);
+      }
+    }
   }
 
   /**

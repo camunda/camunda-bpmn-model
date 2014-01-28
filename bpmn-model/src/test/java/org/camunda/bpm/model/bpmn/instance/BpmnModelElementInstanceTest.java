@@ -15,7 +15,9 @@ package org.camunda.bpm.model.bpmn.instance;
 
 import org.camunda.bpm.model.bpmn.util.GetBpmnModelElementTypeRule;
 import org.camunda.bpm.model.xml.Model;
+import org.camunda.bpm.model.xml.ModelInstance;
 import org.camunda.bpm.model.xml.impl.type.ModelElementTypeImpl;
+import org.camunda.bpm.model.xml.impl.util.ModelTypeException;
 import org.camunda.bpm.model.xml.instance.ModelElementInstance;
 import org.camunda.bpm.model.xml.test.assertions.AttributeAssert;
 import org.camunda.bpm.model.xml.test.assertions.ChildElementAssert;
@@ -24,11 +26,13 @@ import org.camunda.bpm.model.xml.type.ModelElementType;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Test;
+import org.w3c.dom.DOMException;
 
 import java.util.Collection;
 
 import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN20_NS;
 import static org.camunda.bpm.model.xml.test.assertions.ModelAssertions.assertThat;
+import static org.junit.Assert.fail;
 
 /**
  * @author Sebastian Menski
@@ -75,24 +79,42 @@ public abstract class BpmnModelElementInstanceTest {
   protected class AttributeAssumption {
 
     public final String attributeName;
+    public final String namespace;
     public final boolean isIdAttribute;
     public final boolean isRequired;
     public final Object defaultValue;
 
     public AttributeAssumption(String attributeName) {
-      this(attributeName, false, false, null);
+      this(attributeName, null, false, false, null);
+    }
+
+    public AttributeAssumption(String attributeName, String namespace) {
+      this(attributeName, namespace, false, false, null);
     }
 
     public AttributeAssumption(String attributeName, boolean isIdAttribute) {
-      this(attributeName, isIdAttribute, false, null);
+      this(attributeName, null, isIdAttribute, false, null);
+    }
+
+    public AttributeAssumption(String attributeName, String namespace, boolean isIdAttribute) {
+      this(attributeName, namespace, isIdAttribute, false, null);
     }
 
     public AttributeAssumption(String attributeName, boolean isIdAttribute, boolean isRequired) {
-      this(attributeName, isIdAttribute, isRequired, null);
+      this(attributeName, null, isIdAttribute, isRequired, null);
+    }
+
+    public AttributeAssumption(String attributeName, String namespace, boolean isIdAttribute, boolean isRequired) {
+      this(attributeName, namespace, isIdAttribute, isRequired, null);
     }
 
     public AttributeAssumption(String attributeName, boolean isIdAttribute, boolean isRequired, Object defaultValue) {
+      this(attributeName, null, isIdAttribute, isRequired, defaultValue);
+    }
+
+    public AttributeAssumption(String attributeName, String namespace, boolean isIdAttribute, boolean isRequired, Object defaultValue) {
       this.attributeName = attributeName;
+      this.namespace = namespace;
       this.isIdAttribute = isIdAttribute;
       this.isRequired = isRequired;
       this.defaultValue = defaultValue;
@@ -102,11 +124,13 @@ public abstract class BpmnModelElementInstanceTest {
   @ClassRule
   public static final GetBpmnModelElementTypeRule bpmnModelElementTypeRule = new GetBpmnModelElementTypeRule();
 
+  public static ModelInstance modelInstance;
   public static Model model;
   public static ModelElementType modelElementType;
 
   @BeforeClass
   public static void getModelElementType() {
+    modelInstance = bpmnModelElementTypeRule.getModelInstance();
     model = bpmnModelElementTypeRule.getModel();
     modelElementType = bpmnModelElementTypeRule.getModelElementType();
   }
@@ -152,6 +176,26 @@ public abstract class BpmnModelElementInstanceTest {
     else {
       assertThatType().extendsType(assumption.extendsType);
     }
+
+    if (assumption.isAbstract) {
+      try {
+        modelInstance.newInstance(modelElementType);
+        fail("Element type " + modelElementType.getTypeName() + " is abstract.");
+      }
+      catch (DOMException e) {
+        // expected exception
+      }
+      catch (ModelTypeException e) {
+        // expected exception
+      }
+      catch (Exception e) {
+        fail("Unexpected exception " + e.getMessage());
+      }
+    }
+    else {
+      ModelElementInstance modelElementInstance = modelInstance.newInstance(modelElementType);
+      assertThat(modelElementInstance).isNotNull();
+    }
   }
 
   @Test
@@ -182,7 +226,13 @@ public abstract class BpmnModelElementInstanceTest {
         AttributeAssert attributeAssert = assertThatAttribute(assumption.attributeName);
 
         attributeAssert.hasOwningElementType(modelElementType);
-        attributeAssert.hasNoNamespaceUri();
+
+        if (assumption.namespace != null) {
+          attributeAssert.hasNamespaceUri(assumption.namespace);
+        }
+        else {
+          attributeAssert.hasNoNamespaceUri();
+        }
 
         if (assumption.isIdAttribute) {
           attributeAssert.isIdAttribute();

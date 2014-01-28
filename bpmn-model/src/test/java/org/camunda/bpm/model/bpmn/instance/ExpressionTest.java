@@ -13,8 +13,6 @@
 
 package org.camunda.bpm.model.bpmn.instance;
 
-import org.junit.Test;
-
 import java.util.Collection;
 
 /**

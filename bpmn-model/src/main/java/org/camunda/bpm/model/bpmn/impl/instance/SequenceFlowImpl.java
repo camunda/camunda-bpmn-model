@@ -74,20 +74,20 @@ public class SequenceFlowImpl extends FlowElementImpl implements SequenceFlow {
     super(context);
   }
 
-  public FlowNode getSourceRef() {
+  public FlowNode getSource() {
     return sourceRefAttribute.getReferenceTargetElement(this);
   }
 
-  public void setSourceRef(FlowNode sourceRef) {
-    sourceRefAttribute.setReferenceTargetElement(this, sourceRef);
+  public void setSource(FlowNode source) {
+    sourceRefAttribute.setReferenceTargetElement(this, source);
   }
 
-  public FlowNode getTargetRef() {
+  public FlowNode getTarget() {
     return targetRefAttribute.getReferenceTargetElement(this);
   }
 
-  public void setTargetRef(FlowNode targetRef) {
-    targetRefAttribute.setReferenceTargetElement(this, targetRef);
+  public void setTarget(FlowNode target) {
+    targetRefAttribute.setReferenceTargetElement(this, target);
   }
 
   public boolean isImmediate() {

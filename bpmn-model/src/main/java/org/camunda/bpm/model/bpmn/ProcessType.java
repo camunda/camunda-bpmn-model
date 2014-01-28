@@ -13,7 +13,7 @@
 package org.camunda.bpm.model.bpmn;
 
 /**
- * <p>The Bpmn Process Type</p>
+ * The BPMN tProcessType simple type
  *
  * @author Daniel Meyer
  *

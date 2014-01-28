@@ -15,6 +15,7 @@ package org.camunda.bpm.model.bpmn.util;
 
 import org.camunda.bpm.model.bpmn.Bpmn;
 import org.camunda.bpm.model.xml.Model;
+import org.camunda.bpm.model.xml.ModelInstance;
 import org.camunda.bpm.model.xml.instance.ModelElementInstance;
 import org.camunda.bpm.model.xml.type.ModelElementType;
 import org.junit.rules.TestWatcher;
@@ -25,6 +26,7 @@ import org.junit.runner.Description;
  */
 public class GetBpmnModelElementTypeRule extends TestWatcher {
 
+  private ModelInstance modelInstance;
   private Model model;
   private ModelElementType modelElementType;
 
@@ -39,8 +41,13 @@ public class GetBpmnModelElementTypeRule extends TestWatcher {
     } catch (ClassNotFoundException e) {
       e.printStackTrace();
     }
-    model = Bpmn.INSTANCE.getBpmnModel();
+    modelInstance = Bpmn.createEmptyModel();
+    model = modelInstance.getModel();
     modelElementType = model.getType(instanceClass);
+  }
+
+  public ModelInstance getModelInstance() {
+    return modelInstance;
   }
 
   public Model getModel() {

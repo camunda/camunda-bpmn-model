@@ -12,9 +12,7 @@
  */
 package org.camunda.bpm.model.bpmn;
 
-import org.camunda.bpm.model.bpmn.instance.BaseElement;
-import org.camunda.bpm.model.bpmn.instance.Definitions;
-import org.camunda.bpm.model.bpmn.instance.ExtensionElements;
+import org.camunda.bpm.model.bpmn.instance.*;
 import org.camunda.bpm.model.xml.Model;
 import org.camunda.bpm.model.xml.impl.util.ModelUtil;
 import org.camunda.bpm.model.xml.type.ModelElementType;
@@ -66,7 +64,7 @@ public class ModelTest {
     baseInstanceTypes.add(model.getType(ExtensionElements.class));
     baseInstanceTypes.add(model.getType(EventDefinition.class));
     Collection<ModelElementType> allExtendingTypes = ModelUtil.calculateAllExtendingTypes(bpmnModelInstance.getModel(), baseInstanceTypes);
-    assertThat(allExtendingTypes).hasSize(3);
+    assertThat(allExtendingTypes).hasSize(6);
   }
 
 

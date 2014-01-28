@@ -12,7 +12,8 @@
  */
 package org.camunda.bpm.model.bpmn;
 
-import org.camunda.bpm.model.bpmn.instance.Definitions;
+import org.camunda.bpm.model.bpmn.instance.*;
+import org.camunda.bpm.model.bpmn.instance.Process;
 import org.camunda.bpm.model.bpmn.util.BpmnModelResource;
 import org.junit.Before;
 import org.junit.Test;
@@ -60,46 +61,46 @@ public class ReferenceTest extends BpmnModelTest {
 
   @Test
   public void testShouldUpdateReferenceOnIdChange() {
-    assertThat(messageEventDefinition.getMessageRef()).isEqualTo(message.getId());
+    assertThat(messageEventDefinition.getMessage()).isEqualTo(message);
     message.setId("changed-message-id");
     assertThat(message.getId()).isEqualTo("changed-message-id");
-    assertThat(messageEventDefinition.getMessageRef()).isEqualTo(message.getId());
+    assertThat(messageEventDefinition.getMessage()).isEqualTo(message);
 
     message.setAttributeValue("id", "another-message-id", true);
     assertThat(message.getId()).isEqualTo("another-message-id");
-    assertThat(messageEventDefinition.getMessageRef()).isEqualTo(message.getId());
+    assertThat(messageEventDefinition.getMessage()).isEqualTo(message);
   }
 
   @Test
   public void testShouldRemoveReferenceIfReferencingElementIsRemoved() {
-    assertThat(messageEventDefinition.getMessageRef()).isEqualTo(message.getId());
+    assertThat(messageEventDefinition.getMessage()).isEqualTo(message);
 
     Definitions definitions = testBpmnModelInstance.getDefinitions();
     definitions.getRootElements().remove(message);
 
     assertThat(messageEventDefinition.getId()).isEqualTo("msg-def-id");
-    assertThat(messageEventDefinition.getMessageRef()).isNull();
+    assertThat(messageEventDefinition.getMessage()).isNull();
   }
 
   @Test
   public void testShouldRemoveReferenceIfReferencingAttributeIsRemoved() {
-    assertThat(messageEventDefinition.getMessageRef()).isEqualTo(message.getId());
+    assertThat(messageEventDefinition.getMessage()).isEqualTo(message);
 
     message.removeAttribute("id");
 
     assertThat(messageEventDefinition.getId()).isEqualTo("msg-def-id");
-    assertThat(messageEventDefinition.getMessageRef()).isNull();
+    assertThat(messageEventDefinition.getMessage()).isNull();
   }
 
   @Test
   public void testShouldUpdateReferenceIfReferencingElementIsReplaced() {
-    assertThat(messageEventDefinition.getMessageRef()).isEqualTo(message.getId());
+    assertThat(messageEventDefinition.getMessage()).isEqualTo(message);
     Message newMessage = testBpmnModelInstance.newInstance(Message.class);
     newMessage.setId("new-message-id");
 
     message.replaceWithElement(newMessage);
 
-    assertThat(messageEventDefinition.getMessageRef()).isEqualTo(newMessage.getId());
+    assertThat(messageEventDefinition.getMessage()).isEqualTo(newMessage);
   }
 
   @Test

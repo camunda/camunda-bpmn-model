@@ -13,14 +13,12 @@
 package org.camunda.bpm.model.bpmn;
 
 import org.camunda.bpm.model.bpmn.impl.BpmnModelInstanceImpl;
-import org.camunda.bpm.model.bpmn.instance.Definitions;
-import org.camunda.bpm.model.bpmn.instance.ExtensionElements;
-import org.camunda.bpm.model.bpmn.instance.Import;
+import org.camunda.bpm.model.bpmn.instance.*;
+import org.camunda.bpm.model.bpmn.instance.Process;
 import org.camunda.bpm.model.bpmn.util.BpmnModelResource;
 import org.camunda.bpm.model.xml.ModelReferenceException;
 import org.camunda.bpm.model.xml.ModelValidationException;
 import org.camunda.bpm.model.xml.impl.util.IoUtil;
-import org.camunda.bpm.model.xml.impl.util.QName;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -29,9 +27,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.XML_SCHEMA_NS;
 import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.XPATH_NS;
-import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Daniel Meyer
@@ -184,8 +182,6 @@ public class DefinitionsTest extends BpmnModelTest {
     // test if message was set correctly
     Message setMessage = messageEventDefinition.getMessage();
     assertThat(setMessage).isEqualTo(message);
-    String messageRefString = message.getId();
-    assertThat(messageRefString).isEqualTo(messageEventDefinition.getMessageRef());
 
     // add process
     Process process = bpmnModelInstance.newInstance(Process.class);
@@ -224,8 +220,6 @@ public class DefinitionsTest extends BpmnModelTest {
     // message event definition and add message by id to it
     anotherMessageEventDefinition = bpmnModelInstance.newInstance(MessageEventDefinition.class);
     startEvent.getEventDefinitions().add(anotherMessageEventDefinition);
-    anotherMessageEventDefinition.setMessageRef(new QName(message.getId()));
-    assertThat(anotherMessageEventDefinition.getMessage()).isEqualTo(message);
 
     // validate model
     try {

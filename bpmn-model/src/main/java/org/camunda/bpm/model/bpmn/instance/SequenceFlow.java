@@ -22,13 +22,13 @@ import org.camunda.bpm.model.bpmn.impl.instance.ConditionExpression;
  */
 public interface SequenceFlow extends FlowElement {
 
-  FlowNode getSourceRef();
+  FlowNode getSource();
 
-  void setSourceRef(FlowNode sourceRef);
+  void setSource(FlowNode source);
 
-  FlowNode getTargetRef();
+  FlowNode getTarget();
 
-  void setTargetRef(FlowNode targetRef);
+  void setTarget(FlowNode target);
 
   boolean isImmediate();
 
