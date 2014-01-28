@@ -91,5 +91,6 @@ public final class BpmnModelConstants {
   public static final String BPMN_ATTRIBUTE_SOURCE_REF = "sourceRef";
   public static final String BPMN_ATTRIBUTE_TARGET_REF = "targetRef";
   public static final String BPMN_ATTRIBUTE_IS_IMMEDIATE = "isImmediate";
+  public static final String BPMN_ATTRIBUTE_VALUE = "value";
 
 }

@@ -13,14 +13,29 @@
 
 package org.camunda.bpm.model.bpmn.instance;
 
+import java.util.Arrays;
+import java.util.Collection;
+
 /**
- * The BPMN categoryValue element
- *
  * @author Sebastian Menski
  */
-public interface CategoryValue extends BaseElement {
+public class BaseElementTest extends BpmnModelElementInstanceTest {
 
-  String getValue();
+  public TypeAssumption getTypeAssumption() {
+    return new TypeAssumption(true);
+  }
 
-  void setValue(String name);
+  public Collection<ChildElementAssumption> getChildElementAssumptions() {
+    return Arrays.asList(
+      new ChildElementAssumption(Documentation.class),
+      new ChildElementAssumption(ExtensionElements.class, 0, 1)
+    );
+  }
+
+  public Collection<AttributeAssumption> getAttributesAssumptions() {
+    return Arrays.asList(
+      new AttributeAssumption("id", true)
+    );
+  }
+
 }

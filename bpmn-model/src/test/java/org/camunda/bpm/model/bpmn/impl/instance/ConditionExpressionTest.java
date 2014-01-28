@@ -11,16 +11,27 @@
  * limitations under the License.
  */
 
-package org.camunda.bpm.model.bpmn.instance;
+package org.camunda.bpm.model.bpmn.impl.instance;
+
+import org.camunda.bpm.model.bpmn.instance.BpmnModelElementInstanceTest;
+import org.camunda.bpm.model.bpmn.instance.Expression;
+
+import java.util.Collection;
 
 /**
- * The BPMN categoryValue element
- *
  * @author Sebastian Menski
  */
-public interface CategoryValue extends BaseElement {
+public class ConditionExpressionTest extends BpmnModelElementInstanceTest {
 
-  String getValue();
+  public TypeAssumption getTypeAssumption() {
+    return new TypeAssumption(Expression.class, false);
+  }
 
-  void setValue(String name);
+  public Collection<ChildElementAssumption> getChildElementAssumptions() {
+    return null;
+  }
+
+  public Collection<AttributeAssumption> getAttributesAssumptions() {
+    return null;
+  }
 }

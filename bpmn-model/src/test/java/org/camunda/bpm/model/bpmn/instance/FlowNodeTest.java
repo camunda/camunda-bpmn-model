@@ -13,14 +13,29 @@
 
 package org.camunda.bpm.model.bpmn.instance;
 
+import org.camunda.bpm.model.bpmn.impl.instance.Incoming;
+import org.camunda.bpm.model.bpmn.impl.instance.Outgoing;
+
+import java.util.Arrays;
+import java.util.Collection;
+
 /**
- * The BPMN categoryValue element
- *
  * @author Sebastian Menski
  */
-public interface CategoryValue extends BaseElement {
+public class FlowNodeTest extends BpmnModelElementInstanceTest {
 
-  String getValue();
+  public TypeAssumption getTypeAssumption() {
+    return new TypeAssumption(FlowElement.class, true);
+  }
 
-  void setValue(String name);
+  public Collection<ChildElementAssumption> getChildElementAssumptions() {
+    return Arrays.asList(
+      new ChildElementAssumption(Incoming.class),
+      new ChildElementAssumption(Outgoing.class)
+    );
+  }
+
+  public Collection<AttributeAssumption> getAttributesAssumptions() {
+    return null;
+  }
 }

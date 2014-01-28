@@ -20,8 +20,7 @@ import org.camunda.bpm.model.xml.impl.instance.ModelTypeInstanceContext;
 import org.camunda.bpm.model.xml.type.ModelElementTypeBuilder;
 import org.camunda.bpm.model.xml.type.attribute.Attribute;
 
-import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN20_NS;
-import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN_ELEMENT_CATEGORY_VALUE;
+import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.*;
 import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeInstanceProvider;
 
 /**
@@ -31,7 +30,7 @@ import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeIn
  */
 public class CategoryValueImpl extends BaseElementImpl implements CategoryValue {
 
-  private static Attribute<String> nameAttribute;
+  private static Attribute<String> valueAttribute;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(CategoryValue.class, BPMN_ELEMENT_CATEGORY_VALUE)
@@ -43,6 +42,9 @@ public class CategoryValueImpl extends BaseElementImpl implements CategoryValue 
         }
       });
 
+    valueAttribute = typeBuilder.stringAttribute(BPMN_ATTRIBUTE_VALUE)
+      .build();
+
     typeBuilder.build();
   }
 
@@ -50,11 +52,11 @@ public class CategoryValueImpl extends BaseElementImpl implements CategoryValue 
     super(instanceContext);
   }
 
-  public String getName() {
-    return nameAttribute.getValue(this);
+  public String getValue() {
+    return valueAttribute.getValue(this);
   }
 
-  public void setName(String name) {
-    nameAttribute.setValue(this, name);
+  public void setValue(String name) {
+    valueAttribute.setValue(this, name);
   }
 }

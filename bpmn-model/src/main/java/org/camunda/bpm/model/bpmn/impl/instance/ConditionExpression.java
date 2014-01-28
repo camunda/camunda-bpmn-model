@@ -23,6 +23,8 @@ import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN_ELEMENT_CO
 import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeInstanceProvider;
 
 /**
+ * The BPMN conditionExpression element of the BPMN tSequenceFlow type
+ *
  * @author Sebastian Menski
  */
 public class ConditionExpression extends ExpressionImpl {

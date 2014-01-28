@@ -21,7 +21,7 @@ import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN20_NS;
 import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN_ELEMENT_EXTENSION_ELEMENTS;
 
 /**
- * The BPMN extensionElements
+ * The BPMN extensionElements element
  *
  * @author Daniel Meyer
  * @author Sebastian Menski

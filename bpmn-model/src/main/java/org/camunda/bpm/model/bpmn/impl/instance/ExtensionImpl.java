@@ -47,6 +47,7 @@ public class ExtensionImpl extends BpmnModelElementInstanceImpl implements Exten
         }
       });
 
+    // TODO: qname reference extension definition
     definitionAttribute = typeBuilder.stringAttribute(BPMN_ATTRIBUTE_DEFINITION)
       .build();
 
