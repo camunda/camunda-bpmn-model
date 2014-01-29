@@ -27,6 +27,7 @@ import org.junit.Test;
 
 import java.util.Collection;
 
+import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN20_NS;
 import static org.camunda.bpm.model.xml.test.assertions.ModelAssertions.assertThat;
 
 /**
@@ -134,7 +135,11 @@ public abstract class BpmnModelElementInstanceTest {
 
   @Test
   public void testType() {
+    assertThatType().isPartOfModel(model);
+    assertThatType().hasTypeNamespace(BPMN20_NS);
+
     TypeAssumption assumption = getTypeAssumption();
+
     if (assumption.isAbstract) {
       assertThatType().isAbstract();
     }
@@ -159,8 +164,8 @@ public abstract class BpmnModelElementInstanceTest {
       for (ChildElementAssumption assumption : childElementAssumptions) {
         assertThatType().hasChildElements(assumption.childElementType);
         assertThatChildElement(assumption.childElementType)
-          .minOccurs(assumption.minOccurs)
-          .maxOccurs(assumption.maxOccurs);
+          .occursMinimal(assumption.minOccurs)
+          .occursMaximal(assumption.maxOccurs);
       }
     }
   }
@@ -175,6 +180,9 @@ public abstract class BpmnModelElementInstanceTest {
       for (AttributeAssumption assumption : attributesAssumptions) {
         assertThatType().hasAttributes(assumption.attributeName);
         AttributeAssert attributeAssert = assertThatAttribute(assumption.attributeName);
+
+        attributeAssert.hasOwningElementType(modelElementType);
+        attributeAssert.hasNoNamespaceUri();
 
         if (assumption.isIdAttribute) {
           attributeAssert.isIdAttribute();
