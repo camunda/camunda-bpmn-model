@@ -14,6 +14,8 @@
 package org.camunda.bpm.model.bpmn.instance;
 
 import org.camunda.bpm.model.bpmn.RelationshipDirection;
+import org.camunda.bpm.model.bpmn.impl.instance.Source;
+import org.camunda.bpm.model.bpmn.impl.instance.Target;
 
 import java.util.Collection;
 
@@ -32,7 +34,7 @@ public interface Relationship extends BaseElement {
 
   void setDirection(RelationshipDirection direction);
 
-  Collection<Element> getSources();
+  Collection<Source> getSources();
 
-  Collection<Element> getTargets();
+  Collection<Target> getTargets();
 }

@@ -178,8 +178,6 @@ public class Bpmn {
   }
 
   protected void doRegisterTypes(ModelBuilder bpmnModelBuilder) {
-    ElementImpl.registerType(bpmnModelBuilder);
-    RelationshipImpl.registerType(bpmnModelBuilder);
 
     AuditingImpl.registerType(bpmnModelBuilder);
     BaseElementImpl.registerType(bpmnModelBuilder);
@@ -201,6 +199,7 @@ public class Bpmn {
     SequenceFlowImpl.registerType(bpmnModelBuilder);
     Source.registerType(bpmnModelBuilder);
     Target.registerType(bpmnModelBuilder);
+    RelationshipImpl.registerType(bpmnModelBuilder);
 
     EventDefinitionRefImpl.registerType(bpmnModelBuilder);
     PropertyImpl.registerType(bpmnModelBuilder);

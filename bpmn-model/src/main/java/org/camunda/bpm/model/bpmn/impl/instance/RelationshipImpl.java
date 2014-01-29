@@ -15,14 +15,13 @@ package org.camunda.bpm.model.bpmn.impl.instance;
 
 import org.camunda.bpm.model.bpmn.RelationshipDirection;
 import org.camunda.bpm.model.bpmn.instance.BaseElement;
-import org.camunda.bpm.model.bpmn.instance.Element;
 import org.camunda.bpm.model.bpmn.instance.Relationship;
 import org.camunda.bpm.model.xml.ModelBuilder;
 import org.camunda.bpm.model.xml.impl.instance.ModelTypeInstanceContext;
 import org.camunda.bpm.model.xml.type.ModelElementTypeBuilder;
 import org.camunda.bpm.model.xml.type.attribute.Attribute;
+import org.camunda.bpm.model.xml.type.child.ChildElementCollection;
 import org.camunda.bpm.model.xml.type.child.SequenceBuilder;
-import org.camunda.bpm.model.xml.type.reference.ElementReferenceCollection;
 
 import java.util.Collection;
 
@@ -38,8 +37,8 @@ public class RelationshipImpl extends BaseElementImpl implements Relationship {
 
   private static Attribute<String> typeAttribute;
   private static Attribute<RelationshipDirection> directionAttribute;
-  private static ElementReferenceCollection<Element, Source> sourceCollection;
-  private static ElementReferenceCollection<Element, Target> targetCollection;
+  private static ChildElementCollection<Source> sourceCollection;
+  private static ChildElementCollection<Target> targetCollection;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(Relationship.class, BPMN_ELEMENT_RELATIONSHIP)
@@ -62,12 +61,10 @@ public class RelationshipImpl extends BaseElementImpl implements Relationship {
 
     sourceCollection = sequenceBuilder.elementCollection(Source.class)
       .minOccurs(1)
-      .qNameElementReferenceCollection(Element.class)
       .build();
 
     targetCollection = sequenceBuilder.elementCollection(Target.class)
       .minOccurs(1)
-      .qNameElementReferenceCollection(Element.class)
       .build();
 
     typeBuilder.build();
@@ -93,11 +90,11 @@ public class RelationshipImpl extends BaseElementImpl implements Relationship {
     directionAttribute.setValue(this, direction);
   }
 
-  public Collection<Element> getSources() {
-    return sourceCollection.getReferenceTargetElements(this);
+  public Collection<Source> getSources() {
+    return sourceCollection.get(this);
   }
 
-  public Collection<Element> getTargets() {
-    return targetCollection.getReferenceTargetElements(this);
+  public Collection<Target> getTargets() {
+    return targetCollection.get(this);
   }
 }
