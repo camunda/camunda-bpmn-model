@@ -15,6 +15,7 @@ package org.camunda.bpm.model.bpmn;
 import org.camunda.bpm.model.bpmn.impl.BpmnModelInstanceImpl;
 import org.camunda.bpm.model.bpmn.impl.BpmnParser;
 import org.camunda.bpm.model.bpmn.impl.instance.BpmnModelElementInstanceImpl;
+import org.camunda.bpm.model.bpmn.instance.BpmnModelElementInstance;
 import org.camunda.bpm.model.xml.*;
 import org.camunda.bpm.model.xml.impl.util.IoUtil;
 import org.reflections.Reflections;
@@ -73,39 +74,50 @@ public class Bpmn {
   }
 
   /**
-   * Allows writing a {@link BpmnModelInstanceImpl} to a File. It will be
+   * Allows writing a {@link BpmnModelInstance} to a File. It will be
    * validated before writing.
    *
-   * @param file the {@link File} to write the {@link BpmnModelInstanceImpl} to
-   * @param model the {@link BpmnModelInstanceImpl} to write
+   * @param file the {@link File} to write the {@link BpmnModelInstance} to
+   * @param modelInstance the {@link BpmnModelInstance} to write
    * @throws BpmnModelException if the model cannot be written
    * @throws ModelValidationException if the model is not valid
    */
-  public static void writeModelToFile(File file, BpmnModelInstanceImpl model) {
-    INSTANCE.doWriteModelToFile(file, model);
+  public static void writeModelToFile(File file, BpmnModelInstance modelInstance) {
+    INSTANCE.doWriteModelToFile(file, (BpmnModelInstanceImpl) modelInstance);
   }
 
   /**
-   * Allows writing a {@link BpmnModelInstanceImpl} to an {@link OutputStream}. It will be
+   * Allows writing a {@link BpmnModelInstance} to an {@link OutputStream}. It will be
    * validated before writing.
    *
-   * @param stream the {@link OutputStream} to write the {@link BpmnModelInstanceImpl} to
-   * @param model the {@link BpmnModelInstanceImpl} to write
+   * @param stream the {@link OutputStream} to write the {@link BpmnModelInstance} to
+   * @param modelInstance the {@link BpmnModelInstance} to write
    * @throws ModelException if the model cannot be written
    * @throws ModelValidationException if the model is not valid
    */
-  public static void writeModelToStream(OutputStream stream, BpmnModelInstanceImpl model) {
-    INSTANCE.doWriteModelToOutputStream(stream, model);
+  public static void writeModelToStream(OutputStream stream, BpmnModelInstance modelInstance) {
+    INSTANCE.doWriteModelToOutputStream(stream, modelInstance);
+  }
+
+  /**
+   * Allows the conversion of a {@link BpmnModelInstance} to an {@link String}. It will
+   * be validated before conversion.
+   *
+   * @param modelInstance  the model instance to convert
+   * @return the XML string representation of the model instance
+   */
+  public static String convertToString(BpmnModelInstance modelInstance) {
+    return INSTANCE.doConvertToString(modelInstance);
   }
 
   /**
    * Validate model DOM document
    *
-   * @param model the {@link BpmnModelInstanceImpl} to validate
+   * @param modelInstance the {@link BpmnModelInstance} to validate
    * @throws ModelValidationException if the model is not valid
    */
-  public static void validateModel(BpmnModelInstanceImpl model) {
-    INSTANCE.doValidateModel(model);
+  public static void validateModel(BpmnModelInstance modelInstance) {
+    INSTANCE.doValidateModel(modelInstance);
   }
 
   /**
@@ -145,11 +157,11 @@ public class Bpmn {
     return bpmnParser.parseModelFromStream(is);
   }
 
-  protected void doWriteModelToFile(File file, BpmnModelInstanceImpl model) {
+  protected void doWriteModelToFile(File file, BpmnModelInstance modelInstance) {
     OutputStream os = null;
     try {
       os = new FileOutputStream(file);
-      doWriteModelToOutputStream(os, model);
+      doWriteModelToOutputStream(os, modelInstance);
     }
     catch (FileNotFoundException e) {
       throw new BpmnModelException("Cannot read model from file "+file+": file does not exist.");
@@ -158,24 +170,22 @@ public class Bpmn {
     }
   }
 
-  protected void doWriteModelToOutputStream(OutputStream os, BpmnModelInstanceImpl model) {
+  protected void doWriteModelToOutputStream(OutputStream os, BpmnModelInstance modelInstance) {
     // validate DOM document
-    doValidateModel(model);
-    try {
-      TransformerFactory transformerFactory = TransformerFactory.newInstance();
-      Transformer transformer = transformerFactory.newTransformer();
-      DOMSource domSource = new DOMSource(model.getDocument());
-      StreamResult result = new StreamResult(os);
-      transformer.transform(domSource, result);
-    } catch (TransformerConfigurationException e) {
-      throw new BpmnModelException("Cannot create transformer to write the model", e);
-    } catch (TransformerException e) {
-      throw new BpmnModelException("Cannot transform model to xml", e);
-    }
+    doValidateModel(modelInstance);
+    // write XML
+    IoUtil.writeDocumentToOutputStream(modelInstance.getDocument(), os);
   }
 
-  protected void doValidateModel(BpmnModelInstanceImpl model) {
-    bpmnParser.validateModel(model.getDocument());
+  protected String doConvertToString(BpmnModelInstance modelInstance) {
+    // validate DOM document
+    doValidateModel(modelInstance);
+    // convert to XML string
+    return IoUtil.convertXmlDocumentToString(modelInstance.getDocument());
+  }
+
+  protected void doValidateModel(BpmnModelInstance modelInstance) {
+    bpmnParser.validateModel(modelInstance.getDocument());
   }
 
   protected BpmnModelInstance doCreateEmptyModel() {
