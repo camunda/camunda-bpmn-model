@@ -12,6 +12,9 @@
  */
 package org.camunda.bpm.model.bpmn.impl.instance;
 
+import org.camunda.bpm.model.bpmn.BpmnModelInstance;
+import org.camunda.bpm.model.bpmn.builder.AbstractBaseElementBuilder;
+import org.camunda.bpm.model.bpmn.builder.StartEventBuilder;
 import org.camunda.bpm.model.bpmn.instance.CatchEvent;
 import org.camunda.bpm.model.bpmn.instance.StartEvent;
 import org.camunda.bpm.model.xml.ModelBuilder;
@@ -29,6 +32,7 @@ import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.*;
 public class StartEventImpl extends CatchEventImpl implements StartEvent {
 
   private static Attribute<Boolean> isInterruptingAttribute;
+  private static Attribute<String> formKeyAttribute;
 
   public static void registerType(ModelBuilder modelBuilder) {
 
@@ -45,11 +49,21 @@ public class StartEventImpl extends CatchEventImpl implements StartEvent {
       .defaultValue(true)
       .build();
 
+    formKeyAttribute = typeBuilder.stringAttribute(ACTIVITI_ATTRIBUTE_FORM_KEY)
+      .namespace(ACTIVITI_NS)
+      .build();
+
     typeBuilder.build();
   }
 
   public StartEventImpl(ModelTypeInstanceContext context) {
     super(context);
+  }
+
+  @Override
+  @SuppressWarnings("unchecked")
+  public <T extends AbstractBaseElementBuilder> T builder() {
+    return (T) new StartEventBuilder((BpmnModelInstance) modelInstance, this);
   }
 
   public boolean isInterrupting() {
@@ -58,5 +72,13 @@ public class StartEventImpl extends CatchEventImpl implements StartEvent {
 
   public void setInterrupting(boolean isInterrupting) {
     isInterruptingAttribute.setValue(this, isInterrupting);
+  }
+
+  public String getFormKey() {
+    return formKeyAttribute.getValue(this);
+  }
+
+  public void setFormKey(String formKey) {
+    formKeyAttribute.setValue(this, formKey);
   }
 }

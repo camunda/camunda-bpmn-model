@@ -11,37 +11,23 @@
  * limitations under the License.
  */
 
-package org.camunda.bpm.model.bpmn.instance;
+package org.camunda.bpm.model.bpmn.builder;
 
-import java.util.Collection;
+import org.camunda.bpm.model.bpmn.BpmnModelInstance;
+import org.camunda.bpm.model.bpmn.instance.Process;
+import org.camunda.bpm.model.bpmn.instance.StartEvent;
 
 /**
- * The BPMN userTask element
- *
  * @author Sebastian Menski
  */
-public interface UserTask extends Task {
+public class ProcessBuilder extends AbstractProcessBuilder<ProcessBuilder> {
 
-  String getImplementation();
+  public ProcessBuilder(BpmnModelInstance modelInstance, Process process) {
+    super(modelInstance, process, ProcessBuilder.class);
+  }
 
-  void setImplementation(String implementation);
-
-  Collection<Rendering> getRenderings();
-
-  String getFormKey();
-
-  void setFormKey(String formKey);
-
-  String getAssignee();
-
-  void setAssignee(String assignee);
-
-  String getCandidateUsers();
-
-  void setCandidateUsers(String candidateUsers);
-
-  String getCandidateGroups();
-
-  void setCandidateGroups(String candidateGroups);
+  public StartEventBuilder startEvent() {
+    return createChild(StartEvent.class).builder();
+  }
 
 }

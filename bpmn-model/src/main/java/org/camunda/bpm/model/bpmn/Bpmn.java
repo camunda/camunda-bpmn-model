@@ -12,24 +12,25 @@
  */
 package org.camunda.bpm.model.bpmn;
 
+import org.camunda.bpm.model.bpmn.builder.ProcessBuilder;
+import org.camunda.bpm.model.bpmn.impl.BpmnModelConstants;
 import org.camunda.bpm.model.bpmn.impl.BpmnModelInstanceImpl;
 import org.camunda.bpm.model.bpmn.impl.BpmnParser;
 import org.camunda.bpm.model.bpmn.impl.instance.BpmnModelElementInstanceImpl;
-import org.camunda.bpm.model.bpmn.instance.BpmnModelElementInstance;
+import org.camunda.bpm.model.bpmn.instance.Definitions;
+import org.camunda.bpm.model.bpmn.instance.Process;
 import org.camunda.bpm.model.xml.*;
 import org.camunda.bpm.model.xml.impl.util.IoUtil;
+import org.camunda.bpm.model.xml.impl.util.ModelUtil;
 import org.reflections.Reflections;
 
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
 import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Set;
+
+import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.ACTIVITI_NS;
+import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN20_NS;
 
 /**
  * <p>Provides access to the camunda BPMN model api.</p>
@@ -127,6 +128,18 @@ public class Bpmn {
    */
   public static BpmnModelInstance createEmptyModel() {
     return INSTANCE.doCreateEmptyModel();
+  }
+
+  public static ProcessBuilder createProcess() {
+    BpmnModelInstance modelInstance = INSTANCE.doCreateEmptyModel();
+    Definitions definitions = modelInstance.newInstance(Definitions.class);
+    definitions.setTargetNamespace(BPMN20_NS);
+    definitions.getDomElement().setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:camunda", ACTIVITI_NS);
+    modelInstance.setDefinitions(definitions);
+    Process process = modelInstance.newInstance(Process.class);
+    process.setId(ModelUtil.getUniqueIdentifier(process.getElementType()));
+    definitions.addChildElement(process);
+    return process.builder();
   }
 
   /**

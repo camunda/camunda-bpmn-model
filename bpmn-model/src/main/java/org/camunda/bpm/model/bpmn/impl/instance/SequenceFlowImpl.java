@@ -13,6 +13,9 @@
 
 package org.camunda.bpm.model.bpmn.impl.instance;
 
+import org.camunda.bpm.model.bpmn.BpmnModelInstance;
+import org.camunda.bpm.model.bpmn.builder.AbstractBaseElementBuilder;
+import org.camunda.bpm.model.bpmn.builder.SequenceFlowBuilder;
 import org.camunda.bpm.model.bpmn.instance.FlowElement;
 import org.camunda.bpm.model.bpmn.instance.FlowNode;
 import org.camunda.bpm.model.bpmn.instance.SequenceFlow;
@@ -72,6 +75,12 @@ public class SequenceFlowImpl extends FlowElementImpl implements SequenceFlow {
 
   public SequenceFlowImpl(ModelTypeInstanceContext context) {
     super(context);
+  }
+
+  @Override
+  @SuppressWarnings("unchecked")
+  public <T extends AbstractBaseElementBuilder> T builder() {
+    return (T) new SequenceFlowBuilder((BpmnModelInstance) modelInstance, this);
   }
 
   public FlowNode getSource() {

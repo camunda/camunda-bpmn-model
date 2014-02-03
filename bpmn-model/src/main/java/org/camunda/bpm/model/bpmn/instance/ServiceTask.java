@@ -27,4 +27,8 @@ public interface ServiceTask extends Task {
   Operation getOperation();
 
   void setOperation(Operation operation);
+
+  String getClassName();
+
+  void setClassName(String className);
 }

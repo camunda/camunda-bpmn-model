@@ -31,6 +31,9 @@ public final class BpmnModelConstants {
 
   public static final String XPATH_NS = "http://www.w3.org/1999/XPath";
 
+  /** Aciviti namespace */
+  public static final String ACTIVITI_NS = "http://activiti.org/bpmn";
+
   // elements ////////////////////////////////////////
 
   public static final String BPMN_ELEMENT_BASE_ELEMENT = "baseElement";
@@ -158,7 +161,6 @@ public final class BpmnModelConstants {
   public static final String BPMN_ATTRIBUTE_PROCESS_TYPE = "processType";
   public static final String BPMN_ATTRIBUTE_IS_CLOSED = "isClosed";
   public static final String BPMN_ATTRIBUTE_IS_EXECUTABLE = "isExecutable";
-  public static final String BPMN_ATTRIBUTE_DEFINITIONAL_COLLABORATION_REF = "definitionalCollaborationRef";
   public static final String BPMN_ATTRIBUTE_MESSAGE_REF = "messageRef";
   public static final String BPMN_ATTRIBUTE_DEFINITION = "definition";
   public static final String BPMN_ATTRIBUTE_MUST_UNDERSTAND = "mustUnderstand";
@@ -198,5 +200,11 @@ public final class BpmnModelConstants {
   public static final String BPMN_ATTRIBUTE_ATTACHED_TO_REF = "attachedToRef";
   public static final String BPMN_ATTRIBUTE_TRIGGERED_BY_EVENT = "triggeredByEvent";
   public static final String BPMN_ATTRIBUTE_GATEWAY_DIRECTION = "gatewayDirection";
+
+  public static final String ACTIVITI_ATTRIBUTE_FORM_KEY = "formKey";
+  public static final String ACTIVITI_ATTRIBUTE_ASSIGNEE = "assignee";
+  public static final String ACTIVITI_ATTRIBUTE_CANDIDATE_USERS = "candidateUsers";
+  public static final String ACTIVITI_ATTRIBUTE_CANDIDATE_GROUPS = "candidateGroups";
+  public static final String ACTIVITI_ATTRIBUTE_CLASS = "class";
 
 }

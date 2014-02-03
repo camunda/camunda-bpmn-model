@@ -12,6 +12,9 @@
  */
 package org.camunda.bpm.model.bpmn.impl.instance;
 
+import org.camunda.bpm.model.bpmn.BpmnModelException;
+import org.camunda.bpm.model.bpmn.BpmnModelInstance;
+import org.camunda.bpm.model.bpmn.builder.AbstractFlowNodeBuilder;
 import org.camunda.bpm.model.bpmn.instance.FlowElement;
 import org.camunda.bpm.model.bpmn.instance.FlowNode;
 import org.camunda.bpm.model.bpmn.instance.SequenceFlow;
@@ -21,7 +24,9 @@ import org.camunda.bpm.model.xml.type.ModelElementTypeBuilder;
 import org.camunda.bpm.model.xml.type.child.SequenceBuilder;
 import org.camunda.bpm.model.xml.type.reference.ElementReferenceCollection;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 
 import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN20_NS;
 import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN_ELEMENT_FLOW_NODE;
@@ -65,5 +70,21 @@ public abstract class FlowNodeImpl extends FlowElementImpl implements FlowNode {
 
   public Collection<SequenceFlow> getOutgoing() {
     return outgoingCollection.getReferenceTargetElements(this);
+  }
+
+  public Collection<FlowNode> getPreviousNodes() {
+    Collection<FlowNode> previousNodes = new HashSet<FlowNode>();
+    for (SequenceFlow sequenceFlow : getIncoming()) {
+      previousNodes.add(sequenceFlow.getSource());
+    }
+    return previousNodes;
+  }
+
+  public Collection<FlowNode> getSucceedingNodes() {
+    Collection<FlowNode> succeedingNodes = new HashSet<FlowNode>();
+    for (SequenceFlow sequenceFlow : getOutgoing()) {
+      succeedingNodes.add(sequenceFlow.getTarget());
+    }
+    return succeedingNodes;
   }
 }

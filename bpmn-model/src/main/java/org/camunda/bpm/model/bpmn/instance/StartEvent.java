@@ -24,4 +24,8 @@ public interface StartEvent extends CatchEvent {
 
   void setInterrupting(boolean isInterrupting);
 
+  String getFormKey();
+
+  void setFormKey(String formKey);
+
 }

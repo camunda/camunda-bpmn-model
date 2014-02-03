@@ -13,6 +13,9 @@
 
 package org.camunda.bpm.model.bpmn.impl.instance;
 
+import org.camunda.bpm.model.bpmn.BpmnModelInstance;
+import org.camunda.bpm.model.bpmn.builder.AbstractBaseElementBuilder;
+import org.camunda.bpm.model.bpmn.builder.UserTaskBuilder;
 import org.camunda.bpm.model.bpmn.instance.Rendering;
 import org.camunda.bpm.model.bpmn.instance.Task;
 import org.camunda.bpm.model.bpmn.instance.UserTask;
@@ -36,6 +39,10 @@ import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeIn
 public class UserTaskImpl extends TaskImpl implements UserTask {
 
   private static Attribute<String> implementationAttribute;
+  private static Attribute<String> formKeyAttribute;
+  private static Attribute<String> assigneeAttribute;
+  private static Attribute<String> candidateUsersAttribute;
+  private static Attribute<String> candidateGroupsAttribute;
   private static ChildElementCollection<Rendering> renderingCollection;
 
   public static void registerType(ModelBuilder modelBuilder) {
@@ -52,6 +59,22 @@ public class UserTaskImpl extends TaskImpl implements UserTask {
       .defaultValue("##unspecified")
       .build();
 
+    formKeyAttribute = typeBuilder.stringAttribute(ACTIVITI_ATTRIBUTE_FORM_KEY)
+      .namespace(ACTIVITI_NS)
+      .build();
+
+    assigneeAttribute = typeBuilder.stringAttribute(ACTIVITI_ATTRIBUTE_ASSIGNEE)
+      .namespace(ACTIVITI_NS)
+      .build();
+
+    candidateUsersAttribute = typeBuilder.stringAttribute(ACTIVITI_ATTRIBUTE_CANDIDATE_USERS)
+      .namespace(ACTIVITI_NS)
+      .build();
+
+    candidateGroupsAttribute = typeBuilder.stringAttribute(ACTIVITI_ATTRIBUTE_CANDIDATE_GROUPS)
+      .namespace(ACTIVITI_NS)
+      .build();
+
     SequenceBuilder sequenceBuilder = typeBuilder.sequence();
 
     renderingCollection = sequenceBuilder.elementCollection(Rendering.class)
@@ -62,6 +85,12 @@ public class UserTaskImpl extends TaskImpl implements UserTask {
 
   public UserTaskImpl(ModelTypeInstanceContext context) {
     super(context);
+  }
+
+  @Override
+  @SuppressWarnings("unchecked")
+  public <T extends AbstractBaseElementBuilder> T builder() {
+    return (T) new UserTaskBuilder((BpmnModelInstance) modelInstance, this);
   }
 
   public String getImplementation() {
@@ -75,4 +104,37 @@ public class UserTaskImpl extends TaskImpl implements UserTask {
   public Collection<Rendering> getRenderings() {
     return renderingCollection.get(this);
   }
+
+  public String getFormKey() {
+    return formKeyAttribute.getValue(this);
+  }
+
+  public void setFormKey(String formKey) {
+    formKeyAttribute.setValue(this, formKey);
+  }
+
+  public String getAssignee() {
+    return assigneeAttribute.getValue(this);
+  }
+
+  public void setAssignee(String assignee) {
+    assigneeAttribute.setValue(this, assignee);
+  }
+
+  public String getCandidateUsers() {
+    return candidateUsersAttribute.getValue(this);
+  }
+
+  public void setCandidateUsers(String candidateUsers) {
+    candidateUsersAttribute.setValue(this, candidateUsers);
+  }
+
+  public String getCandidateGroups() {
+    return candidateGroupsAttribute.getValue(this);
+  }
+
+  public void setCandidateGroups(String candidateGroups) {
+    candidateGroupsAttribute.setValue(this, candidateGroups);
+  }
+
 }

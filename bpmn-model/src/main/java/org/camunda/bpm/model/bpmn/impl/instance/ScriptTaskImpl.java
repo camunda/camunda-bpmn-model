@@ -13,6 +13,9 @@
 
 package org.camunda.bpm.model.bpmn.impl.instance;
 
+import org.camunda.bpm.model.bpmn.BpmnModelInstance;
+import org.camunda.bpm.model.bpmn.builder.AbstractBaseElementBuilder;
+import org.camunda.bpm.model.bpmn.builder.ScriptTaskBuilder;
 import org.camunda.bpm.model.bpmn.instance.Script;
 import org.camunda.bpm.model.bpmn.instance.ScriptTask;
 import org.camunda.bpm.model.bpmn.instance.Task;
@@ -59,6 +62,12 @@ public class ScriptTaskImpl extends TaskImpl implements ScriptTask {
 
   public ScriptTaskImpl(ModelTypeInstanceContext context) {
     super(context);
+  }
+
+  @Override
+  @SuppressWarnings("unchecked")
+  public <T extends AbstractBaseElementBuilder> T builder() {
+    return (T) new ScriptTaskBuilder((BpmnModelInstance) modelInstance, this);
   }
 
   public String getScriptFormat() {

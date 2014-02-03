@@ -13,6 +13,10 @@
 
 package org.camunda.bpm.model.bpmn.impl.instance;
 
+import org.camunda.bpm.model.bpmn.BpmnModelInstance;
+import org.camunda.bpm.model.bpmn.builder.AbstractBaseElementBuilder;
+import org.camunda.bpm.model.bpmn.builder.AbstractFlowNodeBuilder;
+import org.camunda.bpm.model.bpmn.builder.ParallelGatewayBuilder;
 import org.camunda.bpm.model.bpmn.instance.Gateway;
 import org.camunda.bpm.model.bpmn.instance.ParallelGateway;
 import org.camunda.bpm.model.xml.ModelBuilder;
@@ -43,7 +47,14 @@ public class ParallelGatewayImpl extends GatewayImpl implements ParallelGateway 
     typeBuilder.build();
   }
 
+  @Override
+  @SuppressWarnings("unchecked")
+  public <T extends AbstractBaseElementBuilder> T builder() {
+    return (T) new ParallelGatewayBuilder((BpmnModelInstance) modelInstance, this);
+  }
+
   public ParallelGatewayImpl(ModelTypeInstanceContext context) {
     super(context);
   }
+
 }

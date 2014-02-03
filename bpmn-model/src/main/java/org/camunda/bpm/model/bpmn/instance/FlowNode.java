@@ -12,6 +12,9 @@
  */
 package org.camunda.bpm.model.bpmn.instance;
 
+import org.camunda.bpm.model.bpmn.BpmnModelInstance;
+import org.camunda.bpm.model.bpmn.builder.AbstractFlowNodeBuilder;
+
 import java.util.Collection;
 
 /**
@@ -24,5 +27,9 @@ public interface FlowNode extends FlowElement {
   Collection<SequenceFlow> getIncoming();
 
   Collection<SequenceFlow> getOutgoing();
+
+  Collection<FlowNode> getPreviousNodes();
+
+  Collection<FlowNode> getSucceedingNodes();
 
 }

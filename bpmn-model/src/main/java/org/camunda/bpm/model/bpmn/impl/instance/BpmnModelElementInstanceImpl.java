@@ -12,6 +12,8 @@
  */
 package org.camunda.bpm.model.bpmn.impl.instance;
 
+import org.camunda.bpm.model.bpmn.BpmnModelException;
+import org.camunda.bpm.model.bpmn.builder.AbstractBaseElementBuilder;
 import org.camunda.bpm.model.bpmn.instance.BpmnModelElementInstance;
 import org.camunda.bpm.model.xml.impl.instance.ModelElementInstanceImpl;
 import org.camunda.bpm.model.xml.impl.instance.ModelTypeInstanceContext;
@@ -28,4 +30,7 @@ public abstract class BpmnModelElementInstanceImpl extends ModelElementInstanceI
     super(instanceContext);
   }
 
+  public <T extends AbstractBaseElementBuilder> T builder() {
+    throw new BpmnModelException("No builder implemented for " + this);
+  }
 }

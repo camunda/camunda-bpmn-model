@@ -11,37 +11,17 @@
  * limitations under the License.
  */
 
-package org.camunda.bpm.model.bpmn.instance;
+package org.camunda.bpm.model.bpmn.builder;
 
-import java.util.Collection;
+import org.camunda.bpm.model.bpmn.BpmnModelInstance;
+import org.camunda.bpm.model.bpmn.instance.RootElement;
 
 /**
- * The BPMN userTask element
- *
  * @author Sebastian Menski
  */
-public interface UserTask extends Task {
+public abstract class AbstractRootElementBuilder<B extends AbstractRootElementBuilder<B, E>, E extends RootElement> extends AbstractBaseElementBuilder<B, E> {
 
-  String getImplementation();
-
-  void setImplementation(String implementation);
-
-  Collection<Rendering> getRenderings();
-
-  String getFormKey();
-
-  void setFormKey(String formKey);
-
-  String getAssignee();
-
-  void setAssignee(String assignee);
-
-  String getCandidateUsers();
-
-  void setCandidateUsers(String candidateUsers);
-
-  String getCandidateGroups();
-
-  void setCandidateGroups(String candidateGroups);
-
+  protected AbstractRootElementBuilder(BpmnModelInstance modelInstance, E element, Class<?> selfType) {
+    super(modelInstance, element, selfType);
+  }
 }

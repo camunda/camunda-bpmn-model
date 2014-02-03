@@ -12,6 +12,7 @@
  */
 package org.camunda.bpm.model.bpmn.instance;
 
+import org.camunda.bpm.model.bpmn.builder.AbstractBaseElementBuilder;
 import org.camunda.bpm.model.xml.instance.ModelElementInstance;
 
 /**
@@ -20,5 +21,7 @@ import org.camunda.bpm.model.xml.instance.ModelElementInstance;
  * @author Daniel Meyer
  */
 public interface BpmnModelElementInstance extends ModelElementInstance {
+
+  <T extends AbstractBaseElementBuilder> T builder();
 
 }

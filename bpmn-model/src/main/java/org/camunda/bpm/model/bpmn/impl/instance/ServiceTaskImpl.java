@@ -13,6 +13,9 @@
 
 package org.camunda.bpm.model.bpmn.impl.instance;
 
+import org.camunda.bpm.model.bpmn.BpmnModelInstance;
+import org.camunda.bpm.model.bpmn.builder.AbstractBaseElementBuilder;
+import org.camunda.bpm.model.bpmn.builder.ServiceTaskBuilder;
 import org.camunda.bpm.model.bpmn.instance.Operation;
 import org.camunda.bpm.model.bpmn.instance.ServiceTask;
 import org.camunda.bpm.model.bpmn.instance.Task;
@@ -34,6 +37,7 @@ public class ServiceTaskImpl extends TaskImpl implements ServiceTask {
 
   private static Attribute<String> implementationAttribute;
   private static AttributeReference<Operation> operationRefAttribute;
+  private static Attribute<String> classAttribute;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(ServiceTask.class, BPMN_ELEMENT_SERVICE_TASK)
@@ -53,11 +57,21 @@ public class ServiceTaskImpl extends TaskImpl implements ServiceTask {
       .qNameAttributeReference(Operation.class)
       .build();
 
+    classAttribute = typeBuilder.stringAttribute(ACTIVITI_ATTRIBUTE_CLASS)
+      .namespace(ACTIVITI_NS)
+      .build();
+
     typeBuilder.build();
   }
 
   public ServiceTaskImpl(ModelTypeInstanceContext context) {
     super(context);
+  }
+
+  @Override
+  @SuppressWarnings("unchecked")
+  public <T extends AbstractBaseElementBuilder> T builder() {
+    return (T) new ServiceTaskBuilder((BpmnModelInstance) modelInstance, this);
   }
 
   public String getImplementation() {
@@ -74,5 +88,13 @@ public class ServiceTaskImpl extends TaskImpl implements ServiceTask {
 
   public void setOperation(Operation operation) {
     operationRefAttribute.setReferenceTargetElement(this, operation);
+  }
+
+  public String getClassName() {
+    return classAttribute.getValue(this);
+  }
+
+  public void setClassName(String className) {
+    classAttribute.setValue(this, className);
   }
 }
