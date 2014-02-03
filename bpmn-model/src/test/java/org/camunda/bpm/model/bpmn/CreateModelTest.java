@@ -36,7 +36,7 @@ public class CreateModelTest {
     modelInstance = Bpmn.createEmptyModel();
     definitions = modelInstance.newInstance(Definitions.class);
     definitions.setTargetNamespace("http://camunda.org/examples");
-    modelInstance.setDocumentElement(definitions);
+    modelInstance.setDefinitions(definitions);
   }
 
   protected <T extends BpmnModelElementInstance> T createElement(BpmnModelElementInstance parentElement, String id, Class<T> elementClass) {
