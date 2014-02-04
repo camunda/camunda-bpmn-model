@@ -24,7 +24,6 @@ import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.io.File;
 import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -241,8 +240,7 @@ public class ProcessBuilderTest {
       .exclusiveGateway()
         .name("Invoice approved?")
         .gatewayDirection(GatewayDirection.Diverging)
-      .sequenceFlowName("yes")
-      .sequenceFlowCondition("${approved}")
+      .condition("yes", "${approved}")
       .userTask()
         .name("Prepare Bank Transfer")
         .formKey("embedded:app:forms/prepare-bank-transfer.html")
@@ -253,8 +251,7 @@ public class ProcessBuilderTest {
       .endEvent()
         .name("Invoice processed")
       .parallel()
-      .sequenceFlowName("no")
-      .sequenceFlowCondition("${!approved}")
+      .condition("no", "${!approved}")
       .userTask()
         .name("Review Invoice")
         .formKey("embedded:app:forms/review-invoice.html" )
@@ -262,13 +259,11 @@ public class ProcessBuilderTest {
        .exclusiveGateway()
         .name("Review successful?")
         .gatewayDirection(GatewayDirection.Diverging)
-      .sequenceFlowName("no")
-      .sequenceFlowCondition("${!clarified}")
+      .condition("no", "${!clarified}")
       .endEvent()
         .name("Invoice not processed")
       .parallel()
-      .sequenceFlowName("yes")
-      .sequenceFlowCondition("${clarified}")
+      .condition("yes", "${clarified}")
       .connectTo("approveInvoice")
       .done();
   }

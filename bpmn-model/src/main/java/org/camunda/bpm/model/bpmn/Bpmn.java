@@ -177,7 +177,7 @@ public class Bpmn {
       doWriteModelToOutputStream(os, modelInstance);
     }
     catch (FileNotFoundException e) {
-      throw new BpmnModelException("Cannot read model from file "+file+": file does not exist.");
+      throw new BpmnModelException("Cannot write model to file "+file+": file does not exist.");
     } finally {
       IoUtil.closeSilently(os);
     }

@@ -40,16 +40,18 @@ public abstract class AbstractFlowNodeBuilder<B extends AbstractFlowNodeBuilder<
     return currentSequenceFlowBuilder;
   }
 
-  public B sequenceFlowCondition(String condition) {
+  public B condition(String name, String condition) {
+    if (name != null) {
+      getCurrentSequenceFlowBuilder().name(name);
+    }
     ConditionExpression conditionExpression = modelInstance.newInstance(ConditionExpression.class);
     conditionExpression.setTextContent(condition);
     getCurrentSequenceFlowBuilder().condition(conditionExpression);
     return myself;
   }
 
-  public B sequenceFlowName(String name) {
-    getCurrentSequenceFlowBuilder().name(name);
-    return myself;
+  public B sequenceFlowCondition(String condition) {
+    return condition(null, condition);
   }
 
   private void connectTarget(FlowNode target) {
