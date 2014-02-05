@@ -2,7 +2,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -10,25 +10,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.camunda.bpm.model.bpmn.instance;
 
-import org.camunda.bpm.model.bpmn.Query;
+package org.camunda.bpm.model.bpmn;
 
-import java.util.Collection;
+import org.camunda.bpm.model.bpmn.instance.BpmnModelElementInstance;
+import org.camunda.bpm.model.xml.type.ModelElementType;
+
+import java.util.List;
 
 /**
- * The BPMN flowNode element
- *
  * @author Sebastian Menski
  */
-public interface FlowNode extends FlowElement {
+public interface Query<T extends BpmnModelElementInstance> {
 
-  Collection<SequenceFlow> getIncoming();
+  List<T> list();
 
-  Collection<SequenceFlow> getOutgoing();
+  int count();
 
-  Query<FlowNode> getPreviousNodes();
+  <V extends ModelElementType> Query<?> filterByType(V elementType);
 
-  Query<FlowNode> getSucceedingNodes();
+  T singleResult();
 
 }

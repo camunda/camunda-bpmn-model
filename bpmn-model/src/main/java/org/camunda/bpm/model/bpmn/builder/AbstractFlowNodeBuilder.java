@@ -95,30 +95,20 @@ public abstract class AbstractFlowNodeBuilder<B extends AbstractFlowNodeBuilder<
   public Gateway findLastGateway() {
     FlowNode lastGateway = element;
     while (true) {
-      Collection<FlowNode> previousNodes = lastGateway.getPreviousNodes();
-      if (previousNodes.size() > 1) {
-        throw new BpmnModelException("Unable to determine unique previous node of " + lastGateway.getId());
-      }
-      else if (previousNodes.isEmpty()) {
-        return null;
-      }
-      else {
-        lastGateway = previousNodes.iterator().next();
+      try {
+        lastGateway = lastGateway.getPreviousNodes().singleResult();
         if (lastGateway instanceof Gateway) {
           return (Gateway) lastGateway;
         }
+      }
+      catch(BpmnModelException e) {
+        throw new BpmnModelException("Unable to determine an unique previous gateway of " + lastGateway.getId(), e);
       }
     }
   }
 
   public AbstractGatewayBuilder parallel() {
-    Gateway lastGateway = findLastGateway();
-    if (lastGateway == null) {
-      throw new BpmnModelException("No previous gateway found for element " + element.getId());
-    }
-    else {
-      return lastGateway.builder();
-    }
+    return findLastGateway().builder();
   }
 
   public AbstractGatewayBuilder parallel(String identifier) {
