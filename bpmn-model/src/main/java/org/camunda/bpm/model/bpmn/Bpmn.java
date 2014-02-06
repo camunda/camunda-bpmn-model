@@ -13,7 +13,6 @@
 package org.camunda.bpm.model.bpmn;
 
 import org.camunda.bpm.model.bpmn.builder.ProcessBuilder;
-import org.camunda.bpm.model.bpmn.impl.BpmnModelConstants;
 import org.camunda.bpm.model.bpmn.impl.BpmnModelInstanceImpl;
 import org.camunda.bpm.model.bpmn.impl.BpmnParser;
 import org.camunda.bpm.model.bpmn.impl.instance.BpmnModelElementInstanceImpl;
@@ -84,7 +83,7 @@ public class Bpmn {
    * @throws ModelValidationException if the model is not valid
    */
   public static void writeModelToFile(File file, BpmnModelInstance modelInstance) {
-    INSTANCE.doWriteModelToFile(file, (BpmnModelInstanceImpl) modelInstance);
+    INSTANCE.doWriteModelToFile(file, modelInstance);
   }
 
   /**

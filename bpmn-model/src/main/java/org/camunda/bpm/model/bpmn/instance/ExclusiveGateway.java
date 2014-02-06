@@ -13,12 +13,17 @@
 
 package org.camunda.bpm.model.bpmn.instance;
 
+import org.camunda.bpm.model.bpmn.builder.ExclusiveGatewayBuilder;
+
 /**
  * The BPMN exclusiveGateway element
  *
  * @author Sebastian Menski
  */
 public interface ExclusiveGateway extends Gateway {
+
+  @SuppressWarnings("unchecked")
+  ExclusiveGatewayBuilder builder();
 
   SequenceFlow getDefault();
 

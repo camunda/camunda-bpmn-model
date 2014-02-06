@@ -108,7 +108,7 @@ public class DefinitionsTest extends BpmnModelTest {
 
     // validate model
     try {
-      Bpmn.validateModel((BpmnModelInstanceImpl) bpmnModelInstance);
+      Bpmn.validateModel(bpmnModelInstance);
     }
     catch (ModelValidationException e) {
       Assert.fail();
@@ -135,7 +135,7 @@ public class DefinitionsTest extends BpmnModelTest {
 
     // validate model
     try {
-      Bpmn.validateModel((BpmnModelInstanceImpl) bpmnModelInstance);
+      Bpmn.validateModel(bpmnModelInstance);
     }
     catch (ModelValidationException e) {
       Assert.fail();
@@ -143,7 +143,7 @@ public class DefinitionsTest extends BpmnModelTest {
 
     // convert the model to the XML string representation
     OutputStream outputStream = new ByteArrayOutputStream();
-    Bpmn.writeModelToStream(outputStream, (BpmnModelInstanceImpl) bpmnModelInstance);
+    Bpmn.writeModelToStream(outputStream, bpmnModelInstance);
     InputStream inputStream = IoUtil.convertOutputStreamToInputStream(outputStream);
     String modelString = IoUtil.getStringFromInputStream(inputStream);
     IoUtil.closeSilently(outputStream);
@@ -223,7 +223,7 @@ public class DefinitionsTest extends BpmnModelTest {
 
     // validate model
     try {
-      Bpmn.validateModel((BpmnModelInstanceImpl) bpmnModelInstance);
+      Bpmn.validateModel(bpmnModelInstance);
     }
     catch (ModelValidationException e) {
       Assert.fail();
@@ -270,7 +270,7 @@ public class DefinitionsTest extends BpmnModelTest {
 
     // validate model
     try {
-      Bpmn.validateModel((BpmnModelInstanceImpl) bpmnModelInstance);
+      Bpmn.validateModel(bpmnModelInstance);
     }
     catch (ModelValidationException e) {
       Assert.fail();

@@ -13,7 +13,6 @@
 package org.camunda.bpm.model.bpmn.impl.instance;
 
 import org.camunda.bpm.model.bpmn.BpmnModelInstance;
-import org.camunda.bpm.model.bpmn.builder.AbstractBaseElementBuilder;
 import org.camunda.bpm.model.bpmn.builder.StartEventBuilder;
 import org.camunda.bpm.model.bpmn.instance.CatchEvent;
 import org.camunda.bpm.model.bpmn.instance.StartEvent;
@@ -62,8 +61,8 @@ public class StartEventImpl extends CatchEventImpl implements StartEvent {
 
   @Override
   @SuppressWarnings("unchecked")
-  public <T extends AbstractBaseElementBuilder> T builder() {
-    return (T) new StartEventBuilder((BpmnModelInstance) modelInstance, this);
+  public StartEventBuilder builder() {
+    return new StartEventBuilder((BpmnModelInstance) modelInstance, this);
   }
 
   public boolean isInterrupting() {

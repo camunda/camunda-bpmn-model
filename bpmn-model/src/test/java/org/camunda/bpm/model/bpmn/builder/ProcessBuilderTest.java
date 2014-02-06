@@ -24,6 +24,7 @@ import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.io.File;
 import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -151,11 +152,11 @@ public class ProcessBuilderTest {
       .startEvent()
       .userTask()
       .exclusiveGateway()
-        .sequenceFlowCondition("${approved}")
+        .condition("approved", "${approved}")
         .serviceTask()
         .endEvent()
       .parallel()
-        .sequenceFlowCondition("${!approved}")
+        .condition("not approved", "${!approved}")
         .scriptTask()
         .endEvent()
       .done();
@@ -219,6 +220,36 @@ public class ProcessBuilderTest {
       .hasSize(4);
     assertThat(modelInstance.getModelElementsByType(gatewayType))
       .hasSize(2);
+  }
+
+  @Test
+  public void testExtend() {
+    modelInstance = Bpmn.createProcess()
+      .startEvent()
+      .userTask()
+        .id("task1")
+      .serviceTask()
+      .endEvent()
+      .done();
+
+    Bpmn.writeModelToFile(new File("/tmp/first.xml"), modelInstance);
+
+    assertThat(modelInstance.getModelElementsByType(taskType))
+      .hasSize(2);
+
+    UserTask userTask = (UserTask) modelInstance.getModelElementById("task1");
+    SequenceFlow outgoingSequenceFlow = userTask.getOutgoing().iterator().next();
+    FlowNode serviceTask = outgoingSequenceFlow.getTarget();
+    userTask.getOutgoing().remove(outgoingSequenceFlow);
+    userTask.builder()
+      .scriptTask()
+      .userTask()
+      .connectTo(serviceTask.getId());
+
+    Bpmn.writeModelToFile(new File("/tmp/second.xml"), modelInstance);
+
+    assertThat(modelInstance.getModelElementsByType(taskType))
+      .hasSize(4);
   }
 
   @Test

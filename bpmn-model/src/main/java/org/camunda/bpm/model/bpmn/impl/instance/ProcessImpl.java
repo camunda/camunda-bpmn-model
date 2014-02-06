@@ -14,7 +14,6 @@ package org.camunda.bpm.model.bpmn.impl.instance;
 
 import org.camunda.bpm.model.bpmn.BpmnModelInstance;
 import org.camunda.bpm.model.bpmn.ProcessType;
-import org.camunda.bpm.model.bpmn.builder.*;
 import org.camunda.bpm.model.bpmn.builder.ProcessBuilder;
 import org.camunda.bpm.model.bpmn.instance.*;
 import org.camunda.bpm.model.bpmn.instance.Process;
@@ -116,8 +115,8 @@ public class ProcessImpl extends CallableElementImpl implements Process {
 
   @Override
   @SuppressWarnings("unchecked")
-  public <T extends AbstractBaseElementBuilder> T builder() {
-    return (T) new ProcessBuilder((BpmnModelInstance) modelInstance, this);
+  public ProcessBuilder builder() {
+    return new ProcessBuilder((BpmnModelInstance) modelInstance, this);
   }
 
   public ProcessType getProcessType() {

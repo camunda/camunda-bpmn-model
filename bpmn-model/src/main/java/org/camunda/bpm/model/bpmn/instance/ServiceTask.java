@@ -13,12 +13,17 @@
 
 package org.camunda.bpm.model.bpmn.instance;
 
+import org.camunda.bpm.model.bpmn.builder.ServiceTaskBuilder;
+
 /**
  * The BPMN serviceTask element
  *
  * @author Sebastian Menski
  */
 public interface ServiceTask extends Task {
+
+  @SuppressWarnings("unchecked")
+  ServiceTaskBuilder builder();
 
   String getImplementation();
 

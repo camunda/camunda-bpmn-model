@@ -14,7 +14,6 @@
 package org.camunda.bpm.model.bpmn.impl.instance;
 
 import org.camunda.bpm.model.bpmn.BpmnModelInstance;
-import org.camunda.bpm.model.bpmn.builder.AbstractBaseElementBuilder;
 import org.camunda.bpm.model.bpmn.builder.EndEventBuilder;
 import org.camunda.bpm.model.bpmn.instance.EndEvent;
 import org.camunda.bpm.model.bpmn.instance.ThrowEvent;
@@ -52,7 +51,7 @@ public class EndEventImpl extends ThrowEventImpl implements EndEvent {
 
   @Override
   @SuppressWarnings("unchecked")
-  public <T extends AbstractBaseElementBuilder> T builder() {
-    return (T) new EndEventBuilder((BpmnModelInstance) modelInstance, this);
+  public EndEventBuilder builder() {
+    return new EndEventBuilder((BpmnModelInstance) modelInstance, this);
   }
 }

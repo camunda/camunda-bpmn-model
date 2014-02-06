@@ -12,6 +12,8 @@
  */
 package org.camunda.bpm.model.bpmn.instance;
 
+import org.camunda.bpm.model.bpmn.builder.StartEventBuilder;
+
 /**
  * The BPMN startEvent element
  *
@@ -19,6 +21,9 @@ package org.camunda.bpm.model.bpmn.instance;
  *
  */
 public interface StartEvent extends CatchEvent {
+
+  @SuppressWarnings("unchecked")
+  StartEventBuilder builder();
 
   boolean isInterrupting();
 

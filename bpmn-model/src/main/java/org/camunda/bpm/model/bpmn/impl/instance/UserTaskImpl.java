@@ -14,7 +14,6 @@
 package org.camunda.bpm.model.bpmn.impl.instance;
 
 import org.camunda.bpm.model.bpmn.BpmnModelInstance;
-import org.camunda.bpm.model.bpmn.builder.AbstractBaseElementBuilder;
 import org.camunda.bpm.model.bpmn.builder.UserTaskBuilder;
 import org.camunda.bpm.model.bpmn.instance.Rendering;
 import org.camunda.bpm.model.bpmn.instance.Task;
@@ -89,8 +88,8 @@ public class UserTaskImpl extends TaskImpl implements UserTask {
 
   @Override
   @SuppressWarnings("unchecked")
-  public <T extends AbstractBaseElementBuilder> T builder() {
-    return (T) new UserTaskBuilder((BpmnModelInstance) modelInstance, this);
+  public UserTaskBuilder builder() {
+    return new UserTaskBuilder((BpmnModelInstance) modelInstance, this);
   }
 
   public String getImplementation() {

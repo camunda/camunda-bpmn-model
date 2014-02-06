@@ -13,11 +13,16 @@
 
 package org.camunda.bpm.model.bpmn.instance;
 
+import org.camunda.bpm.model.bpmn.builder.ParallelGatewayBuilder;
+
 /**
  * The BPMN parallelGateway element
  *
  * @author Sebastian Menski
  */
 public interface ParallelGateway extends Gateway {
+
+  @SuppressWarnings("unchecked")
+  ParallelGatewayBuilder builder();
 
 }

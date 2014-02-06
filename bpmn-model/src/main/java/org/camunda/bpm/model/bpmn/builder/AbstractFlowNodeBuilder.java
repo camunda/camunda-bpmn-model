@@ -19,8 +19,6 @@ import org.camunda.bpm.model.bpmn.impl.instance.ConditionExpression;
 import org.camunda.bpm.model.bpmn.instance.*;
 import org.camunda.bpm.model.xml.instance.ModelElementInstance;
 
-import java.util.Collection;
-
 /**
  * @author Sebastian Menski
  */
@@ -48,10 +46,6 @@ public abstract class AbstractFlowNodeBuilder<B extends AbstractFlowNodeBuilder<
     conditionExpression.setTextContent(condition);
     getCurrentSequenceFlowBuilder().condition(conditionExpression);
     return myself;
-  }
-
-  public B sequenceFlowCondition(String condition) {
-    return condition(null, condition);
   }
 
   private void connectTarget(FlowNode target) {

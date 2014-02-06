@@ -13,10 +13,16 @@
 
 package org.camunda.bpm.model.bpmn.instance;
 
+import org.camunda.bpm.model.bpmn.builder.EndEventBuilder;
+
 /**
  * The BPMN endEvent element
  *
  * @author Sebastian Menski
  */
 public interface EndEvent extends ThrowEvent {
+
+  @SuppressWarnings("unchecked")
+  EndEventBuilder builder();
+
 }

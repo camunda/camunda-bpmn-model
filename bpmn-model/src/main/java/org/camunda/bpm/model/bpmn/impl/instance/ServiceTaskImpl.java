@@ -14,7 +14,6 @@
 package org.camunda.bpm.model.bpmn.impl.instance;
 
 import org.camunda.bpm.model.bpmn.BpmnModelInstance;
-import org.camunda.bpm.model.bpmn.builder.AbstractBaseElementBuilder;
 import org.camunda.bpm.model.bpmn.builder.ServiceTaskBuilder;
 import org.camunda.bpm.model.bpmn.instance.Operation;
 import org.camunda.bpm.model.bpmn.instance.ServiceTask;
@@ -70,8 +69,8 @@ public class ServiceTaskImpl extends TaskImpl implements ServiceTask {
 
   @Override
   @SuppressWarnings("unchecked")
-  public <T extends AbstractBaseElementBuilder> T builder() {
-    return (T) new ServiceTaskBuilder((BpmnModelInstance) modelInstance, this);
+  public ServiceTaskBuilder builder() {
+    return new ServiceTaskBuilder((BpmnModelInstance) modelInstance, this);
   }
 
   public String getImplementation() {

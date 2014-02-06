@@ -13,6 +13,8 @@
 
 package org.camunda.bpm.model.bpmn.instance;
 
+import org.camunda.bpm.model.bpmn.builder.UserTaskBuilder;
+
 import java.util.Collection;
 
 /**
@@ -21,6 +23,9 @@ import java.util.Collection;
  * @author Sebastian Menski
  */
 public interface UserTask extends Task {
+
+  @SuppressWarnings("unchecked")
+  UserTaskBuilder builder();
 
   String getImplementation();
 

@@ -13,6 +13,7 @@
 
 package org.camunda.bpm.model.bpmn.instance;
 
+import org.camunda.bpm.model.bpmn.builder.SequenceFlowBuilder;
 import org.camunda.bpm.model.bpmn.impl.instance.ConditionExpression;
 
 /**
@@ -21,6 +22,9 @@ import org.camunda.bpm.model.bpmn.impl.instance.ConditionExpression;
  * @author Sebastian Menski
  */
 public interface SequenceFlow extends FlowElement {
+
+  @SuppressWarnings("unchecked")
+  SequenceFlowBuilder builder();
 
   FlowNode getSource();
 

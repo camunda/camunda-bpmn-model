@@ -13,12 +13,17 @@
 
 package org.camunda.bpm.model.bpmn.instance;
 
+import org.camunda.bpm.model.bpmn.builder.ScriptTaskBuilder;
+
 /**
  * The BPMN scriptTask element
  *
  * @author Sebastian Menski
  */
 public interface ScriptTask extends Task {
+
+  @SuppressWarnings("unchecked")
+  ScriptTaskBuilder builder();
 
   String getScriptFormat();
 

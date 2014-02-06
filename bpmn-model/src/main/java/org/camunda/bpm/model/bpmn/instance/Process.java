@@ -13,6 +13,7 @@
 package org.camunda.bpm.model.bpmn.instance;
 
 import org.camunda.bpm.model.bpmn.ProcessType;
+import org.camunda.bpm.model.bpmn.builder.ProcessBuilder;
 
 import java.util.Collection;
 
@@ -24,6 +25,9 @@ import java.util.Collection;
  * @author Sebastian Menski
  */
 public interface Process extends CallableElement {
+
+  @SuppressWarnings("unchecked")
+  ProcessBuilder builder();
 
   ProcessType getProcessType();
 
