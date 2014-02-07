@@ -101,17 +101,17 @@ public abstract class AbstractFlowNodeBuilder<B extends AbstractFlowNodeBuilder<
     }
   }
 
-  public AbstractGatewayBuilder parallel() {
+  public AbstractGatewayBuilder moveToLastGateway() {
     return findLastGateway().builder();
   }
 
-  public AbstractGatewayBuilder parallel(String identifier) {
+  public AbstractFlowNodeBuilder moveToNode(String identifier) {
     ModelElementInstance instance = modelInstance.getModelElementById(identifier);
-    if (instance instanceof Gateway) {
-      return ((Gateway) instance).builder();
+    if (instance != null && instance instanceof FlowNode) {
+      return ((FlowNode) instance).builder();
     }
     else {
-      throw new BpmnModelException("Gateway not found for id " + identifier);
+      throw new BpmnModelException("Flow node not found for id " + identifier);
     }
   }
 
