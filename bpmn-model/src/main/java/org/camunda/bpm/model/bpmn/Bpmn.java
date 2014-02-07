@@ -13,20 +13,18 @@
 package org.camunda.bpm.model.bpmn;
 
 import org.camunda.bpm.model.bpmn.builder.ProcessBuilder;
-import org.camunda.bpm.model.bpmn.impl.BpmnModelInstanceImpl;
 import org.camunda.bpm.model.bpmn.impl.BpmnParser;
-import org.camunda.bpm.model.bpmn.impl.instance.BpmnModelElementInstanceImpl;
-import org.camunda.bpm.model.bpmn.instance.Definitions;
+import org.camunda.bpm.model.bpmn.impl.instance.*;
+import org.camunda.bpm.model.bpmn.instance.*;
+import org.camunda.bpm.model.bpmn.instance.Error;
 import org.camunda.bpm.model.bpmn.instance.Process;
 import org.camunda.bpm.model.xml.*;
 import org.camunda.bpm.model.xml.impl.util.IoUtil;
 import org.camunda.bpm.model.xml.impl.util.ModelUtil;
-import org.reflections.Reflections;
 
+import java.io.DataInput;
+import java.io.DataOutput;
 import java.io.*;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.Set;
 
 import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.ACTIVITI_NS;
 import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN20_NS;
@@ -205,21 +203,112 @@ public class Bpmn {
   }
 
   protected void doRegisterTypes(ModelBuilder bpmnModelBuilder) {
-    Reflections reflections = new Reflections("org.camunda.bpm.model.bpmn");
-    Set<Class<? extends BpmnModelElementInstanceImpl>> subTypesOf = reflections.getSubTypesOf(BpmnModelElementInstanceImpl.class);
-
-    for (Class<? extends BpmnModelElementInstanceImpl> instanceImpl : subTypesOf) {
-      try {
-        Method registerTypeMethod = instanceImpl.getMethod("registerType", ModelBuilder.class);
-        registerTypeMethod.invoke(null, bpmnModelBuilder);
-      } catch (NoSuchMethodException e) {
-        throw new BpmnModelException("Class " + instanceImpl + " has nor registerType method", e);
-      } catch (InvocationTargetException e) {
-        throw new BpmnModelException("Unable to call registerType method on class " + instanceImpl, e);
-      } catch (IllegalAccessException e) {
-        throw new BpmnModelException("Unable to call registerType method on class " + instanceImpl, e);
-      }
-    }
+    ActivityImpl.registerType(bpmnModelBuilder);
+    ArtifactImpl.registerType(bpmnModelBuilder);
+    AssignmentImpl.registerType(bpmnModelBuilder);
+    AuditingImpl.registerType(bpmnModelBuilder);
+    BaseElementImpl.registerType(bpmnModelBuilder);
+    BoundaryEventImpl.registerType(bpmnModelBuilder);
+    BusinessRuleTaskImpl.registerType(bpmnModelBuilder);
+    CallableElementImpl.registerType(bpmnModelBuilder);
+    CatchEventImpl.registerType(bpmnModelBuilder);
+    CategoryValueImpl.registerType(bpmnModelBuilder);
+    CategoryValueRef.registerType(bpmnModelBuilder);
+    ChildLaneSet.registerType(bpmnModelBuilder);
+    ConditionExpression.registerType(bpmnModelBuilder);
+    CorrelationKeyImpl.registerType(bpmnModelBuilder);
+    CorrelationPropertyBindingImpl.registerType(bpmnModelBuilder);
+    CorrelationPropertyImpl.registerType(bpmnModelBuilder);
+    CorrelationPropertyRef.registerType(bpmnModelBuilder);
+    CorrelationPropertyRetrievalExpressionImpl.registerType(bpmnModelBuilder);
+    CorrelationSubscriptionImpl.registerType(bpmnModelBuilder);
+    DataAssociationImpl.registerType(bpmnModelBuilder);
+    DataInputAssociationImpl.registerType(bpmnModelBuilder);
+    DataInputImpl.registerType(bpmnModelBuilder);
+    DataInputRefs.registerType(bpmnModelBuilder);
+    DataOutputAssociationImpl.registerType(bpmnModelBuilder);
+    DataOutputImpl.registerType(bpmnModelBuilder);
+    DataOutputRefs.registerType(bpmnModelBuilder);
+    DataPath.registerType(bpmnModelBuilder);
+    DataStateImpl.registerType(bpmnModelBuilder);
+    DefinitionsImpl.registerType(bpmnModelBuilder);
+    DocumentationImpl.registerType(bpmnModelBuilder);
+    EndEventImpl.registerType(bpmnModelBuilder);
+    ErrorImpl.registerType(bpmnModelBuilder);
+    ErrorRef.registerType(bpmnModelBuilder);
+    EventDefinitionImpl.registerType(bpmnModelBuilder);
+    EventDefinitionRef.registerType(bpmnModelBuilder);
+    EventImpl.registerType(bpmnModelBuilder);
+    ExclusiveGatewayImpl.registerType(bpmnModelBuilder);
+    ExpressionImpl.registerType(bpmnModelBuilder);
+    ExtensionElementsImpl.registerType(bpmnModelBuilder);
+    ExtensionImpl.registerType(bpmnModelBuilder);
+    FlowElementImpl.registerType(bpmnModelBuilder);
+    FlowNodeImpl.registerType(bpmnModelBuilder);
+    FlowNodeRef.registerType(bpmnModelBuilder);
+    FormalExpressionImpl.registerType(bpmnModelBuilder);
+    From.registerType(bpmnModelBuilder);
+    GatewayImpl.registerType(bpmnModelBuilder);
+    ImportImpl.registerType(bpmnModelBuilder);
+    InMessageRef.registerType(bpmnModelBuilder);
+    Incoming.registerType(bpmnModelBuilder);
+    InputSetImpl.registerType(bpmnModelBuilder);
+    InputSetRefs.registerType(bpmnModelBuilder);
+    InterfaceImpl.registerType(bpmnModelBuilder);
+    IoBindingImpl.registerType(bpmnModelBuilder);
+    IoSpecificationImpl.registerType(bpmnModelBuilder);
+    ItemAwareElementImpl.registerType(bpmnModelBuilder);
+    ItemDefinitionImpl.registerType(bpmnModelBuilder);
+    LaneImpl.registerType(bpmnModelBuilder);
+    LaneSetImpl.registerType(bpmnModelBuilder);
+    LoopCharacteristicsImpl.registerType(bpmnModelBuilder);
+    ManualTaskImpl.registerType(bpmnModelBuilder);
+    MessageEventDefinitionImpl.registerType(bpmnModelBuilder);
+    MessageImpl.registerType(bpmnModelBuilder);
+    MessagePath.registerType(bpmnModelBuilder);
+    MonitoringImpl.registerType(bpmnModelBuilder);
+    OperationImpl.registerType(bpmnModelBuilder);
+    OperationRef.registerType(bpmnModelBuilder);
+    OptionalInputRefs.registerType(bpmnModelBuilder);
+    OptionalOutputRefs.registerType(bpmnModelBuilder);
+    OutMessageRef.registerType(bpmnModelBuilder);
+    Outgoing.registerType(bpmnModelBuilder);
+    OutputSetImpl.registerType(bpmnModelBuilder);
+    OutputSetRefs.registerType(bpmnModelBuilder);
+    ParallelGatewayImpl.registerType(bpmnModelBuilder);
+    PartitionElement.registerType(bpmnModelBuilder);
+    ProcessImpl.registerType(bpmnModelBuilder);
+    PropertyImpl.registerType(bpmnModelBuilder);
+    ReceiveTaskImpl.registerType(bpmnModelBuilder);
+    RelationshipImpl.registerType(bpmnModelBuilder);
+    RenderingImpl.registerType(bpmnModelBuilder);
+    ResourceAssignmentExpressionImpl.registerType(bpmnModelBuilder);
+    ResourceImpl.registerType(bpmnModelBuilder);
+    ResourceParameterBindingImpl.registerType(bpmnModelBuilder);
+    ResourceParameterImpl.registerType(bpmnModelBuilder);
+    ResourceRef.registerType(bpmnModelBuilder);
+    ResourceRoleImpl.registerType(bpmnModelBuilder);
+    RootElementImpl.registerType(bpmnModelBuilder);
+    ScriptImpl.registerType(bpmnModelBuilder);
+    ScriptTaskImpl.registerType(bpmnModelBuilder);
+    SendTaskImpl.registerType(bpmnModelBuilder);
+    SequenceFlowImpl.registerType(bpmnModelBuilder);
+    ServiceTaskImpl.registerType(bpmnModelBuilder);
+    Source.registerType(bpmnModelBuilder);
+    SourceRef.registerType(bpmnModelBuilder);
+    StartEventImpl.registerType(bpmnModelBuilder);
+    SubProcessImpl.registerType(bpmnModelBuilder);
+    SupportedInterfaceRef.registerType(bpmnModelBuilder);
+    Supports.registerType(bpmnModelBuilder);
+    Target.registerType(bpmnModelBuilder);
+    TargetRef.registerType(bpmnModelBuilder);
+    TaskImpl.registerType(bpmnModelBuilder);
+    ThrowEventImpl.registerType(bpmnModelBuilder);
+    To.registerType(bpmnModelBuilder);
+    Transformation.registerType(bpmnModelBuilder);
+    UserTaskImpl.registerType(bpmnModelBuilder);
+    WhileExecutingInputRefs.registerType(bpmnModelBuilder);
+    WhileExecutingOutputRefs.registerType(bpmnModelBuilder);
   }
 
   /**
