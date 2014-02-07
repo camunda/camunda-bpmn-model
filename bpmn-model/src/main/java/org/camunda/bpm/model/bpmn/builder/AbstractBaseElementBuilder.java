@@ -26,21 +26,23 @@ public abstract class AbstractBaseElementBuilder<B extends AbstractBaseElementBu
     super(modelInstance, element, selfType);
   }
 
-  protected <T extends BaseElement> T createInstance(Class<T> typeClass) {
+  protected <T extends BaseElement> T createInstance(Class<T> typeClass, String identifier) {
     T instance = modelInstance.newInstance(typeClass);
-    String identifier = ModelUtil.getUniqueIdentifier(instance.getElementType());
+    if (identifier == null) {
+      identifier = ModelUtil.getUniqueIdentifier(instance.getElementType());
+    }
     instance.setId(identifier);
     return instance;
   }
 
-  protected <T extends BaseElement> T createChild(Class<T> typeClass) {
-    T instance = createInstance(typeClass);
+  protected <T extends BaseElement> T createChild(Class<T> typeClass, String identifier) {
+    T instance = createInstance(typeClass, identifier);
     element.addChildElement(instance);
     return instance;
   }
 
-  protected <T extends BaseElement> T createSibling(Class<T> typeClass) {
-    T instance = createInstance(typeClass);
+  protected <T extends BaseElement> T createSibling(Class<T> typeClass, String identifier) {
+    T instance = createInstance(typeClass, identifier);
     element.getParentElement().addChildElement(instance);
     return instance;
   }

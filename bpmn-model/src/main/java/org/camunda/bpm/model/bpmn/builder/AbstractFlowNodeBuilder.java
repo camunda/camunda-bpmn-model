@@ -32,7 +32,7 @@ public abstract class AbstractFlowNodeBuilder<B extends AbstractFlowNodeBuilder<
 
   private SequenceFlowBuilder getCurrentSequenceFlowBuilder() {
     if (currentSequenceFlowBuilder == null) {
-      SequenceFlow sequenceFlow = createSibling(SequenceFlow.class);
+      SequenceFlow sequenceFlow = createSibling(SequenceFlow.class, null);
       currentSequenceFlowBuilder = sequenceFlow.builder();
     }
     return currentSequenceFlowBuilder;
@@ -56,34 +56,58 @@ public abstract class AbstractFlowNodeBuilder<B extends AbstractFlowNodeBuilder<
     currentSequenceFlowBuilder = null;
   }
 
-  private <T extends FlowNode> T createTarget(Class<T> typeClass) {
-    T target = createSibling(typeClass);
+  private <T extends FlowNode> T createTarget(Class<T> typeClass, String identifier) {
+    T target = createSibling(typeClass, identifier);
     connectTarget(target);
     return target;
   }
 
   public UserTaskBuilder userTask() {
-    return createTarget(UserTask.class).builder();
+    return createTarget(UserTask.class, null).builder();
+  }
+
+  public UserTaskBuilder userTask(String id) {
+    return createTarget(UserTask.class, id).builder();
   }
 
   public ServiceTaskBuilder serviceTask() {
-    return createTarget(ServiceTask.class).builder();
+    return createTarget(ServiceTask.class, null).builder();
+  }
+
+  public ServiceTaskBuilder serviceTask(String id) {
+    return createTarget(ServiceTask.class, id).builder();
   }
 
   public ScriptTaskBuilder scriptTask() {
-    return createTarget(ScriptTask.class).builder();
+    return createTarget(ScriptTask.class, null).builder();
+  }
+
+  public ScriptTaskBuilder scriptTask(String id) {
+    return createTarget(ScriptTask.class, id).builder();
   }
 
   public EndEventBuilder endEvent() {
-    return createTarget(EndEvent.class).builder();
+    return createTarget(EndEvent.class, null).builder();
+  }
+
+  public EndEventBuilder endEvent(String id) {
+    return createTarget(EndEvent.class, id).builder();
   }
 
   public ParallelGatewayBuilder parallelGateway() {
-    return createTarget(ParallelGateway.class).builder();
+    return createTarget(ParallelGateway.class, null).builder();
+  }
+
+  public ParallelGatewayBuilder parallelGateway(String id) {
+    return createTarget(ParallelGateway.class, id).builder();
   }
 
   public ExclusiveGatewayBuilder exclusiveGateway() {
-    return createTarget(ExclusiveGateway.class).builder();
+    return createTarget(ExclusiveGateway.class, null).builder();
+  }
+
+  public ExclusiveGatewayBuilder exclusiveGateway(String id) {
+    return createTarget(ExclusiveGateway.class, id).builder();
   }
 
   public Gateway findLastGateway() {

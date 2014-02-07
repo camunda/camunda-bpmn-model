@@ -27,7 +27,11 @@ public class ProcessBuilder extends AbstractProcessBuilder<ProcessBuilder> {
   }
 
   public StartEventBuilder startEvent() {
-    return createChild(StartEvent.class).builder();
+    return createChild(StartEvent.class, null).builder();
+  }
+
+  public StartEventBuilder startEvent(String id) {
+    return createChild(StartEvent.class, id).builder();
   }
 
 }
