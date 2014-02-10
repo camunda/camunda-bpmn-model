@@ -12,7 +12,6 @@
  */
 package org.camunda.bpm.model.bpmn;
 
-import org.camunda.bpm.model.bpmn.impl.BpmnModelInstanceImpl;
 import org.camunda.bpm.model.bpmn.instance.*;
 import org.camunda.bpm.model.bpmn.instance.Process;
 import org.camunda.bpm.model.bpmn.util.BpmnModelResource;

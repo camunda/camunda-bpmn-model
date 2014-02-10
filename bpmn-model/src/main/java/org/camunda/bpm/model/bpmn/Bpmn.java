@@ -16,14 +16,11 @@ import org.camunda.bpm.model.bpmn.builder.ProcessBuilder;
 import org.camunda.bpm.model.bpmn.impl.BpmnParser;
 import org.camunda.bpm.model.bpmn.impl.instance.*;
 import org.camunda.bpm.model.bpmn.instance.*;
-import org.camunda.bpm.model.bpmn.instance.Error;
 import org.camunda.bpm.model.bpmn.instance.Process;
 import org.camunda.bpm.model.xml.*;
 import org.camunda.bpm.model.xml.impl.util.IoUtil;
 import org.camunda.bpm.model.xml.impl.util.ModelUtil;
 
-import java.io.DataInput;
-import java.io.DataOutput;
 import java.io.*;
 
 import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.ACTIVITI_NS;
@@ -131,7 +128,7 @@ public class Bpmn {
     BpmnModelInstance modelInstance = INSTANCE.doCreateEmptyModel();
     Definitions definitions = modelInstance.newInstance(Definitions.class);
     definitions.setTargetNamespace(BPMN20_NS);
-    definitions.getDomElement().setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:camunda", ACTIVITI_NS);
+    definitions.getDomElement().registerNamespace("camunda", ACTIVITI_NS);
     modelInstance.setDefinitions(definitions);
     Process process = modelInstance.newInstance(Process.class);
     process.setId(ModelUtil.getUniqueIdentifier(process.getElementType()));

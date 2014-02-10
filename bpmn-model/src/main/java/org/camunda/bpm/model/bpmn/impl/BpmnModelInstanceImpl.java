@@ -18,7 +18,7 @@ import org.camunda.bpm.model.bpmn.instance.Definitions;
 import org.camunda.bpm.model.xml.ModelBuilder;
 import org.camunda.bpm.model.xml.impl.ModelImpl;
 import org.camunda.bpm.model.xml.impl.ModelInstanceImpl;
-import org.w3c.dom.Document;
+import org.camunda.bpm.model.xml.instance.DomDocument;
 
 /**
  * <p>The Bpmn Model</p>
@@ -27,7 +27,7 @@ import org.w3c.dom.Document;
  */
 public class BpmnModelInstanceImpl extends ModelInstanceImpl implements BpmnModelInstance {
 
-  public BpmnModelInstanceImpl(ModelImpl model, ModelBuilder modelBuilder, Document document) {
+  public BpmnModelInstanceImpl(ModelImpl model, ModelBuilder modelBuilder, DomDocument document) {
     super(model, modelBuilder, document);
   }
 
