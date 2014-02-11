@@ -154,7 +154,7 @@ public class DefinitionsTest extends BpmnModelTest {
     IoUtil.closeSilently(inputStream);
 
     // compare strings
-    assertThat(modelString).isEqualTo(fileString);
+    assertThat(modelString).endsWith(fileString);
   }
 
   @Test

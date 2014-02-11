@@ -230,8 +230,6 @@ public class ProcessBuilderTest {
       .endEvent()
       .done();
 
-    Bpmn.writeModelToFile(new File("/tmp/first.xml"), modelInstance);
-
     assertThat(modelInstance.getModelElementsByType(taskType))
       .hasSize(2);
 
@@ -243,8 +241,6 @@ public class ProcessBuilderTest {
       .scriptTask()
       .userTask()
       .connectTo(serviceTask.getId());
-
-    Bpmn.writeModelToFile(new File("/tmp/second.xml"), modelInstance);
 
     assertThat(modelInstance.getModelElementsByType(taskType))
       .hasSize(4);
