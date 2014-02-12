@@ -17,6 +17,7 @@ import org.camunda.bpm.model.bpmn.instance.BaseElement;
 import org.camunda.bpm.model.bpmn.instance.InteractionNode;
 import org.camunda.bpm.model.bpmn.instance.Message;
 import org.camunda.bpm.model.bpmn.instance.MessageFlow;
+import org.camunda.bpm.model.bpmn.instance.bpmndi.BpmnEdge;
 import org.camunda.bpm.model.xml.ModelBuilder;
 import org.camunda.bpm.model.xml.impl.instance.ModelTypeInstanceContext;
 import org.camunda.bpm.model.xml.type.ModelElementTypeBuilder;
@@ -102,5 +103,9 @@ public class MessageFlowImpl extends BaseElementImpl implements MessageFlow {
 
   public void setMessage(Message message) {
     messageRefAttribute.setReferenceTargetElement(this, message);
+  }
+
+  public BpmnEdge getDiagramElement() {
+    return (BpmnEdge) super.getDiagramElement();
   }
 }

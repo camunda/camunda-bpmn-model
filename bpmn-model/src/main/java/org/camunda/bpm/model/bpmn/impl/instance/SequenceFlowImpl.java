@@ -18,6 +18,7 @@ import org.camunda.bpm.model.bpmn.builder.SequenceFlowBuilder;
 import org.camunda.bpm.model.bpmn.instance.FlowElement;
 import org.camunda.bpm.model.bpmn.instance.FlowNode;
 import org.camunda.bpm.model.bpmn.instance.SequenceFlow;
+import org.camunda.bpm.model.bpmn.instance.bpmndi.BpmnEdge;
 import org.camunda.bpm.model.xml.ModelBuilder;
 import org.camunda.bpm.model.xml.impl.instance.ModelTypeInstanceContext;
 import org.camunda.bpm.model.xml.type.ModelElementTypeBuilder;
@@ -116,4 +117,9 @@ public class SequenceFlowImpl extends FlowElementImpl implements SequenceFlow {
   public void removeConditionExpression() {
     conditionExpressionCollection.removeChild(this);
   }
+
+  public BpmnEdge getDiagramElement() {
+    return (BpmnEdge) super.getDiagramElement();
+  }
+
 }

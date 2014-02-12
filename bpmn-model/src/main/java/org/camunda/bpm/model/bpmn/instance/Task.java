@@ -13,6 +13,8 @@
 
 package org.camunda.bpm.model.bpmn.instance;
 
+import org.camunda.bpm.model.bpmn.instance.bpmndi.BpmnShape;
+
 /**
  * The BPMN task element
  *
@@ -29,5 +31,7 @@ public interface Task extends Activity {
   boolean isCamundaExclusive();
 
   void setCamundaExclusive(boolean isCamundaExclusive);
+
+  BpmnShape getDiagramElement();
 
 }

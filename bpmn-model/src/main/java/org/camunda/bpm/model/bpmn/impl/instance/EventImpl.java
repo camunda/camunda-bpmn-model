@@ -15,6 +15,7 @@ package org.camunda.bpm.model.bpmn.impl.instance;
 import org.camunda.bpm.model.bpmn.instance.Event;
 import org.camunda.bpm.model.bpmn.instance.FlowNode;
 import org.camunda.bpm.model.bpmn.instance.Property;
+import org.camunda.bpm.model.bpmn.instance.bpmndi.BpmnShape;
 import org.camunda.bpm.model.xml.ModelBuilder;
 import org.camunda.bpm.model.xml.impl.instance.ModelTypeInstanceContext;
 import org.camunda.bpm.model.xml.type.ModelElementTypeBuilder;
@@ -56,6 +57,10 @@ public abstract class EventImpl extends FlowNodeImpl implements Event {
 
   public Collection<Property> getProperties() {
     return propertyCollection.get(this);
+  }
+
+  public BpmnShape getDiagramElement() {
+    return (BpmnShape) super.getDiagramElement();
   }
 
 }

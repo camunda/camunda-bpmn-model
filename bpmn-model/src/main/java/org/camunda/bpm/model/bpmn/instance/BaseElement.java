@@ -12,6 +12,8 @@
  */
 package org.camunda.bpm.model.bpmn.instance;
 
+import org.camunda.bpm.model.bpmn.instance.di.DiagramElement;
+
 import java.util.Collection;
 
 /**
@@ -30,5 +32,7 @@ public interface BaseElement extends BpmnModelElementInstance {
   ExtensionElements getExtensionElements();
 
   void setExtensionElements(ExtensionElements extensionElements);
+
+  DiagramElement getDiagramElement();
 
 }

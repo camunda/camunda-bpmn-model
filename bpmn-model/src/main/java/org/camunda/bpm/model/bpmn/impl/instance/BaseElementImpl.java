@@ -15,13 +15,16 @@ package org.camunda.bpm.model.bpmn.impl.instance;
 import org.camunda.bpm.model.bpmn.instance.BaseElement;
 import org.camunda.bpm.model.bpmn.instance.Documentation;
 import org.camunda.bpm.model.bpmn.instance.ExtensionElements;
+import org.camunda.bpm.model.bpmn.instance.di.DiagramElement;
 import org.camunda.bpm.model.xml.ModelBuilder;
 import org.camunda.bpm.model.xml.impl.instance.ModelTypeInstanceContext;
+import org.camunda.bpm.model.xml.instance.ModelElementInstance;
 import org.camunda.bpm.model.xml.type.ModelElementTypeBuilder;
 import org.camunda.bpm.model.xml.type.attribute.Attribute;
 import org.camunda.bpm.model.xml.type.child.ChildElement;
 import org.camunda.bpm.model.xml.type.child.ChildElementCollection;
 import org.camunda.bpm.model.xml.type.child.SequenceBuilder;
+import org.camunda.bpm.model.xml.type.reference.Reference;
 
 import java.util.Collection;
 
@@ -81,6 +84,18 @@ public abstract class BaseElementImpl extends BpmnModelElementInstanceImpl imple
 
   public void setExtensionElements(ExtensionElements extensionElements) {
     extensionElementsChild.setChild(this, extensionElements);
+  }
+
+  public DiagramElement getDiagramElement() {
+    for (Reference<?> reference : idAttribute.getIncomingReferences()) {
+      for (ModelElementInstance sourceElement : reference.findReferenceSourceElements(this)) {
+        String referenceIdentifier = reference.getReferenceIdentifier(sourceElement);
+        if (getId().equals(referenceIdentifier) && sourceElement instanceof DiagramElement) {
+          return (DiagramElement) sourceElement;
+        }
+      }
+    }
+    return null;
   }
 
 }

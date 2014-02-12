@@ -15,8 +15,14 @@ package org.camunda.bpm.model.bpmn;
 import org.camunda.bpm.model.bpmn.builder.ProcessBuilder;
 import org.camunda.bpm.model.bpmn.impl.BpmnParser;
 import org.camunda.bpm.model.bpmn.impl.instance.*;
+import org.camunda.bpm.model.bpmn.impl.instance.ExtensionImpl;
 import org.camunda.bpm.model.bpmn.impl.instance.ProcessImpl;
+import org.camunda.bpm.model.bpmn.impl.instance.bpmndi.*;
 import org.camunda.bpm.model.bpmn.impl.instance.camunda.*;
+import org.camunda.bpm.model.bpmn.impl.instance.dc.BoundsImpl;
+import org.camunda.bpm.model.bpmn.impl.instance.dc.FontImpl;
+import org.camunda.bpm.model.bpmn.impl.instance.dc.PointImpl;
+import org.camunda.bpm.model.bpmn.impl.instance.di.*;
 import org.camunda.bpm.model.bpmn.instance.Definitions;
 import org.camunda.bpm.model.bpmn.instance.Process;
 import org.camunda.bpm.model.bpmn.instance.camunda.CamundaOutImpl;
@@ -221,6 +227,7 @@ public class Bpmn {
     ActivityImpl.registerType(bpmnModelBuilder);
     ArtifactImpl.registerType(bpmnModelBuilder);
     AssignmentImpl.registerType(bpmnModelBuilder);
+    AssociationImpl.registerType(bpmnModelBuilder);
     AuditingImpl.registerType(bpmnModelBuilder);
     BaseElementImpl.registerType(bpmnModelBuilder);
     BoundaryEventImpl.registerType(bpmnModelBuilder);
@@ -349,6 +356,33 @@ public class Bpmn {
     WhileExecutingInputRefs.registerType(bpmnModelBuilder);
     WhileExecutingOutputRefs.registerType(bpmnModelBuilder);
 
+    /** DC */
+    FontImpl.registerType(bpmnModelBuilder);
+    PointImpl.registerType(bpmnModelBuilder);
+    BoundsImpl.registerType(bpmnModelBuilder);
+
+    /** DI */
+    DiagramImpl.registerType(bpmnModelBuilder);
+    DiagramElementImpl.registerType(bpmnModelBuilder);
+    EdgeImpl.registerType(bpmnModelBuilder);
+    org.camunda.bpm.model.bpmn.impl.instance.di.ExtensionImpl.registerType(bpmnModelBuilder);
+    LabelImpl.registerType(bpmnModelBuilder);
+    LabeledEdgeImpl.registerType(bpmnModelBuilder);
+    LabeledShapeImpl.registerType(bpmnModelBuilder);
+    NodeImpl.registerType(bpmnModelBuilder);
+    PlaneImpl.registerType(bpmnModelBuilder);
+    ShapeImpl.registerType(bpmnModelBuilder);
+    StyleImpl.registerType(bpmnModelBuilder);
+    WaypointImpl.registerType(bpmnModelBuilder);
+
+    /** BPMNDI */
+    BpmnDiagramImpl.registerType(bpmnModelBuilder);
+    BpmnEdgeImpl.registerType(bpmnModelBuilder);
+    BpmnLabelImpl.registerType(bpmnModelBuilder);
+    BpmnLabelStyleImpl.registerType(bpmnModelBuilder);
+    BpmnPlaneImpl.registerType(bpmnModelBuilder);
+    BpmnShapeImpl.registerType(bpmnModelBuilder);
+
     /** camunda extensions */
     CamundaConstraintImpl.registerType(bpmnModelBuilder);
     CamundaExecutionListenerImpl.registerType(bpmnModelBuilder);
@@ -367,7 +401,6 @@ public class Bpmn {
     CamundaTaskListenerImpl.registerType(bpmnModelBuilder);
     CamundaValidationImpl.registerType(bpmnModelBuilder);
     CamundaValueImpl.registerType(bpmnModelBuilder);
-
   }
 
   /**

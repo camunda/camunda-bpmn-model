@@ -23,6 +23,15 @@ public final class BpmnModelConstants {
   /** The BPMN 2.0 namespace */
   public static final String BPMN20_NS = "http://www.omg.org/spec/BPMN/20100524/MODEL";
 
+  /** The BPMNDI namespace */
+  public static final String BPMNDI_NS = "http://www.omg.org/spec/BPMN/20100524/DI";
+
+  /** The DC namespace */
+  public static final String DC_NS = "http://www.omg.org/spec/DD/20100524/DC";
+
+  /** The DI namespace */
+  public static final String DI_NS = "http://www.omg.org/spec/DD/20100524/DI";
+
   /** The location of the BPMN 2.0 XML schema. */
   public static final String BPMN_20_SCHEMA_LOCATION = "BPMN20.xsd";
 
@@ -165,6 +174,37 @@ public final class BpmnModelConstants {
   public static final String BPMN_ELEMENT_MESSAGE_FLOW_ASSOCIATION = "messageFlowAssociation";
   public static final String BPMN_ELEMENT_CONVERSATION_LINK = "conversationLink";
   public static final String BPMN_ELEMENT_COLLABORATION = "collaboration";
+  public static final String BPMN_ELEMENT_ASSOCIATION = "association";
+
+  /** DC */
+
+  public static final String DC_ELEMENT_FONT = "Font";
+  public static final String DC_ELEMENT_POINT = "Point";
+  public static final String DC_ELEMENT_BOUNDS = "Bounds";
+
+  /** DI */
+
+  public static final String DI_ELEMENT_DIAGRAM_ELEMENT = "DiagramElement";
+  public static final String DI_ELEMENT_DIAGRAM = "Diagram";
+  public static final String DI_ELEMENT_EDGE = "Edge";
+  public static final String DI_ELEMENT_EXTENSION = "extension";
+  public static final String DI_ELEMENT_LABELED_EDGE = "LabeledEdge";
+  public static final String DI_ELEMENT_LABEL = "Label";
+  public static final String DI_ELEMENT_LABELED_SHAPE = "LabeledShape";
+  public static final String DI_ELEMENT_NODE = "Node";
+  public static final String DI_ELEMENT_PLANE = "Plane";
+  public static final String DI_ELEMENT_SHAPE = "Shape";
+  public static final String DI_ELEMENT_STYLE = "Style";
+  public static final String DI_ELEMENT_WAYPOINT = "waypoint";
+
+  /** BPMNDI */
+
+  public static final String BPMNDI_ELEMENT_BPMN_DIAGRAM = "BPMNDiagram";
+  public static final String BPMNDI_ELEMENT_BPMN_PLANE = "BPMNPlane";
+  public static final String BPMNDI_ELEMENT_BPMN_LABEL_STYLE = "BPMNLabelStyle";
+  public static final String BPMNDI_ELEMENT_BPMN_SHAPE = "BPMNShape";
+  public static final String BPMNDI_ELEMENT_BPMN_LABEL = "BPMNLabel";
+  public static final String BPMNDI_ELEMENT_BPMN_EDGE = "BPMNEdge";
 
   /** camunda extensions */
   
@@ -250,6 +290,41 @@ public final class BpmnModelConstants {
   public static final String BPMN_ATTRIBUTE_OUTER_CONVERSATION_NODE_REF = "outerConversationNodeRef";
   public static final String BPMN_ATTRIBUTE_INNER_MESSAGE_FLOW_REF = "innerMessageFlowRef";
   public static final String BPMN_ATTRIBUTE_OUTER_MESSAGE_FLOW_REF = "outerMessageFlowRef";
+  public static final String BPMN_ATTRIBUTE_ASSOCIATION_DIRECTION = "associationDirection";
+
+  /** DC */
+
+  public static final String DC_ATTRIBUTE_NAME = "name";
+  public static final String DC_ATTRIBUTE_SIZE = "size";
+  public static final String DC_ATTRIBUTE_IS_BOLD = "isBold";
+  public static final String DC_ATTRIBUTE_IS_ITALIC = "isItalic";
+  public static final String DC_ATTRIBUTE_IS_UNDERLINE = "isUnderline";
+  public static final String DC_ATTRIBUTE_IS_STRIKE_THROUGH = "isStrikeThrough";
+  public static final String DC_ATTRIBUTE_X = "x";
+  public static final String DC_ATTRIBUTE_Y = "y";
+  public static final String DC_ATTRIBUTE_WIDTH = "width";
+  public static final String DC_ATTRIBUTE_HEIGHT = "height";
+
+  /** DI */
+
+  public static final String DI_ATTRIBUTE_ID = "id";
+  public static final String DI_ATTRIBUTE_NAME = "name";
+  public static final String DI_ATTRIBUTE_DOCUMENTATION = "documentation";
+  public static final String DI_ATTRIBUTE_RESOLUTION = "resolution";
+
+  /** BPMNDI */
+
+  public static final String BPMNDI_ATTRIBUTE_BPMN_ELEMENT = "bpmnElement";
+  public static final String BPMNDI_ATTRIBUTE_SOURCE_ELEMENT = "sourceElement";
+  public static final String BPMNDI_ATTRIBUTE_TARGET_ELEMENT = "targetElement";
+  public static final String BPMNDI_ATTRIBUTE_MESSAGE_VISIBLE_KIND = "messageVisibleKind";
+  public static final String BPMNDI_ATTRIBUTE_IS_HORIZONTAL = "isHorizontal";
+  public static final String BPMNDI_ATTRIBUTE_IS_EXPANDED = "isExpanded";
+  public static final String BPMNDI_ATTRIBUTE_IS_MARKER_VISIBLE = "isMarkerVisible";
+  public static final String BPMNDI_ATTRIBUTE_IS_MESSAGE_VISIBLE = "isMessageVisible";
+  public static final String BPMNDI_ATTRIBUTE_PARTICIPANT_BAND_KIND = "participantBandKind";
+  public static final String BPMNDI_ATTRIBUTE_CHOREOGRAPHY_ACTIVITY_SHAPE = "choreographyActivityShape";
+  public static final String BPMNDI_ATTRIBUTE_LABEL_STYLE = "labelStyle";
 
   /** camunda extensions */
 

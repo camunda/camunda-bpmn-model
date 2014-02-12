@@ -12,6 +12,8 @@
  */
 package org.camunda.bpm.model.bpmn.instance;
 
+import org.camunda.bpm.model.bpmn.instance.bpmndi.BpmnShape;
+
 import java.util.Collection;
 
 /**
@@ -23,5 +25,7 @@ import java.util.Collection;
 public interface Event extends FlowNode, InteractionNode {
 
   Collection<Property> getProperties();
+
+  BpmnShape getDiagramElement();
 
 }

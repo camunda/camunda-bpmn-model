@@ -14,6 +14,7 @@
 package org.camunda.bpm.model.bpmn.impl.instance;
 
 import org.camunda.bpm.model.bpmn.instance.*;
+import org.camunda.bpm.model.bpmn.instance.bpmndi.BpmnEdge;
 import org.camunda.bpm.model.xml.ModelBuilder;
 import org.camunda.bpm.model.xml.impl.instance.ModelTypeInstanceContext;
 import org.camunda.bpm.model.xml.type.ModelElementTypeBuilder;
@@ -97,5 +98,9 @@ public class DataAssociationImpl extends BaseElementImpl implements DataAssociat
 
   public Collection<Assignment> getAssignments() {
     return assignmentCollection.get(this);
+  }
+
+  public BpmnEdge getDiagramElement() {
+    return (BpmnEdge) super.getDiagramElement();
   }
 }

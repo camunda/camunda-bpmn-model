@@ -17,6 +17,7 @@ import org.camunda.bpm.model.bpmn.GatewayDirection;
 import org.camunda.bpm.model.bpmn.builder.AbstractGatewayBuilder;
 import org.camunda.bpm.model.bpmn.instance.FlowNode;
 import org.camunda.bpm.model.bpmn.instance.Gateway;
+import org.camunda.bpm.model.bpmn.instance.bpmndi.BpmnShape;
 import org.camunda.bpm.model.xml.ModelBuilder;
 import org.camunda.bpm.model.xml.impl.instance.ModelTypeInstanceContext;
 import org.camunda.bpm.model.xml.type.ModelElementTypeBuilder;
@@ -59,4 +60,9 @@ public abstract class GatewayImpl extends FlowNodeImpl implements Gateway {
   public void setGatewayDirection(GatewayDirection gatewayDirection) {
     gatewayDirectionAttribute.setValue(this, gatewayDirection);
   }
+
+  public BpmnShape getDiagramElement() {
+    return (BpmnShape) super.getDiagramElement();
+  }
+
 }

@@ -15,6 +15,7 @@ package org.camunda.bpm.model.bpmn.instance;
 
 import org.camunda.bpm.model.bpmn.builder.SequenceFlowBuilder;
 import org.camunda.bpm.model.bpmn.impl.instance.ConditionExpression;
+import org.camunda.bpm.model.bpmn.instance.bpmndi.BpmnEdge;
 
 /**
  * The BPMN sequenceFlow element
@@ -42,4 +43,7 @@ public interface SequenceFlow extends FlowElement {
   void setConditionExpression(ConditionExpression conditionExpression);
 
   void removeConditionExpression();
+
+  BpmnEdge getDiagramElement();
+
 }

@@ -14,6 +14,7 @@
 package org.camunda.bpm.model.bpmn.instance;
 
 import org.camunda.bpm.model.bpmn.impl.instance.Transformation;
+import org.camunda.bpm.model.bpmn.instance.bpmndi.BpmnEdge;
 
 import java.util.Collection;
 
@@ -35,5 +36,7 @@ public interface DataAssociation extends BaseElement {
   void setTransformation(Transformation transformation);
 
   Collection<Assignment> getAssignments();
+
+  BpmnEdge getDiagramElement();
 
 }

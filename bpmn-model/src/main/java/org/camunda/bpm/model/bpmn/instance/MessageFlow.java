@@ -13,6 +13,8 @@
 
 package org.camunda.bpm.model.bpmn.instance;
 
+import org.camunda.bpm.model.bpmn.instance.bpmndi.BpmnEdge;
+
 /**
  * The BPMN messageFlow element
  *
@@ -35,4 +37,7 @@ public interface MessageFlow extends BaseElement {
   Message getMessage();
 
   void setMessage(Message message);
+
+  BpmnEdge getDiagramElement();
+
 }

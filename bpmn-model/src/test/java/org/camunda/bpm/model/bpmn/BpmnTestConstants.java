@@ -21,14 +21,21 @@ import java.util.List;
  */
 public final class BpmnTestConstants {
 
+  public static final String COLLABORATION_ID = "collaboration";
+  public static final String PARTICIPANT_ID = "participant";
   public static final String PROCESS_ID = "process";
   public static final String START_EVENT_ID = "startEvent";
   public static final String TASK_ID = "task";
   public static final String USER_TASK_ID = "userTask";
   public static final String SERVICE_TASK_ID = "serviceTask";
   public static final String SEND_TASK_ID = "sendTask";
+  public static final String SEQUENCE_FLOW_ID = "sequenceFlow";
+  public static final String MESSAGE_FLOW_ID = "messageFlow";
+  public static final String DATA_INPUT_ASSOCIATION_ID = "dataInputAssociation";
+  public static final String ASSOCIATION_ID = "association";
   public static final String CALL_ACTIVITY_ID = "callActivity";
   public static final String END_EVENT_ID = "endEvent";
+  public static final String EXCLUSIVE_GATEWAY = "exclusiveGateway";
 
   public static final String TEST_STRING_XML = "test";
   public static final String TEST_STRING_API = "api";
