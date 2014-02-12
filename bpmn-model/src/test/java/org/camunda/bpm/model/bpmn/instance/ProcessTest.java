@@ -19,6 +19,8 @@ import org.camunda.bpm.model.bpmn.impl.instance.Supports;
 import java.util.Arrays;
 import java.util.Collection;
 
+import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.CAMUNDA_NS;
+
 /**
  * @author Sebastian Menski
  */
@@ -46,8 +48,11 @@ public class ProcessTest extends BpmnModelElementInstanceTest {
     return Arrays.asList(
       new AttributeAssumption("processType", false, false, ProcessType.None),
       new AttributeAssumption("isClosed", false, false, false),
-      new AttributeAssumption("isExecutable")
+      new AttributeAssumption("isExecutable"),
       // TODO: definitionalCollaborationRef
+      /** camunda extensions */
+      new AttributeAssumption(CAMUNDA_NS, "candidateStarterGroups"),
+      new AttributeAssumption(CAMUNDA_NS, "candidateStarterUsers")
     );
   }
 }

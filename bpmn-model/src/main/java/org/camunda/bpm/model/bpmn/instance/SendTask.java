@@ -13,12 +13,16 @@
 
 package org.camunda.bpm.model.bpmn.instance;
 
+import org.camunda.bpm.model.bpmn.builder.SendTaskBuilder;
+
 /**
  * The BPMN sendTask element
  *
  * @author Sebastian Menski
  */
 public interface SendTask extends Task {
+
+  SendTaskBuilder builder();
 
   String getImplementation();
 
@@ -31,4 +35,26 @@ public interface SendTask extends Task {
   Operation getOperation();
 
   void setOperation(Operation operation);
+
+  /** camunda extensions */
+
+  String getCamundaClass();
+
+  void setCamundaClass(String camundaClass);
+
+  String getCamundaDelegateExpression();
+
+  void setCamundaDelegateExpression(String camundaExpression);
+
+  String getCamundaExpression();
+
+  void setCamundaExpression(String camundaExpression);
+
+  String getCamundaResultVariable();
+
+  void setCamundaResultVariable(String camundaResultVariable);
+
+  String getCamundaType();
+
+  void setCamundaType(String camundaType);
 }

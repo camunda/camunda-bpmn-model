@@ -22,7 +22,6 @@ import org.camunda.bpm.model.bpmn.builder.ScriptTaskBuilder;
  */
 public interface ScriptTask extends Task {
 
-  @SuppressWarnings("unchecked")
   ScriptTaskBuilder builder();
 
   String getScriptFormat();
@@ -32,4 +31,10 @@ public interface ScriptTask extends Task {
   Script getScript();
 
   void setScript(Script script);
+
+  /** camunda extensions */
+
+  String getCamundaResultVariable();
+
+  void setCamundaResultVariable(String camundaResultVariable);
 }

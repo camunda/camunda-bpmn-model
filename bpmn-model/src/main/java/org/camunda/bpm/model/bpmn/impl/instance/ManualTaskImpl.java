@@ -13,6 +13,8 @@
 
 package org.camunda.bpm.model.bpmn.impl.instance;
 
+import org.camunda.bpm.model.bpmn.BpmnModelInstance;
+import org.camunda.bpm.model.bpmn.builder.ManualTaskBuilder;
 import org.camunda.bpm.model.bpmn.instance.ManualTask;
 import org.camunda.bpm.model.bpmn.instance.Task;
 import org.camunda.bpm.model.xml.ModelBuilder;
@@ -45,5 +47,9 @@ public class ManualTaskImpl extends TaskImpl implements ManualTask {
 
   public ManualTaskImpl(ModelTypeInstanceContext context) {
     super(context);
+  }
+
+  public ManualTaskBuilder builder() {
+    return new ManualTaskBuilder((BpmnModelInstance) modelInstance, this);
   }
 }

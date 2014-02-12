@@ -57,7 +57,6 @@ public class ExclusiveGatewayImpl extends GatewayImpl implements ExclusiveGatewa
   }
 
   @Override
-  @SuppressWarnings("unchecked")
   public ExclusiveGatewayBuilder builder() {
     return new ExclusiveGatewayBuilder((BpmnModelInstance) modelInstance, this);
   }

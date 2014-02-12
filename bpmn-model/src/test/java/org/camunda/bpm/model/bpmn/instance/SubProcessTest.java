@@ -16,6 +16,8 @@ package org.camunda.bpm.model.bpmn.instance;
 import java.util.Arrays;
 import java.util.Collection;
 
+import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.CAMUNDA_NS;
+
 /**
  * @author Sebastian Menski
  */
@@ -35,7 +37,10 @@ public class SubProcessTest extends BpmnModelElementInstanceTest {
 
   public Collection<AttributeAssumption> getAttributesAssumptions() {
     return Arrays.asList(
-      new AttributeAssumption("triggeredByEvent", false, false, false)
+      new AttributeAssumption("triggeredByEvent", false, false, false),
+      /** camunda extensions */
+      new AttributeAssumption(CAMUNDA_NS, "async", false, false, false),
+      new AttributeAssumption(CAMUNDA_NS, "exclusive", false, false, true)
     );
   }
 }

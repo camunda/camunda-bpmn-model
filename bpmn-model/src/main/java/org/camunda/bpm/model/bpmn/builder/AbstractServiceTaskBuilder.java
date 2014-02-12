@@ -36,38 +36,61 @@ public abstract class AbstractServiceTaskBuilder<B extends AbstractServiceTaskBu
     return myself;
   }
 
+  /** camunda extensions */
+
   /**
    * Sets the camunda class attribute.
    *
-   * @param className  the class name to set
+   * @param camundaClass  the class name to set
    * @return the builder object
    */
-  public B className(String className) {
-    element.setClassName(className);
-    return myself;
-  }
-
-  /**
-   * Sets the camunda expression attribute.
-   *
-   * @param expression  the expression to set
-   * @return the builder object
-   */
-  public B expression(String expression) {
-    element.setExpression(expression);
+  public B camundaClass(String camundaClass) {
+    element.setCamundaClass(camundaClass);
     return myself;
   }
 
   /**
    * Sets the camunda delegateExpression attribute.
    *
-   * @param expression  the delegateExpression to set
+   * @param camundaExpression  the delegateExpression to set
    * @return the builder object
    */
-  public B delegateExpression(String expression) {
-    element.setDelegateExpression(expression);
+  public B camundaDelegateExpression(String camundaExpression) {
+    element.setCamundaDelegateExpression(camundaExpression);
     return myself;
   }
 
+  /**
+   * Sets the camunda expression attribute.
+   *
+   * @param camundaExpression  the expression to set
+   * @return the builder object
+   */
+  public B camundaExpression(String camundaExpression) {
+    element.setCamundaExpression(camundaExpression);
+    return myself;
+  }
+
+  /**
+   * Sets the camunda resultVariable attribute.
+   *
+   * @param camundaResultVariable  the name of the process variable
+   * @return the builder object
+   */
+  public B camundaResultVariable(String camundaResultVariable) {
+    element.setCamundaResultVariable(camundaResultVariable);
+    return myself;
+  }
+
+  /**
+   * Sets the camunda type attribute.
+   *
+   * @param camundaType  the type of the service task
+   * @return the builder object
+   */
+  public B camundaType(String camundaType) {
+    element.setCamundaType(camundaType);
+    return myself;
+  }
 
 }

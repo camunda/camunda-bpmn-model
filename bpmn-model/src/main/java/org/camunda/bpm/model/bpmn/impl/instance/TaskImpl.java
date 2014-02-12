@@ -13,14 +13,16 @@
 
 package org.camunda.bpm.model.bpmn.impl.instance;
 
+import org.camunda.bpm.model.bpmn.builder.AbstractTaskBuilder;
 import org.camunda.bpm.model.bpmn.instance.Activity;
 import org.camunda.bpm.model.bpmn.instance.Task;
 import org.camunda.bpm.model.xml.ModelBuilder;
 import org.camunda.bpm.model.xml.impl.instance.ModelTypeInstanceContext;
+import org.camunda.bpm.model.xml.impl.util.ModelTypeException;
 import org.camunda.bpm.model.xml.type.ModelElementTypeBuilder;
+import org.camunda.bpm.model.xml.type.attribute.Attribute;
 
-import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN20_NS;
-import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN_ELEMENT_TASK;
+import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.*;
 import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeInstanceProvider;
 
 /**
@@ -29,6 +31,11 @@ import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeIn
  * @author Sebastian Menski
  */
 public class TaskImpl extends ActivityImpl implements Task {
+
+  /** camunda extensions */
+
+  private static Attribute<Boolean> camundaAsyncAttribute;
+  private static Attribute<Boolean> camundaExclusiveAttribute;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(Task.class, BPMN_ELEMENT_TASK)
@@ -40,10 +47,45 @@ public class TaskImpl extends ActivityImpl implements Task {
         }
       });
 
+    /** camunda extensions */
+
+    camundaAsyncAttribute = typeBuilder.booleanAttribute(CAMUNDA_ATTRIBUTE_ASYNC)
+      .namespace(CAMUNDA_NS)
+      .defaultValue(false)
+      .build();
+
+    camundaExclusiveAttribute = typeBuilder.booleanAttribute(CAMUNDA_ATTRIBUTE_EXCLUSIVE)
+      .namespace(CAMUNDA_NS)
+      .defaultValue(true)
+      .build();
+
     typeBuilder.build();
   }
 
   public TaskImpl(ModelTypeInstanceContext context) {
     super(context);
   }
+
+  public AbstractTaskBuilder builder() {
+    throw new ModelTypeException("No builder implemented.");
+  }
+
+  /** camunda extensions */
+
+  public boolean isCamundaAsync() {
+    return camundaAsyncAttribute.getValue(this);
+  }
+
+  public void setCamundaAsync(boolean isCamundaAsync) {
+    camundaAsyncAttribute.setValue(this, isCamundaAsync);
+  }
+
+  public boolean isCamundaExclusive() {
+    return camundaExclusiveAttribute.getValue(this);
+  }
+
+  public void setCamundaExclusive(boolean isCamundaExclusive) {
+    camundaExclusiveAttribute.setValue(this, isCamundaExclusive);
+  }
+
 }

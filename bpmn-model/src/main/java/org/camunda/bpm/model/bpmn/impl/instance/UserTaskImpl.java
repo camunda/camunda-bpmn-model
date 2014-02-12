@@ -20,12 +20,14 @@ import org.camunda.bpm.model.bpmn.instance.Task;
 import org.camunda.bpm.model.bpmn.instance.UserTask;
 import org.camunda.bpm.model.xml.ModelBuilder;
 import org.camunda.bpm.model.xml.impl.instance.ModelTypeInstanceContext;
+import org.camunda.bpm.model.xml.impl.util.StringUtil;
 import org.camunda.bpm.model.xml.type.ModelElementTypeBuilder;
 import org.camunda.bpm.model.xml.type.attribute.Attribute;
 import org.camunda.bpm.model.xml.type.child.ChildElementCollection;
 import org.camunda.bpm.model.xml.type.child.SequenceBuilder;
 
 import java.util.Collection;
+import java.util.List;
 
 import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.*;
 import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeInstanceProvider;
@@ -38,11 +40,17 @@ import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeIn
 public class UserTaskImpl extends TaskImpl implements UserTask {
 
   private static Attribute<String> implementationAttribute;
-  private static Attribute<String> formKeyAttribute;
-  private static Attribute<String> assigneeAttribute;
-  private static Attribute<String> candidateUsersAttribute;
-  private static Attribute<String> candidateGroupsAttribute;
   private static ChildElementCollection<Rendering> renderingCollection;
+
+  /** camunda extensions */
+
+  private static Attribute<String> camundaAssigneeAttribute;
+  private static Attribute<String> camundaCandidateGroupsAttribute;
+  private static Attribute<String> camundaCandidateUsersAttribute;
+  private static Attribute<String> camundaDueDateAttribute;
+  private static Attribute<String> camundaFormHandlerClassAttribute;
+  private static Attribute<String> camundaFormKeyAttribute;
+  private static Attribute<String> camundaPriorityAttribute;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(UserTask.class, BPMN_ELEMENT_USER_TASK)
@@ -58,25 +66,39 @@ public class UserTaskImpl extends TaskImpl implements UserTask {
       .defaultValue("##unspecified")
       .build();
 
-    formKeyAttribute = typeBuilder.stringAttribute(CAMUNDA_ATTRIBUTE_FORM_KEY)
-      .namespace(CAMUNDA_NS)
-      .build();
-
-    assigneeAttribute = typeBuilder.stringAttribute(CAMUNDA_ATTRIBUTE_ASSIGNEE)
-      .namespace(CAMUNDA_NS)
-      .build();
-
-    candidateUsersAttribute = typeBuilder.stringAttribute(CAMUNDA_ATTRIBUTE_CANDIDATE_USERS)
-      .namespace(CAMUNDA_NS)
-      .build();
-
-    candidateGroupsAttribute = typeBuilder.stringAttribute(CAMUNDA_ATTRIBUTE_CANDIDATE_GROUPS)
-      .namespace(CAMUNDA_NS)
-      .build();
-
     SequenceBuilder sequenceBuilder = typeBuilder.sequence();
 
     renderingCollection = sequenceBuilder.elementCollection(Rendering.class)
+      .build();
+
+    /** camunda extensions */
+
+    camundaAssigneeAttribute = typeBuilder.stringAttribute(CAMUNDA_ATTRIBUTE_ASSIGNEE)
+      .namespace(CAMUNDA_NS)
+      .build();
+
+    camundaCandidateGroupsAttribute = typeBuilder.stringAttribute(CAMUNDA_ATTRIBUTE_CANDIDATE_GROUPS)
+      .namespace(CAMUNDA_NS)
+      .build();
+
+    camundaCandidateUsersAttribute = typeBuilder.stringAttribute(CAMUNDA_ATTRIBUTE_CANDIDATE_USERS)
+      .namespace(CAMUNDA_NS)
+      .build();
+
+    camundaDueDateAttribute = typeBuilder.stringAttribute(CAMUNDA_ATTRIBUTE_DUE_DATE)
+      .namespace(CAMUNDA_NS)
+      .build();
+
+    camundaFormHandlerClassAttribute = typeBuilder.stringAttribute(CAMUNDA_ATTRIBUTE_FORM_HANDLER_CLASS)
+      .namespace(CAMUNDA_NS)
+      .build();
+
+    camundaFormKeyAttribute = typeBuilder.stringAttribute(CAMUNDA_ATTRIBUTE_FORM_KEY)
+      .namespace(CAMUNDA_NS)
+      .build();
+
+    camundaPriorityAttribute = typeBuilder.stringAttribute(CAMUNDA_ATTRIBUTE_PRIORITY)
+      .namespace(CAMUNDA_NS)
       .build();
 
     typeBuilder.build();
@@ -87,7 +109,6 @@ public class UserTaskImpl extends TaskImpl implements UserTask {
   }
 
   @Override
-  @SuppressWarnings("unchecked")
   public UserTaskBuilder builder() {
     return new UserTaskBuilder((BpmnModelInstance) modelInstance, this);
   }
@@ -104,36 +125,82 @@ public class UserTaskImpl extends TaskImpl implements UserTask {
     return renderingCollection.get(this);
   }
 
-  public String getFormKey() {
-    return formKeyAttribute.getValue(this);
+  /** camunda extensions */
+
+  public String getCamundaAssignee() {
+    return camundaAssigneeAttribute.getValue(this);
   }
 
-  public void setFormKey(String formKey) {
-    formKeyAttribute.setValue(this, formKey);
+  public void setCamundaAssignee(String camundaAssignee) {
+    camundaAssigneeAttribute.setValue(this, camundaAssignee);
   }
 
-  public String getAssignee() {
-    return assigneeAttribute.getValue(this);
+  public String getCamundaCandidateGroups() {
+    return camundaCandidateGroupsAttribute.getValue(this);
   }
 
-  public void setAssignee(String assignee) {
-    assigneeAttribute.setValue(this, assignee);
+  public void setCamundaCandidateGroups(String camundaCandidateGroups) {
+    camundaCandidateGroupsAttribute.setValue(this, camundaCandidateGroups);
   }
 
-  public String getCandidateUsers() {
-    return candidateUsersAttribute.getValue(this);
+  public List<String> getCamundaCandidateGroupsList() {
+    String candidateGroups = camundaCandidateGroupsAttribute.getValue(this);
+    return StringUtil.splitCommaSeparatedList(candidateGroups);
   }
 
-  public void setCandidateUsers(String candidateUsers) {
-    candidateUsersAttribute.setValue(this, candidateUsers);
+  public void setCamundaCandidateGroupsList(List<String> camundaCandidateGroupsList) {
+    String candidateGroups = StringUtil.joinCommaSeparatedList(camundaCandidateGroupsList);
+    camundaCandidateGroupsAttribute.setValue(this, candidateGroups);
   }
 
-  public String getCandidateGroups() {
-    return candidateGroupsAttribute.getValue(this);
+  public String getCamundaCandidateUsers() {
+    return camundaCandidateUsersAttribute.getValue(this);
   }
 
-  public void setCandidateGroups(String candidateGroups) {
-    candidateGroupsAttribute.setValue(this, candidateGroups);
+  public void setCamundaCandidateUsers(String camundaCandidateUsers) {
+    camundaCandidateUsersAttribute.setValue(this, camundaCandidateUsers);
+  }
+
+  public List<String> getCamundaCandidateUsersList() {
+    String candidateUsers = camundaCandidateUsersAttribute.getValue(this);
+    return StringUtil.splitCommaSeparatedList(candidateUsers);
+  }
+
+  public void setCamundaCandidateUsersList(List<String> camundaCandidateUsersList) {
+    String candidateUsers = StringUtil.joinCommaSeparatedList(camundaCandidateUsersList);
+    camundaCandidateUsersAttribute.setValue(this, candidateUsers);
+  }
+
+  public String getCamundaDueDate() {
+    return camundaDueDateAttribute.getValue(this);
+  }
+
+  public void setCamundaDueDate(String camundaDueDate) {
+    camundaDueDateAttribute.setValue(this, camundaDueDate);
+  }
+
+  public String getCamundaFormHandlerClass() {
+    return camundaFormHandlerClassAttribute.getValue(this);
+  }
+
+  public void setCamundaFormHandlerClass(String camundaFormHandlerClass) {
+    camundaFormHandlerClassAttribute.setValue(this, camundaFormHandlerClass);
+  }
+
+  public String getCamundaFormKey() {
+    return camundaFormKeyAttribute.getValue(this);
+  }
+
+  public void setCamundaFormKey(String camundaFormKey) {
+    camundaFormKeyAttribute.setValue(this, camundaFormKey);
+  }
+
+  public String getCamundaPriority() {
+    return camundaPriorityAttribute.getValue(this);
+  }
+
+  public void setCamundaPriority(String camundaPriority) {
+    camundaPriorityAttribute.setValue(this, camundaPriority);
   }
 
 }

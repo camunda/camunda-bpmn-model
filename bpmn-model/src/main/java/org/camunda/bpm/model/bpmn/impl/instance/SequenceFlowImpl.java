@@ -77,7 +77,6 @@ public class SequenceFlowImpl extends FlowElementImpl implements SequenceFlow {
   }
 
   @Override
-  @SuppressWarnings("unchecked")
   public SequenceFlowBuilder builder() {
     return new SequenceFlowBuilder((BpmnModelInstance) modelInstance, this);
   }

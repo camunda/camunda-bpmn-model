@@ -67,14 +67,6 @@ public abstract class AbstractFlowNodeBuilder<B extends AbstractFlowNodeBuilder<
     return target;
   }
 
-  public UserTaskBuilder userTask() {
-    return createTarget(UserTask.class, null).builder();
-  }
-
-  public UserTaskBuilder userTask(String id) {
-    return createTarget(UserTask.class, id).builder();
-  }
-
   public ServiceTaskBuilder serviceTask() {
     return createTarget(ServiceTask.class, null).builder();
   }
@@ -83,12 +75,52 @@ public abstract class AbstractFlowNodeBuilder<B extends AbstractFlowNodeBuilder<
     return createTarget(ServiceTask.class, id).builder();
   }
 
+  public SendTaskBuilder sendTask() {
+    return createTarget(SendTask.class, null).builder();
+  }
+
+  public SendTaskBuilder sendTask(String id) {
+    return createTarget(SendTask.class, id).builder();
+  }
+
+  public UserTaskBuilder userTask() {
+    return createTarget(UserTask.class, null).builder();
+  }
+
+  public UserTaskBuilder userTask(String id) {
+    return createTarget(UserTask.class, id).builder();
+  }
+
+  public BusinessRuleTaskBuilder businessRuleTask() {
+    return createTarget(BusinessRuleTask.class, null).builder();
+  }
+
+  public BusinessRuleTaskBuilder businessRuleTask(String id) {
+    return createTarget(BusinessRuleTask.class, id).builder();
+  }
+
   public ScriptTaskBuilder scriptTask() {
     return createTarget(ScriptTask.class, null).builder();
   }
 
   public ScriptTaskBuilder scriptTask(String id) {
     return createTarget(ScriptTask.class, id).builder();
+  }
+
+  public ReceiveTaskBuilder receiveTask() {
+    return createTarget(ReceiveTask.class, null).builder();
+  }
+
+  public ReceiveTaskBuilder receiveTask(String id) {
+    return createTarget(ReceiveTask.class, id).builder();
+  }
+
+  public ManualTaskBuilder manualTask() {
+    return createTarget(ManualTask.class, null).builder();
+  }
+
+  public ManualTaskBuilder manualTask(String id) {
+    return createTarget(ManualTask.class, id).builder();
   }
 
   public EndEventBuilder endEvent() {
@@ -121,6 +153,14 @@ public abstract class AbstractFlowNodeBuilder<B extends AbstractFlowNodeBuilder<
 
   public IntermediateCatchEventBuilder intermediateCatchEvent(String id) {
     return createTarget(IntermediateCatchEvent.class, id).builder();
+  }
+
+  public CallActivityBuilder callActivity() {
+    return createTarget(CallActivity.class, null).builder();
+  }
+
+  public CallActivityBuilder callActivity(String id) {
+    return createTarget(CallActivity.class, id).builder();
   }
 
   public Gateway findLastGateway() {

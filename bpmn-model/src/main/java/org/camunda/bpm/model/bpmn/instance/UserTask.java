@@ -16,6 +16,7 @@ package org.camunda.bpm.model.bpmn.instance;
 import org.camunda.bpm.model.bpmn.builder.UserTaskBuilder;
 
 import java.util.Collection;
+import java.util.List;
 
 /**
  * The BPMN userTask element
@@ -24,7 +25,6 @@ import java.util.Collection;
  */
 public interface UserTask extends Task {
 
-  @SuppressWarnings("unchecked")
   UserTaskBuilder builder();
 
   String getImplementation();
@@ -33,20 +33,41 @@ public interface UserTask extends Task {
 
   Collection<Rendering> getRenderings();
 
-  String getFormKey();
+  /** camunda extensions */
 
-  void setFormKey(String formKey);
+  String getCamundaAssignee();
 
-  String getAssignee();
+  void setCamundaAssignee(String camundaAssignee);
 
-  void setAssignee(String assignee);
+  String getCamundaCandidateGroups();
 
-  String getCandidateUsers();
+  void setCamundaCandidateGroups(String camundaCandidateGroups);
 
-  void setCandidateUsers(String candidateUsers);
+  List<String> getCamundaCandidateGroupsList();
 
-  String getCandidateGroups();
+  void setCamundaCandidateGroupsList(List<String> camundaCandidateGroupsList);
 
-  void setCandidateGroups(String candidateGroups);
+  String getCamundaCandidateUsers();
 
+  void setCamundaCandidateUsers(String camundaCandidateUsers);
+
+  List<String> getCamundaCandidateUsersList();
+
+  void setCamundaCandidateUsersList(List<String> camundaCandidateUsersList);
+
+  String getCamundaDueDate();
+
+  void setCamundaDueDate(String camundaDueDate);
+
+  String getCamundaFormHandlerClass();
+
+  void setCamundaFormHandlerClass(String camundaFormHandlerClass);
+
+  String getCamundaFormKey();
+
+  void setCamundaFormKey(String camundaFormKey);
+
+  String getCamundaPriority();
+
+  void setCamundaPriority(String camundaPriority);
 }

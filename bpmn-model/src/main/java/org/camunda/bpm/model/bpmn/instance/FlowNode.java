@@ -13,6 +13,7 @@
 package org.camunda.bpm.model.bpmn.instance;
 
 import org.camunda.bpm.model.bpmn.Query;
+import org.camunda.bpm.model.bpmn.builder.AbstractFlowNodeBuilder;
 
 import java.util.Collection;
 
@@ -22,6 +23,8 @@ import java.util.Collection;
  * @author Sebastian Menski
  */
 public interface FlowNode extends FlowElement {
+
+  AbstractFlowNodeBuilder builder();
 
   Collection<SequenceFlow> getIncoming();
 

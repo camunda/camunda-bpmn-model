@@ -27,7 +27,9 @@ public interface Query<T extends ModelElementInstance> {
 
   int count();
 
-  <V extends ModelElementType> Query<?> filterByType(V elementType);
+  Query<?> filterByType(ModelElementType elementType);
+
+  Query<?> filterByType(Class<? extends ModelElementInstance> elementClass);
 
   T singleResult();
 

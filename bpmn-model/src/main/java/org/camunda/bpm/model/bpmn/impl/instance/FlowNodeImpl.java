@@ -12,7 +12,9 @@
  */
 package org.camunda.bpm.model.bpmn.impl.instance;
 
+import org.camunda.bpm.model.bpmn.BpmnModelException;
 import org.camunda.bpm.model.bpmn.Query;
+import org.camunda.bpm.model.bpmn.builder.AbstractFlowNodeBuilder;
 import org.camunda.bpm.model.bpmn.impl.QueryImpl;
 import org.camunda.bpm.model.bpmn.instance.FlowElement;
 import org.camunda.bpm.model.bpmn.instance.FlowNode;
@@ -61,6 +63,11 @@ public abstract class FlowNodeImpl extends FlowElementImpl implements FlowNode {
   public FlowNodeImpl(ModelTypeInstanceContext context) {
     super(context);
   }
+
+  public AbstractFlowNodeBuilder builder() {
+    throw new BpmnModelException("No builder implemented for type " + getElementType().getTypeNamespace() +":" + getElementType().getTypeName());
+  }
+
 
   public Collection<SequenceFlow> getIncoming() {
     return incomingCollection.getReferenceTargetElements(this);

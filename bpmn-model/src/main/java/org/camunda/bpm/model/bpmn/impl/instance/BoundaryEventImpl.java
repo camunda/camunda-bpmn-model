@@ -13,11 +13,13 @@
 
 package org.camunda.bpm.model.bpmn.impl.instance;
 
+import org.camunda.bpm.model.bpmn.builder.AbstractFlowNodeBuilder;
 import org.camunda.bpm.model.bpmn.instance.Activity;
 import org.camunda.bpm.model.bpmn.instance.BoundaryEvent;
 import org.camunda.bpm.model.bpmn.instance.CatchEvent;
 import org.camunda.bpm.model.xml.ModelBuilder;
 import org.camunda.bpm.model.xml.impl.instance.ModelTypeInstanceContext;
+import org.camunda.bpm.model.xml.impl.util.ModelTypeException;
 import org.camunda.bpm.model.xml.type.ModelElementTypeBuilder;
 import org.camunda.bpm.model.xml.type.attribute.Attribute;
 import org.camunda.bpm.model.xml.type.reference.AttributeReference;
@@ -59,6 +61,10 @@ public class BoundaryEventImpl extends CatchEventImpl implements BoundaryEvent {
 
   public BoundaryEventImpl(ModelTypeInstanceContext context) {
     super(context);
+  }
+
+  public AbstractFlowNodeBuilder builder() {
+    throw new ModelTypeException("Builder is not supported for type " + getClass());
   }
 
   public boolean cancelActivity() {

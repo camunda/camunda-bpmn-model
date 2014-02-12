@@ -30,7 +30,7 @@ public abstract class BpmnModelElementInstanceImpl extends ModelElementInstanceI
     super(instanceContext);
   }
 
-  public <T extends AbstractBaseElementBuilder> T builder() {
+  public AbstractBaseElementBuilder builder() {
     throw new BpmnModelException("No builder implemented for " + this);
   }
 }

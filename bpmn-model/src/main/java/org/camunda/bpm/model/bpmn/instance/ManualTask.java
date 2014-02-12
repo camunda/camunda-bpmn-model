@@ -13,10 +13,15 @@
 
 package org.camunda.bpm.model.bpmn.instance;
 
+import org.camunda.bpm.model.bpmn.builder.ManualTaskBuilder;
+
 /**
  * The BPMN manualTask element
  *
  * @author Sebastian Menski
  */
 public interface ManualTask extends Task {
+
+  ManualTaskBuilder builder();
+
 }

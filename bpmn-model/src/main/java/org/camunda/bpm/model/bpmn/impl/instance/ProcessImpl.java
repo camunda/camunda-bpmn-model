@@ -19,6 +19,7 @@ import org.camunda.bpm.model.bpmn.instance.*;
 import org.camunda.bpm.model.bpmn.instance.Process;
 import org.camunda.bpm.model.xml.ModelBuilder;
 import org.camunda.bpm.model.xml.impl.instance.ModelTypeInstanceContext;
+import org.camunda.bpm.model.xml.impl.util.StringUtil;
 import org.camunda.bpm.model.xml.type.ModelElementTypeBuilder;
 import org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeInstanceProvider;
 import org.camunda.bpm.model.xml.type.attribute.Attribute;
@@ -28,6 +29,7 @@ import org.camunda.bpm.model.xml.type.child.SequenceBuilder;
 import org.camunda.bpm.model.xml.type.reference.ElementReferenceCollection;
 
 import java.util.Collection;
+import java.util.List;
 
 import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.*;
 
@@ -52,6 +54,11 @@ public class ProcessImpl extends CallableElementImpl implements Process {
   private static ChildElementCollection<ResourceRole> resourceRoleCollection;
   private static ChildElementCollection<CorrelationSubscription> correlationSubscriptionCollection;
   private static ElementReferenceCollection<Process, Supports> supportsCollection;
+
+  /** camunda extensions */
+
+  private static Attribute<String> camundaCandidateStarterGroupsAttribute;
+  private static Attribute<String> camundaCandidateStarterUsersAttribute;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(Process.class, BPMN_ELEMENT_PROCESS)
@@ -106,6 +113,16 @@ public class ProcessImpl extends CallableElementImpl implements Process {
       .qNameElementReferenceCollection(Process.class)
       .build();
 
+    /** camunda extensions */
+
+    camundaCandidateStarterGroupsAttribute = typeBuilder.stringAttribute(CAMUNDA_ATTRIBUTE_CANDIDATE_STARTER_GROUPS)
+      .namespace(CAMUNDA_NS)
+      .build();
+
+    camundaCandidateStarterUsersAttribute = typeBuilder.stringAttribute(CAMUNDA_ATTRIBUTE_CANDIDATE_STARTER_USERS)
+      .namespace(CAMUNDA_NS)
+      .build();
+
     typeBuilder.build();
   }
 
@@ -114,7 +131,6 @@ public class ProcessImpl extends CallableElementImpl implements Process {
   }
 
   @Override
-  @SuppressWarnings("unchecked")
   public ProcessBuilder builder() {
     return new ProcessBuilder((BpmnModelInstance) modelInstance, this);
   }
@@ -187,4 +203,41 @@ public class ProcessImpl extends CallableElementImpl implements Process {
     return supportsCollection.getReferenceTargetElements(this);
   }
 
+  /** camunda extensions */
+
+  public String getCamundaCandidateStarterGroups() {
+    return camundaCandidateStarterGroupsAttribute.getValue(this);
+  }
+
+  public void setCamundaCandidateStarterGroups(String camundaCandidateStarterGroups) {
+    camundaCandidateStarterGroupsAttribute.setValue(this, camundaCandidateStarterGroups);
+  }
+
+  public List<String> getCamundaCandidateStarterGroupsList() {
+    String groupsString = camundaCandidateStarterGroupsAttribute.getValue(this);
+    return StringUtil.splitCommaSeparatedList(groupsString);
+  }
+
+  public void setCamundaCandidateStarterGroupsList(List<String> camundaCandidateStarterGroupsList) {
+    String candidateStarterGroups = StringUtil.joinCommaSeparatedList(camundaCandidateStarterGroupsList);
+    camundaCandidateStarterGroupsAttribute.setValue(this, candidateStarterGroups);
+  }
+
+  public String getCamundaCandidateStarterUsers() {
+    return camundaCandidateStarterUsersAttribute.getValue(this);
+  }
+
+  public void setCamundaCandidateStarterUsers(String camundaCandidateStarterUsers) {
+    camundaCandidateStarterUsersAttribute.setValue(this, camundaCandidateStarterUsers);
+  }
+
+  public List<String> getCamundaCandidateStarterUsersList() {
+    String candidateStarterUsers = camundaCandidateStarterUsersAttribute.getValue(this);
+    return StringUtil.splitCommaSeparatedList(candidateStarterUsers);
+  }
+
+  public void setCamundaCandidateStarterUsersList(List<String> camundaCandidateStarterUsersList) {
+    String candidateStarterUsers = StringUtil.joinCommaSeparatedList(camundaCandidateStarterUsersList);
+    camundaCandidateStarterUsersAttribute.setValue(this, candidateStarterUsers);
+  }
 }

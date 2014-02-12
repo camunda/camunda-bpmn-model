@@ -41,6 +41,21 @@ public class QueryImpl<T extends ModelElementInstance> implements Query<T> {
     return collection.size();
   }
 
+  public Query<?> filterByType(ModelElementType elementType) {
+    Class<? extends ModelElementInstance> elementClass = elementType.getInstanceType();
+    return filterByType(elementClass);
+  }
+
+  public Query<?> filterByType(Class<? extends ModelElementInstance> elementClass) {
+    List<T> filtered = new ArrayList<T>();
+    for (T instance : collection) {
+      if (elementClass.isAssignableFrom(instance.getClass())) {
+        filtered.add(instance);
+      }
+    }
+    return new QueryImpl<T>(filtered);
+  }
+
   public T singleResult() {
     if (collection.size() == 1) {
       return collection.iterator().next();
@@ -48,16 +63,5 @@ public class QueryImpl<T extends ModelElementInstance> implements Query<T> {
     else {
       throw new BpmnModelException("Collection expected to have <1> entry but has <" + collection.size() + ">");
     }
-  }
-
-  public Query<?> filterByType(ModelElementType elementType) {
-    List<T> filtered = new ArrayList<T>();
-    Class<?> elementClass = elementType.getInstanceType();
-    for (T instance : collection) {
-      if (elementClass.isAssignableFrom(instance.getClass())) {
-        filtered.add(instance);
-      }
-    }
-    return new QueryImpl<T>(filtered);
   }
 }

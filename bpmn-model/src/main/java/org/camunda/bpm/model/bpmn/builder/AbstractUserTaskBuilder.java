@@ -16,6 +16,8 @@ package org.camunda.bpm.model.bpmn.builder;
 import org.camunda.bpm.model.bpmn.BpmnModelInstance;
 import org.camunda.bpm.model.bpmn.instance.UserTask;
 
+import java.util.List;
+
 /**
  * @author Sebastian Menski
  */
@@ -36,47 +38,104 @@ public abstract class AbstractUserTaskBuilder<B extends AbstractUserTaskBuilder<
     return myself;
   }
 
-  /**
-   * Sets the camunda attribute form key.
-   *
-   * @param formKey  the form key to set
-   * @return the builder object
-   */
-  public B formKey(String formKey) {
-    element.setFormKey(formKey);
-    return myself;
-  }
+  /** camunda extensions */
 
   /**
    * Sets the camunda attribute assignee.
    *
-   * @param assignee  the assignee to set
+   * @param camundaAssignee  the assignee to set
    * @return the builder object
    */
-  public B assignee(String assignee) {
-    element.setAssignee(assignee);
+  public B camundaAssignee(String camundaAssignee) {
+    element.setCamundaAssignee(camundaAssignee);
     return myself;
   }
 
   /**
-   * Sets the camunda attribute candidate users.
+   * Sets the camunda candidate groups attribute.
    *
-   * @param candidateUsers  the candidate users to set
+   * @param camundaCandidateGroups  the candidate groups to set
    * @return the builder object
    */
-  public B candidateUsers(String candidateUsers) {
-    element.setCandidateUsers(candidateUsers);
+  public B camundaCandidateGroups(String camundaCandidateGroups) {
+    element.setCamundaCandidateGroups(camundaCandidateGroups);
     return myself;
   }
 
   /**
-   * Sets the camunda attribute candidate groups.
+   * Sets the camunda candidate groups attribute.
    *
-   * @param candidateGroups  the candidate groups to set
+   * @param camundaCandidateGroups  the candidate groups to set
    * @return the builder object
    */
-  public B candidateGroups(String candidateGroups) {
-    element.setCandidateGroups(candidateGroups);
+  public B camundaCandidateGroups(List<String> camundaCandidateGroups) {
+    element.setCamundaCandidateGroupsList(camundaCandidateGroups);
+    return myself;
+  }
+
+  /**
+   * Sets the camunda candidate users attribute.
+   *
+   * @param camundaCandidateUsers  the candidate users to set
+   * @return the builder object
+   */
+  public B camundaCandidateUsers(String camundaCandidateUsers) {
+    element.setCamundaCandidateUsers(camundaCandidateUsers);
+    return myself;
+  }
+
+  /**
+   * Sets the camunda candidate users attribute.
+   *
+   * @param camundaCandidateUsers  the candidate users to set
+   * @return the builder object
+   */
+  public B camundaCandidateUsers(List<String> camundaCandidateUsers) {
+    element.setCamundaCandidateUsersList(camundaCandidateUsers);
+    return myself;
+  }
+
+  /**
+   * Sets the camunda due date attribute.
+   *
+   * @param camundaDueDate  the due date of the user task
+   * @return the builder object
+   */
+  public B camundaDueDate(String camundaDueDate) {
+    element.setCamundaDueDate(camundaDueDate);
+    return myself;
+  }
+
+  /**
+   * Sets the camunda form handler class attribute.
+   *
+   * @param camundaFormHandlerClass  the class name of the form handler
+   * @return the builder object
+   */
+  public B camundaFormHandlerClass(String camundaFormHandlerClass) {
+    element.setCamundaFormHandlerClass(camundaFormHandlerClass);
+    return myself;
+  }
+
+  /**
+   * Sets the camunda form key attribute.
+   *
+   * @param camundaFormKey  the form key to set
+   * @return the builder object
+   */
+  public B camundaFormKey(String camundaFormKey) {
+    element.setCamundaFormKey(camundaFormKey);
+    return myself;
+  }
+
+  /**
+   * Sets the camunda priority attribute.
+   *
+   * @param camundaPriority  the priority of the user task
+   * @return the builder object
+   */
+  public B camundaPriority(String camundaPriority) {
+    element.setCamundaPriority(camundaPriority);
     return myself;
   }
 

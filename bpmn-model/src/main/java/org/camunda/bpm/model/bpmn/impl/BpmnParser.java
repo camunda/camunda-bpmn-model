@@ -22,7 +22,6 @@ import org.xml.sax.SAXException;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.validation.SchemaFactory;
-
 import java.io.InputStream;
 import java.net.URL;
 

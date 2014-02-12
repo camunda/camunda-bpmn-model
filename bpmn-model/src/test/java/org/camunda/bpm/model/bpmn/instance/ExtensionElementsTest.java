@@ -29,7 +29,7 @@ public class ExtensionElementsTest extends BpmnModelElementInstanceTest {
 
   public Collection<ChildElementAssumption> getChildElementAssumptions() {
     return Arrays.asList(
-      new ChildElementAssumption(ModelElementInstance.class)
+      new ChildElementAssumption(null, ModelElementInstance.class)
     );
   }
 

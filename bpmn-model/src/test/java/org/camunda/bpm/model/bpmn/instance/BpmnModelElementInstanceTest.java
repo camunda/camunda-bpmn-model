@@ -41,15 +41,24 @@ public abstract class BpmnModelElementInstanceTest {
 
   protected class TypeAssumption {
 
+    public final String namespaceUri;
     public final ModelElementType extendsType;
     public final boolean isAbstract;
 
     public TypeAssumption(boolean isAbstract) {
-      this.extendsType = null;
-      this.isAbstract = isAbstract;
+      this(BPMN20_NS, isAbstract);
+    }
+
+    public TypeAssumption(String namespaceUri, boolean isAbstract) {
+      this(namespaceUri, null, isAbstract);
     }
 
     public TypeAssumption(Class<? extends ModelElementInstance> extendsType, boolean isAbstract) {
+      this(BPMN20_NS, extendsType, isAbstract);
+    }
+
+    public TypeAssumption(String namespaceUri, Class<? extends ModelElementInstance> extendsType, boolean isAbstract) {
+      this.namespaceUri = namespaceUri;
       this.extendsType = model.getType(extendsType);
       this.isAbstract = isAbstract;
     }
@@ -57,6 +66,7 @@ public abstract class BpmnModelElementInstanceTest {
 
   protected class ChildElementAssumption {
 
+    public final String namespaceUri;
     public final ModelElementType childElementType;
     public final int minOccurs;
     public final int maxOccurs;
@@ -65,11 +75,24 @@ public abstract class BpmnModelElementInstanceTest {
       this(childElementType, 0, -1);
     }
 
+    public ChildElementAssumption(String namespaceUri, Class<? extends ModelElementInstance> childElementType) {
+      this(namespaceUri, childElementType, 0, -1);
+    }
+
     public ChildElementAssumption(Class<? extends ModelElementInstance> childElementType, int minOccurs) {
       this(childElementType, minOccurs, -1);
     }
 
+    public ChildElementAssumption(String namespaceUri, Class<? extends ModelElementInstance> childElementType, int minOccurs) {
+      this(namespaceUri, childElementType, minOccurs, -1);
+    }
+
     public ChildElementAssumption(Class<? extends ModelElementInstance> childElementType, int minOccurs, int maxOccurs) {
+      this(BPMN20_NS, childElementType, minOccurs, maxOccurs);
+    }
+
+    public ChildElementAssumption(String namespaceUri, Class<? extends ModelElementInstance> childElementType, int minOccurs, int maxOccurs) {
+      this.namespaceUri = namespaceUri;
       this.childElementType = model.getType(childElementType);
       this.minOccurs = minOccurs;
       this.maxOccurs = maxOccurs;
@@ -85,34 +108,34 @@ public abstract class BpmnModelElementInstanceTest {
     public final Object defaultValue;
 
     public AttributeAssumption(String attributeName) {
-      this(attributeName, null, false, false, null);
+      this(attributeName, false, false);
     }
 
-    public AttributeAssumption(String attributeName, String namespace) {
-      this(attributeName, namespace, false, false, null);
+    public AttributeAssumption(String namespace, String attributeName) {
+      this(namespace, attributeName, false, false);
     }
 
     public AttributeAssumption(String attributeName, boolean isIdAttribute) {
-      this(attributeName, null, isIdAttribute, false, null);
+      this(attributeName, isIdAttribute, false);
     }
 
-    public AttributeAssumption(String attributeName, String namespace, boolean isIdAttribute) {
-      this(attributeName, namespace, isIdAttribute, false, null);
+    public AttributeAssumption(String namespace, String attributeName, boolean isIdAttribute) {
+      this(namespace, attributeName, isIdAttribute, false);
     }
 
     public AttributeAssumption(String attributeName, boolean isIdAttribute, boolean isRequired) {
-      this(attributeName, null, isIdAttribute, isRequired, null);
+      this(attributeName, isIdAttribute, isRequired, null);
     }
 
-    public AttributeAssumption(String attributeName, String namespace, boolean isIdAttribute, boolean isRequired) {
-      this(attributeName, namespace, isIdAttribute, isRequired, null);
+    public AttributeAssumption(String namespace, String attributeName, boolean isIdAttribute, boolean isRequired) {
+      this(namespace, attributeName, isIdAttribute, isRequired, null);
     }
 
     public AttributeAssumption(String attributeName, boolean isIdAttribute, boolean isRequired, Object defaultValue) {
-      this(attributeName, null, isIdAttribute, isRequired, defaultValue);
+      this(null, attributeName, isIdAttribute, isRequired, defaultValue);
     }
 
-    public AttributeAssumption(String attributeName, String namespace, boolean isIdAttribute, boolean isRequired, Object defaultValue) {
+    public AttributeAssumption(String namespace, String attributeName, boolean isIdAttribute, boolean isRequired, Object defaultValue) {
       this.attributeName = attributeName;
       this.namespace = namespace;
       this.isIdAttribute = isIdAttribute;
@@ -160,9 +183,9 @@ public abstract class BpmnModelElementInstanceTest {
   @Test
   public void testType() {
     assertThatType().isPartOfModel(model);
-    assertThatType().hasTypeNamespace(BPMN20_NS);
 
     TypeAssumption assumption = getTypeAssumption();
+    assertThatType().hasTypeNamespace(assumption.namespaceUri);
 
     if (assumption.isAbstract) {
       assertThatType().isAbstract();
@@ -207,6 +230,9 @@ public abstract class BpmnModelElementInstanceTest {
     else {
       for (ChildElementAssumption assumption : childElementAssumptions) {
         assertThatType().hasChildElements(assumption.childElementType);
+        if (assumption.namespaceUri != null) {
+          assertThat(assumption.childElementType).hasTypeNamespace(assumption.namespaceUri);
+        }
         assertThatChildElement(assumption.childElementType)
           .occursMinimal(assumption.minOccurs)
           .occursMaximal(assumption.maxOccurs);

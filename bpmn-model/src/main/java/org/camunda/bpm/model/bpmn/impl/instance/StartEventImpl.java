@@ -31,7 +31,14 @@ import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.*;
 public class StartEventImpl extends CatchEventImpl implements StartEvent {
 
   private static Attribute<Boolean> isInterruptingAttribute;
-  private static Attribute<String> formKeyAttribute;
+
+  /** camunda extensions */
+
+  private static Attribute<Boolean> camundaAsyncAttribute;
+  private static Attribute<Boolean> camundaExclusiveAttribute;
+  private static Attribute<String> camundaFormHandlerClassAttribute;
+  private static Attribute<String> camundaFormKeyAttribute;
+  private static Attribute<String> camundaInitiatorAttribute;
 
   public static void registerType(ModelBuilder modelBuilder) {
 
@@ -48,7 +55,27 @@ public class StartEventImpl extends CatchEventImpl implements StartEvent {
       .defaultValue(true)
       .build();
 
-    formKeyAttribute = typeBuilder.stringAttribute(CAMUNDA_ATTRIBUTE_FORM_KEY)
+    /** camunda extensions */
+
+    camundaAsyncAttribute = typeBuilder.booleanAttribute(CAMUNDA_ATTRIBUTE_ASYNC)
+      .namespace(CAMUNDA_NS)
+      .defaultValue(false)
+      .build();
+
+    camundaExclusiveAttribute = typeBuilder.booleanAttribute(CAMUNDA_ATTRIBUTE_EXCLUSIVE)
+      .namespace(CAMUNDA_NS)
+      .defaultValue(true)
+      .build();
+
+    camundaFormHandlerClassAttribute = typeBuilder.stringAttribute(CAMUNDA_ATTRIBUTE_FORM_HANDLER_CLASS)
+      .namespace(CAMUNDA_NS)
+      .build();
+
+    camundaFormKeyAttribute = typeBuilder.stringAttribute(CAMUNDA_ATTRIBUTE_FORM_KEY)
+      .namespace(CAMUNDA_NS)
+      .build();
+
+    camundaInitiatorAttribute = typeBuilder.stringAttribute(CAMUNDA_ATTRIBUTE_INITIATOR)
       .namespace(CAMUNDA_NS)
       .build();
 
@@ -60,7 +87,6 @@ public class StartEventImpl extends CatchEventImpl implements StartEvent {
   }
 
   @Override
-  @SuppressWarnings("unchecked")
   public StartEventBuilder builder() {
     return new StartEventBuilder((BpmnModelInstance) modelInstance, this);
   }
@@ -73,11 +99,45 @@ public class StartEventImpl extends CatchEventImpl implements StartEvent {
     isInterruptingAttribute.setValue(this, isInterrupting);
   }
 
-  public String getFormKey() {
-    return formKeyAttribute.getValue(this);
+  /** camunda extensions */
+
+  public boolean isCamundaAsync() {
+    return camundaAsyncAttribute.getValue(this);
   }
 
-  public void setFormKey(String formKey) {
-    formKeyAttribute.setValue(this, formKey);
+  public void setCamundaAsync(boolean isCamundaAsync) {
+    camundaAsyncAttribute.setValue(this, isCamundaAsync);
+  }
+
+  public boolean isCamundaExclusive() {
+    return camundaExclusiveAttribute.getValue(this);
+  }
+
+  public void setCamundaExclusive(boolean isCamundaExclusive) {
+    camundaExclusiveAttribute.setValue(this, isCamundaExclusive);
+  }
+
+  public String getCamundaFormHandlerClass() {
+    return camundaFormHandlerClassAttribute.getValue(this);
+  }
+
+  public void setCamundaFormHandlerClass(String camundaFormHandlerClass) {
+    camundaFormHandlerClassAttribute.setValue(this, camundaFormHandlerClass);
+  }
+
+  public String getCamundaFormKey() {
+    return camundaFormKeyAttribute.getValue(this);
+  }
+
+  public void setCamundaFormKey(String camundaFormKey) {
+    camundaFormKeyAttribute.setValue(this, camundaFormKey);
+  }
+
+  public String getCamundaInitiator() {
+    return camundaInitiatorAttribute.getValue(this);
+  }
+
+  public void setCamundaInitiator(String camundaInitiator) {
+    camundaInitiatorAttribute.setValue(this, camundaInitiator);
   }
 }

@@ -13,6 +13,8 @@
 
 package org.camunda.bpm.model.bpmn.impl.instance;
 
+import org.camunda.bpm.model.bpmn.BpmnModelInstance;
+import org.camunda.bpm.model.bpmn.builder.ReceiveTaskBuilder;
 import org.camunda.bpm.model.bpmn.instance.Message;
 import org.camunda.bpm.model.bpmn.instance.Operation;
 import org.camunda.bpm.model.bpmn.instance.ReceiveTask;
@@ -69,6 +71,10 @@ public class ReceiveTaskImpl extends TaskImpl implements ReceiveTask {
 
   public ReceiveTaskImpl(ModelTypeInstanceContext context) {
     super(context);
+  }
+
+  public ReceiveTaskBuilder builder() {
+    return new ReceiveTaskBuilder((BpmnModelInstance) modelInstance, this);
   }
 
   public String getImplementation() {

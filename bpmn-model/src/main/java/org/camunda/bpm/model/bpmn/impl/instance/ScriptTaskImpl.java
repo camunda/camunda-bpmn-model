@@ -38,6 +38,10 @@ public class ScriptTaskImpl extends TaskImpl implements ScriptTask {
   private static Attribute<String> scriptFormatAttribute;
   private static ChildElement<Script> scriptChild;
 
+  /** camunda extensions */
+
+  private static Attribute<String> camundaResultVariableAttribute;
+
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(ScriptTask.class, BPMN_ELEMENT_SCRIPT_TASK)
       .namespaceUri(BPMN20_NS)
@@ -56,6 +60,12 @@ public class ScriptTaskImpl extends TaskImpl implements ScriptTask {
     scriptChild = sequenceBuilder.element(Script.class)
       .build();
 
+    /** camunda extensions */
+
+    camundaResultVariableAttribute = typeBuilder.stringAttribute(CAMUNDA_ATTRIBUTE_RESULT_VARIABLE)
+      .namespace(CAMUNDA_NS)
+      .build();
+
     typeBuilder.build();
   }
 
@@ -64,7 +74,6 @@ public class ScriptTaskImpl extends TaskImpl implements ScriptTask {
   }
 
   @Override
-  @SuppressWarnings("unchecked")
   public ScriptTaskBuilder builder() {
     return new ScriptTaskBuilder((BpmnModelInstance) modelInstance, this);
   }
@@ -84,4 +93,15 @@ public class ScriptTaskImpl extends TaskImpl implements ScriptTask {
   public void setScript(Script script) {
     scriptChild.setChild(this, script);
   }
+
+  /** camunda extensions */
+
+  public String getCamundaResultVariable() {
+    return camundaResultVariableAttribute.getValue(this);
+  }
+
+  public void setCamundaResultVariable(String camundaResultVariable) {
+    camundaResultVariableAttribute.setValue(this, camundaResultVariable);
+  }
+
 }

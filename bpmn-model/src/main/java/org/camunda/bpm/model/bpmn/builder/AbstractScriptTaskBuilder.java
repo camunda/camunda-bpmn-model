@@ -48,4 +48,17 @@ public abstract class AbstractScriptTaskBuilder<B extends AbstractScriptTaskBuil
     return myself;
   }
 
+  /** camunda extensions */
+
+  /**
+   * Sets the camunda result variable to attribute.
+   *
+   * @param camundaResultVariable  the result variable to set
+   * @return the builder object
+   */
+  public B camundaResultVariable(String camundaResultVariable) {
+    element.setCamundaResultVariable(camundaResultVariable);
+    return myself;
+  }
+
 }

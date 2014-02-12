@@ -46,7 +46,6 @@ public class ParallelGatewayImpl extends GatewayImpl implements ParallelGateway 
   }
 
   @Override
-  @SuppressWarnings("unchecked")
   public ParallelGatewayBuilder builder() {
     return new ParallelGatewayBuilder((BpmnModelInstance) modelInstance, this);
   }

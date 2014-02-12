@@ -22,7 +22,6 @@ import org.camunda.bpm.model.bpmn.builder.ExclusiveGatewayBuilder;
  */
 public interface ExclusiveGateway extends Gateway {
 
-  @SuppressWarnings("unchecked")
   ExclusiveGatewayBuilder builder();
 
   SequenceFlow getDefault();

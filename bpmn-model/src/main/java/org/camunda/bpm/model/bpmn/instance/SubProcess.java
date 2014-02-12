@@ -13,6 +13,8 @@
 
 package org.camunda.bpm.model.bpmn.instance;
 
+import org.camunda.bpm.model.bpmn.builder.SubProcessBuilder;
+
 import java.util.Collection;
 
 /**
@@ -21,6 +23,8 @@ import java.util.Collection;
  * @author Sebastian Menski
  */
 public interface SubProcess extends Activity {
+
+  SubProcessBuilder builder();
 
   boolean triggeredByEvent();
 
@@ -31,4 +35,14 @@ public interface SubProcess extends Activity {
   Collection<FlowElement> getFlowElements();
 
   Collection<Artifact> getArtifacts();
+
+  /** camunda extensions */
+
+  boolean isCamundaAsync();
+
+  void setCamundaAsync(boolean isCamundaAsync);
+
+  boolean isCamundaExclusive();
+
+  void setCamundaExclusive(boolean isCamundaExclusive);
 }

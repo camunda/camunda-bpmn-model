@@ -16,7 +16,7 @@ package org.camunda.bpm.model.bpmn.instance;
 import java.util.Arrays;
 import java.util.Collection;
 
-import org.camunda.bpm.model.bpmn.impl.BpmnModelConstants;
+import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.CAMUNDA_NS;
 
 /**
  * @author Sebastian Menski
@@ -35,9 +35,12 @@ public class ServiceTaskTest extends BpmnModelElementInstanceTest {
     return Arrays.asList(
       new AttributeAssumption("implementation", false, false, "##WebService"),
       new AttributeAssumption("operationRef"),
-      new AttributeAssumption("class", BpmnModelConstants.CAMUNDA_NS),
-      new AttributeAssumption("delegateExpression", BpmnModelConstants.CAMUNDA_NS),
-      new AttributeAssumption("expression", BpmnModelConstants.CAMUNDA_NS)
+      /** camunda extensions */
+      new AttributeAssumption(CAMUNDA_NS, "class"),
+      new AttributeAssumption(CAMUNDA_NS, "delegateExpression"),
+      new AttributeAssumption(CAMUNDA_NS, "expression"),
+      new AttributeAssumption(CAMUNDA_NS, "resultVariable"),
+      new AttributeAssumption(CAMUNDA_NS, "type")
     );
   }
 }

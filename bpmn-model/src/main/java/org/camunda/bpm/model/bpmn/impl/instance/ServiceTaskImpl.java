@@ -36,9 +36,14 @@ public class ServiceTaskImpl extends TaskImpl implements ServiceTask {
 
   private static Attribute<String> implementationAttribute;
   private static AttributeReference<Operation> operationRefAttribute;
-  private static Attribute<String> classAttribute;
-  private static Attribute<String> expressionAttribute;
-  private static Attribute<String> delegateExpressionAttribute;
+
+  /** camunda extensions */
+
+  private static Attribute<String> camundaClassAttribute;
+  private static Attribute<String> camundaDelegateExpressionAttribute;
+  private static Attribute<String> camundaExpressionAttribute;
+  private static Attribute<String> camundaResultVariableAttribute;
+  private static Attribute<String> camundaTypeAttribute;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(ServiceTask.class, BPMN_ELEMENT_SERVICE_TASK)
@@ -58,17 +63,27 @@ public class ServiceTaskImpl extends TaskImpl implements ServiceTask {
       .qNameAttributeReference(Operation.class)
       .build();
 
-    classAttribute = typeBuilder.stringAttribute(CAMUNDA_ATTRIBUTE_CLASS)
+    /** camunda extensions */
+
+    camundaClassAttribute = typeBuilder.stringAttribute(CAMUNDA_ATTRIBUTE_CLASS)
       .namespace(CAMUNDA_NS)
       .build();
 
-    expressionAttribute = typeBuilder.stringAttribute(CAMUNDA_ATTRIBUTE_EXPRESSION)
+    camundaDelegateExpressionAttribute = typeBuilder.stringAttribute(CAMUNDA_ATTRIBUTE_DELEGATE_EXPRESSION)
       .namespace(CAMUNDA_NS)
       .build();
 
-    delegateExpressionAttribute = typeBuilder.stringAttribute(CAMUNDA_ATTRIBUTE_DELEGATE_EXPRESSION)
-        .namespace(CAMUNDA_NS)
-        .build();
+    camundaExpressionAttribute = typeBuilder.stringAttribute(CAMUNDA_ATTRIBUTE_EXPRESSION)
+      .namespace(CAMUNDA_NS)
+      .build();
+
+    camundaResultVariableAttribute = typeBuilder.stringAttribute(CAMUNDA_ATTRIBUTE_RESULT_VARIABLE)
+      .namespace(CAMUNDA_NS)
+      .build();
+
+    camundaTypeAttribute = typeBuilder.stringAttribute(CAMUNDA_ATTRIBUTE_TYPE)
+      .namespace(CAMUNDA_NS)
+      .build();
 
     typeBuilder.build();
   }
@@ -78,7 +93,6 @@ public class ServiceTaskImpl extends TaskImpl implements ServiceTask {
   }
 
   @Override
-  @SuppressWarnings("unchecked")
   public ServiceTaskBuilder builder() {
     return new ServiceTaskBuilder((BpmnModelInstance) modelInstance, this);
   }
@@ -99,28 +113,46 @@ public class ServiceTaskImpl extends TaskImpl implements ServiceTask {
     operationRefAttribute.setReferenceTargetElement(this, operation);
   }
 
-  public String getClassName() {
-    return classAttribute.getValue(this);
+  /** camunda extensions */
+
+  public String getCamundaClass() {
+    return camundaClassAttribute.getValue(this);
   }
 
-  public void setClassName(String className) {
-    classAttribute.setValue(this, className);
+  public void setCamundaClass(String camundaClass) {
+    camundaClassAttribute.setValue(this, camundaClass);
   }
 
-  public String getExpression() {
-    return expressionAttribute.getValue(this);
+  public String getCamundaDelegateExpression() {
+    return camundaDelegateExpressionAttribute.getValue(this);
   }
 
-  public void setExpression(String expression) {
-    expressionAttribute.setValue(this, expression);
+  public void setCamundaDelegateExpression(String camundaExpression) {
+    camundaDelegateExpressionAttribute.setValue(this, camundaExpression);
   }
 
-  public String getDelegateExpression() {
-    return delegateExpressionAttribute.getValue(this);
+  public String getCamundaExpression() {
+    return camundaExpressionAttribute.getValue(this);
   }
 
-  public void setDelegateExpression(String expression) {
-    delegateExpressionAttribute.setValue(this, expression);
+  public void setCamundaExpression(String camundaExpression) {
+    camundaExpressionAttribute.setValue(this, camundaExpression);
+  }
+
+  public String getCamundaResultVariable() {
+    return camundaResultVariableAttribute.getValue(this);
+  }
+
+  public void setCamundaResultVariable(String camundaResultVariable) {
+    camundaResultVariableAttribute.setValue(this, camundaResultVariable);
+  }
+
+  public String getCamundaType() {
+    return camundaTypeAttribute.getValue(this);
+  }
+
+  public void setCamundaType(String camundaType) {
+    camundaTypeAttribute.setValue(this, camundaType);
   }
 
 }

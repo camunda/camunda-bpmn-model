@@ -50,7 +50,6 @@ public class EndEventImpl extends ThrowEventImpl implements EndEvent {
   }
 
   @Override
-  @SuppressWarnings("unchecked")
   public EndEventBuilder builder() {
     return new EndEventBuilder((BpmnModelInstance) modelInstance, this);
   }

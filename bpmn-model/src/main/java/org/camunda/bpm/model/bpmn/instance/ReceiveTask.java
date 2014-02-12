@@ -13,12 +13,16 @@
 
 package org.camunda.bpm.model.bpmn.instance;
 
+import org.camunda.bpm.model.bpmn.builder.ReceiveTaskBuilder;
+
 /**
  * The BPMN receiveTask element
  *
  * @author Sebastian Menski
  */
 public interface ReceiveTask extends Task {
+
+  ReceiveTaskBuilder builder();
 
   String getImplementation();
 
@@ -35,4 +39,5 @@ public interface ReceiveTask extends Task {
   Operation getOperation();
 
   void setOperation(Operation operation);
+
 }

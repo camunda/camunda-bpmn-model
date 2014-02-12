@@ -25,4 +25,47 @@ public abstract class AbstractTaskBuilder<B extends AbstractTaskBuilder<B, E>, E
     super(modelInstance, element, selfType);
   }
 
+  /** camunda extensions */
+
+  /**
+   * Sets the camunda async attribute to true.
+   *
+   * @return the builder object
+   */
+  public B camundaAsync() {
+    element.setCamundaAsync(true);
+    return myself;
+  }
+
+  /**
+   * Sets the camunda async attribute.
+   *
+   * @param isCamundaAsync  the async state of the task
+   * @return the builder object
+   */
+  public B camundaAsync(boolean isCamundaAsync) {
+    element.setCamundaAsync(isCamundaAsync);
+    return myself;
+  }
+
+  /**
+   * Sets camunda exclusive attribute to false.
+   *
+   * @return the builder object
+   */
+  public B notCamundaExclusive() {
+    element.setCamundaExclusive(false);
+    return myself;
+  }
+
+  /**
+   * Sets the camunda exclusive attribute.
+   *
+   * @param isCamundaExclusive  the exclusive state of the task.
+   * @return the builder object
+   */
+  public B camundaExclusive(boolean isCamundaExclusive) {
+    element.setCamundaExclusive(isCamundaExclusive);
+    return myself;
+  }
 }

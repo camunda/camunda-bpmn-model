@@ -19,6 +19,7 @@ import org.camunda.bpm.model.bpmn.instance.Operation;
 import org.camunda.bpm.model.xml.ModelBuilder;
 import org.camunda.bpm.model.xml.impl.instance.ModelTypeInstanceContext;
 import org.camunda.bpm.model.xml.type.ModelElementTypeBuilder;
+import org.camunda.bpm.model.xml.type.attribute.Attribute;
 import org.camunda.bpm.model.xml.type.child.SequenceBuilder;
 import org.camunda.bpm.model.xml.type.reference.AttributeReference;
 import org.camunda.bpm.model.xml.type.reference.ElementReference;
@@ -34,6 +35,13 @@ public class MessageEventDefinitionImpl extends EventDefinitionImpl implements M
 
   private static AttributeReference<Message> messageRefAttribute;
   private static ElementReference<Operation, OperationRef> operationRefChild;
+
+  /** camunda extensions */
+
+  private static Attribute<String> camundaClassAttribute;
+  private static Attribute<String> camundaDelegateExpressionAttribute;
+  private static Attribute<String> camundaExpressionAttribute;
+  private static Attribute<String> camundaResultVariableAttribute;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(MessageEventDefinition.class, BPMN_ELEMENT_MESSAGE_EVENT_DEFINITION)
@@ -53,6 +61,24 @@ public class MessageEventDefinitionImpl extends EventDefinitionImpl implements M
 
     operationRefChild = sequenceBuilder.element(OperationRef.class)
       .qNameElementReference(Operation.class)
+      .build();
+
+    /** camunda extensions */
+
+    camundaClassAttribute = typeBuilder.stringAttribute(CAMUNDA_ATTRIBUTE_CLASS)
+      .namespace(CAMUNDA_NS)
+      .build();
+
+    camundaDelegateExpressionAttribute = typeBuilder.stringAttribute(CAMUNDA_ATTRIBUTE_DELEGATE_EXPRESSION)
+      .namespace(CAMUNDA_NS)
+      .build();
+
+    camundaExpressionAttribute = typeBuilder.stringAttribute(CAMUNDA_ATTRIBUTE_EXPRESSION)
+      .namespace(CAMUNDA_NS)
+      .build();
+
+    camundaResultVariableAttribute = typeBuilder.stringAttribute(CAMUNDA_ATTRIBUTE_RESULT_VARIABLE)
+      .namespace(CAMUNDA_NS)
       .build();
 
     typeBuilder.build();
@@ -76,6 +102,40 @@ public class MessageEventDefinitionImpl extends EventDefinitionImpl implements M
 
   public void setOperation(Operation operation) {
     operationRefChild.setReferenceTargetElement(this, operation);
+  }
+
+  /** camunda extensions */
+
+  public String getCamundaClass() {
+    return camundaClassAttribute.getValue(this);
+  }
+
+  public void setCamundaClass(String camundaClass) {
+    camundaClassAttribute.setValue(this, camundaClass);
+  }
+
+  public String getCamundaDelegateExpression() {
+    return camundaDelegateExpressionAttribute.getValue(this);
+  }
+
+  public void setCamundaDelegateExpression(String camundaExpression) {
+    camundaDelegateExpressionAttribute.setValue(this, camundaExpression);
+  }
+
+  public String getCamundaExpression() {
+    return camundaExpressionAttribute.getValue(this);
+  }
+
+  public void setCamundaExpression(String camundaExpression) {
+    camundaExpressionAttribute.setValue(this, camundaExpression);
+  }
+
+  public String getCamundaResultVariable() {
+    return camundaResultVariableAttribute.getValue(this);
+  }
+
+  public void setCamundaResultVariable(String camundaResultVariable) {
+    camundaResultVariableAttribute.setValue(this, camundaResultVariable);
   }
 
 }

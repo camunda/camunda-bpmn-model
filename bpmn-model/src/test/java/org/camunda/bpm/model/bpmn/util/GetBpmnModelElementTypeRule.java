@@ -39,7 +39,7 @@ public class GetBpmnModelElementTypeRule extends TestWatcher {
     try {
       instanceClass = (Class<? extends ModelElementInstance>) Class.forName(className);
     } catch (ClassNotFoundException e) {
-      e.printStackTrace();
+      throw new RuntimeException(e);
     }
     modelInstance = Bpmn.createEmptyModel();
     model = modelInstance.getModel();

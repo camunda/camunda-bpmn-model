@@ -22,7 +22,6 @@ import org.camunda.bpm.model.bpmn.builder.ParallelGatewayBuilder;
  */
 public interface ParallelGateway extends Gateway {
 
-  @SuppressWarnings("unchecked")
   ParallelGatewayBuilder builder();
 
 }

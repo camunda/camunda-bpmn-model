@@ -14,6 +14,7 @@
 package org.camunda.bpm.model.bpmn.instance;
 
 import org.camunda.bpm.model.bpmn.GatewayDirection;
+import org.camunda.bpm.model.bpmn.builder.AbstractGatewayBuilder;
 
 /**
  * The BPMN gateway element
@@ -21,6 +22,8 @@ import org.camunda.bpm.model.bpmn.GatewayDirection;
  * @author Sebastian Menski
  */
 public interface Gateway extends FlowNode {
+
+  AbstractGatewayBuilder builder();
 
   GatewayDirection getGatewayDirection();
 

@@ -121,6 +121,7 @@ public final class BpmnModelConstants {
   public static final String BPMN_ELEMENT_CORRELATION_PROPERTY_RETRIEVAL_EXPRESSION = "correlationPropertyRetrievalExpression";
   public static final String BPMN_ELEMENT_MESSAGE_PATH = "messagePath";
   public static final String BPMN_ELEMENT_DATA_PATH = "dataPath";
+  public static final String BPMN_ELEMENT_CALL_ACTIVITY = "callActivity";
   public static final String BPMN_ELEMENT_CORRELATION_PROPERTY_BINDING = "correlationPropertyBinding";
   public static final String BPMN_ELEMENT_CORRELATION_PROPERTY = "correlationProperty";
   public static final String BPMN_ELEMENT_CORRELATION_PROPERTY_REF = "correlationPropertyRef";
@@ -144,6 +145,26 @@ public final class BpmnModelConstants {
   public static final String BPMN_ELEMENT_PARALLEL_GATEWAY = "parallelGateway";
   public static final String BPMN_ELEMENT_EXCLUSIVE_GATEWAY = "exclusiveGateway";
   public static final String BPMN_ELEMENT_INTERMEDIATE_CATCH_EVENT = "intermediateCatchEvent";
+  
+  /** camunda extensions */
+  
+  public static final String CAMUNDA_ELEMENT_CONSTRAINT = "constraint";
+  public static final String CAMUNDA_ELEMENT_EXECUTION_LISTENER = "executionListener";
+  public static final String CAMUNDA_ELEMENT_EXPRESSION = "expression";
+  public static final String CAMUNDA_ELEMENT_FAILED_JOB_RETRY_TIME_CYCLE = "failedJobRetryTimeCycle";
+  public static final String CAMUNDA_ELEMENT_FIELD = "field";
+  public static final String CAMUNDA_ELEMENT_FORM_DATA = "formData";
+  public static final String CAMUNDA_ELEMENT_FORM_FIELD = "formField";
+  public static final String CAMUNDA_ELEMENT_FORM_PROPERTY = "formProperty";
+  public static final String CAMUNDA_ELEMENT_IN = "in";
+  public static final String CAMUNDA_ELEMENT_OUT = "out";
+  public static final String CAMUNDA_ELEMENT_POTENTIAL_STARTER = "potentialStarter";
+  public static final String CAMUNDA_ELEMENT_PROPERTIES = "properties";
+  public static final String CAMUNDA_ELEMENT_PROPERTY = "property";
+  public static final String CAMUNDA_ELEMENT_STRING = "string";
+  public static final String CAMUNDA_ELEMENT_TASK_LISTENER = "taskListener";
+  public static final String CAMUNDA_ELEMENT_VALIDATION = "validation";
+  public static final String CAMUNDA_ELEMENT_VALUE = "value";
 
   // attributes //////////////////////////////////////
 
@@ -200,13 +221,49 @@ public final class BpmnModelConstants {
   public static final String BPMN_ATTRIBUTE_ATTACHED_TO_REF = "attachedToRef";
   public static final String BPMN_ATTRIBUTE_TRIGGERED_BY_EVENT = "triggeredByEvent";
   public static final String BPMN_ATTRIBUTE_GATEWAY_DIRECTION = "gatewayDirection";
+  public static final String BPMN_ATTRIBUTE_CALLED_ELEMENT = "calledElement";
 
-  public static final String CAMUNDA_ATTRIBUTE_FORM_KEY = "formKey";
+  /** camunda extensions */
+
   public static final String CAMUNDA_ATTRIBUTE_ASSIGNEE = "assignee";
-  public static final String CAMUNDA_ATTRIBUTE_CANDIDATE_USERS = "candidateUsers";
+  public static final String CAMUNDA_ATTRIBUTE_ASYNC = "async";
+  public static final String CAMUNDA_ATTRIBUTE_BUSINESS_KEY = "businessKey";
+  public static final String CAMUNDA_ATTRIBUTE_CALLED_ELEMENT_BINDING = "calledElementBinding";
+  public static final String CAMUNDA_ATTRIBUTE_CALLED_ELEMENT_VERSION = "calledElementVersion";
   public static final String CAMUNDA_ATTRIBUTE_CANDIDATE_GROUPS = "candidateGroups";
+  public static final String CAMUNDA_ATTRIBUTE_CANDIDATE_STARTER_GROUPS = "candidateStarterGroups";
+  public static final String CAMUNDA_ATTRIBUTE_CANDIDATE_STARTER_USERS = "candidateStarterUsers";
+  public static final String CAMUNDA_ATTRIBUTE_CANDIDATE_USERS = "candidateUsers";
   public static final String CAMUNDA_ATTRIBUTE_CLASS = "class";
-  public static final String CAMUNDA_ATTRIBUTE_EXPRESSION = "expression";
+  public static final String CAMUNDA_ATTRIBUTE_COLLECTION = "collection";
+  public static final String CAMUNDA_ATTRIBUTE_CONFIG = "config";
+  public static final String CAMUNDA_ATTRIBUTE_DATE_PATTERN = "datePattern";
+  public static final String CAMUNDA_ATTRIBUTE_DEFAULT = "default";
+  public static final String CAMUNDA_ATTRIBUTE_DEFAULT_VALUE = "defaultValue";
   public static final String CAMUNDA_ATTRIBUTE_DELEGATE_EXPRESSION = "delegateExpression";
+  public static final String CAMUNDA_ATTRIBUTE_DUE_DATE = "dueDate";
+  public static final String CAMUNDA_ATTRIBUTE_ELEMENT_VARIABLE = "elementVariable";
+  public static final String CAMUNDA_ATTRIBUTE_EVENT = "event";
+  public static final String CAMUNDA_ATTRIBUTE_EXCLUSIVE = "exclusive";
+  public static final String CAMUNDA_ATTRIBUTE_EXPRESSION = "expression";
+  public static final String CAMUNDA_ATTRIBUTE_FORM_HANDLER_CLASS = "formHandlerClass";
+  public static final String CAMUNDA_ATTRIBUTE_FORM_KEY = "formKey";
+  public static final String CAMUNDA_ATTRIBUTE_ID = "id";
+  public static final String CAMUNDA_ATTRIBUTE_INITIATOR = "initiator";
+  public static final String CAMUNDA_ATTRIBUTE_LABEL = "label";
+  public static final String CAMUNDA_ATTRIBUTE_NAME = "name";
+  public static final String CAMUNDA_ATTRIBUTE_PRIORITY = "priority";
+  public static final String CAMUNDA_ATTRIBUTE_READABLE = "readable";
+  public static final String CAMUNDA_ATTRIBUTE_REQUIRED = "required";
+  public static final String CAMUNDA_ATTRIBUTE_RESULT_VARIABLE = "resultVariable";
+  public static final String CAMUNDA_ATTRIBUTE_SOURCE = "source";
+  public static final String CAMUNDA_ATTRIBUTE_SOURCE_EXPRESSION = "sourceExpression";
+  public static final String CAMUNDA_ATTRIBUTE_STRING_VALUE = "stringValue";
+  public static final String CAMUNDA_ATTRIBUTE_TARGET = "target";
+  public static final String CAMUNDA_ATTRIBUTE_TYPE = "type";
+  public static final String CAMUNDA_ATTRIBUTE_VALUE = "value";
+  public static final String CAMUNDA_ATTRIBUTE_VARIABLE = "variable";
+  public static final String CAMUNDA_ATTRIBUTE_VARIABLES = "variables";
+  public static final String CAMUNDA_ATTRIBUTE_WRITEABLE = "writeable";
 
 }

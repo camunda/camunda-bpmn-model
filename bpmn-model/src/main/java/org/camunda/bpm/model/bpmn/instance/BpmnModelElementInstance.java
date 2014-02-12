@@ -22,6 +22,6 @@ import org.camunda.bpm.model.xml.instance.ModelElementInstance;
  */
 public interface BpmnModelElementInstance extends ModelElementInstance {
 
-  <T extends AbstractBaseElementBuilder> T builder();
+  AbstractBaseElementBuilder builder();
 
 }

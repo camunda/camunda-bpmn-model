@@ -19,4 +19,15 @@ package org.camunda.bpm.model.bpmn.instance;
  * @author Sebastian Menski
  */
 public interface Task extends Activity {
+
+  /** camunda extensions */
+
+  boolean isCamundaAsync();
+
+  void setCamundaAsync(boolean isCamundaAsync);
+
+  boolean isCamundaExclusive();
+
+  void setCamundaExclusive(boolean isCamundaExclusive);
+
 }

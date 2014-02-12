@@ -27,6 +27,7 @@ import org.junit.Test;
 import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.camunda.bpm.model.bpmn.BpmnTestConstants.*;
 import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN20_NS;
 
 /**
@@ -84,20 +85,6 @@ public class ProcessBuilderTest {
   }
 
   @Test
-  public void testCreateProcessWithUserTask() {
-    modelInstance = Bpmn.createProcess()
-      .startEvent()
-      .userTask()
-      .endEvent()
-      .done();
-
-    assertThat(modelInstance.getModelElementsByType(eventType))
-      .hasSize(2);
-    assertThat(modelInstance.getModelElementsByType(taskType))
-      .hasSize(1);
-  }
-
-  @Test
   public void testCreateProcessWithServiceTask() {
     modelInstance = Bpmn.createProcess()
       .startEvent()
@@ -112,10 +99,80 @@ public class ProcessBuilderTest {
   }
 
   @Test
+  public void testCreateProcessWithSendTask() {
+    modelInstance = Bpmn.createProcess()
+      .startEvent()
+      .sendTask()
+      .endEvent()
+      .done();
+
+    assertThat(modelInstance.getModelElementsByType(eventType))
+      .hasSize(2);
+    assertThat(modelInstance.getModelElementsByType(taskType))
+      .hasSize(1);
+  }
+
+  @Test
+  public void testCreateProcessWithUserTask() {
+    modelInstance = Bpmn.createProcess()
+      .startEvent()
+      .userTask()
+      .endEvent()
+      .done();
+
+    assertThat(modelInstance.getModelElementsByType(eventType))
+      .hasSize(2);
+    assertThat(modelInstance.getModelElementsByType(taskType))
+      .hasSize(1);
+  }
+
+  @Test
+  public void testCreateProcessWithBusinessRuleTask() {
+    modelInstance = Bpmn.createProcess()
+      .startEvent()
+      .businessRuleTask()
+      .endEvent()
+      .done();
+
+    assertThat(modelInstance.getModelElementsByType(eventType))
+      .hasSize(2);
+    assertThat(modelInstance.getModelElementsByType(taskType))
+      .hasSize(1);
+  }
+
+  @Test
   public void testCreateProcessWithScriptTask() {
     modelInstance = Bpmn.createProcess()
       .startEvent()
       .scriptTask()
+      .endEvent()
+      .done();
+
+    assertThat(modelInstance.getModelElementsByType(eventType))
+      .hasSize(2);
+    assertThat(modelInstance.getModelElementsByType(taskType))
+      .hasSize(1);
+  }
+
+  @Test
+  public void testCreateProcessWithReceiveTask() {
+    modelInstance = Bpmn.createProcess()
+      .startEvent()
+      .receiveTask()
+      .endEvent()
+      .done();
+
+    assertThat(modelInstance.getModelElementsByType(eventType))
+      .hasSize(2);
+    assertThat(modelInstance.getModelElementsByType(taskType))
+      .hasSize(1);
+  }
+
+  @Test
+  public void testCreateProcessWithManualTask() {
+    modelInstance = Bpmn.createProcess()
+      .startEvent()
+      .manualTask()
       .endEvent()
       .done();
 
@@ -251,34 +308,34 @@ public class ProcessBuilderTest {
       .executable()
       .startEvent()
         .name("Invoice received")
-        .formKey("embedded:app:forms/start-form.html")
+        .camundaFormKey("embedded:app:forms/start-form.html")
       .userTask()
         .name("Assign Approver")
-        .formKey("embedded:app:forms/assign-approver.html")
-        .assignee("demo")
+        .camundaFormKey("embedded:app:forms/assign-approver.html")
+        .camundaAssignee("demo")
       .userTask("approveInvoice")
         .name("Approve Invoice")
-        .formKey("embedded:app:forms/approve-invoice.html")
-        .assignee("${approver}")
+        .camundaFormKey("embedded:app:forms/approve-invoice.html")
+        .camundaAssignee("${approver}")
       .exclusiveGateway()
         .name("Invoice approved?")
         .gatewayDirection(GatewayDirection.Diverging)
       .condition("yes", "${approved}")
       .userTask()
         .name("Prepare Bank Transfer")
-        .formKey("embedded:app:forms/prepare-bank-transfer.html")
-        .candidateGroups("accounting")
+        .camundaFormKey("embedded:app:forms/prepare-bank-transfer.html")
+        .camundaCandidateGroups("accounting")
       .serviceTask()
         .name("Archive Invoice")
-        .className("org.camunda.bpm.example.invoice.service.ArchiveInvoiceService" )
+        .camundaClass("org.camunda.bpm.example.invoice.service.ArchiveInvoiceService" )
       .endEvent()
         .name("Invoice processed")
       .moveToLastGateway()
       .condition("no", "${!approved}")
       .userTask()
         .name("Review Invoice")
-        .formKey("embedded:app:forms/review-invoice.html" )
-        .assignee("demo")
+        .camundaFormKey("embedded:app:forms/review-invoice.html" )
+        .camundaAssignee("demo")
        .exclusiveGateway()
         .name("Review successful?")
         .gatewayDirection(GatewayDirection.Diverging)
@@ -289,6 +346,163 @@ public class ProcessBuilderTest {
       .condition("yes", "${clarified}")
       .connectTo("approveInvoice")
       .done();
+  }
+
+  @Test
+  public void testTaskCamundaExtensions() {
+    modelInstance = Bpmn.createProcess()
+      .startEvent()
+      .serviceTask(TASK_ID)
+        .camundaAsync()
+        .notCamundaExclusive()
+      .endEvent()
+      .done();
+
+    ServiceTask serviceTask = (ServiceTask) modelInstance.getModelElementById(TASK_ID);
+    assertThat(serviceTask.isCamundaAsync()).isTrue();
+    assertThat(serviceTask.isCamundaExclusive()).isFalse();
+  }
+
+  @Test
+  public void testServiceTaskCamundaExtensions() {
+    modelInstance = Bpmn.createProcess()
+      .startEvent()
+      .serviceTask(TASK_ID)
+        .camundaClass(TEST_CLASS_API)
+        .camundaDelegateExpression(TEST_DELEGATE_EXPRESSION_API)
+        .camundaExpression(TEST_EXPRESSION_API)
+        .camundaResultVariable(TEST_STRING_API)
+        .camundaType(TEST_STRING_API)
+      .done();
+
+    ServiceTask serviceTask = (ServiceTask) modelInstance.getModelElementById(TASK_ID);
+    assertThat(serviceTask.getCamundaClass()).isEqualTo(TEST_CLASS_API);
+    assertThat(serviceTask.getCamundaDelegateExpression()).isEqualTo(TEST_DELEGATE_EXPRESSION_API);
+    assertThat(serviceTask.getCamundaExpression()).isEqualTo(TEST_EXPRESSION_API);
+    assertThat(serviceTask.getCamundaResultVariable()).isEqualTo(TEST_STRING_API);
+    assertThat(serviceTask.getCamundaType()).isEqualTo(TEST_STRING_API);
+  }
+
+  @Test
+  public void testSendTaskCamundaExtensions() {
+    modelInstance = Bpmn.createProcess()
+      .startEvent()
+      .sendTask(TASK_ID)
+        .camundaClass(TEST_CLASS_API)
+        .camundaDelegateExpression(TEST_DELEGATE_EXPRESSION_API)
+        .camundaExpression(TEST_EXPRESSION_API)
+        .camundaResultVariable(TEST_STRING_API)
+        .camundaType(TEST_STRING_API)
+      .endEvent()
+      .done();
+
+    SendTask sendTask = (SendTask) modelInstance.getModelElementById(TASK_ID);
+    assertThat(sendTask.getCamundaClass()).isEqualTo(TEST_CLASS_API);
+    assertThat(sendTask.getCamundaDelegateExpression()).isEqualTo(TEST_DELEGATE_EXPRESSION_API);
+    assertThat(sendTask.getCamundaExpression()).isEqualTo(TEST_EXPRESSION_API);
+    assertThat(sendTask.getCamundaResultVariable()).isEqualTo(TEST_STRING_API);
+    assertThat(sendTask.getCamundaType()).isEqualTo(TEST_STRING_API);
+  }
+
+  @Test
+  public void testUserTaskCamundaExtensions() {
+    modelInstance = Bpmn.createProcess()
+      .startEvent()
+      .userTask(TASK_ID)
+        .camundaAssignee(TEST_STRING_API)
+        .camundaCandidateGroups(TEST_GROUPS_API)
+        .camundaCandidateUsers(TEST_USERS_LIST_API)
+        .camundaDueDate(TEST_DUE_DATE_API)
+        .camundaFormHandlerClass(TEST_CLASS_API)
+        .camundaFormKey(TEST_STRING_API)
+        .camundaPriority(TEST_PRIORITY_API)
+      .endEvent()
+      .done();
+
+    UserTask userTask = (UserTask) modelInstance.getModelElementById(TASK_ID);
+    assertThat(userTask.getCamundaAssignee()).isEqualTo(TEST_STRING_API);
+    assertThat(userTask.getCamundaCandidateGroups()).isEqualTo(TEST_GROUPS_API);
+    assertThat(userTask.getCamundaCandidateGroupsList()).containsAll(TEST_GROUPS_LIST_API);
+    assertThat(userTask.getCamundaCandidateUsers()).isEqualTo(TEST_USERS_API);
+    assertThat(userTask.getCamundaCandidateUsersList()).containsAll(TEST_USERS_LIST_API);
+    assertThat(userTask.getCamundaDueDate()).isEqualTo(TEST_DUE_DATE_API);
+    assertThat(userTask.getCamundaFormHandlerClass()).isEqualTo(TEST_CLASS_API);
+    assertThat(userTask.getCamundaFormKey()).isEqualTo(TEST_STRING_API);
+    assertThat(userTask.getCamundaPriority()).isEqualTo(TEST_PRIORITY_API);
+  }
+
+  @Test
+  public void testBusinessRuleTaskCamundaExtensions() {
+    modelInstance = Bpmn.createProcess()
+      .startEvent()
+      .businessRuleTask(TASK_ID)
+        .camundaClass(TEST_CLASS_API)
+        .camundaDelegateExpression(TEST_DELEGATE_EXPRESSION_API)
+        .camundaExpression(TEST_EXPRESSION_API)
+        .camundaResultVariable(TEST_STRING_API)
+        .camundaType(TEST_STRING_API)
+      .endEvent()
+      .done();
+
+    BusinessRuleTask businessRuleTask = (BusinessRuleTask) modelInstance.getModelElementById(TASK_ID);
+    assertThat(businessRuleTask.getCamundaClass()).isEqualTo(TEST_CLASS_API);
+    assertThat(businessRuleTask.getCamundaDelegateExpression()).isEqualTo(TEST_DELEGATE_EXPRESSION_API);
+    assertThat(businessRuleTask.getCamundaExpression()).isEqualTo(TEST_EXPRESSION_API);
+    assertThat(businessRuleTask.getCamundaResultVariable()).isEqualTo(TEST_STRING_API);
+    assertThat(businessRuleTask.getCamundaType()).isEqualTo(TEST_STRING_API);
+  }
+
+  @Test
+  public void testScriptTaskCamundaExtensions() {
+    modelInstance = Bpmn.createProcess()
+      .startEvent()
+      .scriptTask(TASK_ID)
+        .camundaResultVariable(TEST_STRING_API)
+      .endEvent()
+      .done();
+
+    ScriptTask scriptTask = (ScriptTask) modelInstance.getModelElementById(TASK_ID);
+    assertThat(scriptTask.getCamundaResultVariable()).isEqualTo(TEST_STRING_API);
+  }
+
+  @Test
+  public void testStartEventCamundaExtensions() {
+    modelInstance = Bpmn.createProcess()
+      .startEvent(START_EVENT_ID)
+        .camundaAsync()
+        .notCamundaExclusive()
+        .camundaFormHandlerClass(TEST_CLASS_API)
+        .camundaFormKey(TEST_STRING_API)
+        .camundaInitiator(TEST_STRING_API)
+      .done();
+
+    StartEvent startEvent = (StartEvent) modelInstance.getModelElementById(START_EVENT_ID);
+    assertThat(startEvent.isCamundaAsync()).isTrue();
+    assertThat(startEvent.isCamundaExclusive()).isFalse();
+    assertThat(startEvent.getCamundaFormHandlerClass()).isEqualTo(TEST_CLASS_API);
+    assertThat(startEvent.getCamundaFormKey()).isEqualTo(TEST_STRING_API);
+    assertThat(startEvent.getCamundaInitiator()).isEqualTo(TEST_STRING_API);
+  }
+
+  @Test
+  public void testCallActivityCamundaExtension() {
+    modelInstance = Bpmn.createProcess()
+      .startEvent()
+      .callActivity(CALL_ACTIVITY_ID)
+        .calledElement(TEST_STRING_API)
+        .camundaAsync()
+        .camundaCalledElementBinding("version")
+        .camundaCalledElementVersion("1.0")
+        .notCamundaExclusive()
+      .endEvent()
+      .done();
+
+    CallActivity callActivity = (CallActivity) modelInstance.getModelElementById(CALL_ACTIVITY_ID);
+    assertThat(callActivity.getCalledElement()).isEqualTo(TEST_STRING_API);
+    assertThat(callActivity.isCamundaAsync()).isTrue();
+    assertThat(callActivity.getCamundaCalledElementBinding()).isEqualTo("version");
+    assertThat(callActivity.getCamundaCalledElementVersion()).isEqualTo("1.0");
+    assertThat(callActivity.isCamundaExclusive()).isFalse();
   }
 
   @After

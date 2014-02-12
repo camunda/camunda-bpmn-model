@@ -29,4 +29,22 @@ public interface MessageEventDefinition extends EventDefinition {
 
   void setOperation(Operation operation);
 
+  /** camunda extensions */
+
+  String getCamundaClass();
+
+  void setCamundaClass(String camundaClass);
+
+  String getCamundaDelegateExpression();
+
+  void setCamundaDelegateExpression(String camundaExpression);
+
+  String getCamundaExpression();
+
+  void setCamundaExpression(String camundaExpression);
+
+  String getCamundaResultVariable();
+
+  void setCamundaResultVariable(String camundaResultVariable);
+
 }

@@ -22,15 +22,31 @@ import org.camunda.bpm.model.bpmn.builder.StartEventBuilder;
  */
 public interface StartEvent extends CatchEvent {
 
-  @SuppressWarnings("unchecked")
   StartEventBuilder builder();
 
   boolean isInterrupting();
 
   void setInterrupting(boolean isInterrupting);
 
-  String getFormKey();
+  /** camunda extensions */
 
-  void setFormKey(String formKey);
+  boolean isCamundaAsync();
 
+  void setCamundaAsync(boolean isCamundaAsync);
+
+  boolean isCamundaExclusive();
+
+  void setCamundaExclusive(boolean isCamundaExclusive);
+
+  String getCamundaFormHandlerClass();
+
+  void setCamundaFormHandlerClass(String camundaFormHandlerClass);
+
+  String getCamundaFormKey();
+
+  void setCamundaFormKey(String camundaFormKey);
+
+  String getCamundaInitiator();
+
+  void setCamundaInitiator(String camundaInitiator);
 }

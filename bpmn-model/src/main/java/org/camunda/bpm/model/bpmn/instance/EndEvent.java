@@ -22,7 +22,6 @@ import org.camunda.bpm.model.bpmn.builder.EndEventBuilder;
  */
 public interface EndEvent extends ThrowEvent {
 
-  @SuppressWarnings("unchecked")
   EndEventBuilder builder();
 
 }

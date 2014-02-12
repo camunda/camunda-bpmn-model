@@ -16,6 +16,7 @@ import org.camunda.bpm.model.bpmn.ProcessType;
 import org.camunda.bpm.model.bpmn.builder.ProcessBuilder;
 
 import java.util.Collection;
+import java.util.List;
 
 
 /**
@@ -26,7 +27,6 @@ import java.util.Collection;
  */
 public interface Process extends CallableElement {
 
-  @SuppressWarnings("unchecked")
   ProcessBuilder builder();
 
   ProcessType getProcessType();
@@ -64,4 +64,22 @@ public interface Process extends CallableElement {
   Collection<ResourceRole> getResourceRoles();
 
   Collection<Process> getSupports();
+
+  /** camunda extensions */
+
+  String getCamundaCandidateStarterGroups();
+
+  void setCamundaCandidateStarterGroups(String camundaCandidateStarterGroups);
+
+  List<String> getCamundaCandidateStarterGroupsList();
+
+  void setCamundaCandidateStarterGroupsList(List<String> camundaCandidateStarterGroupsList);
+
+  String getCamundaCandidateStarterUsers();
+
+  void setCamundaCandidateStarterUsers(String camundaCandidateStarterUsers);
+
+  List<String> getCamundaCandidateStarterUsersList();
+
+  void setCamundaCandidateStarterUsersList(List<String> camundaCandidateStarterUsersList);
 }

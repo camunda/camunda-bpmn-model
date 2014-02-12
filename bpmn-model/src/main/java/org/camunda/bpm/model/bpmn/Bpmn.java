@@ -16,8 +16,10 @@ import org.camunda.bpm.model.bpmn.builder.ProcessBuilder;
 import org.camunda.bpm.model.bpmn.impl.BpmnParser;
 import org.camunda.bpm.model.bpmn.impl.instance.*;
 import org.camunda.bpm.model.bpmn.impl.instance.ProcessImpl;
+import org.camunda.bpm.model.bpmn.impl.instance.camunda.*;
 import org.camunda.bpm.model.bpmn.instance.Definitions;
 import org.camunda.bpm.model.bpmn.instance.Process;
+import org.camunda.bpm.model.bpmn.instance.camunda.CamundaOutImpl;
 import org.camunda.bpm.model.xml.*;
 import org.camunda.bpm.model.xml.impl.instance.ModelElementInstanceImpl;
 import org.camunda.bpm.model.xml.impl.util.IoUtil;
@@ -224,6 +226,7 @@ public class Bpmn {
     BoundaryEventImpl.registerType(bpmnModelBuilder);
     BusinessRuleTaskImpl.registerType(bpmnModelBuilder);
     CallableElementImpl.registerType(bpmnModelBuilder);
+    CallActivityImpl.registerType(bpmnModelBuilder);
     CatchEventImpl.registerType(bpmnModelBuilder);
     CategoryValueImpl.registerType(bpmnModelBuilder);
     CategoryValueRef.registerType(bpmnModelBuilder);
@@ -324,6 +327,26 @@ public class Bpmn {
     UserTaskImpl.registerType(bpmnModelBuilder);
     WhileExecutingInputRefs.registerType(bpmnModelBuilder);
     WhileExecutingOutputRefs.registerType(bpmnModelBuilder);
+
+    /** camunda extensions */
+    CamundaConstraintImpl.registerType(bpmnModelBuilder);
+    CamundaExecutionListenerImpl.registerType(bpmnModelBuilder);
+    CamundaExpressionImpl.registerType(bpmnModelBuilder);
+    CamundaFailedJobRetryTimeCycleImpl.registerType(bpmnModelBuilder);
+    CamundaFieldImpl.registerType(bpmnModelBuilder);
+    CamundaFormDataImpl.registerType(bpmnModelBuilder);
+    CamundaFormFieldImpl.registerType(bpmnModelBuilder);
+    CamundaFormPropertyImpl.registerType(bpmnModelBuilder);
+    CamundaInImpl.registerType(bpmnModelBuilder);
+    CamundaOutImpl.registerType(bpmnModelBuilder);
+    CamundaPotentialStarterImpl.registerType(bpmnModelBuilder);
+    CamundaPropertiesImpl.registerType(bpmnModelBuilder);
+    CamundaPropertyImpl.registerType(bpmnModelBuilder);
+    CamundaStringImpl.registerType(bpmnModelBuilder);
+    CamundaTaskListenerImpl.registerType(bpmnModelBuilder);
+    CamundaValidationImpl.registerType(bpmnModelBuilder);
+    CamundaValueImpl.registerType(bpmnModelBuilder);
+
   }
 
   /**

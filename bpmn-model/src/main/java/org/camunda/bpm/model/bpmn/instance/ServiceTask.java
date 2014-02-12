@@ -22,7 +22,6 @@ import org.camunda.bpm.model.bpmn.builder.ServiceTaskBuilder;
  */
 public interface ServiceTask extends Task {
 
-  @SuppressWarnings("unchecked")
   ServiceTaskBuilder builder();
 
   String getImplementation();
@@ -33,16 +32,25 @@ public interface ServiceTask extends Task {
 
   void setOperation(Operation operation);
 
-  String getClassName();
+  /** camunda extensions */
 
-  void setClassName(String className);
+  String getCamundaClass();
 
-  String getExpression();
+  void setCamundaClass(String camundaClass);
 
-  void setExpression(String expression);
+  String getCamundaDelegateExpression();
 
-  String getDelegateExpression();
+  void setCamundaDelegateExpression(String camundaExpression);
 
-  void setDelegateExpression(String expression);
+  String getCamundaExpression();
 
+  void setCamundaExpression(String camundaExpression);
+
+  String getCamundaResultVariable();
+
+  void setCamundaResultVariable(String camundaResultVariable);
+
+  String getCamundaType();
+
+  void setCamundaType(String camundaType);
 }

@@ -25,15 +25,82 @@ public abstract class AbstractStartEventBuilder<B extends AbstractStartEventBuil
     super(modelInstance, element, selfType);
   }
 
+  /** camunda extensions */
+
   /**
-   * Sets the camunda attribute form key.
+   * Sets the camunda async attribute to true.
    *
-   * @param formKey  the form key to set
    * @return the builder object
    */
-  public B formKey(String formKey) {
-    element.setFormKey(formKey);
+  public B camundaAsync() {
+    element.setCamundaAsync(true);
     return myself;
   }
+
+  /**
+   * Sets the camunda async attribute.
+   *
+   * @param isCamundaAsync  the async state of the task
+   * @return the builder object
+   */
+  public B camundaAsync(boolean isCamundaAsync) {
+    element.setCamundaAsync(isCamundaAsync);
+    return myself;
+  }
+
+  /**
+   * Sets camunda exclusive attribute to false.
+   *
+   * @return the builder object
+   */
+  public B notCamundaExclusive() {
+    element.setCamundaExclusive(false);
+    return myself;
+  }
+
+  /**
+   * Sets the camunda exclusive attribute.
+   *
+   * @param isCamundaExclusive  the exclusive state of the task.
+   * @return the builder object
+   */
+  public B camundaExclusive(boolean isCamundaExclusive) {
+    element.setCamundaExclusive(isCamundaExclusive);
+    return myself;
+  }
+
+  /**
+   * Sets the camunda form handler class attribute.
+   *
+   * @param camundaFormHandlerClass  the class name of the form handler
+   * @return the builder object
+   */
+  public B camundaFormHandlerClass(String camundaFormHandlerClass) {
+    element.setCamundaFormHandlerClass(camundaFormHandlerClass);
+    return myself;
+  }
+
+  /**
+   * Sets the camunda form key attribute.
+   *
+   * @param camundaFormKey  the form key to set
+   * @return the builder object
+   */
+  public B camundaFormKey(String camundaFormKey) {
+    element.setCamundaFormKey(camundaFormKey);
+    return myself;
+  }
+
+  /**
+   * Sets the camunda initiator attribute.
+   *
+   * @param camundaInitiator  the initiator to set
+   * @return the builder object
+   */
+  public B camundaInitiator(String camundaInitiator) {
+    element.setCamundaInitiator(camundaInitiator);
+    return myself;
+  }
+
 
 }

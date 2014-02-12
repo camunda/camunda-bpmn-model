@@ -18,6 +18,8 @@ import org.camunda.bpm.model.bpmn.impl.instance.OperationRef;
 import java.util.Arrays;
 import java.util.Collection;
 
+import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.CAMUNDA_NS;
+
 /**
  * @author Sebastian Menski
  */
@@ -35,7 +37,12 @@ public class MessageEventDefinitionTest extends BpmnModelElementInstanceTest {
 
   public Collection<AttributeAssumption> getAttributesAssumptions() {
     return Arrays.asList(
-      new AttributeAssumption("messageRef")
+      new AttributeAssumption("messageRef"),
+      /** camunda extensions */
+      new AttributeAssumption(CAMUNDA_NS, "class"),
+      new AttributeAssumption(CAMUNDA_NS, "delegateExpression"),
+      new AttributeAssumption(CAMUNDA_NS, "expression"),
+      new AttributeAssumption(CAMUNDA_NS, "resultVariable")
     );
   }
 }

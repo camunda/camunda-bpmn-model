@@ -13,6 +13,8 @@
 
 package org.camunda.bpm.model.bpmn.impl.instance;
 
+import org.camunda.bpm.model.bpmn.BpmnModelInstance;
+import org.camunda.bpm.model.bpmn.builder.SubProcessBuilder;
 import org.camunda.bpm.model.bpmn.instance.*;
 import org.camunda.bpm.model.xml.ModelBuilder;
 import org.camunda.bpm.model.xml.impl.instance.ModelTypeInstanceContext;
@@ -37,6 +39,11 @@ public class SubProcessImpl extends ActivityImpl implements SubProcess {
   private static ChildElementCollection<LaneSet> laneSetCollection;
   private static ChildElementCollection<FlowElement> flowElementCollection;
   private static ChildElementCollection<Artifact> artifactCollection;
+
+  /** camunda extensions */
+
+  private static Attribute<Boolean> camundaAsyncAttribute;
+  private static Attribute<Boolean> camundaExclusiveAttribute;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(SubProcess.class, BPMN_ELEMENT_SUB_PROCESS)
@@ -63,11 +70,27 @@ public class SubProcessImpl extends ActivityImpl implements SubProcess {
     artifactCollection = sequenceBuilder.elementCollection(Artifact.class)
       .build();
 
+    /** camunda extensions */
+
+    camundaAsyncAttribute = typeBuilder.booleanAttribute(CAMUNDA_ATTRIBUTE_ASYNC)
+      .namespace(CAMUNDA_NS)
+      .defaultValue(false)
+      .build();
+
+    camundaExclusiveAttribute = typeBuilder.booleanAttribute(CAMUNDA_ATTRIBUTE_EXCLUSIVE)
+      .namespace(CAMUNDA_NS)
+      .defaultValue(true)
+      .build();
+
     typeBuilder.build();
   }
 
   public SubProcessImpl(ModelTypeInstanceContext context) {
     super(context);
+  }
+
+  public SubProcessBuilder builder() {
+    return new SubProcessBuilder((BpmnModelInstance) modelInstance, this);
   }
 
   public boolean triggeredByEvent() {
@@ -89,4 +112,23 @@ public class SubProcessImpl extends ActivityImpl implements SubProcess {
   public Collection<Artifact> getArtifacts() {
     return artifactCollection.get(this);
   }
+
+  /** camunda extensions */
+
+  public boolean isCamundaAsync() {
+    return camundaAsyncAttribute.getValue(this);
+  }
+
+  public void setCamundaAsync(boolean isCamundaAsync) {
+    camundaAsyncAttribute.setValue(this, isCamundaAsync);
+  }
+
+  public boolean isCamundaExclusive() {
+    return camundaExclusiveAttribute.getValue(this);
+  }
+
+  public void setCamundaExclusive(boolean isCamundaExclusive) {
+    camundaExclusiveAttribute.setValue(this, isCamundaExclusive);
+  }
+
 }
