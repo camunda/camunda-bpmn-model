@@ -133,10 +133,23 @@ public class Bpmn {
     definitions.getDomElement().registerNamespace("camunda", CAMUNDA_NS);
     modelInstance.setDefinitions(definitions);
     Process process = modelInstance.newInstance(Process.class);
-    process.setId(ModelUtil.getUniqueIdentifier(process.getElementType()));
+    String processId = ModelUtil.getUniqueIdentifier(process.getElementType());
     definitions.addChildElement(process);
     return process.builder();
   }
+
+  public static ProcessBuilder createProcess(String processId) {
+    return createProcess().id(processId);
+  }
+
+  public static ProcessBuilder createExecutableProcess() {
+    return createProcess().executable();
+  }
+
+  public static ProcessBuilder createExecutableProcess(String processId) {
+    return createProcess(processId).executable();
+  }
+
 
   /**
    * Register known types of the BPMN model
