@@ -56,6 +56,11 @@ public abstract class AbstractFlowNodeBuilder<B extends AbstractFlowNodeBuilder<
     currentSequenceFlowBuilder = null;
   }
 
+  public B sequenceFlowId(String sequenceFlowId) {
+    getCurrentSequenceFlowBuilder().id(sequenceFlowId);
+    return myself;
+  }
+
   private <T extends FlowNode> T createTarget(Class<T> typeClass, String identifier) {
     T target = createSibling(typeClass, identifier);
     connectTarget(target);
