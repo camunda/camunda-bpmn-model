@@ -31,8 +31,8 @@ public final class BpmnModelConstants {
 
   public static final String XPATH_NS = "http://www.w3.org/1999/XPath";
 
-  /** Aciviti namespace */
-  public static final String ACTIVITI_NS = "http://activiti.org/bpmn";
+  /** CAMUNDA_NS namespace */
+  public static final String CAMUNDA_NS = "http://activiti.org/bpmn";
 
   // elements ////////////////////////////////////////
 

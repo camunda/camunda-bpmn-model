@@ -23,7 +23,7 @@ import org.camunda.bpm.model.xml.impl.util.ModelUtil;
 
 import java.io.*;
 
-import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.ACTIVITI_NS;
+import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.CAMUNDA_NS;
 import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN20_NS;
 
 /**
@@ -128,7 +128,7 @@ public class Bpmn {
     BpmnModelInstance modelInstance = INSTANCE.doCreateEmptyModel();
     Definitions definitions = modelInstance.newInstance(Definitions.class);
     definitions.setTargetNamespace(BPMN20_NS);
-    definitions.getDomElement().registerNamespace("camunda", ACTIVITI_NS);
+    definitions.getDomElement().registerNamespace("camunda", CAMUNDA_NS);
     modelInstance.setDefinitions(definitions);
     Process process = modelInstance.newInstance(Process.class);
     process.setId(ModelUtil.getUniqueIdentifier(process.getElementType()));

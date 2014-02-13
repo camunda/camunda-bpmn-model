@@ -57,7 +57,7 @@ public class ServiceTaskImpl extends TaskImpl implements ServiceTask {
       .build();
 
     classAttribute = typeBuilder.stringAttribute(ACTIVITI_ATTRIBUTE_CLASS)
-      .namespace(ACTIVITI_NS)
+      .namespace(CAMUNDA_NS)
       .build();
 
     typeBuilder.build();

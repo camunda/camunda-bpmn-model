@@ -49,7 +49,7 @@ public class StartEventImpl extends CatchEventImpl implements StartEvent {
       .build();
 
     formKeyAttribute = typeBuilder.stringAttribute(ACTIVITI_ATTRIBUTE_FORM_KEY)
-      .namespace(ACTIVITI_NS)
+      .namespace(CAMUNDA_NS)
       .build();
 
     typeBuilder.build();

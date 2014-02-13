@@ -59,19 +59,19 @@ public class UserTaskImpl extends TaskImpl implements UserTask {
       .build();
 
     formKeyAttribute = typeBuilder.stringAttribute(ACTIVITI_ATTRIBUTE_FORM_KEY)
-      .namespace(ACTIVITI_NS)
+      .namespace(CAMUNDA_NS)
       .build();
 
     assigneeAttribute = typeBuilder.stringAttribute(ACTIVITI_ATTRIBUTE_ASSIGNEE)
-      .namespace(ACTIVITI_NS)
+      .namespace(CAMUNDA_NS)
       .build();
 
     candidateUsersAttribute = typeBuilder.stringAttribute(ACTIVITI_ATTRIBUTE_CANDIDATE_USERS)
-      .namespace(ACTIVITI_NS)
+      .namespace(CAMUNDA_NS)
       .build();
 
     candidateGroupsAttribute = typeBuilder.stringAttribute(ACTIVITI_ATTRIBUTE_CANDIDATE_GROUPS)
-      .namespace(ACTIVITI_NS)
+      .namespace(CAMUNDA_NS)
       .build();
 
     SequenceBuilder sequenceBuilder = typeBuilder.sequence();
