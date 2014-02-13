@@ -267,6 +267,7 @@ public class Bpmn {
     InputSetImpl.registerType(bpmnModelBuilder);
     InputSetRefs.registerType(bpmnModelBuilder);
     InterfaceImpl.registerType(bpmnModelBuilder);
+    IntermediateCatchEventImpl.registerType(bpmnModelBuilder);
     IoBindingImpl.registerType(bpmnModelBuilder);
     IoSpecificationImpl.registerType(bpmnModelBuilder);
     ItemAwareElementImpl.registerType(bpmnModelBuilder);

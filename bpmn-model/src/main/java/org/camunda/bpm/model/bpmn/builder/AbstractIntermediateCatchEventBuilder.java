@@ -14,25 +14,14 @@
 package org.camunda.bpm.model.bpmn.builder;
 
 import org.camunda.bpm.model.bpmn.BpmnModelInstance;
-import org.camunda.bpm.model.bpmn.instance.CatchEvent;
+import org.camunda.bpm.model.bpmn.instance.IntermediateCatchEvent;
 
 /**
  * @author Sebastian Menski
  */
-public abstract class AbstractCatchEventBuilder<B extends  AbstractCatchEventBuilder<B, E>, E extends CatchEvent> extends AbstractEventBuilder<B, E> {
+public abstract class AbstractIntermediateCatchEventBuilder<B extends AbstractIntermediateCatchEventBuilder<B>> extends AbstractCatchEventBuilder<B, IntermediateCatchEvent> {
 
-  protected AbstractCatchEventBuilder(BpmnModelInstance modelInstance, E element, Class<?> selfType) {
+  protected AbstractIntermediateCatchEventBuilder(BpmnModelInstance modelInstance, IntermediateCatchEvent element, Class<?> selfType) {
     super(modelInstance, element, selfType);
   }
-
-  /**
-   * Sets the event to be parallel multiple
-   *
-   * @return the builder object
-   */
-  public B parallelMultiple() {
-    element.isParallelMultiple();
-    return myself;
-  }
-
 }

@@ -115,6 +115,14 @@ public abstract class AbstractFlowNodeBuilder<B extends AbstractFlowNodeBuilder<
     return createTarget(ExclusiveGateway.class, id).builder();
   }
 
+  public IntermediateCatchEventBuilder intermediateCatchEvent() {
+    return createTarget(IntermediateCatchEvent.class, null).builder();
+  }
+
+  public IntermediateCatchEventBuilder intermediateCatchEvent(String id) {
+    return createTarget(IntermediateCatchEvent.class, id).builder();
+  }
+
   public Gateway findLastGateway() {
     FlowNode lastGateway = element;
     while (true) {

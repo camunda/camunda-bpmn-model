@@ -143,7 +143,7 @@ public final class BpmnModelConstants {
   public static final String BPMN_ELEMENT_GATEWAY = "gateway";
   public static final String BPMN_ELEMENT_PARALLEL_GATEWAY = "parallelGateway";
   public static final String BPMN_ELEMENT_EXCLUSIVE_GATEWAY = "exclusiveGateway";
-
+  public static final String BPMN_ELEMENT_INTERMEDIATE_CATCH_EVENT = "intermediateCatchEvent";
 
   // attributes //////////////////////////////////////
 
