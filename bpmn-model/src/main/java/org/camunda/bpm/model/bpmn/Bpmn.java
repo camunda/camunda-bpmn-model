@@ -15,16 +15,18 @@ package org.camunda.bpm.model.bpmn;
 import org.camunda.bpm.model.bpmn.builder.ProcessBuilder;
 import org.camunda.bpm.model.bpmn.impl.BpmnParser;
 import org.camunda.bpm.model.bpmn.impl.instance.*;
+import org.camunda.bpm.model.bpmn.impl.instance.ProcessImpl;
 import org.camunda.bpm.model.bpmn.instance.Definitions;
 import org.camunda.bpm.model.bpmn.instance.Process;
 import org.camunda.bpm.model.xml.*;
+import org.camunda.bpm.model.xml.impl.instance.ModelElementInstanceImpl;
 import org.camunda.bpm.model.xml.impl.util.IoUtil;
 import org.camunda.bpm.model.xml.impl.util.ModelUtil;
 
 import java.io.*;
 
-import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.CAMUNDA_NS;
 import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN20_NS;
+import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.CAMUNDA_NS;
 
 /**
  * <p>Provides access to the camunda BPMN model api.</p>
@@ -263,6 +265,7 @@ public class Bpmn {
     MessageEventDefinitionImpl.registerType(bpmnModelBuilder);
     MessageImpl.registerType(bpmnModelBuilder);
     MessagePath.registerType(bpmnModelBuilder);
+    ModelElementInstanceImpl.registerType(bpmnModelBuilder);
     MonitoringImpl.registerType(bpmnModelBuilder);
     OperationImpl.registerType(bpmnModelBuilder);
     OperationRef.registerType(bpmnModelBuilder);

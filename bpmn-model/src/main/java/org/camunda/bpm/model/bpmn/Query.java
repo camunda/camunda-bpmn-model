@@ -13,7 +13,7 @@
 
 package org.camunda.bpm.model.bpmn;
 
-import org.camunda.bpm.model.bpmn.instance.BpmnModelElementInstance;
+import org.camunda.bpm.model.xml.instance.ModelElementInstance;
 import org.camunda.bpm.model.xml.type.ModelElementType;
 
 import java.util.List;
@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * @author Sebastian Menski
  */
-public interface Query<T extends BpmnModelElementInstance> {
+public interface Query<T extends ModelElementInstance> {
 
   List<T> list();
 

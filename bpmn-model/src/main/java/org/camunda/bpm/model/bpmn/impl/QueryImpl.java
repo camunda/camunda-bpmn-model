@@ -15,7 +15,7 @@ package org.camunda.bpm.model.bpmn.impl;
 
 import org.camunda.bpm.model.bpmn.BpmnModelException;
 import org.camunda.bpm.model.bpmn.Query;
-import org.camunda.bpm.model.bpmn.instance.BpmnModelElementInstance;
+import org.camunda.bpm.model.xml.instance.ModelElementInstance;
 import org.camunda.bpm.model.xml.type.ModelElementType;
 
 import java.util.ArrayList;
@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * @author Sebastian Menski
  */
-public class QueryImpl<T extends BpmnModelElementInstance> implements Query<T> {
+public class QueryImpl<T extends ModelElementInstance> implements Query<T> {
 
   private final Collection<T> collection;
 
