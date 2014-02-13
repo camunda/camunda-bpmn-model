@@ -12,11 +12,24 @@
  */
 package org.camunda.bpm.model.bpmn.instance;
 
+import org.camunda.bpm.model.bpmn.Query;
+import org.camunda.bpm.model.xml.instance.ModelElementInstance;
+
+import java.util.Collection;
+
 /**
  * The BPMN extensionElements element
  *
  * @author Daniel Meyer
  */
 public interface ExtensionElements extends BpmnModelElementInstance {
+
+  Collection<ModelElementInstance> getElements();
+
+  Query<ModelElementInstance> getElementsQuery();
+
+  ModelElementInstance addExtensionElement(String namespaceUri, String localName);
+
+  <T extends ModelElementInstance> T addExtensionElement(Class<T> extensionElementClass);
 
 }
