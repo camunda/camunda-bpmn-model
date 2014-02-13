@@ -15,6 +15,7 @@ package org.camunda.bpm.model.bpmn;
 import org.camunda.bpm.model.bpmn.instance.*;
 import org.camunda.bpm.model.bpmn.instance.Process;
 import org.camunda.bpm.model.bpmn.util.BpmnModelResource;
+import org.camunda.bpm.model.xml.ModelParseException;
 import org.camunda.bpm.model.xml.ModelReferenceException;
 import org.camunda.bpm.model.xml.ModelValidationException;
 import org.camunda.bpm.model.xml.impl.util.IoUtil;
@@ -67,7 +68,7 @@ public class DefinitionsTest extends BpmnModelTest {
       Assert.fail("Model is invalid and should not pass the validation");
     }
     catch (Exception e) {
-      assertThat(e).isInstanceOf(ModelValidationException.class);
+      assertThat(e).isInstanceOf(ModelParseException.class);
     }
   }
 
