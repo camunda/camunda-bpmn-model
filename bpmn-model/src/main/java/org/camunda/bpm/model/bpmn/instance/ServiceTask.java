@@ -36,4 +36,13 @@ public interface ServiceTask extends Task {
   String getClassName();
 
   void setClassName(String className);
+
+  String getExpression();
+
+  void setExpression(String expression);
+
+  String getDelegateExpression();
+
+  void setDelegateExpression(String expression);
+
 }

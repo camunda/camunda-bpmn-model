@@ -37,6 +37,8 @@ public class ServiceTaskImpl extends TaskImpl implements ServiceTask {
   private static Attribute<String> implementationAttribute;
   private static AttributeReference<Operation> operationRefAttribute;
   private static Attribute<String> classAttribute;
+  private static Attribute<String> expressionAttribute;
+  private static Attribute<String> delegateExpressionAttribute;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(ServiceTask.class, BPMN_ELEMENT_SERVICE_TASK)
@@ -56,9 +58,17 @@ public class ServiceTaskImpl extends TaskImpl implements ServiceTask {
       .qNameAttributeReference(Operation.class)
       .build();
 
-    classAttribute = typeBuilder.stringAttribute(ACTIVITI_ATTRIBUTE_CLASS)
+    classAttribute = typeBuilder.stringAttribute(CAMUNDA_ATTRIBUTE_CLASS)
       .namespace(CAMUNDA_NS)
       .build();
+
+    expressionAttribute = typeBuilder.stringAttribute(CAMUNDA_ATTRIBUTE_EXPRESSION)
+      .namespace(CAMUNDA_NS)
+      .build();
+
+    delegateExpressionAttribute = typeBuilder.stringAttribute(CAMUNDA_ATTRIBUTE_DELEGATE_EXPRESSION)
+        .namespace(CAMUNDA_NS)
+        .build();
 
     typeBuilder.build();
   }
@@ -96,4 +106,21 @@ public class ServiceTaskImpl extends TaskImpl implements ServiceTask {
   public void setClassName(String className) {
     classAttribute.setValue(this, className);
   }
+
+  public String getExpression() {
+    return expressionAttribute.getValue(this);
+  }
+
+  public void setExpression(String expression) {
+    expressionAttribute.setValue(this, expression);
+  }
+
+  public String getDelegateExpression() {
+    return delegateExpressionAttribute.getValue(this);
+  }
+
+  public void setDelegateExpression(String expression) {
+    delegateExpressionAttribute.setValue(this, expression);
+  }
+
 }

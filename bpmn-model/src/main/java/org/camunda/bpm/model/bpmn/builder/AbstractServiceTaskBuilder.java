@@ -37,7 +37,7 @@ public abstract class AbstractServiceTaskBuilder<B extends AbstractServiceTaskBu
   }
 
   /**
-   * Sets the activiti class attribute.
+   * Sets the camunda class attribute.
    *
    * @param className  the class name to set
    * @return the builder object
@@ -46,4 +46,28 @@ public abstract class AbstractServiceTaskBuilder<B extends AbstractServiceTaskBu
     element.setClassName(className);
     return myself;
   }
+
+  /**
+   * Sets the camunda expression attribute.
+   *
+   * @param expression  the expression to set
+   * @return the builder object
+   */
+  public B expression(String expression) {
+    element.setExpression(expression);
+    return myself;
+  }
+
+  /**
+   * Sets the camunda delegateExpression attribute.
+   *
+   * @param expression  the delegateExpression to set
+   * @return the builder object
+   */
+  public B delegateExpression(String expression) {
+    element.setDelegateExpression(expression);
+    return myself;
+  }
+
+
 }
