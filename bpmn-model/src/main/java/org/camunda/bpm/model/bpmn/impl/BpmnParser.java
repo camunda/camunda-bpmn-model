@@ -22,7 +22,9 @@ import org.xml.sax.SAXException;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.validation.SchemaFactory;
+
 import java.io.InputStream;
+import java.net.URL;
 
 /**
  * <p>The parser used when parsing BPMN Files</p>
@@ -39,17 +41,18 @@ public class BpmnParser extends AbstractModelParser {
 
   public BpmnParser() {
     this.schemaFactory = SchemaFactory.newInstance(W3C_XML_SCHEMA);
+    URL bpmnSchema = ReflectUtil.getResource(BpmnModelConstants.BPMN_20_SCHEMA_LOCATION, BpmnParser.class.getClassLoader());
     try {
-      this.schema = schemaFactory.newSchema(ReflectUtil.getResource(BpmnModelConstants.BPMN_20_SCHEMA_LOCATION));
+      this.schema = schemaFactory.newSchema(bpmnSchema);
     } catch (SAXException e) {
-      throw new ModelValidationException("Unable to parse schema:" + ReflectUtil.getResource(BpmnModelConstants.BPMN_20_SCHEMA_LOCATION));
+      throw new ModelValidationException("Unable to parse schema:" + bpmnSchema);
     }
   }
 
   @Override
   protected void configureFactory(DocumentBuilderFactory dbf) {
     dbf.setAttribute(JAXP_SCHEMA_LANGUAGE, W3C_XML_SCHEMA);
-    dbf.setAttribute(JAXP_SCHEMA_SOURCE, ReflectUtil.getResource(BpmnModelConstants.BPMN_20_SCHEMA_LOCATION).toString());
+    dbf.setAttribute(JAXP_SCHEMA_SOURCE, ReflectUtil.getResource(BpmnModelConstants.BPMN_20_SCHEMA_LOCATION, BpmnParser.class.getClassLoader()).toString());
     super.configureFactory(dbf);
   }
 
