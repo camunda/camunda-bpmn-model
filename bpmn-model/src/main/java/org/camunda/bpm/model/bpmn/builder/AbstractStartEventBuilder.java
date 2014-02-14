@@ -26,7 +26,7 @@ public abstract class AbstractStartEventBuilder<B extends AbstractStartEventBuil
   }
 
   /**
-   * Sets the activiti attribute form key.
+   * Sets the camunda attribute form key.
    *
    * @param formKey  the form key to set
    * @return the builder object

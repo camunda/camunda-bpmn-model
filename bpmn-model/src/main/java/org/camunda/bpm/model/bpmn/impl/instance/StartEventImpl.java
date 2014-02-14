@@ -48,7 +48,7 @@ public class StartEventImpl extends CatchEventImpl implements StartEvent {
       .defaultValue(true)
       .build();
 
-    formKeyAttribute = typeBuilder.stringAttribute(ACTIVITI_ATTRIBUTE_FORM_KEY)
+    formKeyAttribute = typeBuilder.stringAttribute(CAMUNDA_ATTRIBUTE_FORM_KEY)
       .namespace(CAMUNDA_NS)
       .build();
 

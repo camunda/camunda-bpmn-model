@@ -201,10 +201,12 @@ public final class BpmnModelConstants {
   public static final String BPMN_ATTRIBUTE_TRIGGERED_BY_EVENT = "triggeredByEvent";
   public static final String BPMN_ATTRIBUTE_GATEWAY_DIRECTION = "gatewayDirection";
 
-  public static final String ACTIVITI_ATTRIBUTE_FORM_KEY = "formKey";
-  public static final String ACTIVITI_ATTRIBUTE_ASSIGNEE = "assignee";
-  public static final String ACTIVITI_ATTRIBUTE_CANDIDATE_USERS = "candidateUsers";
-  public static final String ACTIVITI_ATTRIBUTE_CANDIDATE_GROUPS = "candidateGroups";
-  public static final String ACTIVITI_ATTRIBUTE_CLASS = "class";
+  public static final String CAMUNDA_ATTRIBUTE_FORM_KEY = "formKey";
+  public static final String CAMUNDA_ATTRIBUTE_ASSIGNEE = "assignee";
+  public static final String CAMUNDA_ATTRIBUTE_CANDIDATE_USERS = "candidateUsers";
+  public static final String CAMUNDA_ATTRIBUTE_CANDIDATE_GROUPS = "candidateGroups";
+  public static final String CAMUNDA_ATTRIBUTE_CLASS = "class";
+  public static final String CAMUNDA_ATTRIBUTE_EXPRESSION = "expression";
+  public static final String CAMUNDA_ATTRIBUTE_DELEGATE_EXPRESSION = "delegateExpression";
 
 }

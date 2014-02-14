@@ -58,19 +58,19 @@ public class UserTaskImpl extends TaskImpl implements UserTask {
       .defaultValue("##unspecified")
       .build();
 
-    formKeyAttribute = typeBuilder.stringAttribute(ACTIVITI_ATTRIBUTE_FORM_KEY)
+    formKeyAttribute = typeBuilder.stringAttribute(CAMUNDA_ATTRIBUTE_FORM_KEY)
       .namespace(CAMUNDA_NS)
       .build();
 
-    assigneeAttribute = typeBuilder.stringAttribute(ACTIVITI_ATTRIBUTE_ASSIGNEE)
+    assigneeAttribute = typeBuilder.stringAttribute(CAMUNDA_ATTRIBUTE_ASSIGNEE)
       .namespace(CAMUNDA_NS)
       .build();
 
-    candidateUsersAttribute = typeBuilder.stringAttribute(ACTIVITI_ATTRIBUTE_CANDIDATE_USERS)
+    candidateUsersAttribute = typeBuilder.stringAttribute(CAMUNDA_ATTRIBUTE_CANDIDATE_USERS)
       .namespace(CAMUNDA_NS)
       .build();
 
-    candidateGroupsAttribute = typeBuilder.stringAttribute(ACTIVITI_ATTRIBUTE_CANDIDATE_GROUPS)
+    candidateGroupsAttribute = typeBuilder.stringAttribute(CAMUNDA_ATTRIBUTE_CANDIDATE_GROUPS)
       .namespace(CAMUNDA_NS)
       .build();
 

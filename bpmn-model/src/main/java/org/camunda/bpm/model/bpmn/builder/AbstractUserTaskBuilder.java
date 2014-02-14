@@ -37,7 +37,7 @@ public abstract class AbstractUserTaskBuilder<B extends AbstractUserTaskBuilder<
   }
 
   /**
-   * Sets the activiti attribute form key.
+   * Sets the camunda attribute form key.
    *
    * @param formKey  the form key to set
    * @return the builder object
@@ -48,7 +48,7 @@ public abstract class AbstractUserTaskBuilder<B extends AbstractUserTaskBuilder<
   }
 
   /**
-   * Sets the activiti attribute assignee.
+   * Sets the camunda attribute assignee.
    *
    * @param assignee  the assignee to set
    * @return the builder object
@@ -59,7 +59,7 @@ public abstract class AbstractUserTaskBuilder<B extends AbstractUserTaskBuilder<
   }
 
   /**
-   * Sets the activiti attribute candidate users.
+   * Sets the camunda attribute candidate users.
    *
    * @param candidateUsers  the candidate users to set
    * @return the builder object
@@ -70,7 +70,7 @@ public abstract class AbstractUserTaskBuilder<B extends AbstractUserTaskBuilder<
   }
 
   /**
-   * Sets the activiti attribute candidate groups.
+   * Sets the camunda attribute candidate groups.
    *
    * @param candidateGroups  the candidate groups to set
    * @return the builder object
