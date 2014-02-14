@@ -13,6 +13,8 @@
 
 package org.camunda.bpm.model.bpmn.instance;
 
+import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.CAMUNDA_NS;
+
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -31,7 +33,8 @@ public class StartEventTest extends BpmnModelElementInstanceTest {
 
   public Collection<AttributeAssumption> getAttributesAssumptions() {
     return Arrays.asList(
-      new AttributeAssumption("isInterrupting", false, false, true)
+      new AttributeAssumption("isInterrupting", false, false, true),
+      new AttributeAssumption("formKey", CAMUNDA_NS)
     );
   }
 }

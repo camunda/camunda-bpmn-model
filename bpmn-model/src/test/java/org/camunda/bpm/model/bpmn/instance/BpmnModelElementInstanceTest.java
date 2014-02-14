@@ -221,6 +221,7 @@ public abstract class BpmnModelElementInstanceTest {
       assertThatType().hasNoAttributes();
     }
     else {
+      assertThat(attributesAssumptions).hasSameSizeAs(modelElementType.getAttributes());
       for (AttributeAssumption assumption : attributesAssumptions) {
         assertThatType().hasAttributes(assumption.attributeName);
         AttributeAssert attributeAssert = assertThatAttribute(assumption.attributeName);

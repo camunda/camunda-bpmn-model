@@ -13,6 +13,8 @@
 
 package org.camunda.bpm.model.bpmn.instance;
 
+import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.*;
+
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -33,7 +35,11 @@ public class UserTaskTest extends BpmnModelElementInstanceTest {
 
   public Collection<AttributeAssumption> getAttributesAssumptions() {
     return Arrays.asList(
-      new AttributeAssumption("implementation", false, false, "##unspecified")
+      new AttributeAssumption("implementation", false, false, "##unspecified"),
+      new AttributeAssumption("formKey", CAMUNDA_NS),
+      new AttributeAssumption("assignee", CAMUNDA_NS),
+      new AttributeAssumption("candidateUsers", CAMUNDA_NS),
+      new AttributeAssumption("candidateGroups", CAMUNDA_NS)
     );
   }
 }
