@@ -2,7 +2,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -10,18 +10,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.camunda.bpm.model.bpmn.instance;
 
-import java.util.Collection;
+import org.camunda.bpm.model.xml.instance.ModelElementInstance;
 
 /**
- * The BPMN event element
+ * The BPMN interactionNode interface
  *
  * @author Sebastian Menski
- *
  */
-public interface Event extends FlowNode, InteractionNode {
+public interface InteractionNode extends ModelElementInstance {
 
-  Collection<Property> getProperties();
+  String getId();
+
+  void setId(String id);
 
 }

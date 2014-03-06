@@ -145,7 +145,27 @@ public final class BpmnModelConstants {
   public static final String BPMN_ELEMENT_PARALLEL_GATEWAY = "parallelGateway";
   public static final String BPMN_ELEMENT_EXCLUSIVE_GATEWAY = "exclusiveGateway";
   public static final String BPMN_ELEMENT_INTERMEDIATE_CATCH_EVENT = "intermediateCatchEvent";
-  
+  public static final String BPMN_ELEMENT_END_POINT = "endPoint";
+  public static final String BPMN_ELEMENT_PARTICIPANT_MULTIPLICITY = "participantMultiplicity";
+  public static final String BPMN_ELEMENT_PARTICIPANT = "participant";
+  public static final String BPMN_ELEMENT_PARTICIPANT_REF = "participantRef";
+  public static final String BPMN_ELEMENT_INTERFACE_REF = "interfaceRef";
+  public static final String BPMN_ELEMENT_END_POINT_REF = "endPointRef";
+  public static final String BPMN_ELEMENT_MESSAGE_FLOW = "messageFlow";
+  public static final String BPMN_ELEMENT_MESSAGE_FLOW_REF = "messageFlowRef";
+  public static final String BPMN_ELEMENT_CONVERSATION_NODE = "conversationNode";
+  public static final String BPMN_ELEMENT_CONVERSATION = "conversation";
+  public static final String BPMN_ELEMENT_SUB_CONVERSATION = "subConversation";
+  public static final String BPMN_ELEMENT_GLOBAL_CONVERSATION = "globalConversation";
+  public static final String BPMN_ELEMENT_CALL_CONVERSATION = "callConversation";
+  public static final String BPMN_ELEMENT_PARTICIPANT_ASSOCIATION = "participantAssociation";
+  public static final String BPMN_ELEMENT_INNER_PARTICIPANT_REF = "innerParticipantRef";
+  public static final String BPMN_ELEMENT_OUTER_PARTICIPANT_REF = "outerParticipantRef";
+  public static final String BPMN_ELEMENT_CONVERSATION_ASSOCIATION = "conversationAssociation";
+  public static final String BPMN_ELEMENT_MESSAGE_FLOW_ASSOCIATION = "messageFlowAssociation";
+  public static final String BPMN_ELEMENT_CONVERSATION_LINK = "conversationLink";
+  public static final String BPMN_ELEMENT_COLLABORATION = "collaboration";
+
   /** camunda extensions */
   
   public static final String CAMUNDA_ELEMENT_CONSTRAINT = "constraint";
@@ -222,6 +242,14 @@ public final class BpmnModelConstants {
   public static final String BPMN_ATTRIBUTE_TRIGGERED_BY_EVENT = "triggeredByEvent";
   public static final String BPMN_ATTRIBUTE_GATEWAY_DIRECTION = "gatewayDirection";
   public static final String BPMN_ATTRIBUTE_CALLED_ELEMENT = "calledElement";
+  public static final String BPMN_ATTRIBUTE_MINIMUM = "minimum";
+  public static final String BPMN_ATTRIBUTE_MAXIMUM = "maximum";
+  public static final String BPMN_ATTRIBUTE_PROCESS_REF = "processRef";
+  public static final String BPMN_ATTRIBUTE_CALLED_COLLABORATION_REF = "calledCollaborationRef";
+  public static final String BPMN_ATTRIBUTE_INNER_CONVERSATION_NODE_REF = "innerConversationNodeRef";
+  public static final String BPMN_ATTRIBUTE_OUTER_CONVERSATION_NODE_REF = "outerConversationNodeRef";
+  public static final String BPMN_ATTRIBUTE_INNER_MESSAGE_FLOW_REF = "innerMessageFlowRef";
+  public static final String BPMN_ATTRIBUTE_OUTER_MESSAGE_FLOW_REF = "outerMessageFlowRef";
 
   /** camunda extensions */
 

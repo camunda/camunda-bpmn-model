@@ -20,7 +20,7 @@ import java.util.Collection;
  *
  * @author Sebastian Menski
  */
-public interface Activity extends FlowNode {
+public interface Activity extends FlowNode, InteractionNode {
 
   boolean isForCompensation();
 
