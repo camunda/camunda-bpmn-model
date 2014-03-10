@@ -15,6 +15,8 @@ package org.camunda.bpm.model.bpmn.builder;
 
 import org.camunda.bpm.model.bpmn.BpmnModelInstance;
 import org.camunda.bpm.model.bpmn.instance.BaseElement;
+import org.camunda.bpm.model.bpmn.instance.BpmnModelElementInstance;
+import org.camunda.bpm.model.bpmn.instance.ExtensionElements;
 import org.camunda.bpm.model.xml.impl.util.ModelUtil;
 
 /**
@@ -55,6 +57,22 @@ public abstract class AbstractBaseElementBuilder<B extends AbstractBaseElementBu
    */
   public B id(String identifier) {
     element.setId(identifier);
+    return myself;
+  }
+
+  /**
+   * Add an extension element to the element.
+   *
+   * @param extensionElement  the extension element to add
+   * @return the builder object
+   */
+  public B addExtensionElement(BpmnModelElementInstance extensionElement) {
+    ExtensionElements extensionElements = element.getExtensionElements();
+    if (extensionElements == null) {
+      extensionElements = modelInstance.newInstance(ExtensionElements.class);
+      element.setExtensionElements(extensionElements);
+    }
+    extensionElements.getElements().add(extensionElement);
     return myself;
   }
 }
