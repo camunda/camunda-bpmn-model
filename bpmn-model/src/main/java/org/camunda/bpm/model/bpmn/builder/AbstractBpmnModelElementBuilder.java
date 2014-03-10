@@ -13,8 +13,10 @@
 
 package org.camunda.bpm.model.bpmn.builder;
 
+import org.camunda.bpm.model.bpmn.BpmnModelException;
 import org.camunda.bpm.model.bpmn.BpmnModelInstance;
 import org.camunda.bpm.model.bpmn.instance.BpmnModelElementInstance;
+import org.camunda.bpm.model.bpmn.instance.SubProcess;
 
 /**
  * @author Sebastian Menski
@@ -39,6 +41,22 @@ public abstract class AbstractBpmnModelElementBuilder<B extends AbstractBpmnMode
    */
   public BpmnModelInstance done() {
     return modelInstance;
+  }
+
+  /**
+   * Finishes the building of an embedded sub-process.
+   *
+   * @return the parent sub-process builder
+   * @throws BpmnModelException if no parent sub-process can be found
+   */
+  public SubProcessBuilder subProcessDone() {
+    BpmnModelElementInstance lastSubProcess = element.getScope();
+    if (lastSubProcess != null && lastSubProcess instanceof SubProcess) {
+      return ((SubProcess) lastSubProcess).builder();
+    }
+    else {
+      throw new BpmnModelException("Unable to find a parent subProcess.");
+    }
   }
 
 }

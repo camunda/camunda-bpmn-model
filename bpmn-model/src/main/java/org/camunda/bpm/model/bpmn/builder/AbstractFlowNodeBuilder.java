@@ -163,6 +163,14 @@ public abstract class AbstractFlowNodeBuilder<B extends AbstractFlowNodeBuilder<
     return createTarget(CallActivity.class, id).builder();
   }
 
+  public SubProcessBuilder subProcess() {
+    return createTarget(SubProcess.class, null).builder();
+  }
+
+  public SubProcessBuilder subProcess(String id) {
+    return createTarget(SubProcess.class, id).builder();
+  }
+
   public Gateway findLastGateway() {
     FlowNode lastGateway = element;
     while (true) {

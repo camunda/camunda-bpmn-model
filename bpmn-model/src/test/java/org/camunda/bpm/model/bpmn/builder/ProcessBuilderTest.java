@@ -14,6 +14,7 @@
 package org.camunda.bpm.model.bpmn.builder;
 
 import org.camunda.bpm.model.bpmn.Bpmn;
+import org.camunda.bpm.model.bpmn.BpmnModelException;
 import org.camunda.bpm.model.bpmn.BpmnModelInstance;
 import org.camunda.bpm.model.bpmn.GatewayDirection;
 import org.camunda.bpm.model.bpmn.instance.*;
@@ -27,6 +28,7 @@ import org.junit.Test;
 import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Fail.fail;
 import static org.camunda.bpm.model.bpmn.BpmnTestConstants.*;
 import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN20_NS;
 
@@ -505,9 +507,123 @@ public class ProcessBuilderTest {
     assertThat(callActivity.isCamundaExclusive()).isFalse();
   }
 
+  @Test
+  public void testSubProcessBuilder() {
+    BpmnModelInstance modelInstance = Bpmn.createProcess()
+      .startEvent()
+      .subProcess(SUB_PROCESS_ID)
+        .camundaAsync()
+        .embeddedSubProcess()
+          .startEvent()
+          .userTask()
+          .endEvent()
+        .subProcessDone()
+      .serviceTask(SERVICE_TASK_ID)
+      .endEvent()
+      .done();
+
+    SubProcess subProcess = (SubProcess) modelInstance.getModelElementById(SUB_PROCESS_ID);
+    ServiceTask serviceTask = (ServiceTask) modelInstance.getModelElementById(SERVICE_TASK_ID);
+    assertThat(subProcess.isCamundaAsync()).isTrue();
+    assertThat(subProcess.isCamundaExclusive()).isTrue();
+    assertThat(subProcess.getChildElementsByType(Event.class)).hasSize(2);
+    assertThat(subProcess.getChildElementsByType(Task.class)).hasSize(1);
+    assertThat(subProcess.getFlowElements()).hasSize(5);
+    assertThat(subProcess.getSucceedingNodes().singleResult()).isEqualTo(serviceTask);
+  }
+
+  @Test
+  public void testSubProcessBuilderDetached() {
+    modelInstance = Bpmn.createProcess()
+      .startEvent()
+      .subProcess(SUB_PROCESS_ID)
+      .serviceTask(SERVICE_TASK_ID)
+      .endEvent()
+      .done();
+
+    SubProcess subProcess = (SubProcess) modelInstance.getModelElementById(SUB_PROCESS_ID);
+
+    subProcess.builder()
+      .camundaAsync()
+      .embeddedSubProcess()
+        .startEvent()
+        .userTask()
+        .endEvent();
+
+    ServiceTask serviceTask = (ServiceTask) modelInstance.getModelElementById(SERVICE_TASK_ID);
+    assertThat(subProcess.isCamundaAsync()).isTrue();
+    assertThat(subProcess.isCamundaExclusive()).isTrue();
+    assertThat(subProcess.getChildElementsByType(Event.class)).hasSize(2);
+    assertThat(subProcess.getChildElementsByType(Task.class)).hasSize(1);
+    assertThat(subProcess.getFlowElements()).hasSize(5);
+    assertThat(subProcess.getSucceedingNodes().singleResult()).isEqualTo(serviceTask);
+  }
+
+  @Test
+  public void testSubProcessBuilderNested() {
+    modelInstance = Bpmn.createProcess()
+      .startEvent()
+      .subProcess(SUB_PROCESS_ID + 1)
+        .camundaAsync()
+        .embeddedSubProcess()
+          .startEvent()
+          .userTask()
+          .subProcess(SUB_PROCESS_ID + 2)
+            .camundaAsync()
+            .notCamundaExclusive()
+            .embeddedSubProcess()
+              .startEvent()
+              .userTask()
+              .endEvent()
+            .subProcessDone()
+          .serviceTask(SERVICE_TASK_ID + 1)
+          .endEvent()
+        .subProcessDone()
+      .serviceTask(SERVICE_TASK_ID + 2)
+      .endEvent()
+      .done();
+
+    SubProcess subProcess = (SubProcess) modelInstance.getModelElementById(SUB_PROCESS_ID + 1);
+    ServiceTask serviceTask = (ServiceTask) modelInstance.getModelElementById(SERVICE_TASK_ID + 2);
+    assertThat(subProcess.isCamundaAsync()).isTrue();
+    assertThat(subProcess.isCamundaExclusive()).isTrue();
+    assertThat(subProcess.getChildElementsByType(Event.class)).hasSize(2);
+    assertThat(subProcess.getChildElementsByType(Task.class)).hasSize(2);
+    assertThat(subProcess.getChildElementsByType(SubProcess.class)).hasSize(1);
+    assertThat(subProcess.getFlowElements()).hasSize(9);
+    assertThat(subProcess.getSucceedingNodes().singleResult()).isEqualTo(serviceTask);
+
+    SubProcess nestedSubProcess = (SubProcess) modelInstance.getModelElementById(SUB_PROCESS_ID + 2);
+    ServiceTask nestedServiceTask = (ServiceTask) modelInstance.getModelElementById(SERVICE_TASK_ID + 1);
+    assertThat(nestedSubProcess.isCamundaAsync()).isTrue();
+    assertThat(nestedSubProcess.isCamundaExclusive()).isFalse();
+    assertThat(nestedSubProcess.getChildElementsByType(Event.class)).hasSize(2);
+    assertThat(nestedSubProcess.getChildElementsByType(Task.class)).hasSize(1);
+    assertThat(nestedSubProcess.getFlowElements()).hasSize(5);
+    assertThat(nestedSubProcess.getSucceedingNodes().singleResult()).isEqualTo(nestedServiceTask);
+  }
+
+  @Test
+  public void testSubProcessBuilderWrongScope() {
+    try {
+      modelInstance = Bpmn.createProcess()
+        .startEvent()
+        .subProcessDone()
+        .endEvent()
+        .done();
+      fail("Exception expected");
+    }
+    catch (Exception e) {
+      assertThat(e).isInstanceOf(BpmnModelException.class);
+    }
+  }
+
+
   @After
   public void validateModel() throws IOException {
-    Bpmn.validateModel(modelInstance);
+    if (modelInstance != null) {
+      Bpmn.validateModel(modelInstance);
+    }
   }
 
 }

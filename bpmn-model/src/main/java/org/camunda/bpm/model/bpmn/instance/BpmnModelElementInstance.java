@@ -22,6 +22,26 @@ import org.camunda.bpm.model.xml.instance.ModelElementInstance;
  */
 public interface BpmnModelElementInstance extends ModelElementInstance {
 
+  /**
+   * Returns a new fluent builder for the element if implemented.
+   *
+   * @return the builder object
+   */
   AbstractBaseElementBuilder builder();
+
+  /**
+   * Tests if the element is a scope like process or sub-process.
+   *
+   * @return true if element is scope, otherwise false
+   */
+  boolean isScope();
+
+  /**
+   * Gets the element which is the scope of this element. Like
+   * the parent process or sub-process.
+   *
+   * @return the scope element or null if non is found
+   */
+  BpmnModelElementInstance getScope();
 
 }

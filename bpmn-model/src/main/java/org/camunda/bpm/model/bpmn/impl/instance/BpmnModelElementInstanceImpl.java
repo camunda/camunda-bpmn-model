@@ -15,6 +15,7 @@ package org.camunda.bpm.model.bpmn.impl.instance;
 import org.camunda.bpm.model.bpmn.BpmnModelException;
 import org.camunda.bpm.model.bpmn.builder.AbstractBaseElementBuilder;
 import org.camunda.bpm.model.bpmn.instance.BpmnModelElementInstance;
+import org.camunda.bpm.model.bpmn.instance.SubProcess;
 import org.camunda.bpm.model.xml.impl.instance.ModelElementInstanceImpl;
 import org.camunda.bpm.model.xml.impl.instance.ModelTypeInstanceContext;
 
@@ -32,5 +33,24 @@ public abstract class BpmnModelElementInstanceImpl extends ModelElementInstanceI
 
   public AbstractBaseElementBuilder builder() {
     throw new BpmnModelException("No builder implemented for " + this);
+  }
+
+  public boolean isScope() {
+    return this instanceof org.camunda.bpm.model.bpmn.instance.Process || this instanceof SubProcess;
+  }
+
+  public BpmnModelElementInstance getScope() {
+    BpmnModelElementInstance parentElement = (BpmnModelElementInstance) getParentElement();
+    if (parentElement != null) {
+      if (parentElement.isScope()) {
+        return parentElement;
+      }
+      else {
+        return parentElement.getScope();
+      }
+    }
+    else {
+      return null;
+    }
   }
 }

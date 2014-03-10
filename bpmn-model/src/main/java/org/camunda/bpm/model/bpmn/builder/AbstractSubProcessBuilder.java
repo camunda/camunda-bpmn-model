@@ -25,6 +25,10 @@ public class AbstractSubProcessBuilder<B extends AbstractSubProcessBuilder<B>> e
     super(modelInstance, element, selfType);
   }
 
+  public EmbeddedSubProcessBuilder embeddedSubProcess() {
+    return new EmbeddedSubProcessBuilder(this);
+  }
+
   /**
    * Sets the sub process to be triggered by an event.
    *
