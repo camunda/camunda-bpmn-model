@@ -25,7 +25,7 @@ import org.camunda.bpm.model.xml.type.ModelElementTypeBuilder;
  *
  * @author Sebastian Menski
  */
-public class ArtifactImpl extends BaseElementImpl implements Artifact {
+public abstract class ArtifactImpl extends BaseElementImpl implements Artifact {
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(Artifact.class,BpmnModelConstants.BPMN_ELEMENT_ARTIFACT)
