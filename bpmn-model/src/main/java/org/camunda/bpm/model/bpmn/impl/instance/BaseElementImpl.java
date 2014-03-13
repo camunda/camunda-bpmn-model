@@ -19,6 +19,7 @@ import org.camunda.bpm.model.bpmn.instance.di.DiagramElement;
 import org.camunda.bpm.model.xml.ModelBuilder;
 import org.camunda.bpm.model.xml.impl.instance.ModelTypeInstanceContext;
 import org.camunda.bpm.model.xml.instance.ModelElementInstance;
+import org.camunda.bpm.model.xml.type.ModelElementType;
 import org.camunda.bpm.model.xml.type.ModelElementTypeBuilder;
 import org.camunda.bpm.model.xml.type.attribute.Attribute;
 import org.camunda.bpm.model.xml.type.child.ChildElement;
@@ -87,13 +88,25 @@ public abstract class BaseElementImpl extends BpmnModelElementInstanceImpl imple
   }
 
   public DiagramElement getDiagramElement() {
+    // we traverse all incoming references in reverse direction
+
     for (Reference<?> reference : idAttribute.getIncomingReferences()) {
-      for (ModelElementInstance sourceElement : reference.findReferenceSourceElements(this)) {
-        String referenceIdentifier = reference.getReferenceIdentifier(sourceElement);
-        if (getId().equals(referenceIdentifier) && sourceElement instanceof DiagramElement) {
-          return (DiagramElement) sourceElement;
+
+      ModelElementType sourceElementType = reference.getReferenceSourceElementType();
+      Class<? extends ModelElementInstance> sourceInstanceType = sourceElementType.getInstanceType();
+
+      // if the referencing element (source element) is a BPMNDI element, dig deeper
+      if(DiagramElement.class.isAssignableFrom(sourceInstanceType)) {
+        for (ModelElementInstance sourceElement : reference.findReferenceSourceElements(this)) {
+          String referenceIdentifier = reference.getReferenceIdentifier(sourceElement);
+
+          // make sure it is a reference to us
+          if (referenceIdentifier != null && referenceIdentifier.equals(getId())) {
+            return (DiagramElement) sourceElement;
+          }
         }
       }
+
     }
     return null;
   }
