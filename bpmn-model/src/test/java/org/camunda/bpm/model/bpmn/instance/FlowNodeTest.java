@@ -13,9 +13,14 @@
 
 package org.camunda.bpm.model.bpmn.instance;
 
+import org.camunda.bpm.model.bpmn.Bpmn;
+import org.camunda.bpm.model.bpmn.BpmnModelInstance;
 import org.camunda.bpm.model.bpmn.impl.instance.Incoming;
 import org.camunda.bpm.model.bpmn.impl.instance.Outgoing;
+import org.camunda.bpm.model.xml.instance.ModelElementInstance;
+import org.junit.Test;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -37,5 +42,16 @@ public class FlowNodeTest extends BpmnModelElementInstanceTest {
 
   public Collection<AttributeAssumption> getAttributesAssumptions() {
     return null;
+  }
+
+  @Test
+  public void test() {
+    BpmnModelInstance modelInstance = Bpmn.createProcess().startEvent().userTask("test").endEvent().done();
+    Bpmn.writeModelToFile(new File("/tmp/before.bpmn"), modelInstance);
+    ServiceTask serviceTask = modelInstance.newInstance(ServiceTask.class);
+    serviceTask.setId("new");
+    ModelElementInstance test = modelInstance.getModelElementById("test");
+    test.replaceWithElement(serviceTask);
+    Bpmn.writeModelToFile(new File("/tmp/after.bpmn"), modelInstance);
   }
 }

@@ -39,7 +39,7 @@ import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.*;
  */
 public abstract class BaseElementImpl extends BpmnModelElementInstanceImpl implements BaseElement {
 
-  private static Attribute<String> idAttribute;
+  protected static Attribute<String> idAttribute;
   private static ChildElementCollection<Documentation> documentationCollection;
   private static ChildElement<ExtensionElements> extensionElementsChild;
 
