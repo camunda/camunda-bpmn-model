@@ -17,6 +17,7 @@ import org.camunda.bpm.model.xml.ModelBuilder;
 import org.camunda.bpm.model.xml.ModelException;
 import org.camunda.bpm.model.xml.ModelInstance;
 import org.camunda.bpm.model.xml.impl.instance.ModelElementInstanceImpl;
+import org.camunda.bpm.model.xml.impl.util.ModelTypeException;
 import org.camunda.bpm.model.xml.impl.util.ModelUtil;
 import org.camunda.bpm.model.xml.instance.DomDocument;
 import org.camunda.bpm.model.xml.instance.DomElement;
@@ -92,14 +93,19 @@ public class ModelInstanceImpl implements ModelInstance {
     return elementType;
   }
 
-  public ModelElementInstance getModelElementById(String id) {
+  @SuppressWarnings("unchecked")
+  public <T extends ModelElementInstance> T getModelElementById(String id) {
     if (id == null) {
       return null;
     }
 
     DomElement element = document.getElementById(id);
     if(element != null) {
-      return ModelUtil.getModelElement(element, this);
+      try {
+        return (T) ModelUtil.getModelElement(element, this);
+      } catch (ClassCastException e) {
+        throw new ModelTypeException("Cannot cast element to desired type", e);
+      }
     } else {
       return null;
     }

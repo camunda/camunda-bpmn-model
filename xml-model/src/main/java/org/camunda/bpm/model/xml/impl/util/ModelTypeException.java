@@ -34,4 +34,8 @@ public class ModelTypeException extends ModelException {
     super("Illegal value "+value+" for type "+type);
   }
 
+  public ModelTypeException(String message, Throwable cause) {
+    super(message, cause);
+  }
+
 }
