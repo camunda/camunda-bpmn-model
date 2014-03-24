@@ -37,11 +37,22 @@ public abstract class AbstractBaseElementBuilder<B extends AbstractBaseElementBu
     return instance;
   }
 
+  protected <T extends BpmnModelElementInstance> T createInstance(Class<T> typeClass) {
+    return modelInstance.newInstance(typeClass);
+  }
+
   protected <T extends BaseElement> T createChild(Class<T> typeClass, String identifier) {
     T instance = createInstance(typeClass, identifier);
     element.addChildElement(instance);
     return instance;
   }
+
+  protected <T extends BpmnModelElementInstance> T createChild(Class<T> typeClass) {
+    T instance = createInstance(typeClass);
+    element.addChildElement(instance);
+    return instance;
+  }
+
 
   protected <T extends BaseElement> T createSibling(Class<T> typeClass, String identifier) {
     T instance = createInstance(typeClass, identifier);

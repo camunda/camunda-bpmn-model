@@ -48,6 +48,12 @@ public abstract class AbstractScriptTaskBuilder<B extends AbstractScriptTaskBuil
     return myself;
   }
 
+  public B scriptText(String scriptText) {
+    Script script = createChild(Script.class);
+    script.setTextContent(scriptText);
+    return myself;
+  }
+
   /** camunda extensions */
 
   /**

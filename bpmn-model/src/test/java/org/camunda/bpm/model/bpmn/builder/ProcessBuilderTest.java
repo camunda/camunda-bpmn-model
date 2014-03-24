@@ -618,6 +618,21 @@ public class ProcessBuilderTest {
     }
   }
 
+  @Test
+  public void testScriptText() {
+    modelInstance = Bpmn.createProcess()
+      .startEvent()
+      .scriptTask("script")
+        .scriptFormat("groovy")
+        .scriptText("println \"hello, world\";")
+      .endEvent()
+      .done();
+
+    ScriptTask scriptTask = (ScriptTask) modelInstance.getModelElementById("script");
+    assertThat(scriptTask.getScriptFormat()).isEqualTo("groovy");
+    assertThat(scriptTask.getScript().getTextContent()).isEqualTo("println \"hello, world\";");
+  }
+
 
   @After
   public void validateModel() throws IOException {
