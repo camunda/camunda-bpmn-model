@@ -230,9 +230,9 @@ public class CamundaExtensionsTest {
 
   @Test
   public void testExecutionListenerExtension() {
-    CamundaExecutionListener processListener = (CamundaExecutionListener) process.getExtensionElements().getElementsQuery().filterByType(CamundaExecutionListener.class).singleResult();
-    CamundaExecutionListener startEventListener = (CamundaExecutionListener) startEvent.getExtensionElements().getElementsQuery().filterByType(CamundaExecutionListener.class).singleResult();
-    CamundaExecutionListener serviceTaskListener = (CamundaExecutionListener) serviceTask.getExtensionElements().getElementsQuery().filterByType(CamundaExecutionListener.class).singleResult();
+    CamundaExecutionListener processListener = process.getExtensionElements().getElementsQuery().filterByType(CamundaExecutionListener.class).singleResult();
+    CamundaExecutionListener startEventListener = startEvent.getExtensionElements().getElementsQuery().filterByType(CamundaExecutionListener.class).singleResult();
+    CamundaExecutionListener serviceTaskListener = serviceTask.getExtensionElements().getElementsQuery().filterByType(CamundaExecutionListener.class).singleResult();
     assertThat(processListener.getCamundaClass()).isEqualTo(TEST_CLASS_XML);
     assertThat(processListener.getCamundaEvent()).isEqualTo(TEST_EXECUTION_EVENT_XML);
     assertThat(startEventListener.getCamundaExpression()).isEqualTo(TEST_EXPRESSION_XML);
@@ -255,7 +255,7 @@ public class CamundaExtensionsTest {
 
   @Test
   public void testFailedJobRetryTimeCycleExtension() {
-    CamundaFailedJobRetryTimeCycle timeCycle = (CamundaFailedJobRetryTimeCycle) sendTask.getExtensionElements().getElementsQuery().filterByType(CamundaFailedJobRetryTimeCycle.class).singleResult();
+    CamundaFailedJobRetryTimeCycle timeCycle = sendTask.getExtensionElements().getElementsQuery().filterByType(CamundaFailedJobRetryTimeCycle.class).singleResult();
     assertThat(timeCycle.getTextContent()).isEqualTo(TEST_STRING_XML);
     timeCycle.setTextContent(TEST_STRING_API);
     assertThat(timeCycle.getTextContent()).isEqualTo(TEST_STRING_API);
@@ -263,7 +263,7 @@ public class CamundaExtensionsTest {
 
   @Test
   public void testFieldExtension() {
-    CamundaField field = (CamundaField) sendTask.getExtensionElements().getElementsQuery().filterByType(CamundaField.class).singleResult();
+    CamundaField field = sendTask.getExtensionElements().getElementsQuery().filterByType(CamundaField.class).singleResult();
     assertThat(field.getCamundaName()).isEqualTo(TEST_STRING_XML);
     assertThat(field.getCamundaExpression()).isEqualTo(TEST_EXPRESSION_XML);
     assertThat(field.getCamundaStringValue()).isEqualTo(TEST_STRING_XML);
@@ -283,7 +283,7 @@ public class CamundaExtensionsTest {
 
   @Test
   public void testFormData() {
-    CamundaFormData formData = (CamundaFormData) userTask.getExtensionElements().getElementsQuery().filterByType(CamundaFormData.class).singleResult();
+    CamundaFormData formData = userTask.getExtensionElements().getElementsQuery().filterByType(CamundaFormData.class).singleResult();
     CamundaFormField formField = formData.getCamundaFormFields().iterator().next();
     assertThat(formField.getCamundaId()).isEqualTo(TEST_STRING_XML);
     assertThat(formField.getCamundaLabel()).isEqualTo(TEST_STRING_XML);
@@ -328,7 +328,7 @@ public class CamundaExtensionsTest {
 
   @Test
   public void testFormProperty() {
-    CamundaFormProperty formProperty = (CamundaFormProperty) startEvent.getExtensionElements().getElementsQuery().filterByType(CamundaFormProperty.class).singleResult();
+    CamundaFormProperty formProperty = startEvent.getExtensionElements().getElementsQuery().filterByType(CamundaFormProperty.class).singleResult();
     assertThat(formProperty.getCamundaId()).isEqualTo(TEST_STRING_XML);
     assertThat(formProperty.getCamundaName()).isEqualTo(TEST_STRING_XML);
     assertThat(formProperty.getCamundaType()).isEqualTo(TEST_STRING_XML);
@@ -363,7 +363,7 @@ public class CamundaExtensionsTest {
 
   @Test
   public void testInExtension() {
-    CamundaIn in = (CamundaIn) callActivity.getExtensionElements().getElementsQuery().filterByType(CamundaIn.class).singleResult();
+    CamundaIn in = callActivity.getExtensionElements().getElementsQuery().filterByType(CamundaIn.class).singleResult();
     assertThat(in.getCamundaSource()).isEqualTo(TEST_STRING_XML);
     assertThat(in.getCamundaSourceExpression()).isEqualTo(TEST_EXPRESSION_XML);
     assertThat(in.getCamundaVariables()).isEqualTo(TEST_STRING_XML);
@@ -383,7 +383,7 @@ public class CamundaExtensionsTest {
 
   @Test
   public void testOutExtension() {
-    CamundaOut out = (CamundaOut) callActivity.getExtensionElements().getElementsQuery().filterByType(CamundaOut.class).singleResult();
+    CamundaOut out = callActivity.getExtensionElements().getElementsQuery().filterByType(CamundaOut.class).singleResult();
     assertThat(out.getCamundaSource()).isEqualTo(TEST_STRING_XML);
     assertThat(out.getCamundaSourceExpression()).isEqualTo(TEST_EXPRESSION_XML);
     assertThat(out.getCamundaVariables()).isEqualTo(TEST_STRING_XML);
@@ -400,7 +400,7 @@ public class CamundaExtensionsTest {
 
   @Test
   public void testPotentialStarter() {
-    CamundaPotentialStarter potentialStarter = (CamundaPotentialStarter) startEvent.getExtensionElements().getElementsQuery().filterByType(CamundaPotentialStarter.class).singleResult();
+    CamundaPotentialStarter potentialStarter = startEvent.getExtensionElements().getElementsQuery().filterByType(CamundaPotentialStarter.class).singleResult();
     Expression expression = potentialStarter.getResourceAssignmentExpression().getExpression();
     assertThat(expression.getTextContent()).isEqualTo(TEST_GROUPS_XML);
     expression.setTextContent(TEST_GROUPS_API);
@@ -409,7 +409,7 @@ public class CamundaExtensionsTest {
 
   @Test
   public void testTaskListener() {
-    CamundaTaskListener taskListener = (CamundaTaskListener) userTask.getExtensionElements().getElementsQuery().filterByType(CamundaTaskListener.class).singleResult();
+    CamundaTaskListener taskListener = userTask.getExtensionElements().getElementsQuery().filterByType(CamundaTaskListener.class).singleResult();
     assertThat(taskListener.getCamundaEvent()).isEqualTo(TEST_TASK_EVENT_XML);
     assertThat(taskListener.getCamundaClass()).isEqualTo(TEST_CLASS_XML);
     assertThat(taskListener.getCamundaExpression()).isEqualTo(TEST_EXPRESSION_XML);

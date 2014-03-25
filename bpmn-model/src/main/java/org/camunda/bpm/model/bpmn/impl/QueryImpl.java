@@ -41,19 +41,21 @@ public class QueryImpl<T extends ModelElementInstance> implements Query<T> {
     return collection.size();
   }
 
-  public Query<?> filterByType(ModelElementType elementType) {
-    Class<? extends ModelElementInstance> elementClass = elementType.getInstanceType();
+  @SuppressWarnings("unchecked")
+  public <V extends ModelElementInstance> Query<V> filterByType(ModelElementType elementType) {
+    Class<V> elementClass = (Class<V>) elementType.getInstanceType();
     return filterByType(elementClass);
   }
 
-  public Query<?> filterByType(Class<? extends ModelElementInstance> elementClass) {
-    List<T> filtered = new ArrayList<T>();
+  @SuppressWarnings("unchecked")
+  public <V extends ModelElementInstance> Query<V> filterByType(Class<V> elementClass) {
+    List<V> filtered = new ArrayList<V>();
     for (T instance : collection) {
       if (elementClass.isAssignableFrom(instance.getClass())) {
-        filtered.add(instance);
+        filtered.add((V) instance);
       }
     }
-    return new QueryImpl<T>(filtered);
+    return new QueryImpl<V>(filtered);
   }
 
   public T singleResult() {
