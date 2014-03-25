@@ -33,8 +33,8 @@ import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeIn
  */
 public class CorrelationPropertyRetrievalExpressionImpl extends BaseElementImpl implements CorrelationPropertyRetrievalExpression {
 
-  private static AttributeReference<Message> messageRefAttribute;
-  private static ChildElement<MessagePath> messagePathChild;
+  protected static AttributeReference<Message> messageRefAttribute;
+  protected static ChildElement<MessagePath> messagePathChild;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(CorrelationPropertyRetrievalExpression.class, BPMN_ELEMENT_CORRELATION_PROPERTY_RETRIEVAL_EXPRESSION)

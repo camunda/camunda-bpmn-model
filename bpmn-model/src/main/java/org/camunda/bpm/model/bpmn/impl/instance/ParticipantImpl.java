@@ -36,11 +36,11 @@ import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeIn
  */
 public class ParticipantImpl extends BaseElementImpl implements Participant {
 
-  private static Attribute<String> nameAttribute;
-  private static AttributeReference<Process> processRefAttribute;
-  private static ElementReferenceCollection<Interface, InterfaceRef> interfaceRefCollection;
-  private static ElementReferenceCollection<EndPoint, EndPointRef> endPointRefCollection;
-  private static ChildElement<ParticipantMultiplicity> participantMultiplicityChild;
+  protected static Attribute<String> nameAttribute;
+  protected static AttributeReference<Process> processRefAttribute;
+  protected static ElementReferenceCollection<Interface, InterfaceRef> interfaceRefCollection;
+  protected static ElementReferenceCollection<EndPoint, EndPointRef> endPointRefCollection;
+  protected static ChildElement<ParticipantMultiplicity> participantMultiplicityChild;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(Participant.class, BPMN_ELEMENT_PARTICIPANT)

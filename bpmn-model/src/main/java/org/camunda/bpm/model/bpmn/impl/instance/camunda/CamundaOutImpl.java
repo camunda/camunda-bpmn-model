@@ -11,9 +11,10 @@
  * limitations under the License.
  */
 
-package org.camunda.bpm.model.bpmn.instance.camunda;
+package org.camunda.bpm.model.bpmn.impl.instance.camunda;
 
 import org.camunda.bpm.model.bpmn.impl.instance.BpmnModelElementInstanceImpl;
+import org.camunda.bpm.model.bpmn.instance.camunda.CamundaOut;
 import org.camunda.bpm.model.xml.ModelBuilder;
 import org.camunda.bpm.model.xml.impl.instance.ModelTypeInstanceContext;
 import org.camunda.bpm.model.xml.type.ModelElementTypeBuilder;
@@ -29,10 +30,10 @@ import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeIn
  */
 public class CamundaOutImpl extends BpmnModelElementInstanceImpl implements CamundaOut {
 
-  private static Attribute<String> camundaSourceAttribute;
-  private static Attribute<String> camundaSourceExpressionAttribute;
-  private static Attribute<String> camundaVariablesAttribute;
-  private static Attribute<String> camundaTargetAttribute;
+  protected static Attribute<String> camundaSourceAttribute;
+  protected static Attribute<String> camundaSourceExpressionAttribute;
+  protected static Attribute<String> camundaVariablesAttribute;
+  protected static Attribute<String> camundaTargetAttribute;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(CamundaOut.class, CAMUNDA_ELEMENT_OUT)

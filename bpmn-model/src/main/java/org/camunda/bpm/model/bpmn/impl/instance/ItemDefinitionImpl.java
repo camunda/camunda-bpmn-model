@@ -30,9 +30,9 @@ import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeIn
  */
 public class ItemDefinitionImpl extends RootElementImpl implements ItemDefinition {
 
-  private static Attribute<String> structureRefAttribute;
-  private static Attribute<Boolean> isCollectionAttribute;
-  private static Attribute<ItemKind> itemKindAttribute;
+  protected static Attribute<String> structureRefAttribute;
+  protected static Attribute<Boolean> isCollectionAttribute;
+  protected static Attribute<ItemKind> itemKindAttribute;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(ItemDefinition.class,BpmnModelConstants.BPMN_ELEMENT_ITEM_DEFINITION)

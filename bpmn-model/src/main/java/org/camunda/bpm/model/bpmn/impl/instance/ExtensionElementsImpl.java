@@ -36,7 +36,7 @@ import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN_ELEMENT_EX
  */
 public class ExtensionElementsImpl extends BpmnModelElementInstanceImpl implements ExtensionElements {
 
-  private static ChildElementCollection<ModelElementInstance> anyCollection;
+  protected static ChildElementCollection<ModelElementInstance> anyCollection;
 
   public static void registerType(ModelBuilder modelBuilder) {
 

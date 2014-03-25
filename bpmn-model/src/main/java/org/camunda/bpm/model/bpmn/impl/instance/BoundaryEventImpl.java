@@ -34,8 +34,8 @@ import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeIn
  */
 public class BoundaryEventImpl extends CatchEventImpl implements BoundaryEvent {
 
-  private static Attribute<Boolean> cancelActivityAttribute;
-  private static AttributeReference<Activity> attachedToRefAttribute;
+  protected static Attribute<Boolean> cancelActivityAttribute;
+  protected static AttributeReference<Activity> attachedToRefAttribute;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(BoundaryEvent.class, BPMN_ELEMENT_BOUNDARY_EVENT)

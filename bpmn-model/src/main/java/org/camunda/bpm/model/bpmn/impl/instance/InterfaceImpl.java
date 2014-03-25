@@ -35,9 +35,9 @@ import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeIn
  */
 public class InterfaceImpl extends RootElementImpl implements Interface {
 
-  private static Attribute<String> nameAttribute;
-  private static Attribute<String> implementationRefAttribute;
-  private static ChildElementCollection<Operation> operationCollection;
+  protected static Attribute<String> nameAttribute;
+  protected static Attribute<String> implementationRefAttribute;
+  protected static ChildElementCollection<Operation> operationCollection;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(Interface.class, BPMN_ELEMENT_INTERFACE)

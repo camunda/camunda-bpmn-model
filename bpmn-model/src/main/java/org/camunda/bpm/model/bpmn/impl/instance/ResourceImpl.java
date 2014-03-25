@@ -35,8 +35,8 @@ import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeIn
  */
 public class ResourceImpl extends RootElementImpl implements Resource {
 
-  private static Attribute<String> nameAttribute;
-  private static ChildElementCollection<ResourceParameter> resourceParameterCollection;
+  protected static Attribute<String> nameAttribute;
+  protected static ChildElementCollection<ResourceParameter> resourceParameterCollection;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(Resource.class, BPMN_ELEMENT_RESOURCE)

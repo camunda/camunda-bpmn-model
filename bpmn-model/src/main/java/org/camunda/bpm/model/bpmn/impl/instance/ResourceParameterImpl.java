@@ -32,9 +32,9 @@ import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeIn
  */
 public class ResourceParameterImpl extends BaseElementImpl implements ResourceParameter {
 
-  private static Attribute<String> nameAttribute;
-  private static AttributeReference<ItemDefinition> typeAttribute;
-  private static Attribute<Boolean> isRequiredAttribute;
+  protected static Attribute<String> nameAttribute;
+  protected static AttributeReference<ItemDefinition> typeAttribute;
+  protected static Attribute<Boolean> isRequiredAttribute;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(ResourceParameter.class, BPMN_ELEMENT_RESOURCE_PARAMETER)

@@ -35,10 +35,10 @@ import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeIn
  */
 public class ReceiveTaskImpl extends TaskImpl implements ReceiveTask {
 
-  private static Attribute<String> implementationAttribute;
-  private static Attribute<Boolean> instantiateAttribute;
-  private static AttributeReference<Message> messageRefAttribute;
-  private static AttributeReference<Operation> operationRefAttribute;
+  protected static Attribute<String> implementationAttribute;
+  protected static Attribute<Boolean> instantiateAttribute;
+  protected static AttributeReference<Message> messageRefAttribute;
+  protected static AttributeReference<Operation> operationRefAttribute;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(ReceiveTask.class, BPMN_ELEMENT_RECEIVE_TASK)

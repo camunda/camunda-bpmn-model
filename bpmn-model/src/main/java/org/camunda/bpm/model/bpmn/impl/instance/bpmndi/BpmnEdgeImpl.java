@@ -38,11 +38,11 @@ import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeIn
  */
 public class BpmnEdgeImpl extends LabeledEdgeImpl implements BpmnEdge {
 
-  private static AttributeReference<BaseElement> bpmnElementAttribute;
-  private static AttributeReference<DiagramElement> sourceElementAttribute;
-  private static AttributeReference<DiagramElement> targetElementAttribute;
-  private static Attribute<MessageVisibleKind> messageVisibleKindAttribute;
-  private static ChildElement<BpmnLabel> bpmnLabelChild;
+  protected static AttributeReference<BaseElement> bpmnElementAttribute;
+  protected static AttributeReference<DiagramElement> sourceElementAttribute;
+  protected static AttributeReference<DiagramElement> targetElementAttribute;
+  protected static Attribute<MessageVisibleKind> messageVisibleKindAttribute;
+  protected static ChildElement<BpmnLabel> bpmnLabelChild;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(BpmnEdge.class, BPMNDI_ELEMENT_BPMN_EDGE)

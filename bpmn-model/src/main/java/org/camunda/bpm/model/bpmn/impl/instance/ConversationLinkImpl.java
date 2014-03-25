@@ -32,9 +32,9 @@ import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeIn
  */
 public class ConversationLinkImpl extends BaseElementImpl implements ConversationLink {
 
-  private static Attribute<String> nameAttribute;
-  private static AttributeReference<InteractionNode> sourceRefAttribute;
-  private static AttributeReference<InteractionNode> targetRefAttribute;
+  protected static Attribute<String> nameAttribute;
+  protected static AttributeReference<InteractionNode> sourceRefAttribute;
+  protected static AttributeReference<InteractionNode> targetRefAttribute;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(ConversationLink.class, BPMN_ELEMENT_CONVERSATION_LINK)

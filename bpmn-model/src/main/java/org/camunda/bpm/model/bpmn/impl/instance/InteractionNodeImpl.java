@@ -29,7 +29,7 @@ import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN_ATTRIBUTE_
  */
 public abstract class InteractionNodeImpl extends BpmnModelElementInstanceImpl implements InteractionNode {
 
-  private static Attribute<String> idAttribute;
+  protected static Attribute<String> idAttribute;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(InteractionNode.class, "")

@@ -40,8 +40,8 @@ import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.*;
  */
 public abstract class FlowNodeImpl extends FlowElementImpl implements FlowNode {
 
-  private static ElementReferenceCollection<SequenceFlow, Incoming> incomingCollection;
-  private static ElementReferenceCollection<SequenceFlow, Outgoing> outgoingCollection;
+  protected static ElementReferenceCollection<SequenceFlow, Incoming> incomingCollection;
+  protected static ElementReferenceCollection<SequenceFlow, Outgoing> outgoingCollection;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(FlowNode.class, BPMN_ELEMENT_FLOW_NODE)

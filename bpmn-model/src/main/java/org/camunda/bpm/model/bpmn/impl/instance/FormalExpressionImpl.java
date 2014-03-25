@@ -32,8 +32,8 @@ import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeIn
  */
 public class FormalExpressionImpl extends ExpressionImpl implements FormalExpression {
 
-  private static Attribute<String> languageAttribute;
-  private static AttributeReference<ItemDefinition> evaluatesToTypeRefAttribute;
+  protected static Attribute<String> languageAttribute;
+  protected static AttributeReference<ItemDefinition> evaluatesToTypeRefAttribute;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(FormalExpression.class, BPMN_ELEMENT_FORMAL_EXPRESSION)

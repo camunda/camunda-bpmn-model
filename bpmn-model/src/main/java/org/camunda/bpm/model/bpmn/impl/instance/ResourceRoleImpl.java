@@ -35,10 +35,10 @@ import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeIn
  */
 public class ResourceRoleImpl extends BaseElementImpl implements ResourceRole {
 
-  private static Attribute<String> nameAttribute;
-  private static ElementReference<Resource, ResourceRef> resourceRefChild;
-  private static ChildElementCollection<ResourceParameterBinding> resourceParameterBindingCollection;
-  private static ChildElement<ResourceAssignmentExpression> resourceAssignmentExpressionChild;
+  protected static Attribute<String> nameAttribute;
+  protected static ElementReference<Resource, ResourceRef> resourceRefChild;
+  protected static ChildElementCollection<ResourceParameterBinding> resourceParameterBindingCollection;
+  protected static ChildElement<ResourceAssignmentExpression> resourceAssignmentExpressionChild;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(ResourceRole.class, BPMN_ELEMENT_RESOURCE_ROLE)

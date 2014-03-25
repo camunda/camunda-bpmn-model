@@ -35,8 +35,8 @@ import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeIn
  */
 public class LaneSetImpl extends BaseElementImpl implements LaneSet {
 
-  private static Attribute<String> nameAttribute;
-  private static ChildElementCollection<Lane> laneCollection;
+  protected static Attribute<String> nameAttribute;
+  protected static ChildElementCollection<Lane> laneCollection;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(LaneSet.class, BPMN_ELEMENT_LANE_SET)

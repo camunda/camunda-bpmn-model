@@ -30,8 +30,8 @@ import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.*;
  */
 public class MessageImpl extends RootElementImpl implements Message {
 
-  private static Attribute<String> nameAttribute;
-  private static AttributeReference<ItemDefinition> itemRefAttribute;
+  protected static Attribute<String> nameAttribute;
+  protected static AttributeReference<ItemDefinition> itemRefAttribute;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(Message.class, BPMN_ELEMENT_MESSAGE)

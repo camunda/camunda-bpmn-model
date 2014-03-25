@@ -31,8 +31,8 @@ import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeIn
  */
 public class ConversationAssociationImpl extends BaseElementImpl implements ConversationAssociation {
 
-  private static AttributeReference<ConversationNode> innerConversationNodeRefAttribute;
-  private static AttributeReference<ConversationNode> outerConversationNodeRefAttribute;
+  protected static AttributeReference<ConversationNode> innerConversationNodeRefAttribute;
+  protected static AttributeReference<ConversationNode> outerConversationNodeRefAttribute;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(ConversationAssociation.class, BPMN_ELEMENT_CONVERSATION_ASSOCIATION)

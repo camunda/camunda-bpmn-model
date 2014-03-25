@@ -31,8 +31,8 @@ import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeIn
  */
 public class MessageFlowAssociationImpl extends BaseElementImpl implements MessageFlowAssociation {
 
-  private static AttributeReference<MessageFlow> innerMessageFlowRefAttribute;
-  private static AttributeReference<MessageFlow> outerMessageFlowRefAttribute;
+  protected static AttributeReference<MessageFlow> innerMessageFlowRefAttribute;
+  protected static AttributeReference<MessageFlow> outerMessageFlowRefAttribute;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(MessageFlowAssociation.class, BPMN_ELEMENT_MESSAGE_FLOW_ASSOCIATION)

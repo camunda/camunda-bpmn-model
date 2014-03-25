@@ -36,11 +36,11 @@ import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeIn
  */
 public class OutputSetImpl extends BaseElementImpl implements OutputSet {
 
-  private static Attribute<String> nameAttribute;
-  private static ElementReferenceCollection<DataInput, DataOutputRefs> dataOutputRefsCollection;
-  private static ElementReferenceCollection<DataInput, OptionalOutputRefs> optionalOutputRefsCollection;
-  private static ElementReferenceCollection<DataInput, WhileExecutingOutputRefs> whileExecutingOutputRefsCollection;
-  private static ElementReferenceCollection<InputSet, InputSetRefs>  inputSetInputSetRefsCollection;
+  protected static Attribute<String> nameAttribute;
+  protected static ElementReferenceCollection<DataInput, DataOutputRefs> dataOutputRefsCollection;
+  protected static ElementReferenceCollection<DataInput, OptionalOutputRefs> optionalOutputRefsCollection;
+  protected static ElementReferenceCollection<DataInput, WhileExecutingOutputRefs> whileExecutingOutputRefsCollection;
+  protected static ElementReferenceCollection<InputSet, InputSetRefs>  inputSetInputSetRefsCollection;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(OutputSet.class, BPMN_ELEMENT_OUTPUT_SET)

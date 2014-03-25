@@ -35,7 +35,7 @@ import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeIn
  */
 public class CamundaValidationImpl extends BpmnModelElementInstanceImpl implements CamundaValidation {
 
-  private static ChildElementCollection<CamundaConstraint> camundaConstraintCollection;
+  protected static ChildElementCollection<CamundaConstraint> camundaConstraintCollection;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(CamundaValidation.class, CAMUNDA_ELEMENT_VALIDATION)

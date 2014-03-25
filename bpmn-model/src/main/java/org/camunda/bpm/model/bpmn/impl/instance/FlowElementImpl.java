@@ -33,10 +33,10 @@ import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.*;
  */
 public abstract class FlowElementImpl extends BaseElementImpl implements FlowElement {
 
-  private static Attribute<String> nameAttribute;
-  private static ChildElement<Auditing> auditingChild;
-  private static ChildElement<Monitoring> monitoringChild;
-  private static ElementReferenceCollection<CategoryValue, CategoryValueRef> categoryValueRefCollection;
+  protected static Attribute<String> nameAttribute;
+  protected static ChildElement<Auditing> auditingChild;
+  protected static ChildElement<Monitoring> monitoringChild;
+  protected static ElementReferenceCollection<CategoryValue, CategoryValueRef> categoryValueRefCollection;
 
   public static void registerType(ModelBuilder modelBuilder) {
 

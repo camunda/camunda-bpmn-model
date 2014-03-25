@@ -34,7 +34,7 @@ import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeIn
  */
 public class BpmnLabelImpl extends LabelImpl implements BpmnLabel {
 
-  private static AttributeReference<BpmnLabelStyle> labelStyleAttribute;
+  protected static AttributeReference<BpmnLabelStyle> labelStyleAttribute;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(BpmnLabel.class, BPMNDI_ELEMENT_BPMN_LABEL)

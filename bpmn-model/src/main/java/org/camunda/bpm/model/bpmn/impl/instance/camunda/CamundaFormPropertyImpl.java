@@ -35,17 +35,17 @@ import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeIn
  */
 public class CamundaFormPropertyImpl extends BpmnModelElementInstanceImpl implements CamundaFormProperty {
 
-  private static Attribute<String> camundaIdAttribute;
-  private static Attribute<String> camundaNameAttribute;
-  private static Attribute<String> camundaTypeAttribute;
-  private static Attribute<Boolean> camundaRequiredAttribute;
-  private static Attribute<Boolean> camundaReadableAttribute;
-  private static Attribute<Boolean> camundaWriteableAttribute;
-  private static Attribute<String> camundaVariableAttribute;
-  private static Attribute<String> camundaExpressionAttribute;
-  private static Attribute<String> camundaDatePatternAttribute;
-  private static Attribute<String> camundaDefaultAttribute;
-  private static ChildElementCollection<CamundaValue> camundaValueCollection;
+  protected static Attribute<String> camundaIdAttribute;
+  protected static Attribute<String> camundaNameAttribute;
+  protected static Attribute<String> camundaTypeAttribute;
+  protected static Attribute<Boolean> camundaRequiredAttribute;
+  protected static Attribute<Boolean> camundaReadableAttribute;
+  protected static Attribute<Boolean> camundaWriteableAttribute;
+  protected static Attribute<String> camundaVariableAttribute;
+  protected static Attribute<String> camundaExpressionAttribute;
+  protected static Attribute<String> camundaDatePatternAttribute;
+  protected static Attribute<String> camundaDefaultAttribute;
+  protected static ChildElementCollection<CamundaValue> camundaValueCollection;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(CamundaFormProperty.class, CAMUNDA_ELEMENT_FORM_PROPERTY)

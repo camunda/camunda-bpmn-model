@@ -36,8 +36,8 @@ import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeIn
  */
 public class CorrelationSubscriptionImpl extends BaseElementImpl implements CorrelationSubscription {
 
-  private static AttributeReference<CorrelationKey> correlationKeyAttribute;
-  private static ChildElementCollection<CorrelationPropertyBinding> correlationPropertyBindingCollection;
+  protected static AttributeReference<CorrelationKey> correlationKeyAttribute;
+  protected static ChildElementCollection<CorrelationPropertyBinding> correlationPropertyBindingCollection;
   
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(CorrelationSubscription.class, BPMN_ELEMENT_CORRELATION_SUBSCRIPTION)

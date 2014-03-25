@@ -35,12 +35,12 @@ import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeIn
  */
 public class ScriptTaskImpl extends TaskImpl implements ScriptTask {
 
-  private static Attribute<String> scriptFormatAttribute;
-  private static ChildElement<Script> scriptChild;
+  protected static Attribute<String> scriptFormatAttribute;
+  protected static ChildElement<Script> scriptChild;
 
   /** camunda extensions */
 
-  private static Attribute<String> camundaResultVariableAttribute;
+  protected static Attribute<String> camundaResultVariableAttribute;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(ScriptTask.class, BPMN_ELEMENT_SCRIPT_TASK)

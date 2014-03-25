@@ -30,8 +30,8 @@ import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeIn
  */
 public class ParticipantMultiplicityImpl extends BaseElementImpl implements ParticipantMultiplicity {
 
-  private static Attribute<Integer> minimumAttribute;
-  private static Attribute<Integer> maximumAttribute;
+  protected static Attribute<Integer> minimumAttribute;
+  protected static Attribute<Integer> maximumAttribute;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(ParticipantMultiplicity.class, BPMN_ELEMENT_PARTICIPANT_MULTIPLICITY)

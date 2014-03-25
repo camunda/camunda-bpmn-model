@@ -34,7 +34,7 @@ import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeIn
  */
 public class BpmnLabelStyleImpl extends StyleImpl implements BpmnLabelStyle {
 
-  private static ChildElement<Font> fontChild;
+  protected static ChildElement<Font> fontChild;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(BpmnLabelStyle.class, BPMNDI_ELEMENT_BPMN_LABEL_STYLE)

@@ -34,9 +34,9 @@ import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeIn
  */
 public class ExtensionImpl extends BpmnModelElementInstanceImpl implements Extension {
 
-  private static Attribute<String> definitionAttribute;
-  private static Attribute<Boolean> mustUnderstandAttribute;
-  private static ChildElementCollection<Documentation> documentationCollection;
+  protected static Attribute<String> definitionAttribute;
+  protected static Attribute<Boolean> mustUnderstandAttribute;
+  protected static ChildElementCollection<Documentation> documentationCollection;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(Extension.class, BPMN_ELEMENT_EXTENSION)

@@ -37,14 +37,14 @@ import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeIn
  */
 public class BpmnShapeImpl extends LabeledShapeImpl implements BpmnShape {
 
-  private static AttributeReference<BaseElement> bpmnElementAttribute;
-  private static Attribute<Boolean> isHorizontalAttribute;
-  private static Attribute<Boolean> isExpandedAttribute;
-  private static Attribute<Boolean> isMarkerVisibleAttribute;
-  private static Attribute<Boolean> isMessageVisibleAttribute;
-  private static Attribute<ParticipantBandKind> participantBandKindAttribute;
-  private static AttributeReference<BpmnShape> choreographyActivityShapeAttribute;
-  private static ChildElement<BpmnLabel> bpmnLabelChild;
+  protected static AttributeReference<BaseElement> bpmnElementAttribute;
+  protected static Attribute<Boolean> isHorizontalAttribute;
+  protected static Attribute<Boolean> isExpandedAttribute;
+  protected static Attribute<Boolean> isMarkerVisibleAttribute;
+  protected static Attribute<Boolean> isMessageVisibleAttribute;
+  protected static Attribute<ParticipantBandKind> participantBandKindAttribute;
+  protected static AttributeReference<BpmnShape> choreographyActivityShapeAttribute;
+  protected static ChildElement<BpmnLabel> bpmnLabelChild;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(BpmnShape.class, BPMNDI_ELEMENT_BPMN_SHAPE)

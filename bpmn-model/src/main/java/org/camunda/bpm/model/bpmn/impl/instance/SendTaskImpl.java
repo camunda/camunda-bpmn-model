@@ -35,17 +35,17 @@ import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeIn
  */
 public class SendTaskImpl extends TaskImpl implements SendTask {
 
-  private static Attribute<String> implementationAttribute;
-  private static AttributeReference<Message> messageRefAttribute;
-  private static AttributeReference<Operation> operationRefAttribute;
+  protected static Attribute<String> implementationAttribute;
+  protected static AttributeReference<Message> messageRefAttribute;
+  protected static AttributeReference<Operation> operationRefAttribute;
 
   /** camunda extensions */
 
-  private static Attribute<String> camundaClassAttribute;
-  private static Attribute<String> camundaDelegateExpressionAttribute;
-  private static Attribute<String> camundaExpressionAttribute;
-  private static Attribute<String> camundaResultVariableAttribute;
-  private static Attribute<String> camundaTypeAttribute;
+  protected static Attribute<String> camundaClassAttribute;
+  protected static Attribute<String> camundaDelegateExpressionAttribute;
+  protected static Attribute<String> camundaExpressionAttribute;
+  protected static Attribute<String> camundaResultVariableAttribute;
+  protected static Attribute<String> camundaTypeAttribute;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(SendTask.class, BPMN_ELEMENT_SEND_TASK)

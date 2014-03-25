@@ -36,8 +36,8 @@ import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeIn
  */
 public class CallConversationImpl extends ConversationNodeImpl implements CallConversation {
 
-  private static AttributeReference<GlobalConversation> calledCollaborationRefAttribute;
-  private static ChildElementCollection<ParticipantAssociation> participantAssociationCollection;
+  protected static AttributeReference<GlobalConversation> calledCollaborationRefAttribute;
+  protected static ChildElementCollection<ParticipantAssociation> participantAssociationCollection;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(CallConversation.class, BPMN_ELEMENT_CALL_CONVERSATION)

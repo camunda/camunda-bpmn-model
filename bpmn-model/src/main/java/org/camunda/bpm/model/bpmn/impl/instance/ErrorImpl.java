@@ -31,9 +31,9 @@ import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeIn
  */
 public class ErrorImpl extends RootElementImpl implements Error {
 
-  private static Attribute<String> nameAttribute;
-  private static Attribute<String> errorCodeAttribute;
-  private static AttributeReference<ItemDefinition> structureRefAttribute;
+  protected static Attribute<String> nameAttribute;
+  protected static Attribute<String> errorCodeAttribute;
+  protected static AttributeReference<ItemDefinition> structureRefAttribute;
   
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(Error.class, BPMN_ELEMENT_ERROR)

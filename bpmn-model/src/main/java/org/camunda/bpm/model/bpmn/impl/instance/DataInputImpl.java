@@ -30,8 +30,8 @@ import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeIn
  */
 public class DataInputImpl extends ItemAwareElementImpl implements DataInput {
 
-  private static Attribute<String> nameAttribute;
-  private static Attribute<Boolean> isCollectionAttribute;
+  protected static Attribute<String> nameAttribute;
+  protected static Attribute<Boolean> isCollectionAttribute;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(DataInput.class, BPMN_ELEMENT_DATA_INPUT)

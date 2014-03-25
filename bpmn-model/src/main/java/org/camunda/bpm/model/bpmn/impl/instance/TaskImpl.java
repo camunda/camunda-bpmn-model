@@ -35,8 +35,8 @@ public class TaskImpl extends ActivityImpl implements Task {
 
   /** camunda extensions */
 
-  private static Attribute<Boolean> camundaAsyncAttribute;
-  private static Attribute<Boolean> camundaExclusiveAttribute;
+  protected static Attribute<Boolean> camundaAsyncAttribute;
+  protected static Attribute<Boolean> camundaExclusiveAttribute;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(Task.class, BPMN_ELEMENT_TASK)

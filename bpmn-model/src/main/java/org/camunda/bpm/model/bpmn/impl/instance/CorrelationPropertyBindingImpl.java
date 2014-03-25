@@ -33,8 +33,8 @@ import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeIn
  */
 public class CorrelationPropertyBindingImpl extends BaseElementImpl implements CorrelationPropertyBinding {
 
-  private static AttributeReference<CorrelationProperty> correlationPropertyRefAttribute;
-  private static ChildElement<DataPath> dataPathChild;
+  protected static AttributeReference<CorrelationProperty> correlationPropertyRefAttribute;
+  protected static ChildElement<DataPath> dataPathChild;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(CorrelationPropertyBinding.class, BPMN_ELEMENT_CORRELATION_PROPERTY_BINDING)

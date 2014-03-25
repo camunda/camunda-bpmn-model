@@ -33,18 +33,18 @@ import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeIn
  */
 public class CollaborationImpl extends RootElementImpl implements Collaboration {
 
-  private static Attribute<String> nameAttribute;
-  private static Attribute<Boolean> isClosedAttribute;
-  private static ChildElementCollection<Participant> participantCollection;
-  private static ChildElementCollection<MessageFlow> messageFlowCollection;
-  private static ChildElementCollection<Artifact> artifactCollection;
-  private static ChildElementCollection<ConversationNode> conversationNodeCollection;
-  private static ChildElementCollection<ConversationAssociation> conversationAssociationCollection;
-  private static ChildElementCollection<ParticipantAssociation> participantAssociationCollection;
-  private static ChildElementCollection<MessageFlowAssociation> messageFlowAssociationCollection;
-  private static ChildElementCollection<CorrelationKey> correlationKeyCollection;
+  protected static Attribute<String> nameAttribute;
+  protected static Attribute<Boolean> isClosedAttribute;
+  protected static ChildElementCollection<Participant> participantCollection;
+  protected static ChildElementCollection<MessageFlow> messageFlowCollection;
+  protected static ChildElementCollection<Artifact> artifactCollection;
+  protected static ChildElementCollection<ConversationNode> conversationNodeCollection;
+  protected static ChildElementCollection<ConversationAssociation> conversationAssociationCollection;
+  protected static ChildElementCollection<ParticipantAssociation> participantAssociationCollection;
+  protected static ChildElementCollection<MessageFlowAssociation> messageFlowAssociationCollection;
+  protected static ChildElementCollection<CorrelationKey> correlationKeyCollection;
   /** TODO: choreographyRef */
-  private static ChildElementCollection<ConversationLink> conversationLinkCollection;
+  protected static ChildElementCollection<ConversationLink> conversationLinkCollection;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(Collaboration.class, BPMN_ELEMENT_COLLABORATION)

@@ -39,18 +39,18 @@ import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeIn
  */
 public class UserTaskImpl extends TaskImpl implements UserTask {
 
-  private static Attribute<String> implementationAttribute;
-  private static ChildElementCollection<Rendering> renderingCollection;
+  protected static Attribute<String> implementationAttribute;
+  protected static ChildElementCollection<Rendering> renderingCollection;
 
   /** camunda extensions */
 
-  private static Attribute<String> camundaAssigneeAttribute;
-  private static Attribute<String> camundaCandidateGroupsAttribute;
-  private static Attribute<String> camundaCandidateUsersAttribute;
-  private static Attribute<String> camundaDueDateAttribute;
-  private static Attribute<String> camundaFormHandlerClassAttribute;
-  private static Attribute<String> camundaFormKeyAttribute;
-  private static Attribute<String> camundaPriorityAttribute;
+  protected static Attribute<String> camundaAssigneeAttribute;
+  protected static Attribute<String> camundaCandidateGroupsAttribute;
+  protected static Attribute<String> camundaCandidateUsersAttribute;
+  protected static Attribute<String> camundaDueDateAttribute;
+  protected static Attribute<String> camundaFormHandlerClassAttribute;
+  protected static Attribute<String> camundaFormKeyAttribute;
+  protected static Attribute<String> camundaPriorityAttribute;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(UserTask.class, BPMN_ELEMENT_USER_TASK)

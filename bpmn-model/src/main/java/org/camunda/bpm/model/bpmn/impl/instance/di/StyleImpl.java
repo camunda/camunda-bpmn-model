@@ -31,7 +31,7 @@ import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.DI_NS;
  */
 public abstract class StyleImpl extends BpmnModelElementInstanceImpl implements Style {
 
-  private static Attribute<String> idAttribute;
+  protected static Attribute<String> idAttribute;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(Style.class, DI_ELEMENT_STYLE)

@@ -35,11 +35,11 @@ import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeIn
  */
 public class CamundaExecutionListenerImpl extends BpmnModelElementInstanceImpl implements CamundaExecutionListener {
 
-  private static Attribute<String> camundaEventAttribute;
-  private static Attribute<String> camundaClassAttribute;
-  private static Attribute<String> camundaExpressionAttribute;
-  private static Attribute<String> camundaDelegateExpressionAttribute;
-  private static ChildElementCollection<CamundaField> camundaFieldCollection;
+  protected static Attribute<String> camundaEventAttribute;
+  protected static Attribute<String> camundaClassAttribute;
+  protected static Attribute<String> camundaExpressionAttribute;
+  protected static Attribute<String> camundaDelegateExpressionAttribute;
+  protected static ChildElementCollection<CamundaField> camundaFieldCollection;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(CamundaExecutionListener.class, CAMUNDA_ELEMENT_EXECUTION_LISTENER)

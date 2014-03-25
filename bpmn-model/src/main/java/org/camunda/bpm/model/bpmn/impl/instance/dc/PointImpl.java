@@ -30,8 +30,8 @@ import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeIn
  */
 public class PointImpl extends BpmnModelElementInstanceImpl implements Point {
 
-  private static Attribute<Double> xAttribute;
-  private static Attribute<Double> yAttribute;
+  protected static Attribute<Double> xAttribute;
+  protected static Attribute<Double> yAttribute;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(Point.class, DC_ELEMENT_POINT)

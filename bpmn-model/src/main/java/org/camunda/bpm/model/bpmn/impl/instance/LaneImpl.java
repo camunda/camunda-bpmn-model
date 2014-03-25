@@ -37,11 +37,11 @@ import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeIn
  */
 public class LaneImpl extends BaseElementImpl implements Lane {
 
-  private static Attribute<String> nameAttribute;
-  private static AttributeReference<PartitionElement> partitionElementRefAttribute;
-  private static ChildElement<PartitionElement> partitionElementChild;
-  private static ElementReferenceCollection<FlowNode, FlowNodeRef> flowNodeRefCollection;
-  private static ChildElement<ChildLaneSet> childLaneSetChild;
+  protected static Attribute<String> nameAttribute;
+  protected static AttributeReference<PartitionElement> partitionElementRefAttribute;
+  protected static ChildElement<PartitionElement> partitionElementChild;
+  protected static ElementReferenceCollection<FlowNode, FlowNodeRef> flowNodeRefCollection;
+  protected static ChildElement<ChildLaneSet> childLaneSetChild;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(Lane.class, BPMN_ELEMENT_LANE)

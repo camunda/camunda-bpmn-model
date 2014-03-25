@@ -32,9 +32,9 @@ import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeIn
  */
 public class AssociationImpl extends ArtifactImpl implements Association {
 
-  private static AttributeReference<BaseElement> sourceRefAttribute;
-  private static AttributeReference<BaseElement> targetRefAttribute;
-  private static Attribute<AssociationDirection> associationDirectionAttribute;
+  protected static AttributeReference<BaseElement> sourceRefAttribute;
+  protected static AttributeReference<BaseElement> targetRefAttribute;
+  protected static Attribute<AssociationDirection> associationDirectionAttribute;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(Association.class, BPMN_ELEMENT_ASSOCIATION)

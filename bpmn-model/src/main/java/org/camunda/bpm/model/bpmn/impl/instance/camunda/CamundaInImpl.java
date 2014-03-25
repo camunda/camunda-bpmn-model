@@ -30,11 +30,11 @@ import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeIn
  */
 public class CamundaInImpl extends BpmnModelElementInstanceImpl implements CamundaIn {
 
-  private static Attribute<String> camundaSourceAttribute;
-  private static Attribute<String> camundaSourceExpressionAttribute;
-  private static Attribute<String> camundaVariablesAttribute;
-  private static Attribute<String> camundaTargetAttribute;
-  private static Attribute<String> camundaBusinessKeyAttribute;
+  protected static Attribute<String> camundaSourceAttribute;
+  protected static Attribute<String> camundaSourceExpressionAttribute;
+  protected static Attribute<String> camundaVariablesAttribute;
+  protected static Attribute<String> camundaTargetAttribute;
+  protected static Attribute<String> camundaBusinessKeyAttribute;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(CamundaIn.class, CAMUNDA_ELEMENT_IN)

@@ -32,7 +32,7 @@ import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.DI_NS;
  */
 public abstract class EdgeImpl extends DiagramElementImpl implements Edge {
 
-  private static ChildElementCollection<Waypoint> waypointCollection;
+  protected static ChildElementCollection<Waypoint> waypointCollection;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(Edge.class, DI_ELEMENT_EDGE)

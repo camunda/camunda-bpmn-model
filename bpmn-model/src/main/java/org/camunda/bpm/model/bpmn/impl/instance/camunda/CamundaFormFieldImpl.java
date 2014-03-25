@@ -38,14 +38,14 @@ import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeIn
  */
 public class CamundaFormFieldImpl extends BpmnModelElementInstanceImpl implements CamundaFormField {
 
-  private static Attribute<String> camundaIdAttribute;
-  private static Attribute<String> camundaLabelAttribute;
-  private static Attribute<String> camundaTypeAttribute;
-  private static Attribute<String> camundaDatePatternAttribute;
-  private static Attribute<String> camundaDefaultValueAttribute;
-  private static ChildElement<CamundaProperties> camundaPropertiesChild;
-  private static ChildElement<CamundaValidation> camundaValidationChild;
-  private static ChildElementCollection<CamundaValue> camundaValueCollection;
+  protected static Attribute<String> camundaIdAttribute;
+  protected static Attribute<String> camundaLabelAttribute;
+  protected static Attribute<String> camundaTypeAttribute;
+  protected static Attribute<String> camundaDatePatternAttribute;
+  protected static Attribute<String> camundaDefaultValueAttribute;
+  protected static ChildElement<CamundaProperties> camundaPropertiesChild;
+  protected static ChildElement<CamundaValidation> camundaValidationChild;
+  protected static ChildElementCollection<CamundaValue> camundaValueCollection;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(CamundaFormField.class, CAMUNDA_ELEMENT_FORM_FIELD)

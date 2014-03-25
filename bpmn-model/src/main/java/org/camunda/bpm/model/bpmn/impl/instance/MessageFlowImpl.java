@@ -34,10 +34,10 @@ import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeIn
  */
 public class MessageFlowImpl extends BaseElementImpl implements MessageFlow {
 
-  private static Attribute<String> nameAttribute;
-  private static AttributeReference<InteractionNode> sourceRefAttribute;
-  private static AttributeReference<InteractionNode> targetRefAttribute;
-  private static AttributeReference<Message> messageRefAttribute;
+  protected static Attribute<String> nameAttribute;
+  protected static AttributeReference<InteractionNode> sourceRefAttribute;
+  protected static AttributeReference<InteractionNode> targetRefAttribute;
+  protected static AttributeReference<Message> messageRefAttribute;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(MessageFlow.class, BPMN_ELEMENT_MESSAGE_FLOW)

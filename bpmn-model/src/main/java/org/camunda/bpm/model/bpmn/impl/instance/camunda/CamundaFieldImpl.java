@@ -34,11 +34,11 @@ import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeIn
  */
 public class CamundaFieldImpl extends BpmnModelElementInstanceImpl implements CamundaField {
 
-  private static Attribute<String> camundaNameAttribute;
-  private static Attribute<String> camundaExpressionAttribute;
-  private static Attribute<String> camundaStringValueAttribute;
-  private static ChildElement<CamundaExpression> camundaExpressionChild;
-  private static ChildElement<CamundaString> camundaStringChild;
+  protected static Attribute<String> camundaNameAttribute;
+  protected static Attribute<String> camundaExpressionAttribute;
+  protected static Attribute<String> camundaStringValueAttribute;
+  protected static ChildElement<CamundaExpression> camundaExpressionChild;
+  protected static ChildElement<CamundaString> camundaStringChild;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(CamundaField.class, CAMUNDA_ELEMENT_FIELD)

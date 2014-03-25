@@ -33,7 +33,7 @@ import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeIn
  */
 public class ExclusiveGatewayImpl extends GatewayImpl implements ExclusiveGateway {
 
-  private static AttributeReference<SequenceFlow> defaultAttribute;
+  protected static AttributeReference<SequenceFlow> defaultAttribute;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(ExclusiveGateway.class, BPMN_ELEMENT_EXCLUSIVE_GATEWAY)

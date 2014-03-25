@@ -34,7 +34,7 @@ import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeIn
  */
 public class SubConversationImpl extends ConversationNodeImpl implements SubConversation {
 
-  private static ChildElementCollection<ConversationNode> conversationNodeCollection;
+  protected static ChildElementCollection<ConversationNode> conversationNodeCollection;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(SubConversation.class, BPMN_ELEMENT_SUB_CONVERSATION)

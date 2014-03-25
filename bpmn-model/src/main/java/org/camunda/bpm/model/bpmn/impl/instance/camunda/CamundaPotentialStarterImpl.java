@@ -33,7 +33,7 @@ import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeIn
  */
 public class CamundaPotentialStarterImpl extends BpmnModelElementInstanceImpl implements CamundaPotentialStarter {
 
-  private static ChildElement<ResourceAssignmentExpression> resourceAssignmentExpressionChild;
+  protected static ChildElement<ResourceAssignmentExpression> resourceAssignmentExpressionChild;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(CamundaPotentialStarter.class, CAMUNDA_ELEMENT_POTENTIAL_STARTER)

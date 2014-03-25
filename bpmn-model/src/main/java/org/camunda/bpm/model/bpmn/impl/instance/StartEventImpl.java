@@ -30,15 +30,15 @@ import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.*;
  */
 public class StartEventImpl extends CatchEventImpl implements StartEvent {
 
-  private static Attribute<Boolean> isInterruptingAttribute;
+  protected static Attribute<Boolean> isInterruptingAttribute;
 
   /** camunda extensions */
 
-  private static Attribute<Boolean> camundaAsyncAttribute;
-  private static Attribute<Boolean> camundaExclusiveAttribute;
-  private static Attribute<String> camundaFormHandlerClassAttribute;
-  private static Attribute<String> camundaFormKeyAttribute;
-  private static Attribute<String> camundaInitiatorAttribute;
+  protected static Attribute<Boolean> camundaAsyncAttribute;
+  protected static Attribute<Boolean> camundaExclusiveAttribute;
+  protected static Attribute<String> camundaFormHandlerClassAttribute;
+  protected static Attribute<String> camundaFormKeyAttribute;
+  protected static Attribute<String> camundaInitiatorAttribute;
 
   public static void registerType(ModelBuilder modelBuilder) {
 

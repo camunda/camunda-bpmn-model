@@ -37,11 +37,11 @@ import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeIn
  */
 public class OperationImpl extends BaseElementImpl implements Operation {
 
-  private static Attribute<String> nameAttribute;
-  private static Attribute<String> implementationRefAttribute;
-  private static ElementReference<Message, InMessageRef> inMessageRefChild;
-  private static ElementReference<Message, OutMessageRef> outMessageRefChild;
-  private static ElementReferenceCollection<Error, ErrorRef> errorRefCollection;
+  protected static Attribute<String> nameAttribute;
+  protected static Attribute<String> implementationRefAttribute;
+  protected static ElementReference<Message, InMessageRef> inMessageRefChild;
+  protected static ElementReference<Message, OutMessageRef> outMessageRefChild;
+  protected static ElementReferenceCollection<Error, ErrorRef> errorRefCollection;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(Operation.class, BPMN_ELEMENT_OPERATION)

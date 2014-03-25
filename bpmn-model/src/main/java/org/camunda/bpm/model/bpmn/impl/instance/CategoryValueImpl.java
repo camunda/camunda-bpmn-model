@@ -30,7 +30,7 @@ import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeIn
  */
 public class CategoryValueImpl extends BaseElementImpl implements CategoryValue {
 
-  private static Attribute<String> valueAttribute;
+  protected static Attribute<String> valueAttribute;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(CategoryValue.class, BPMN_ELEMENT_CATEGORY_VALUE)

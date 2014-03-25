@@ -36,10 +36,10 @@ import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeIn
  */
 public class CallableElementImpl extends RootElementImpl implements CallableElement {
 
-  private static Attribute<String> nameAttribute;
-  private static ElementReferenceCollection<Interface, SupportedInterfaceRef> supportedInterfaceRefCollection;
-  private static ChildElement<IoSpecification> ioSpecificationChild;
-  private static ChildElementCollection<IoBinding> ioBindingCollection;
+  protected static Attribute<String> nameAttribute;
+  protected static ElementReferenceCollection<Interface, SupportedInterfaceRef> supportedInterfaceRefCollection;
+  protected static ChildElement<IoSpecification> ioSpecificationChild;
+  protected static ChildElementCollection<IoBinding> ioBindingCollection;
 
   public static void registerType(ModelBuilder bpmnModelBuilder) {
     ModelElementTypeBuilder typeBuilder = bpmnModelBuilder.defineType(CallableElement.class, BPMN_ELEMENT_CALLABLE_ELEMENT)

@@ -30,8 +30,8 @@ import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeIn
  */
 public class CamundaPropertyImpl extends BpmnModelElementInstanceImpl implements CamundaProperty {
 
-  private static Attribute<String> camundaIdAttribute;
-  private static Attribute<String> camundaValueAttribute;
+  protected static Attribute<String> camundaIdAttribute;
+  protected static Attribute<String> camundaValueAttribute;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(CamundaProperty.class, CAMUNDA_ELEMENT_PROPERTY)

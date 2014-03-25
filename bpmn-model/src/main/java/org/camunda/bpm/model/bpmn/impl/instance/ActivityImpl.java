@@ -35,16 +35,16 @@ import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.*;
  */
 public abstract class ActivityImpl extends FlowNodeImpl implements Activity {
 
-  private static Attribute<Boolean> isForCompensationAttribute;
-  private static Attribute<Integer> startQuantityAttribute;
-  private static Attribute<Integer> completionQuantityAttribute;
-  private static AttributeReference<SequenceFlow> defaultAttribute;
-  private static ChildElement<IoSpecification> ioSpecificationChild;
-  private static ChildElementCollection<Property> propertyCollection;
-  private static ChildElementCollection<DataInputAssociation> dataInputAssociationCollection;
-  private static ChildElementCollection<DataOutputAssociation> dataOutputAssociationCollection;
-  private static ChildElementCollection<ResourceRole> resourceRoleCollection;
-  private static ChildElement<LoopCharacteristics> loopCharacteristicsChild;
+  protected static Attribute<Boolean> isForCompensationAttribute;
+  protected static Attribute<Integer> startQuantityAttribute;
+  protected static Attribute<Integer> completionQuantityAttribute;
+  protected static AttributeReference<SequenceFlow> defaultAttribute;
+  protected static ChildElement<IoSpecification> ioSpecificationChild;
+  protected static ChildElementCollection<Property> propertyCollection;
+  protected static ChildElementCollection<DataInputAssociation> dataInputAssociationCollection;
+  protected static ChildElementCollection<DataOutputAssociation> dataOutputAssociationCollection;
+  protected static ChildElementCollection<ResourceRole> resourceRoleCollection;
+  protected static ChildElement<LoopCharacteristics> loopCharacteristicsChild;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(Activity.class, BPMN_ELEMENT_ACTIVITY)

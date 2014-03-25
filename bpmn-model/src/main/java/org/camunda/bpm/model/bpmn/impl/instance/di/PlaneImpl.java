@@ -34,7 +34,7 @@ import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.DI_NS;
  */
 public abstract class PlaneImpl extends NodeImpl implements Plane {
 
-  private static ChildElementCollection<DiagramElement> diagramElementCollection;
+  protected static ChildElementCollection<DiagramElement> diagramElementCollection;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(Plane.class, DI_ELEMENT_PLANE)

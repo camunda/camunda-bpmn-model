@@ -31,8 +31,8 @@ import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.*;
  */
 public abstract class ItemAwareElementImpl extends BaseElementImpl implements ItemAwareElement {
 
-  private static AttributeReference<ItemDefinition> itemSubjectRefAttribute;
-  private static ChildElement<DataState> dataStateChild;
+  protected static AttributeReference<ItemDefinition> itemSubjectRefAttribute;
+  protected static ChildElement<DataState> dataStateChild;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(ItemAwareElement.class, BPMN_ELEMENT_ITEM_AWARE_ELEMENT)

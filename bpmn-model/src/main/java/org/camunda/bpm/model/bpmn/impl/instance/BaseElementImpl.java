@@ -41,9 +41,9 @@ import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.*;
  */
 public abstract class BaseElementImpl extends BpmnModelElementInstanceImpl implements BaseElement {
 
-  private static Attribute<String> idAttribute;
-  private static ChildElementCollection<Documentation> documentationCollection;
-  private static ChildElement<ExtensionElements> extensionElementsChild;
+  protected static Attribute<String> idAttribute;
+  protected static ChildElementCollection<Documentation> documentationCollection;
+  protected static ChildElement<ExtensionElements> extensionElementsChild;
 
   public static void registerType(ModelBuilder bpmnModelBuilder) {
     ModelElementTypeBuilder typeBuilder = bpmnModelBuilder.defineType(BaseElement.class, BPMN_ELEMENT_BASE_ELEMENT)

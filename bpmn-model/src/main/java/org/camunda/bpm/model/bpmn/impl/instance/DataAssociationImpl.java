@@ -37,10 +37,10 @@ import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeIn
  */
 public class DataAssociationImpl extends BaseElementImpl implements DataAssociation {
 
-  private static ElementReferenceCollection<ItemAwareElement, SourceRef> sourceRefCollection;
-  private static ElementReference<ItemAwareElement, TargetRef> targetRefChild;
-  private static ChildElement<Transformation> transformationChild;
-  private static ChildElementCollection<Assignment> assignmentCollection;
+  protected static ElementReferenceCollection<ItemAwareElement, SourceRef> sourceRefCollection;
+  protected static ElementReference<ItemAwareElement, TargetRef> targetRefChild;
+  protected static ChildElement<Transformation> transformationChild;
+  protected static ChildElementCollection<Assignment> assignmentCollection;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(DataAssociation.class, BPMN_ELEMENT_DATA_ASSOCIATION)

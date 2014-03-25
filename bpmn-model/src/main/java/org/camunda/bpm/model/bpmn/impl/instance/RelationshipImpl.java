@@ -35,10 +35,10 @@ import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeIn
  */
 public class RelationshipImpl extends BaseElementImpl implements Relationship {
 
-  private static Attribute<String> typeAttribute;
-  private static Attribute<RelationshipDirection> directionAttribute;
-  private static ChildElementCollection<Source> sourceCollection;
-  private static ChildElementCollection<Target> targetCollection;
+  protected static Attribute<String> typeAttribute;
+  protected static Attribute<RelationshipDirection> directionAttribute;
+  protected static ChildElementCollection<Source> sourceCollection;
+  protected static ChildElementCollection<Target> targetCollection;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(Relationship.class, BPMN_ELEMENT_RELATIONSHIP)

@@ -38,8 +38,8 @@ import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeIn
  */
 public class BpmnDiagramImpl extends DiagramImpl implements BpmnDiagram {
 
-  private static ChildElement<BpmnPlane> bpmnPlaneChild;
-  private static ChildElementCollection<BpmnLabelStyle> bpmnLabelStyleCollection;
+  protected static ChildElement<BpmnPlane> bpmnPlaneChild;
+  protected static ChildElementCollection<BpmnLabelStyle> bpmnLabelStyleCollection;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(BpmnDiagram.class, BPMNDI_ELEMENT_BPMN_DIAGRAM)

@@ -34,11 +34,11 @@ import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN_ELEMENT_TH
  */
 public abstract class ThrowEventImpl extends EventImpl implements ThrowEvent {
 
-  private static ChildElementCollection<DataInput> dataInputCollection;
-  private static ChildElementCollection<DataInputAssociation> dataInputAssociationCollection;
-  private static ChildElement<InputSet> inputSetChild;
-  private static ChildElementCollection<EventDefinition> eventDefinitionCollection;
-  private static ElementReferenceCollection<EventDefinition, EventDefinitionRef> eventDefinitionRefCollection;
+  protected static ChildElementCollection<DataInput> dataInputCollection;
+  protected static ChildElementCollection<DataInputAssociation> dataInputAssociationCollection;
+  protected static ChildElement<InputSet> inputSetChild;
+  protected static ChildElementCollection<EventDefinition> eventDefinitionCollection;
+  protected static ElementReferenceCollection<EventDefinition, EventDefinitionRef> eventDefinitionRefCollection;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(ThrowEvent.class, BPMN_ELEMENT_THROW_EVENT)

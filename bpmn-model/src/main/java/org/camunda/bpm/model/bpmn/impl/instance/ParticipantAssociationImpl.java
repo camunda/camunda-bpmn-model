@@ -33,8 +33,8 @@ import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeIn
  */
 public class ParticipantAssociationImpl extends BaseElementImpl implements ParticipantAssociation {
 
-  private static ElementReference<Participant, InnerParticipantRef> innerParticipantRefChild;
-  private static ElementReference<Participant, OuterParticipantRef> outerParticipantRefChild;
+  protected static ElementReference<Participant, InnerParticipantRef> innerParticipantRefChild;
+  protected static ElementReference<Participant, OuterParticipantRef> outerParticipantRefChild;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(ParticipantAssociation.class, BPMN_ELEMENT_PARTICIPANT_ASSOCIATION)

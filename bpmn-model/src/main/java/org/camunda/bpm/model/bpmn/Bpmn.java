@@ -25,7 +25,7 @@ import org.camunda.bpm.model.bpmn.impl.instance.dc.PointImpl;
 import org.camunda.bpm.model.bpmn.impl.instance.di.*;
 import org.camunda.bpm.model.bpmn.instance.Definitions;
 import org.camunda.bpm.model.bpmn.instance.Process;
-import org.camunda.bpm.model.bpmn.instance.camunda.CamundaOutImpl;
+import org.camunda.bpm.model.bpmn.impl.instance.camunda.CamundaOutImpl;
 import org.camunda.bpm.model.xml.*;
 import org.camunda.bpm.model.xml.impl.instance.ModelElementInstanceImpl;
 import org.camunda.bpm.model.xml.impl.util.IoUtil;

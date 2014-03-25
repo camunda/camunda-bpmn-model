@@ -30,7 +30,7 @@ import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeIn
  */
 public class DataStateImpl extends BaseElementImpl implements DataState {
 
-  private static Attribute<String> nameAttribute;
+  protected static Attribute<String> nameAttribute;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(DataState.class, BPMN_ELEMENT_DATA_STATE)

@@ -30,12 +30,12 @@ import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeIn
  */
 public class FontImpl extends BpmnModelElementInstanceImpl implements Font {
 
-  private static Attribute<String> nameAttribute;
-  private static Attribute<Double> sizeAttribute;
-  private static Attribute<Boolean> isBoldAttribute;
-  private static Attribute<Boolean> isItalicAttribute;
-  private static Attribute<Boolean> isUnderlineAttribute;
-  private static Attribute<Boolean> isStrikeTroughAttribute;
+  protected static Attribute<String> nameAttribute;
+  protected static Attribute<Double> sizeAttribute;
+  protected static Attribute<Boolean> isBoldAttribute;
+  protected static Attribute<Boolean> isItalicAttribute;
+  protected static Attribute<Boolean> isUnderlineAttribute;
+  protected static Attribute<Boolean> isStrikeTroughAttribute;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(Font.class, DC_ELEMENT_FONT)

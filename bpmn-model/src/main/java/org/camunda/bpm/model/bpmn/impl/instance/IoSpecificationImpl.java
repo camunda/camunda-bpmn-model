@@ -33,10 +33,10 @@ import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeIn
  */
 public class IoSpecificationImpl extends BaseElementImpl implements IoSpecification {
 
-  private static ChildElementCollection<DataInput> dataInputCollection;
-  private static ChildElementCollection<DataOutput> dataOutputCollection;
-  private static ChildElementCollection<InputSet> inputSetCollection;
-  private static ChildElementCollection<OutputSet> outputSetCollection;
+  protected static ChildElementCollection<DataInput> dataInputCollection;
+  protected static ChildElementCollection<DataOutput> dataOutputCollection;
+  protected static ChildElementCollection<InputSet> inputSetCollection;
+  protected static ChildElementCollection<OutputSet> outputSetCollection;
   
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(IoSpecification.class, BPMN_ELEMENT_IO_SPECIFICATION)

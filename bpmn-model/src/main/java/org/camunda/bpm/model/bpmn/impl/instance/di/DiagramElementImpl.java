@@ -34,8 +34,8 @@ import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.DI_NS;
  */
 public abstract class DiagramElementImpl extends BpmnModelElementInstanceImpl implements DiagramElement {
 
-  private static Attribute<String> idAttribute;
-  private static ChildElement<Extension> extensionChild;
+  protected static Attribute<String> idAttribute;
+  protected static ChildElement<Extension> extensionChild;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(DiagramElement.class, DI_ELEMENT_DIAGRAM_ELEMENT)

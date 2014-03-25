@@ -29,8 +29,8 @@ import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeIn
  */
 public class DataOutputImpl extends ItemAwareElementImpl implements DataOutput {
 
-  private static Attribute<String> nameAttribute;
-  private static Attribute<Boolean> isCollectionAttribute;
+  protected static Attribute<String> nameAttribute;
+  protected static Attribute<Boolean> isCollectionAttribute;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(DataOutput.class,BpmnModelConstants.BPMN_ELEMENT_DATA_OUTPUT)

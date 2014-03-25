@@ -34,8 +34,8 @@ import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeIn
  */
 public class ResourceParameterBindingImpl extends BaseElementImpl implements ResourceParameterBinding {
 
-  private static AttributeReference<ResourceParameter> parameterRefAttribute;
-  private static ChildElement<Expression> expressionChild;
+  protected static AttributeReference<ResourceParameter> parameterRefAttribute;
+  protected static ChildElement<Expression> expressionChild;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(ResourceParameterBinding.class, BPMN_ELEMENT_RESOURCE_PARAMETER_BINDING)

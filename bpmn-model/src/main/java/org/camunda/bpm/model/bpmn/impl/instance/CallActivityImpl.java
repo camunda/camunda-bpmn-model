@@ -32,14 +32,14 @@ import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeIn
  */
 public class CallActivityImpl extends ActivityImpl implements CallActivity {
 
-  private static Attribute<String> calledElementAttribute;
+  protected static Attribute<String> calledElementAttribute;
 
   /** camunda extensions */
 
-  private static Attribute<Boolean> camundaAsyncAttribute;
-  private static Attribute<String> camundaCalledElementBindingAttribute;
-  private static Attribute<String> camundaCalledElementVersionAttribute;
-  private static Attribute<Boolean> camundaExclusiveAttribute;
+  protected static Attribute<Boolean> camundaAsyncAttribute;
+  protected static Attribute<String> camundaCalledElementBindingAttribute;
+  protected static Attribute<String> camundaCalledElementVersionAttribute;
+  protected static Attribute<Boolean> camundaExclusiveAttribute;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(CallActivity.class, BPMN_ELEMENT_CALL_ACTIVITY)

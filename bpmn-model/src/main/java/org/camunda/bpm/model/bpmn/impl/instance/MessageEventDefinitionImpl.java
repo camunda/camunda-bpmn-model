@@ -33,15 +33,15 @@ import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.*;
 */
 public class MessageEventDefinitionImpl extends EventDefinitionImpl implements MessageEventDefinition {
 
-  private static AttributeReference<Message> messageRefAttribute;
-  private static ElementReference<Operation, OperationRef> operationRefChild;
+  protected static AttributeReference<Message> messageRefAttribute;
+  protected static ElementReference<Operation, OperationRef> operationRefChild;
 
   /** camunda extensions */
 
-  private static Attribute<String> camundaClassAttribute;
-  private static Attribute<String> camundaDelegateExpressionAttribute;
-  private static Attribute<String> camundaExpressionAttribute;
-  private static Attribute<String> camundaResultVariableAttribute;
+  protected static Attribute<String> camundaClassAttribute;
+  protected static Attribute<String> camundaDelegateExpressionAttribute;
+  protected static Attribute<String> camundaExpressionAttribute;
+  protected static Attribute<String> camundaResultVariableAttribute;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(MessageEventDefinition.class, BPMN_ELEMENT_MESSAGE_EVENT_DEFINITION)

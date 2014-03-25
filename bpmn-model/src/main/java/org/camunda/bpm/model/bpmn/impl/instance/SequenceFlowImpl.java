@@ -37,10 +37,10 @@ import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeIn
  */
 public class SequenceFlowImpl extends FlowElementImpl implements SequenceFlow {
 
-  private static AttributeReference<FlowNode> sourceRefAttribute;
-  private static AttributeReference<FlowNode> targetRefAttribute;
-  private static Attribute<Boolean> isImmediateAttribute;
-  private static ChildElement<ConditionExpression> conditionExpressionCollection;
+  protected static AttributeReference<FlowNode> sourceRefAttribute;
+  protected static AttributeReference<FlowNode> targetRefAttribute;
+  protected static Attribute<Boolean> isImmediateAttribute;
+  protected static ChildElement<ConditionExpression> conditionExpressionCollection;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(SequenceFlow.class, BPMN_ELEMENT_SEQUENCE_FLOW)

@@ -28,9 +28,9 @@ import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.*;
  */
 public class IoBindingImpl extends BaseElementImpl implements IoBinding {
 
-  private static AttributeReference<Operation> operationRefAttribute;
-  private static AttributeReference<DataInput> inputDataRefAttribute;
-  private static AttributeReference<DataOutput> outputDataRefAttribute;
+  protected static AttributeReference<Operation> operationRefAttribute;
+  protected static AttributeReference<DataInput> inputDataRefAttribute;
+  protected static AttributeReference<DataOutput> outputDataRefAttribute;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(IoBinding.class, BPMN_ELEMENT_IO_BINDING)

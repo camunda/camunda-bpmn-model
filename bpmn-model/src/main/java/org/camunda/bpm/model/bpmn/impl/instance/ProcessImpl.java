@@ -41,24 +41,24 @@ import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.*;
  */
 public class ProcessImpl extends CallableElementImpl implements Process {
 
-  private static Attribute<ProcessType> processTypeAttribute;
-  private static Attribute<Boolean> isClosedAttribute;
-  private static Attribute<Boolean> isExecutableAttribute;
+  protected static Attribute<ProcessType> processTypeAttribute;
+  protected static Attribute<Boolean> isClosedAttribute;
+  protected static Attribute<Boolean> isExecutableAttribute;
   // TODO: definitionalCollaborationRef
-  private static ChildElement<Auditing> auditingChild;
-  private static ChildElement<Monitoring> monitoringChild;
-  private static ChildElementCollection<Property> propertyCollection;
-  private static ChildElementCollection<LaneSet> laneSetCollection;
-  private static ChildElementCollection<FlowElement> flowElementCollection;
-  private static ChildElementCollection<Artifact> artifactCollection;
-  private static ChildElementCollection<ResourceRole> resourceRoleCollection;
-  private static ChildElementCollection<CorrelationSubscription> correlationSubscriptionCollection;
-  private static ElementReferenceCollection<Process, Supports> supportsCollection;
+  protected static ChildElement<Auditing> auditingChild;
+  protected static ChildElement<Monitoring> monitoringChild;
+  protected static ChildElementCollection<Property> propertyCollection;
+  protected static ChildElementCollection<LaneSet> laneSetCollection;
+  protected static ChildElementCollection<FlowElement> flowElementCollection;
+  protected static ChildElementCollection<Artifact> artifactCollection;
+  protected static ChildElementCollection<ResourceRole> resourceRoleCollection;
+  protected static ChildElementCollection<CorrelationSubscription> correlationSubscriptionCollection;
+  protected static ElementReferenceCollection<Process, Supports> supportsCollection;
 
   /** camunda extensions */
 
-  private static Attribute<String> camundaCandidateStarterGroupsAttribute;
-  private static Attribute<String> camundaCandidateStarterUsersAttribute;
+  protected static Attribute<String> camundaCandidateStarterGroupsAttribute;
+  protected static Attribute<String> camundaCandidateStarterUsersAttribute;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(Process.class, BPMN_ELEMENT_PROCESS)

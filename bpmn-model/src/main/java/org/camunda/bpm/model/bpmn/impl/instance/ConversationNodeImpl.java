@@ -33,10 +33,10 @@ import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.*;
  */
 public abstract class ConversationNodeImpl extends BaseElementImpl implements ConversationNode {
 
-  private static Attribute<String> nameAttribute;
-  private static ElementReferenceCollection<Participant, ParticipantRef> participantRefCollection;
-  private static ElementReferenceCollection<MessageFlow, MessageFlowRef> messageFlowRefCollection;
-  private static ChildElementCollection<CorrelationKey> correlationKeyCollection;
+  protected static Attribute<String> nameAttribute;
+  protected static ElementReferenceCollection<Participant, ParticipantRef> participantRefCollection;
+  protected static ElementReferenceCollection<MessageFlow, MessageFlowRef> messageFlowRefCollection;
+  protected static ChildElementCollection<CorrelationKey> correlationKeyCollection;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(ConversationNode.class, BPMN_ELEMENT_CONVERSATION_NODE)

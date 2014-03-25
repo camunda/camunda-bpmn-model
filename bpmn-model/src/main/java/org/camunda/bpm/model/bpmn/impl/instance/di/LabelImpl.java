@@ -32,7 +32,7 @@ import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.DI_NS;
  */
 public abstract class LabelImpl extends NodeImpl implements Label {
 
-  private static ChildElement<Bounds> boundsChild;
+  protected static ChildElement<Bounds> boundsChild;
   
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(Label.class, DI_ELEMENT_LABEL)

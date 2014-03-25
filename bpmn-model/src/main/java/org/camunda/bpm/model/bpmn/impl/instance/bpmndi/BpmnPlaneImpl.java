@@ -34,7 +34,7 @@ import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeIn
  */
 public class BpmnPlaneImpl extends PlaneImpl implements BpmnPlane {
 
-  private static AttributeReference<BaseElement> bpmnElementAttribute;
+  protected static AttributeReference<BaseElement> bpmnElementAttribute;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(BpmnPlane.class, BPMNDI_ELEMENT_BPMN_PLANE)

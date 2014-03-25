@@ -32,8 +32,8 @@ import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeIn
  */
 public class AssignmentImpl extends BaseElementImpl implements Assignment {
 
-  private static ChildElement<From> fromChild;
-  private static ChildElement<To> toChild;
+  protected static ChildElement<From> fromChild;
+  protected static ChildElement<To> toChild;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(Assignment.class, BPMN_ELEMENT_ASSIGNMENT)

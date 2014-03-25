@@ -37,9 +37,9 @@ import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeIn
  */
 public class CorrelationPropertyImpl extends RootElementImpl implements CorrelationProperty {
 
-  private static Attribute<String> nameAttribute;
-  private static AttributeReference<ItemDefinition> typeAttribute;
-  private static ChildElementCollection<CorrelationPropertyRetrievalExpression> correlationPropertyRetrievalExpressionCollection;
+  protected static Attribute<String> nameAttribute;
+  protected static AttributeReference<ItemDefinition> typeAttribute;
+  protected static ChildElementCollection<CorrelationPropertyRetrievalExpression> correlationPropertyRetrievalExpressionCollection;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder;

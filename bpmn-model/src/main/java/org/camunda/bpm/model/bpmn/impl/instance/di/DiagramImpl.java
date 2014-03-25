@@ -29,10 +29,10 @@ import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.*;
  */
 public abstract class DiagramImpl extends BpmnModelElementInstanceImpl implements Diagram {
 
-  private static Attribute<String> nameAttribute;
-  private static Attribute<String> documentationAttribute;
-  private static Attribute<Double> resolutionAttribute;
-  private static Attribute<String> idAttribute;
+  protected static Attribute<String> nameAttribute;
+  protected static Attribute<String> documentationAttribute;
+  protected static Attribute<Double> resolutionAttribute;
+  protected static Attribute<String> idAttribute;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(Diagram.class, DI_ELEMENT_DIAGRAM)

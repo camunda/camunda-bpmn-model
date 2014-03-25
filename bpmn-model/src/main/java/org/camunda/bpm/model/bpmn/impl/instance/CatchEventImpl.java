@@ -34,12 +34,12 @@ import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.*;
  */
 public abstract class CatchEventImpl extends EventImpl implements CatchEvent {
 
-  private static Attribute<Boolean> parallelMultipleAttribute;
-  private static ChildElementCollection<DataOutput> dataOutputCollection;
-  private static ChildElementCollection<DataOutputAssociation> dataOutputAssociationCollection;
-  private static ChildElement<OutputSet> outputSetChild;
-  private static ChildElementCollection<EventDefinition> eventDefinitionCollection;
-  private static ElementReferenceCollection<EventDefinition, EventDefinitionRef> eventDefinitionRefCollection;
+  protected static Attribute<Boolean> parallelMultipleAttribute;
+  protected static ChildElementCollection<DataOutput> dataOutputCollection;
+  protected static ChildElementCollection<DataOutputAssociation> dataOutputAssociationCollection;
+  protected static ChildElement<OutputSet> outputSetChild;
+  protected static ChildElementCollection<EventDefinition> eventDefinitionCollection;
+  protected static ElementReferenceCollection<EventDefinition, EventDefinitionRef> eventDefinitionRefCollection;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(CatchEvent.class, BPMN_ELEMENT_CATCH_EVENT)

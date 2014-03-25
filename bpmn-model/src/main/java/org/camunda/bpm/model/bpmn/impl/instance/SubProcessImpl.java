@@ -35,15 +35,15 @@ import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeIn
  */
 public class SubProcessImpl extends ActivityImpl implements SubProcess {
 
-  private static Attribute<Boolean> triggeredByEventAttribute;
-  private static ChildElementCollection<LaneSet> laneSetCollection;
-  private static ChildElementCollection<FlowElement> flowElementCollection;
-  private static ChildElementCollection<Artifact> artifactCollection;
+  protected static Attribute<Boolean> triggeredByEventAttribute;
+  protected static ChildElementCollection<LaneSet> laneSetCollection;
+  protected static ChildElementCollection<FlowElement> flowElementCollection;
+  protected static ChildElementCollection<Artifact> artifactCollection;
 
   /** camunda extensions */
 
-  private static Attribute<Boolean> camundaAsyncAttribute;
-  private static Attribute<Boolean> camundaExclusiveAttribute;
+  protected static Attribute<Boolean> camundaAsyncAttribute;
+  protected static Attribute<Boolean> camundaExclusiveAttribute;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(SubProcess.class, BPMN_ELEMENT_SUB_PROCESS)

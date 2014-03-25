@@ -28,7 +28,7 @@ import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.*;
  */
 public class PropertyImpl extends ItemAwareElementImpl implements Property {
 
-  private static Attribute<String> nameAttribute;
+  protected static Attribute<String> nameAttribute;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(Property.class, BPMN_ELEMENT_PROPERTY)

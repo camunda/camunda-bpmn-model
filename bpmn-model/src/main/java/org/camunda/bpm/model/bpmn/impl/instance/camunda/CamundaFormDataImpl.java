@@ -35,7 +35,7 @@ import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeIn
  */
 public class CamundaFormDataImpl extends BpmnModelElementInstanceImpl implements CamundaFormData {
 
-  private static ChildElementCollection<CamundaFormField> camundaFormFieldCollection;
+  protected static ChildElementCollection<CamundaFormField> camundaFormFieldCollection;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(CamundaFormData.class, CAMUNDA_ELEMENT_FORM_DATA)

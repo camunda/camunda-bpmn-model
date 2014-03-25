@@ -32,7 +32,7 @@ import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.DI_NS;
  */
 public abstract class ShapeImpl extends NodeImpl implements Shape {
 
-  private static ChildElement<Bounds> boundsChild;
+  protected static ChildElement<Bounds> boundsChild;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(Shape.class, DI_ELEMENT_SHAPE)

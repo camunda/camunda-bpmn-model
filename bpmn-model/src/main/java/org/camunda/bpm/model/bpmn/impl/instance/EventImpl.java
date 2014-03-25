@@ -35,7 +35,7 @@ import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN_ELEMENT_EV
  */
 public abstract class EventImpl extends FlowNodeImpl implements Event {
 
-  private static ChildElementCollection<Property> propertyCollection;
+  protected static ChildElementCollection<Property> propertyCollection;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(Event.class, BPMN_ELEMENT_EVENT)
