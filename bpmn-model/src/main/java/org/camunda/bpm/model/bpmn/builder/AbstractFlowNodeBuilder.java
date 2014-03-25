@@ -32,7 +32,7 @@ public abstract class AbstractFlowNodeBuilder<B extends AbstractFlowNodeBuilder<
 
   private SequenceFlowBuilder getCurrentSequenceFlowBuilder() {
     if (currentSequenceFlowBuilder == null) {
-      SequenceFlow sequenceFlow = createSibling(SequenceFlow.class, null);
+      SequenceFlow sequenceFlow = createSibling(SequenceFlow.class);
       currentSequenceFlowBuilder = sequenceFlow.builder();
     }
     return currentSequenceFlowBuilder;
@@ -61,6 +61,10 @@ public abstract class AbstractFlowNodeBuilder<B extends AbstractFlowNodeBuilder<
     return myself;
   }
 
+  private <T extends FlowNode> T createTarget(Class<T> typeClass) {
+    return createTarget(typeClass, null);
+  }
+
   private <T extends FlowNode> T createTarget(Class<T> typeClass, String identifier) {
     T target = createSibling(typeClass, identifier);
     connectTarget(target);
@@ -68,7 +72,7 @@ public abstract class AbstractFlowNodeBuilder<B extends AbstractFlowNodeBuilder<
   }
 
   public ServiceTaskBuilder serviceTask() {
-    return createTarget(ServiceTask.class, null).builder();
+    return createTarget(ServiceTask.class).builder();
   }
 
   public ServiceTaskBuilder serviceTask(String id) {
@@ -76,7 +80,7 @@ public abstract class AbstractFlowNodeBuilder<B extends AbstractFlowNodeBuilder<
   }
 
   public SendTaskBuilder sendTask() {
-    return createTarget(SendTask.class, null).builder();
+    return createTarget(SendTask.class).builder();
   }
 
   public SendTaskBuilder sendTask(String id) {
@@ -84,7 +88,7 @@ public abstract class AbstractFlowNodeBuilder<B extends AbstractFlowNodeBuilder<
   }
 
   public UserTaskBuilder userTask() {
-    return createTarget(UserTask.class, null).builder();
+    return createTarget(UserTask.class).builder();
   }
 
   public UserTaskBuilder userTask(String id) {
@@ -92,7 +96,7 @@ public abstract class AbstractFlowNodeBuilder<B extends AbstractFlowNodeBuilder<
   }
 
   public BusinessRuleTaskBuilder businessRuleTask() {
-    return createTarget(BusinessRuleTask.class, null).builder();
+    return createTarget(BusinessRuleTask.class).builder();
   }
 
   public BusinessRuleTaskBuilder businessRuleTask(String id) {
@@ -100,7 +104,7 @@ public abstract class AbstractFlowNodeBuilder<B extends AbstractFlowNodeBuilder<
   }
 
   public ScriptTaskBuilder scriptTask() {
-    return createTarget(ScriptTask.class, null).builder();
+    return createTarget(ScriptTask.class).builder();
   }
 
   public ScriptTaskBuilder scriptTask(String id) {
@@ -108,7 +112,7 @@ public abstract class AbstractFlowNodeBuilder<B extends AbstractFlowNodeBuilder<
   }
 
   public ReceiveTaskBuilder receiveTask() {
-    return createTarget(ReceiveTask.class, null).builder();
+    return createTarget(ReceiveTask.class).builder();
   }
 
   public ReceiveTaskBuilder receiveTask(String id) {
@@ -116,7 +120,7 @@ public abstract class AbstractFlowNodeBuilder<B extends AbstractFlowNodeBuilder<
   }
 
   public ManualTaskBuilder manualTask() {
-    return createTarget(ManualTask.class, null).builder();
+    return createTarget(ManualTask.class).builder();
   }
 
   public ManualTaskBuilder manualTask(String id) {
@@ -124,7 +128,7 @@ public abstract class AbstractFlowNodeBuilder<B extends AbstractFlowNodeBuilder<
   }
 
   public EndEventBuilder endEvent() {
-    return createTarget(EndEvent.class, null).builder();
+    return createTarget(EndEvent.class).builder();
   }
 
   public EndEventBuilder endEvent(String id) {
@@ -132,7 +136,7 @@ public abstract class AbstractFlowNodeBuilder<B extends AbstractFlowNodeBuilder<
   }
 
   public ParallelGatewayBuilder parallelGateway() {
-    return createTarget(ParallelGateway.class, null).builder();
+    return createTarget(ParallelGateway.class).builder();
   }
 
   public ParallelGatewayBuilder parallelGateway(String id) {
@@ -140,7 +144,7 @@ public abstract class AbstractFlowNodeBuilder<B extends AbstractFlowNodeBuilder<
   }
 
   public ExclusiveGatewayBuilder exclusiveGateway() {
-    return createTarget(ExclusiveGateway.class, null).builder();
+    return createTarget(ExclusiveGateway.class).builder();
   }
 
   public ExclusiveGatewayBuilder exclusiveGateway(String id) {
@@ -148,7 +152,7 @@ public abstract class AbstractFlowNodeBuilder<B extends AbstractFlowNodeBuilder<
   }
 
   public IntermediateCatchEventBuilder intermediateCatchEvent() {
-    return createTarget(IntermediateCatchEvent.class, null).builder();
+    return createTarget(IntermediateCatchEvent.class).builder();
   }
 
   public IntermediateCatchEventBuilder intermediateCatchEvent(String id) {
@@ -156,7 +160,7 @@ public abstract class AbstractFlowNodeBuilder<B extends AbstractFlowNodeBuilder<
   }
 
   public CallActivityBuilder callActivity() {
-    return createTarget(CallActivity.class, null).builder();
+    return createTarget(CallActivity.class).builder();
   }
 
   public CallActivityBuilder callActivity(String id) {
@@ -164,7 +168,7 @@ public abstract class AbstractFlowNodeBuilder<B extends AbstractFlowNodeBuilder<
   }
 
   public SubProcessBuilder subProcess() {
-    return createTarget(SubProcess.class, null).builder();
+    return createTarget(SubProcess.class).builder();
   }
 
   public SubProcessBuilder subProcess(String id) {

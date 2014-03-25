@@ -17,7 +17,6 @@ import org.camunda.bpm.model.bpmn.BpmnModelInstance;
 import org.camunda.bpm.model.bpmn.instance.BaseElement;
 import org.camunda.bpm.model.bpmn.instance.BpmnModelElementInstance;
 import org.camunda.bpm.model.bpmn.instance.ExtensionElements;
-import org.camunda.bpm.model.xml.impl.util.ModelUtil;
 
 /**
  * @author Sebastian Menski
@@ -28,22 +27,15 @@ public abstract class AbstractBaseElementBuilder<B extends AbstractBaseElementBu
     super(modelInstance, element, selfType);
   }
 
-  protected <T extends BaseElement> T createInstance(Class<T> typeClass, String identifier) {
-    T instance = modelInstance.newInstance(typeClass);
-    if (identifier == null) {
-      identifier = ModelUtil.getUniqueIdentifier(instance.getElementType());
-    }
-    instance.setId(identifier);
-    return instance;
-  }
-
   protected <T extends BpmnModelElementInstance> T createInstance(Class<T> typeClass) {
     return modelInstance.newInstance(typeClass);
   }
 
-  protected <T extends BaseElement> T createChild(Class<T> typeClass, String identifier) {
-    T instance = createInstance(typeClass, identifier);
-    element.addChildElement(instance);
+  protected <T extends BaseElement> T createInstance(Class<T> typeClass, String identifier) {
+    T instance = createInstance(typeClass);
+    if (identifier != null) {
+      instance.setId(identifier);
+    }
     return instance;
   }
 
@@ -53,6 +45,17 @@ public abstract class AbstractBaseElementBuilder<B extends AbstractBaseElementBu
     return instance;
   }
 
+  protected <T extends BaseElement> T createChild(Class<T> typeClass, String identifier) {
+    T instance = createInstance(typeClass, identifier);
+    element.addChildElement(instance);
+    return instance;
+  }
+
+  protected <T extends BpmnModelElementInstance> T createSibling(Class<T> typeClass) {
+    T instance = createInstance(typeClass);
+    element.getParentElement().addChildElement(instance);
+    return instance;
+  }
 
   protected <T extends BaseElement> T createSibling(Class<T> typeClass, String identifier) {
     T instance = createInstance(typeClass, identifier);

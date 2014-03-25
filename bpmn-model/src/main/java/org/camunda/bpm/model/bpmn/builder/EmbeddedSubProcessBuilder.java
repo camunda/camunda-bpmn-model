@@ -26,7 +26,7 @@ public class EmbeddedSubProcessBuilder extends AbstractEmbeddedSubProcessBuilder
   }
 
   public StartEventBuilder startEvent() {
-    return subProcessBuilder.createChild(StartEvent.class, null).builder();
+    return subProcessBuilder.createChild(StartEvent.class).builder();
   }
 
   public StartEventBuilder startEvent(String id) {
