@@ -27,6 +27,7 @@ import org.camunda.bpm.model.xml.type.child.ChildElementCollection;
 import org.camunda.bpm.model.xml.type.child.SequenceBuilder;
 import org.camunda.bpm.model.xml.type.reference.Reference;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.*;
@@ -39,7 +40,7 @@ import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.*;
  */
 public abstract class BaseElementImpl extends BpmnModelElementInstanceImpl implements BaseElement {
 
-  protected static Attribute<String> idAttribute;
+  private static Attribute<String> idAttribute;
   private static ChildElementCollection<Documentation> documentationCollection;
   private static ChildElement<ExtensionElements> extensionElementsChild;
 
@@ -88,27 +89,33 @@ public abstract class BaseElementImpl extends BpmnModelElementInstanceImpl imple
   }
 
   public DiagramElement getDiagramElement() {
-    // we traverse all incoming references in reverse direction
+    Collection<Reference> incomingReferences = getIncomingReferencesByType(DiagramElement.class);
+    for (Reference<?> reference : incomingReferences) {
+      for (ModelElementInstance sourceElement : reference.findReferenceSourceElements(this)) {
+        String referenceIdentifier = reference.getReferenceIdentifier(sourceElement);
+        if (referenceIdentifier != null && referenceIdentifier.equals(getId())) {
+          return (DiagramElement) sourceElement;
+        }
+      }
+    }
+    return null;
+  }
 
+  @SuppressWarnings("unchecked")
+  public Collection<Reference> getIncomingReferencesByType(Class<? extends ModelElementInstance> referenceSourceTypeClass) {
+    Collection<Reference> references = new ArrayList<Reference>();
+    // we traverse all incoming references in reverse direction
     for (Reference<?> reference : idAttribute.getIncomingReferences()) {
 
       ModelElementType sourceElementType = reference.getReferenceSourceElementType();
       Class<? extends ModelElementInstance> sourceInstanceType = sourceElementType.getInstanceType();
 
       // if the referencing element (source element) is a BPMNDI element, dig deeper
-      if(DiagramElement.class.isAssignableFrom(sourceInstanceType)) {
-        for (ModelElementInstance sourceElement : reference.findReferenceSourceElements(this)) {
-          String referenceIdentifier = reference.getReferenceIdentifier(sourceElement);
-
-          // make sure it is a reference to us
-          if (referenceIdentifier != null && referenceIdentifier.equals(getId())) {
-            return (DiagramElement) sourceElement;
-          }
-        }
+      if (referenceSourceTypeClass.isAssignableFrom(sourceInstanceType)) {
+       references.add(reference);
       }
-
     }
-    return null;
+    return references;
   }
 
 }

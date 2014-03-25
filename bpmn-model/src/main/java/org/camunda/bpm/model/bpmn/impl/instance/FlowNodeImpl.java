@@ -22,7 +22,6 @@ import org.camunda.bpm.model.bpmn.instance.SequenceFlow;
 import org.camunda.bpm.model.xml.ModelBuilder;
 import org.camunda.bpm.model.xml.impl.instance.ModelTypeInstanceContext;
 import org.camunda.bpm.model.xml.instance.ModelElementInstance;
-import org.camunda.bpm.model.xml.type.ModelElementType;
 import org.camunda.bpm.model.xml.type.ModelElementTypeBuilder;
 import org.camunda.bpm.model.xml.type.child.SequenceBuilder;
 import org.camunda.bpm.model.xml.type.reference.AttributeReference;
@@ -73,30 +72,22 @@ public abstract class FlowNodeImpl extends FlowElementImpl implements FlowNode {
 
   public void updateAfterReplacement() {
     super.updateAfterReplacement();
-    // we traverse all incoming references in reverse direction
-    for (Reference<?> reference : idAttribute.getIncomingReferences()) {
+    Collection<Reference> incomingReferences = getIncomingReferencesByType(SequenceFlow.class);
+    for (Reference<?> reference : incomingReferences) {
+      for (ModelElementInstance sourceElement : reference.findReferenceSourceElements(this)) {
+        String referenceIdentifier = reference.getReferenceIdentifier(sourceElement);
 
-      ModelElementType sourceElementType = reference.getReferenceSourceElementType();
-      Class<? extends ModelElementInstance> sourceInstanceType = sourceElementType.getInstanceType();
-
-      // if the referencing element (source element) is a sequence flow element,
-      // add a incoming/outgoing element if it references us
-      if(SequenceFlow.class.isAssignableFrom(sourceInstanceType)) {
-        for (ModelElementInstance sourceElement : reference.findReferenceSourceElements(this)) {
-          String referenceIdentifier = reference.getReferenceIdentifier(sourceElement);
-
-          // make sure it is a reference to us
-          if (referenceIdentifier != null && referenceIdentifier.equals(getId()) && reference instanceof AttributeReference) {
-            String attributeName = ((AttributeReference) reference).getReferenceSourceAttribute().getAttributeName();
-            if (attributeName.equals(BPMN_ATTRIBUTE_SOURCE_REF)) {
-              getOutgoing().add((SequenceFlow) sourceElement);
-            }
-            else if (attributeName.equals(BPMN_ATTRIBUTE_TARGET_REF)) {
-              getIncoming().add((SequenceFlow) sourceElement);
-            }
+        if (referenceIdentifier != null && referenceIdentifier.equals(getId()) && reference instanceof AttributeReference) {
+          String attributeName = ((AttributeReference) reference).getReferenceSourceAttribute().getAttributeName();
+          if (attributeName.equals(BPMN_ATTRIBUTE_SOURCE_REF)) {
+            getOutgoing().add((SequenceFlow) sourceElement);
+          }
+          else if (attributeName.equals(BPMN_ATTRIBUTE_TARGET_REF)) {
+            getIncoming().add((SequenceFlow) sourceElement);
           }
         }
       }
+
     }
   }
 
