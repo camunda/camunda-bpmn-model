@@ -33,7 +33,7 @@ public class CollaborationParserTest {
   @BeforeClass
   public static void parseModel() {
     modelInstance = Bpmn.readModelFromStream(CollaborationParserTest.class.getResourceAsStream("CollaborationParserTest.bpmn"));
-    collaboration = (Collaboration) modelInstance.getModelElementById("collaboration1");
+    collaboration = modelInstance.getModelElementById("collaboration1");
   }
 
   @Test

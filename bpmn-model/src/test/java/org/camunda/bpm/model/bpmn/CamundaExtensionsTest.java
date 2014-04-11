@@ -45,13 +45,13 @@ public class CamundaExtensionsTest {
   @Before
   public void parseModel() {
     modelInstance = Bpmn.readModelFromStream(getClass().getResourceAsStream(getClass().getSimpleName() + ".xml"));
-    process = (Process) modelInstance.getModelElementById(PROCESS_ID);
-    startEvent = (StartEvent) modelInstance.getModelElementById(START_EVENT_ID);
-    userTask = (UserTask) modelInstance.getModelElementById(USER_TASK_ID);
-    serviceTask = (ServiceTask) modelInstance.getModelElementById(SERVICE_TASK_ID);
-    sendTask = (SendTask) modelInstance.getModelElementById(SEND_TASK_ID);
-    callActivity = (CallActivity) modelInstance.getModelElementById(CALL_ACTIVITY_ID);
-    EndEvent endEvent = (EndEvent) modelInstance.getModelElementById(END_EVENT_ID);
+    process = modelInstance.getModelElementById(PROCESS_ID);
+    startEvent = modelInstance.getModelElementById(START_EVENT_ID);
+    userTask = modelInstance.getModelElementById(USER_TASK_ID);
+    serviceTask = modelInstance.getModelElementById(SERVICE_TASK_ID);
+    sendTask = modelInstance.getModelElementById(SEND_TASK_ID);
+    callActivity = modelInstance.getModelElementById(CALL_ACTIVITY_ID);
+    EndEvent endEvent = modelInstance.getModelElementById(END_EVENT_ID);
     messageEventDefinition = (MessageEventDefinition) endEvent.getEventDefinitions().iterator().next();
   }
 

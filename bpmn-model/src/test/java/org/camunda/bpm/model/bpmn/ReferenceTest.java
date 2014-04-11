@@ -150,8 +150,8 @@ public class ReferenceTest extends BpmnModelTest {
   @Test
   @BpmnModelResource
   public void shouldFindReferenceWithNamespace() {
-    MessageEventDefinition messageEventDefinition = (MessageEventDefinition) bpmnModelInstance.getModelElementById("message-event-definition");
-    Message message = (Message) bpmnModelInstance.getModelElementById("message-id");
+    MessageEventDefinition messageEventDefinition = bpmnModelInstance.getModelElementById("message-event-definition");
+    Message message = bpmnModelInstance.getModelElementById("message-id");
     assertThat(messageEventDefinition.getMessage()).isNotNull();
     assertThat(messageEventDefinition.getMessage()).isEqualTo(message);
     message.setId("changed-message");
@@ -161,7 +161,7 @@ public class ReferenceTest extends BpmnModelTest {
     assertThat(messageEventDefinition.getMessage()).isNotNull();
     assertThat(messageEventDefinition.getMessage()).isEqualTo(message);
 
-    StartEvent startEvent = (StartEvent) bpmnModelInstance.getModelElementById("start-event");
+    StartEvent startEvent = bpmnModelInstance.getModelElementById("start-event");
     Collection<EventDefinition> eventDefinitionRefs = startEvent.getEventDefinitionRefs();
     assertThat(eventDefinitionRefs).isNotEmpty();
     assertThat(eventDefinitionRefs).contains(messageEventDefinition);

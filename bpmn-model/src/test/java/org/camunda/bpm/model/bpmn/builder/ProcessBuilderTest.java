@@ -291,7 +291,7 @@ public class ProcessBuilderTest {
     assertThat(modelInstance.getModelElementsByType(taskType))
       .hasSize(2);
 
-    UserTask userTask = (UserTask) modelInstance.getModelElementById("task1");
+    UserTask userTask = modelInstance.getModelElementById("task1");
     SequenceFlow outgoingSequenceFlow = userTask.getOutgoing().iterator().next();
     FlowNode serviceTask = outgoingSequenceFlow.getTarget();
     userTask.getOutgoing().remove(outgoingSequenceFlow);
@@ -360,7 +360,7 @@ public class ProcessBuilderTest {
       .endEvent()
       .done();
 
-    ServiceTask serviceTask = (ServiceTask) modelInstance.getModelElementById(TASK_ID);
+    ServiceTask serviceTask = modelInstance.getModelElementById(TASK_ID);
     assertThat(serviceTask.isCamundaAsync()).isTrue();
     assertThat(serviceTask.isCamundaExclusive()).isFalse();
   }
@@ -377,7 +377,7 @@ public class ProcessBuilderTest {
         .camundaType(TEST_STRING_API)
       .done();
 
-    ServiceTask serviceTask = (ServiceTask) modelInstance.getModelElementById(TASK_ID);
+    ServiceTask serviceTask = modelInstance.getModelElementById(TASK_ID);
     assertThat(serviceTask.getCamundaClass()).isEqualTo(TEST_CLASS_API);
     assertThat(serviceTask.getCamundaDelegateExpression()).isEqualTo(TEST_DELEGATE_EXPRESSION_API);
     assertThat(serviceTask.getCamundaExpression()).isEqualTo(TEST_EXPRESSION_API);
@@ -398,7 +398,7 @@ public class ProcessBuilderTest {
       .endEvent()
       .done();
 
-    SendTask sendTask = (SendTask) modelInstance.getModelElementById(TASK_ID);
+    SendTask sendTask = modelInstance.getModelElementById(TASK_ID);
     assertThat(sendTask.getCamundaClass()).isEqualTo(TEST_CLASS_API);
     assertThat(sendTask.getCamundaDelegateExpression()).isEqualTo(TEST_DELEGATE_EXPRESSION_API);
     assertThat(sendTask.getCamundaExpression()).isEqualTo(TEST_EXPRESSION_API);
@@ -421,7 +421,7 @@ public class ProcessBuilderTest {
       .endEvent()
       .done();
 
-    UserTask userTask = (UserTask) modelInstance.getModelElementById(TASK_ID);
+    UserTask userTask = modelInstance.getModelElementById(TASK_ID);
     assertThat(userTask.getCamundaAssignee()).isEqualTo(TEST_STRING_API);
     assertThat(userTask.getCamundaCandidateGroups()).isEqualTo(TEST_GROUPS_API);
     assertThat(userTask.getCamundaCandidateGroupsList()).containsAll(TEST_GROUPS_LIST_API);
@@ -446,7 +446,7 @@ public class ProcessBuilderTest {
       .endEvent()
       .done();
 
-    BusinessRuleTask businessRuleTask = (BusinessRuleTask) modelInstance.getModelElementById(TASK_ID);
+    BusinessRuleTask businessRuleTask = modelInstance.getModelElementById(TASK_ID);
     assertThat(businessRuleTask.getCamundaClass()).isEqualTo(TEST_CLASS_API);
     assertThat(businessRuleTask.getCamundaDelegateExpression()).isEqualTo(TEST_DELEGATE_EXPRESSION_API);
     assertThat(businessRuleTask.getCamundaExpression()).isEqualTo(TEST_EXPRESSION_API);
@@ -463,7 +463,7 @@ public class ProcessBuilderTest {
       .endEvent()
       .done();
 
-    ScriptTask scriptTask = (ScriptTask) modelInstance.getModelElementById(TASK_ID);
+    ScriptTask scriptTask = modelInstance.getModelElementById(TASK_ID);
     assertThat(scriptTask.getCamundaResultVariable()).isEqualTo(TEST_STRING_API);
   }
 
@@ -478,7 +478,7 @@ public class ProcessBuilderTest {
         .camundaInitiator(TEST_STRING_API)
       .done();
 
-    StartEvent startEvent = (StartEvent) modelInstance.getModelElementById(START_EVENT_ID);
+    StartEvent startEvent = modelInstance.getModelElementById(START_EVENT_ID);
     assertThat(startEvent.isCamundaAsync()).isTrue();
     assertThat(startEvent.isCamundaExclusive()).isFalse();
     assertThat(startEvent.getCamundaFormHandlerClass()).isEqualTo(TEST_CLASS_API);
@@ -499,7 +499,7 @@ public class ProcessBuilderTest {
       .endEvent()
       .done();
 
-    CallActivity callActivity = (CallActivity) modelInstance.getModelElementById(CALL_ACTIVITY_ID);
+    CallActivity callActivity = modelInstance.getModelElementById(CALL_ACTIVITY_ID);
     assertThat(callActivity.getCalledElement()).isEqualTo(TEST_STRING_API);
     assertThat(callActivity.isCamundaAsync()).isTrue();
     assertThat(callActivity.getCamundaCalledElementBinding()).isEqualTo("version");
@@ -522,8 +522,8 @@ public class ProcessBuilderTest {
       .endEvent()
       .done();
 
-    SubProcess subProcess = (SubProcess) modelInstance.getModelElementById(SUB_PROCESS_ID);
-    ServiceTask serviceTask = (ServiceTask) modelInstance.getModelElementById(SERVICE_TASK_ID);
+    SubProcess subProcess = modelInstance.getModelElementById(SUB_PROCESS_ID);
+    ServiceTask serviceTask = modelInstance.getModelElementById(SERVICE_TASK_ID);
     assertThat(subProcess.isCamundaAsync()).isTrue();
     assertThat(subProcess.isCamundaExclusive()).isTrue();
     assertThat(subProcess.getChildElementsByType(Event.class)).hasSize(2);
@@ -541,7 +541,7 @@ public class ProcessBuilderTest {
       .endEvent()
       .done();
 
-    SubProcess subProcess = (SubProcess) modelInstance.getModelElementById(SUB_PROCESS_ID);
+    SubProcess subProcess = modelInstance.getModelElementById(SUB_PROCESS_ID);
 
     subProcess.builder()
       .camundaAsync()
@@ -550,7 +550,7 @@ public class ProcessBuilderTest {
         .userTask()
         .endEvent();
 
-    ServiceTask serviceTask = (ServiceTask) modelInstance.getModelElementById(SERVICE_TASK_ID);
+    ServiceTask serviceTask = modelInstance.getModelElementById(SERVICE_TASK_ID);
     assertThat(subProcess.isCamundaAsync()).isTrue();
     assertThat(subProcess.isCamundaExclusive()).isTrue();
     assertThat(subProcess.getChildElementsByType(Event.class)).hasSize(2);
@@ -583,8 +583,8 @@ public class ProcessBuilderTest {
       .endEvent()
       .done();
 
-    SubProcess subProcess = (SubProcess) modelInstance.getModelElementById(SUB_PROCESS_ID + 1);
-    ServiceTask serviceTask = (ServiceTask) modelInstance.getModelElementById(SERVICE_TASK_ID + 2);
+    SubProcess subProcess = modelInstance.getModelElementById(SUB_PROCESS_ID + 1);
+    ServiceTask serviceTask = modelInstance.getModelElementById(SERVICE_TASK_ID + 2);
     assertThat(subProcess.isCamundaAsync()).isTrue();
     assertThat(subProcess.isCamundaExclusive()).isTrue();
     assertThat(subProcess.getChildElementsByType(Event.class)).hasSize(2);
@@ -593,8 +593,8 @@ public class ProcessBuilderTest {
     assertThat(subProcess.getFlowElements()).hasSize(9);
     assertThat(subProcess.getSucceedingNodes().singleResult()).isEqualTo(serviceTask);
 
-    SubProcess nestedSubProcess = (SubProcess) modelInstance.getModelElementById(SUB_PROCESS_ID + 2);
-    ServiceTask nestedServiceTask = (ServiceTask) modelInstance.getModelElementById(SERVICE_TASK_ID + 1);
+    SubProcess nestedSubProcess = modelInstance.getModelElementById(SUB_PROCESS_ID + 2);
+    ServiceTask nestedServiceTask = modelInstance.getModelElementById(SERVICE_TASK_ID + 1);
     assertThat(nestedSubProcess.isCamundaAsync()).isTrue();
     assertThat(nestedSubProcess.isCamundaExclusive()).isFalse();
     assertThat(nestedSubProcess.getChildElementsByType(Event.class)).hasSize(2);
@@ -628,7 +628,7 @@ public class ProcessBuilderTest {
       .endEvent()
       .done();
 
-    ScriptTask scriptTask = (ScriptTask) modelInstance.getModelElementById("script");
+    ScriptTask scriptTask = modelInstance.getModelElementById("script");
     assertThat(scriptTask.getScriptFormat()).isEqualTo("groovy");
     assertThat(scriptTask.getScript().getTextContent()).isEqualTo("println \"hello, world\";");
   }

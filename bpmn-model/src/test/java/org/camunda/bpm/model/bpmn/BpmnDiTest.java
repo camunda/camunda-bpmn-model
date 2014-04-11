@@ -48,17 +48,17 @@ public class BpmnDiTest {
   @Before
   public void parseModel() {
     modelInstance = Bpmn.readModelFromStream(getClass().getResourceAsStream(getClass().getSimpleName() + ".xml"));
-    collaboration = (Collaboration) modelInstance.getModelElementById(COLLABORATION_ID);
-    participant = (Participant) modelInstance.getModelElementById(PARTICIPANT_ID + 1);
-    process = (Process) modelInstance.getModelElementById(PROCESS_ID + 1);
-    serviceTask = (ServiceTask) modelInstance.getModelElementById(SERVICE_TASK_ID);
-    exclusiveGateway = (ExclusiveGateway) modelInstance.getModelElementById(EXCLUSIVE_GATEWAY);
-    startEvent = (StartEvent) modelInstance.getModelElementById(START_EVENT_ID + 2);
-    sequenceFlow = (SequenceFlow) modelInstance.getModelElementById(SEQUENCE_FLOW_ID + 3);
-    messageFlow = (MessageFlow) modelInstance.getModelElementById(MESSAGE_FLOW_ID);
-    dataInputAssociation = (DataInputAssociation) modelInstance.getModelElementById(DATA_INPUT_ASSOCIATION_ID);
-    association = (Association) modelInstance.getModelElementById(ASSOCIATION_ID);
-    endEvent = (EndEvent) modelInstance.getModelElementById(END_EVENT_ID + 2);
+    collaboration = modelInstance.getModelElementById(COLLABORATION_ID);
+    participant = modelInstance.getModelElementById(PARTICIPANT_ID + 1);
+    process = modelInstance.getModelElementById(PROCESS_ID + 1);
+    serviceTask = modelInstance.getModelElementById(SERVICE_TASK_ID);
+    exclusiveGateway = modelInstance.getModelElementById(EXCLUSIVE_GATEWAY);
+    startEvent = modelInstance.getModelElementById(START_EVENT_ID + 2);
+    sequenceFlow = modelInstance.getModelElementById(SEQUENCE_FLOW_ID + 3);
+    messageFlow = modelInstance.getModelElementById(MESSAGE_FLOW_ID);
+    dataInputAssociation = modelInstance.getModelElementById(DATA_INPUT_ASSOCIATION_ID);
+    association = modelInstance.getModelElementById(ASSOCIATION_ID);
+    endEvent = modelInstance.getModelElementById(END_EVENT_ID + 2);
   }
 
   @Test
