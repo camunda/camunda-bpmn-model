@@ -17,12 +17,12 @@ import org.camunda.bpm.model.bpmn.Bpmn;
 import org.camunda.bpm.model.bpmn.BpmnModelInstance;
 import org.camunda.bpm.model.bpmn.impl.instance.Incoming;
 import org.camunda.bpm.model.bpmn.impl.instance.Outgoing;
-import org.camunda.bpm.model.xml.instance.ModelElementInstance;
 import org.junit.Test;
 
-import java.io.File;
 import java.util.Arrays;
 import java.util.Collection;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Sebastian Menski
@@ -45,13 +45,27 @@ public class FlowNodeTest extends BpmnModelElementInstanceTest {
   }
 
   @Test
-  public void test() {
-    BpmnModelInstance modelInstance = Bpmn.createProcess().startEvent().userTask("test").endEvent().done();
-    Bpmn.writeModelToFile(new File("/tmp/before.bpmn"), modelInstance);
+  public void testUpdateIncomingOutgoingChildElements() {
+    BpmnModelInstance modelInstance = Bpmn.createProcess()
+      .startEvent()
+      .userTask("test")
+      .endEvent()
+      .done();
+
+    // save current incoming and outgoing sequence flows
+    UserTask userTask = modelInstance.getModelElementById("test");
+    Collection<SequenceFlow> incoming = userTask.getIncoming();
+    Collection<SequenceFlow> outgoing = userTask.getOutgoing();
+
+    // create a new service task
     ServiceTask serviceTask = modelInstance.newInstance(ServiceTask.class);
     serviceTask.setId("new");
-    ModelElementInstance test = modelInstance.getModelElementById("test");
-    test.replaceWithElement(serviceTask);
-    Bpmn.writeModelToFile(new File("/tmp/after.bpmn"), modelInstance);
+
+    // replace the user task with the new service task
+    userTask.replaceWithElement(serviceTask);
+
+    // assert that the new service task has the same incoming and outgoing sequence flows
+    assertThat(serviceTask.getIncoming()).containsExactlyElementsOf(incoming);
+    assertThat(serviceTask.getOutgoing()).containsExactlyElementsOf(outgoing);
   }
 }
