@@ -26,6 +26,10 @@ public interface CamundaProperty extends BpmnModelElementInstance {
 
   void setCamundaId(String camundaId);
 
+  String getCamundaName();
+
+  void setCamundaName(String camundaName);
+
   String getCamundaValue();
 
   void setCamundaValue(String camundaValue);

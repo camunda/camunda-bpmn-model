@@ -31,6 +31,7 @@ import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeIn
 public class CamundaPropertyImpl extends BpmnModelElementInstanceImpl implements CamundaProperty {
 
   protected static Attribute<String> camundaIdAttribute;
+  protected static Attribute<String> camundaNameAttribute;
   protected static Attribute<String> camundaValueAttribute;
 
   public static void registerType(ModelBuilder modelBuilder) {
@@ -43,6 +44,10 @@ public class CamundaPropertyImpl extends BpmnModelElementInstanceImpl implements
       });
 
     camundaIdAttribute = typeBuilder.stringAttribute(CAMUNDA_ATTRIBUTE_ID)
+      .namespace(CAMUNDA_NS)
+      .build();
+
+    camundaNameAttribute = typeBuilder.stringAttribute(CAMUNDA_ATTRIBUTE_NAME)
       .namespace(CAMUNDA_NS)
       .build();
 
@@ -63,6 +68,14 @@ public class CamundaPropertyImpl extends BpmnModelElementInstanceImpl implements
 
   public void setCamundaId(String camundaId) {
     camundaIdAttribute.setValue(this, camundaId);
+  }
+
+  public String getCamundaName() {
+    return camundaNameAttribute.getValue(this);
+  }
+
+  public void setCamundaName(String camundaName) {
+    camundaNameAttribute.setValue(this, camundaName);
   }
 
   public String getCamundaValue() {

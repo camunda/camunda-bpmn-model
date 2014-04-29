@@ -36,6 +36,7 @@ public class CamundaPropertyTest extends BpmnModelElementInstanceTest {
   public Collection<AttributeAssumption> getAttributesAssumptions() {
     return Arrays.asList(
       new AttributeAssumption(CAMUNDA_NS, "id"),
+      new AttributeAssumption(CAMUNDA_NS, "name"),
       new AttributeAssumption(CAMUNDA_NS, "value")
     );
   }

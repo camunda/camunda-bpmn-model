@@ -40,6 +40,7 @@ public class CamundaExtensionsTest {
   private ServiceTask serviceTask;
   private SendTask sendTask;
   private CallActivity callActivity;
+  private EndEvent endEvent;
   private MessageEventDefinition messageEventDefinition;
 
   @Before
@@ -51,7 +52,7 @@ public class CamundaExtensionsTest {
     serviceTask = modelInstance.getModelElementById(SERVICE_TASK_ID);
     sendTask = modelInstance.getModelElementById(SEND_TASK_ID);
     callActivity = modelInstance.getModelElementById(CALL_ACTIVITY_ID);
-    EndEvent endEvent = modelInstance.getModelElementById(END_EVENT_ID);
+    endEvent = modelInstance.getModelElementById(END_EVENT_ID);
     messageEventDefinition = (MessageEventDefinition) endEvent.getEventDefinitions().iterator().next();
   }
 
@@ -426,6 +427,19 @@ public class CamundaExtensionsTest {
     CamundaField field = taskListener.getCamundaFields().iterator().next();
     assertThat(field.getCamundaName()).isEqualTo(TEST_STRING_XML);
     assertThat(field.getCamundaString().getTextContent()).isEqualTo(TEST_STRING_XML);
+  }
+
+  @Test
+  public void testCamundaModelerProperties() {
+    CamundaProperties camundaProperties = endEvent.getExtensionElements().getElementsQuery().filterByType(CamundaProperties.class).singleResult();
+    assertThat(camundaProperties).isNotNull();
+    assertThat(camundaProperties.getCamundaProperties()).hasSize(2);
+
+    for (CamundaProperty camundaProperty : camundaProperties.getCamundaProperties()) {
+      assertThat(camundaProperty.getCamundaId()).isNull();
+      assertThat(camundaProperty.getCamundaName()).startsWith("name");
+      assertThat(camundaProperty.getCamundaValue()).startsWith("value");
+    }
   }
 
   @Test
