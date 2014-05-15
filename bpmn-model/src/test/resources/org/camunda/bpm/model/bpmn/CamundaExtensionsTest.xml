@@ -96,5 +96,9 @@
       <messageEventDefinition camunda:class="org.camunda.test.Test" camunda:expression="${test}" camunda:delegateExpression="${org.camunda.test.Test}" camunda:resultVariable="test"/>
     </endEvent>
 
+    <parallelGateway id="parallelGateway" camunda:async="true">
+
+    </parallelGateway>
+
   </process>
 </definitions>

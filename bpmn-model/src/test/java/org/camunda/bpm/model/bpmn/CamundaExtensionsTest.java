@@ -42,6 +42,7 @@ public class CamundaExtensionsTest {
   private CallActivity callActivity;
   private EndEvent endEvent;
   private MessageEventDefinition messageEventDefinition;
+  private ParallelGateway parallelGateway;
 
   @Before
   public void parseModel() {
@@ -54,6 +55,7 @@ public class CamundaExtensionsTest {
     callActivity = modelInstance.getModelElementById(CALL_ACTIVITY_ID);
     endEvent = modelInstance.getModelElementById(END_EVENT_ID);
     messageEventDefinition = (MessageEventDefinition) endEvent.getEventDefinitions().iterator().next();
+    parallelGateway = modelInstance.getModelElementById("parallelGateway");
   }
 
   @Test
@@ -69,6 +71,9 @@ public class CamundaExtensionsTest {
     assertThat(userTask.isCamundaAsync()).isTrue();
     userTask.setCamundaAsync(false);
     assertThat(userTask.isCamundaAsync()).isFalse();
+    assertThat(parallelGateway.isCamundaAsync()).isTrue();
+    parallelGateway.setCamundaAsync(false);
+    assertThat(parallelGateway.isCamundaAsync()).isFalse();
   }
 
   @Test
@@ -166,6 +171,9 @@ public class CamundaExtensionsTest {
     assertThat(userTask.isCamundaExclusive()).isFalse();
     userTask.setCamundaExclusive(true);
     assertThat(userTask.isCamundaExclusive()).isTrue();
+    assertThat(parallelGateway.isCamundaExclusive()).isTrue();
+    parallelGateway.setCamundaExclusive(false);
+    assertThat(parallelGateway.isCamundaExclusive()).isFalse();
   }
 
   @Test

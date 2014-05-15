@@ -20,9 +20,13 @@ import org.camunda.bpm.model.bpmn.instance.ParallelGateway;
 import org.camunda.bpm.model.xml.ModelBuilder;
 import org.camunda.bpm.model.xml.impl.instance.ModelTypeInstanceContext;
 import org.camunda.bpm.model.xml.type.ModelElementTypeBuilder;
+import org.camunda.bpm.model.xml.type.attribute.Attribute;
 
 import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN20_NS;
 import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.BPMN_ELEMENT_PARALLEL_GATEWAY;
+import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.CAMUNDA_ATTRIBUTE_ASYNC;
+import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.CAMUNDA_ATTRIBUTE_EXCLUSIVE;
+import static org.camunda.bpm.model.bpmn.impl.BpmnModelConstants.CAMUNDA_NS;
 import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeInstanceProvider;
 
 /**
@@ -31,6 +35,9 @@ import static org.camunda.bpm.model.xml.type.ModelElementTypeBuilder.ModelTypeIn
  * @author Sebastian Menski
  */
 public class ParallelGatewayImpl extends GatewayImpl implements ParallelGateway {
+
+  protected static Attribute<Boolean> camundaAsyncAttribute;
+  protected static Attribute<Boolean> camundaExclusiveAttribute;
 
   public static void registerType(ModelBuilder modelBuilder) {
     ModelElementTypeBuilder typeBuilder = modelBuilder.defineType(ParallelGateway.class, BPMN_ELEMENT_PARALLEL_GATEWAY)
@@ -42,12 +49,42 @@ public class ParallelGatewayImpl extends GatewayImpl implements ParallelGateway 
         }
       });
 
+    /** camunda extensions */
+
+    camundaAsyncAttribute = typeBuilder.booleanAttribute(CAMUNDA_ATTRIBUTE_ASYNC)
+      .namespace(CAMUNDA_NS)
+      .defaultValue(false)
+      .build();
+
+    camundaExclusiveAttribute = typeBuilder.booleanAttribute(CAMUNDA_ATTRIBUTE_EXCLUSIVE)
+      .namespace(CAMUNDA_NS)
+      .defaultValue(true)
+      .build();
+
     typeBuilder.build();
   }
 
   @Override
   public ParallelGatewayBuilder builder() {
     return new ParallelGatewayBuilder((BpmnModelInstance) modelInstance, this);
+  }
+
+  /** camunda extensions */
+
+  public boolean isCamundaAsync() {
+    return camundaAsyncAttribute.getValue(this);
+  }
+
+  public void setCamundaAsync(boolean isCamundaAsync) {
+    camundaAsyncAttribute.setValue(this, isCamundaAsync);
+  }
+
+  public boolean isCamundaExclusive() {
+    return camundaExclusiveAttribute.getValue(this);
+  }
+
+  public void setCamundaExclusive(boolean isCamundaExclusive) {
+    camundaExclusiveAttribute.setValue(this, isCamundaExclusive);
   }
 
   public ParallelGatewayImpl(ModelTypeInstanceContext context) {

@@ -22,6 +22,16 @@ import org.camunda.bpm.model.bpmn.builder.ParallelGatewayBuilder;
  */
 public interface ParallelGateway extends Gateway {
 
+  /** camunda extensions */
+
+  boolean isCamundaAsync();
+
+  void setCamundaAsync(boolean isCamundaAsync);
+
+  boolean isCamundaExclusive();
+
+  void setCamundaExclusive(boolean isCamundaExclusive);
+
   ParallelGatewayBuilder builder();
 
 }
