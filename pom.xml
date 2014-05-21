@@ -23,6 +23,7 @@
   <modules>
     <module>bpmn-model</module>
     <module>xml-model</module>
+    <module>cmmn-model</module>
   </modules>
 
   <dependencyManagement>
