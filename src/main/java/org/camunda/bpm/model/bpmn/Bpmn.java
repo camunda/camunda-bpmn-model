@@ -73,6 +73,7 @@ import org.camunda.bpm.model.bpmn.impl.instance.di.ShapeImpl;
 import org.camunda.bpm.model.bpmn.impl.instance.di.StyleImpl;
 import org.camunda.bpm.model.bpmn.impl.instance.di.WaypointImpl;
 import org.camunda.bpm.model.bpmn.instance.Definitions;
+import org.camunda.bpm.model.bpmn.instance.PotentialOwner;
 import org.camunda.bpm.model.bpmn.instance.Process;
 import org.camunda.bpm.model.xml.Model;
 import org.camunda.bpm.model.xml.ModelBuilder;
@@ -342,6 +343,7 @@ public class Bpmn {
     From.registerType(bpmnModelBuilder);
     GatewayImpl.registerType(bpmnModelBuilder);
     GlobalConversationImpl.registerType(bpmnModelBuilder);
+    HumanPerformerImpl.registerType(bpmnModelBuilder);
     ImportImpl.registerType(bpmnModelBuilder);
     InclusiveGatewayImpl.registerType(bpmnModelBuilder);
     Incoming.registerType(bpmnModelBuilder);
@@ -392,6 +394,8 @@ public class Bpmn {
     ParticipantMultiplicityImpl.registerType(bpmnModelBuilder);
     ParticipantRef.registerType(bpmnModelBuilder);
     PartitionElement.registerType(bpmnModelBuilder);
+    PerformerImpl.registerType(bpmnModelBuilder);
+    PotentialOwnerImpl.registerType(bpmnModelBuilder);
     ProcessImpl.registerType(bpmnModelBuilder);
     PropertyImpl.registerType(bpmnModelBuilder);
     ReceiveTaskImpl.registerType(bpmnModelBuilder);
