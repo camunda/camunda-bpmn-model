@@ -19,6 +19,7 @@ import java.util.Iterator;
 import org.camunda.bpm.model.bpmn.BpmnModelException;
 import org.camunda.bpm.model.bpmn.BpmnModelInstance;
 import org.camunda.bpm.model.bpmn.instance.Activity;
+import org.camunda.bpm.model.bpmn.instance.Association;
 import org.camunda.bpm.model.bpmn.instance.BaseElement;
 import org.camunda.bpm.model.bpmn.instance.BpmnModelElementInstance;
 import org.camunda.bpm.model.bpmn.instance.CompensateEventDefinition;
@@ -314,8 +315,11 @@ public abstract class AbstractBaseElementBuilder<B extends AbstractBaseElementBu
       double sourceX = sourceBounds.getX();
       double sourceWidth = sourceBounds.getWidth();
       x = sourceX + sourceWidth + SPACE;
-
-      if (element instanceof FlowNode) {
+      
+      if (shape.getBpmnElement() instanceof Activity && ((Activity)shape.getBpmnElement()).isForCompensation()) {
+        x = sourceX + sourceWidth;
+        y = sourceBounds.getY() + sourceBounds.getHeight() + SPACE;
+      } else if (element instanceof FlowNode) {      
 
         FlowNode flowNode = (FlowNode) element;
         Collection<SequenceFlow> outgoing = flowNode.getOutgoing();
@@ -346,7 +350,7 @@ public abstract class AbstractBaseElementBuilder<B extends AbstractBaseElementBu
     shapeBounds.setY(y);
   }
 
-  public BpmnEdge createBpmnEdge(SequenceFlow sequenceFlow) {
+  public BpmnEdge createBpmnEdge(BaseElement sequenceFlow) {
     BpmnPlane bpmnPlane = findBpmnPlane();
     if (bpmnPlane != null) {
 
@@ -363,13 +367,21 @@ public abstract class AbstractBaseElementBuilder<B extends AbstractBaseElementBu
   }
 
   protected void setWaypoints(BpmnEdge edge) {
-    SequenceFlow sequenceFlow = (SequenceFlow) edge.getBpmnElement();
-
-    FlowNode sequenceFlowSource = sequenceFlow.getSource();
-    FlowNode sequenceFlowTarget = sequenceFlow.getTarget();
-
-    BpmnShape source = findBpmnShape(sequenceFlowSource);
-    BpmnShape target = findBpmnShape(sequenceFlowTarget);
+    BaseElement flowSource = null;
+    BaseElement flowTarget = null;
+    
+    if (edge.getBpmnElement() instanceof SequenceFlow) {
+      SequenceFlow sequenceFlow = (SequenceFlow) edge.getBpmnElement();  
+      flowSource = sequenceFlow.getSource();
+      flowTarget = sequenceFlow.getTarget();
+    } else if (edge.getBpmnElement() instanceof Association){
+      Association association = (Association)edge.getBpmnElement();
+      flowSource = association.getSource();
+      flowTarget = association.getTarget();
+    }
+  
+    BpmnShape source = findBpmnShape(flowSource);
+    BpmnShape target = findBpmnShape(flowTarget);
 
     if (source != null && target != null) {
 
@@ -387,7 +399,7 @@ public abstract class AbstractBaseElementBuilder<B extends AbstractBaseElementBu
 
       Waypoint w1 = createInstance(Waypoint.class);
 
-      if (sequenceFlowSource.getOutgoing().size() == 1) {
+      if (flowSource instanceof SequenceFlow && ((FlowNode) flowSource).getOutgoing().size() == 1) {
         w1.setX(sourceX + sourceWidth);
         w1.setY(sourceY + sourceHeight / 2);
 

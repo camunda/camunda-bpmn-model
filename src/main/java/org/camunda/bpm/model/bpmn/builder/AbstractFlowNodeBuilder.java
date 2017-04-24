@@ -98,6 +98,12 @@ public abstract class AbstractFlowNodeBuilder<B extends AbstractFlowNodeBuilder<
     return target;
   }
 
+  public void createDiagramInterchange(FlowNode target) {
+    BpmnShape targetBpmnShape = createBpmnShape(target);
+    setCoordinates(targetBpmnShape);
+    resizeSubProcess(targetBpmnShape);
+  }
+
   public ServiceTaskBuilder serviceTask() {
     return createTarget(ServiceTask.class).builder();
   }
