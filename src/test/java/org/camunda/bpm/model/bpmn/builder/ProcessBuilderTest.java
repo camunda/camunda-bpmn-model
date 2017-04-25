@@ -162,6 +162,12 @@ public class ProcessBuilderTest {
     Process process = (Process) processes.iterator().next();
     assertThat(process.getId()).isNotNull();
   }
+  
+  @Test
+  public void testGetElement() {
+    // Make sure this method is publicly available
+    assertNotNull(Bpmn.createProcess().getElement());
+  }
 
   @Test
   public void testGetElement() {
