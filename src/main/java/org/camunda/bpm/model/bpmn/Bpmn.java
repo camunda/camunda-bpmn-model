@@ -24,6 +24,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import org.camunda.bpm.model.bpmn.builder.ProcessBuilder;
+import org.camunda.bpm.model.bpmn.impl.BpmnModelInstanceImpl;
 import org.camunda.bpm.model.bpmn.impl.BpmnParser;
 import org.camunda.bpm.model.bpmn.impl.instance.*;
 import org.camunda.bpm.model.bpmn.impl.instance.ProcessImpl;
@@ -82,6 +83,7 @@ import org.camunda.bpm.model.xml.ModelBuilder;
 import org.camunda.bpm.model.xml.ModelException;
 import org.camunda.bpm.model.xml.ModelParseException;
 import org.camunda.bpm.model.xml.ModelValidationException;
+import org.camunda.bpm.model.xml.impl.ModelImpl;
 import org.camunda.bpm.model.xml.impl.instance.ModelElementInstanceImpl;
 import org.camunda.bpm.model.xml.impl.util.IoUtil;
 
@@ -182,6 +184,17 @@ public class Bpmn {
   public static BpmnModelInstance createEmptyModel() {
     return INSTANCE.doCreateEmptyModel();
   }
+  
+  /**
+   * Copies the BPMN model instance but not the model. So only the wrapped DOM document is cloned.
+   * Changes of the model are persistent between multiple model instances.
+   * 
+   * @param bpmnModelInstance The model instance to be copied
+   * @return the new BPMN model instance
+   */
+  public static BpmnModelInstance copyOfBpmnModelInstance(BpmnModelInstance bpmnModelInstance){
+    return INSTANCE.doCopyOfBpmnModelInstance(bpmnModelInstance);
+  }
 
   public static ProcessBuilder createProcess() {
     BpmnModelInstance modelInstance = INSTANCE.doCreateEmptyModel();
@@ -278,6 +291,10 @@ public class Bpmn {
 
   protected BpmnModelInstance doCreateEmptyModel() {
     return bpmnParser.getEmptyModel();
+  }
+  
+  protected BpmnModelInstance doCopyOfBpmnModelInstance(BpmnModelInstance bpmnModelInstance) {
+    return new BpmnModelInstanceImpl((ModelImpl) INSTANCE.getBpmnModel(), INSTANCE.getBpmnModelBuilder(), bpmnModelInstance.getDocument().clone());
   }
 
   protected void doRegisterTypes(ModelBuilder bpmnModelBuilder) {
