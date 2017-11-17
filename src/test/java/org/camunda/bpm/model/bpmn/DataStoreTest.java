@@ -42,7 +42,7 @@ public class DataStoreTest {
   }
 
   @Test
-  public void testGetDataObjectReference() {
+  public void testGetDataStoreReference() {
     DataStoreReference dataStoreReference = modelInstance.getModelElementById("myDataStoreReference");
     DataStore dataStore = modelInstance.getModelElementById("myDataStore");
     assertThat(dataStoreReference).isNotNull();
